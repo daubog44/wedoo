@@ -1,0 +1,41 @@
+{
+  "name": "Wedoo React",
+  "short_name": "Wedoo",
+  "description": "Landing, onboarding e portali candidato/azienda ricostruiti in React.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f8ff",
+  "theme_color": "#5b3fd1",
+  "lang": "it-IT",
+  "icons": [
+    {
+      "src": "/assets/logo-app.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logo-app.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logo-app.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Portale candidato",
+      "url": "/portale/candidato",
+      "description": "Apri la bacheca annunci"
+    },
+    {
+      "name": "Portale azienda",
+      "url": "/portale/azienda",
+      "description": "Apri la bacheca candidati"
+    }
+  ]
+}
