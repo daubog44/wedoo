@@ -5,31 +5,11 @@ import type {
   ReactNode,
 } from "react";
 import { Link } from "react-router-dom";
-import type { HomeFeatureTone } from "../../../data/mocks/public-home";
 import { AppIcon } from "../../../lib/icons";
 import type { MajesticonName } from "../../../lib/majesticons-map";
 import { assetPath, cn } from "../../../lib/site-utils";
 import { SiteIcon } from "../../site";
-
-export const wedooSdgPalette = [
-  "#19486A",
-  "#00689D",
-  "#56C02B",
-  "#0A97D9",
-  "#3F7E44",
-  "#BF8B2E",
-  "#FD9D24",
-  "#DD1367",
-  "#FD6925",
-  "#A21942",
-  "#FCC30B",
-  "#26BDE2",
-  "#FF3A21",
-  "#C5192D",
-  "#4C9F38",
-  "#DDA63A",
-  "#E5243B",
-] as const;
+import { wedooSdgPalette } from "./home-constants";
 
 const homeButtonBaseClassName =
   "font-wedoo-accent inline-flex items-center justify-center gap-2 rounded-[0.625rem] border font-normal leading-none transition hover:-translate-y-0.5";
@@ -56,24 +36,6 @@ const homeButtonVariants = {
 } as const;
 
 export type HomeButtonVariant = keyof typeof homeButtonVariants;
-
-export const homeFeatureToneStyles = {
-  gold: {
-    borderClassName: "border-[var(--wedoo-gold)]",
-    buttonVariant: "discoverGold",
-  },
-  rose: {
-    borderClassName: "border-[var(--wedoo-rose-300)]",
-    buttonVariant: "discoverRose",
-  },
-  violet: {
-    borderClassName: "border-[var(--wedoo-violet-soft)]",
-    buttonVariant: "discoverViolet",
-  },
-} as const satisfies Record<
-  HomeFeatureTone,
-  { borderClassName: string; buttonVariant: HomeButtonVariant }
->;
 
 type CommonButtonProps = PropsWithChildren<{
   className?: string;

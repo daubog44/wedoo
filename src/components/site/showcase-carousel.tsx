@@ -124,7 +124,7 @@ export function ShowcaseCarousel({ role }: { role: PortalRole }) {
 
           {/* Pagination Dots */}
           <div className="flex gap-4 items-center">
-            {showcase.slides.map((slide: any, index: number) => (
+            {showcase.slides.map((slide, index: number) => (
               <button
                 aria-label={`Vai alla slide ${index + 1}`}
                 className={cn(

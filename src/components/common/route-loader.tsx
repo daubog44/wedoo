@@ -1,6 +1,6 @@
 export function RouteLoader() {
   return (
-    <div className="section-shell py-14 sm:py-18">
+    <div className="section-shell py-14 sm:py-18" data-testid="route-loader">
       <div className="section-card overflow-hidden">
         <div className="animate-pulse space-y-6">
           <div className="h-4 w-36 rounded-full bg-slate-200" />

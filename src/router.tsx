@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import { Navigate, createBrowserRouter } from "react-router-dom";
+import { RouteLoader } from "./components/common/route-loader";
 import {
   AppFrame,
   PortalLayout,
@@ -17,6 +18,7 @@ function lazyRoute<T extends { default: ComponentType }>(
 
 export const router = createBrowserRouter([
   {
+    HydrateFallback: RouteLoader,
     element: <AppFrame />,
     children: [
       {

@@ -11,10 +11,10 @@ import { SiteIcon } from "../../site";
 import {
   HomeAnchorButton,
   HomeButton,
-  homeFeatureToneStyles,
   HomeRouteButton,
   SdgRibbon,
 } from "./home-primitives";
+import { homeFeatureToneStyles } from "./home-constants";
 
 const mobileFrameClassName = "relative mx-auto h-full w-full max-w-[360px]";
 const desktopFrameClassName = "relative mx-auto w-[1440px]";
