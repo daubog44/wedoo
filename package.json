@@ -12,6 +12,7 @@
     "loop:nodes": "node scripts/prd-node-report.mjs",
     "loop:prompt": "node scripts/print-loop-prompt.mjs",
     "loop:ready": "node scripts/loop-ready.mjs && npm run test:all",
+    "loop:worklog": "node scripts/loop-worklog-path.mjs",
     "typecheck": "tsc -b && tsc -p tsconfig.test.json --noEmit",
     "preview": "vite preview",
     "test:e2e": "playwright test",

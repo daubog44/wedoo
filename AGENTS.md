@@ -62,6 +62,32 @@ Regole:
 - lavora su un solo task principale alla volta
 - considera il primo `- [ ]` come task attivo
 
+## 1B. WORKLOG
+
+Il file `docs/ralph-loop-worklog.md` definisce la policy del diario operativo del loop.
+Il diario reale deve vivere in file di sessione:
+
+- `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`
+
+Regole:
+
+- non usarlo come backlog
+- non sostituisce `prd.md`
+- usalo per lasciare traccia sintetica di avanzamento, discovery, decisioni e verifiche
+- aggiorna il worklog solo quando c'e un evento rilevante, non a ogni micro-modifica
+- usa un file di sessione per task o macro-sessione
+- se non esiste, crealo
+- non tenere un unico file giornaliero monolitico nel tempo
+
+Ogni aggiornamento del worklog dovrebbe includere almeno:
+
+- timestamp o data
+- task attivo
+- `Node ID` se esiste
+- file toccati o area toccata
+- test eseguiti
+- decisioni prese o problemi rimasti aperti
+
 ## 2. FIGMA
 
 Figma e la sorgente di verita per:
@@ -176,18 +202,22 @@ Ad ogni iterazione del loop segui questo ordine:
 
 1. Leggi `AGENTS.md`.
 2. Leggi `prd.md`.
-3. Trova il primo task incompleto `- [ ]`.
-4. Recupera il `Node ID` e interroga Figma MCP.
-5. Implementa il task nel codice del progetto.
-6. Aggiorna o crea i mock data necessari come se provenissero da un backend.
-7. Aggiorna o crea i test rilevanti.
-8. Esegui una self-review del task e del diff prima dei test.
-9. Esegui i test necessari.
-10. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
-11. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
-12. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
-13. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
-14. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
+3. Leggi `docs/ralph-loop-worklog.md`.
+4. Leggi o crea il worklog di sessione corrente in `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`.
+5. Trova il primo task incompleto `- [ ]`.
+6. Registra nel worklog l'inizio del task se non e gia stato registrato.
+7. Recupera il `Node ID` e interroga Figma MCP.
+8. Implementa il task nel codice del progetto.
+9. Aggiorna o crea i mock data necessari come se provenissero da un backend.
+10. Aggiorna o crea i test rilevanti.
+11. Esegui una self-review del task e del diff prima dei test.
+12. Esegui i test necessari.
+13. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
+14. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
+15. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
+16. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
+17. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
+18. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
 
 # REGOLE SU PRD.MD
 
@@ -217,6 +247,27 @@ Regole:
 - metti i nuovi task nella sezione corretta
 - se il nuovo task e prerequisito del task corrente, inseriscilo prima del task corrente
 - se il nuovo task e successivo o opzionale, inseriscilo dopo, nella sezione giusta
+
+# REGOLE SU WORKLOG
+
+`docs/ralph-loop-worklog.md` serve a definire la policy del worklog.
+I log reali del loop vivono in `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`.
+
+Aggiorna il worklog:
+
+- all'inizio di un nuovo task
+- dopo discovery Figma importanti
+- dopo decisioni architetturali o di testing non banali
+- dopo esecuzioni di test significative
+- quando scopri nuovi task da inserire in `prd.md`
+- quando chiudi un task
+
+Non usare il worklog per:
+
+- copiare interi diff
+- sostituire commit message
+- riscrivere tutto il contenuto di `prd.md`
+- annotare ogni minima modifica cosmetica
 
 # REGOLE DI IMPLEMENTAZIONE
 
@@ -581,6 +632,8 @@ Un task puo dirsi completato solo se:
 
 - `AGENTS.md`: regole guida del loop
 - `prd.md`: coda dei task di prodotto e implementazione
+- `docs/ralph-loop-worklog.md`: policy del diario operativo del loop
+- `docs/worklogs/**`: worklog di sessione del loop
 - `docs/codex-potter-prompts.md`: prompt operativi di supporto
 - `docs/figma-export-assets.md`: regole su quando usare gli export PNG di sezione
 - `docs/vrt-policy.md`: policy su snapshot, baseline e visual regression
