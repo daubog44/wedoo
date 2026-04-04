@@ -117,7 +117,7 @@ function DesktopFeatureCard({
   return (
     <article
       className={cn(
-        "absolute top-[50px] rounded-[25px] border-[5px] bg-[var(--wedoo-page-bg)]",
+        "absolute top-5 rounded-[25px] border-[5px] bg-[var(--wedoo-page-bg)]",
         toneStyle.borderClassName,
       )}
       style={{
@@ -403,7 +403,7 @@ function DesktopImpactSection({ content }: { content: PublicHomeContent }) {
 
 function DesktopFeatureSection({ content }: { content: PublicHomeContent }) {
   return (
-    <section className="relative h-[560px] w-full">
+    <section className="relative h-[471px] w-full">
       <div className={desktopFrameClassName}>
 
         {content.featureCards.map((card, index) => (
