@@ -59,7 +59,7 @@ Regole:
 
 ### Fondazioni Dati E Domini
 
-- [ ] [DATA][node=n/a][route=n/a][test=tests/integration/public-home-response.test.ts] Definire `PublicHomeResponse` come contratto mock server-like per la landing pubblica.
+- [x] [DATA][node=n/a][route=n/a][test=tests/integration/public-home-response.test.ts] Definire `PublicHomeResponse` come contratto mock server-like per la landing pubblica.
 - [ ] [DATA][node=n/a][route=/accedi][test=tests/integration/auth-view-model.test.ts] Definire `AuthViewModel` per login, registrazione e stati errore.
 - [ ] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-profile-draft.test.ts] Definire `CandidateProfileDraft` con contatti, formazione, esperienze e competenze.
 - [ ] [DATA][node=n/a][route=/candidato][test=tests/integration/candidate-profile-summary.test.ts] Definire `CandidateProfileSummary` per card e dettaglio profilo.

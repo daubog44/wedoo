@@ -66,6 +66,17 @@ export type PublicHomeContent = {
   video: PublicHomeVideoCopy;
 };
 
+export type PublicHomeResponse = {
+  page: {
+    id: string;
+    locale: string;
+    slug: string;
+    status: "draft" | "published";
+    updatedAt: string;
+  };
+  sections: PublicHomeContent;
+};
+
 /**
  * Mock content for the public landing page.
  *
@@ -73,82 +84,99 @@ export type PublicHomeContent = {
  * exists. The intended contract is a single "public home" response with copy,
  * CTA labels and card metadata, while routes stay owned by the frontend.
  */
-export const publicHomeMock = {
-  navigation: {
-    authDialogDescription:
-      "Apri la schermata dedicata per entrare in Wedoo o creare un nuovo profilo.",
-    companyPrompt: "sei un'azienda?",
-    languageLabel: "ita",
-    signInLabel: "accedi",
-    signUpLabel: "registrati",
+export const publicHomeResponseMock = {
+  page: {
+    id: "public-home",
+    locale: "it-IT",
+    slug: "/",
+    status: "published",
+    updatedAt: "2026-04-04T00:00:00.000Z",
   },
-  hero: {
-    downloadLabel: "scarica l'app",
-    subtitle:
-      "Ogni annuncio \u00E8 una promessa verificata.\nPerch\u00E9 il cambiamento non pu\u00F2 essere una bugia.",
-    title: "No hype. No frasi fatte. Solo realt\u00E0 sostenibili.",
-  },
-  howItWorks: {
-    candidateLabel: "candidato",
-    companyLabel: "azienda",
-    desktopDescription:
-      "Un'unica piattaforma, due protagonisti: chi cerca un lavoro con impatto autentico, e chi lo offre. Ti spieghiamo come funziona, semplice e chiaro, per entrambe le parti.",
-    eyebrow: "Scopri come funziona",
-    mobileDescription: "Chiara, semplice, per entrambi.",
-    mobileTitle:
-      "Una piattaforma unica per chi cerca lavoro con impatto e chi lo offre.",
-    title:
-      "Wedoo \u00E8 dove il talento e la sostenibilit\u00E0 si incontrano per davvero",
-  },
-  impactStatement: {
-    desktop:
-      "Wedoo aiuta la GenZ a trovare stage e tirocini in aziende realmente sostenibili, valutando sia l'impegno dell'azienda sia l'impatto della mansione sugli Obiettivi Agenda 2030.",
-    mobile:
-      "Wedoo aiuta la GenZ a trovare stage e tirocini in aziende davvero sostenibili, valutando azienda e ruolo sugli Obiettivi Agenda 2030.",
-  },
-  featureCards: [
-    {
-      href: "/info#noixnoi",
-      id: "about-us",
-      image: "noixnoi.jpg",
-      title: "noi x noi",
-      tone: "gold",
+  sections: {
+    navigation: {
+      authDialogDescription:
+        "Apri la schermata dedicata per entrare in Wedoo o creare un nuovo profilo.",
+      companyPrompt: "sei un'azienda?",
+      languageLabel: "ita",
+      signInLabel: "accedi",
+      signUpLabel: "registrati",
     },
-    {
-      href: "/info#obiettivi",
-      id: "sdg-goals",
-      image: "obiettivi.jpg",
-      title: "17 Obiettivi per il futuro",
-      tone: "rose",
+    hero: {
+      downloadLabel: "scarica l'app",
+      subtitle:
+        "Ogni annuncio \u00E8 una promessa verificata.\nPerch\u00E9 il cambiamento non pu\u00F2 essere una bugia.",
+      title: "No hype. No frasi fatte. Solo realt\u00E0 sostenibili.",
     },
-    {
-      href: "/info#dubbi",
-      id: "faq",
-      image: "FAQ.jpg",
-      title: "dubbi? le FAQ ti aiutano",
-      tone: "violet",
+    howItWorks: {
+      candidateLabel: "candidato",
+      companyLabel: "azienda",
+      desktopDescription:
+        "Un'unica piattaforma, due protagonisti: chi cerca un lavoro con impatto autentico, e chi lo offre. Ti spieghiamo come funziona, semplice e chiaro, per entrambe le parti.",
+      eyebrow: "Scopri come funziona",
+      mobileDescription: "Chiara, semplice, per entrambi.",
+      mobileTitle:
+        "Una piattaforma unica per chi cerca lavoro con impatto e chi lo offre.",
+      title:
+        "Wedoo \u00E8 dove il talento e la sostenibilit\u00E0 si incontrano per davvero",
     },
-  ],
-  video: {
-    previewAlt: "Wedoo spiegato in un click",
-    previewImage: "home-video-placeholder-desktop.png",
-    title: "Wedoo spiegato in un click",
-  },
-  patronage: {
-    image: "patrocinio.png",
-    imageAlt: "Patrocinio Wedoo",
-    title: "Con il patrocinio di...",
-  },
-  footer: {
-    contactEmail: "help@wedoo.com",
-    contactLabel: "Contatti",
-    disclaimers: [
-      "Alcune funzionalit\u00E0 e contenuti sono a scopo dimostrativo.",
-      "Le aziende e le opportunit\u00E0 presenti sono a puro scopo dimostrativo.",
+    impactStatement: {
+      desktop:
+        "Wedoo aiuta la GenZ a trovare stage e tirocini in aziende realmente sostenibili, valutando sia l'impegno dell'azienda sia l'impatto della mansione sugli Obiettivi Agenda 2030.",
+      mobile:
+        "Wedoo aiuta la GenZ a trovare stage e tirocini in aziende davvero sostenibili, valutando azienda e ruolo sugli Obiettivi Agenda 2030.",
+    },
+    featureCards: [
+      {
+        href: "/info#noixnoi",
+        id: "about-us",
+        image: "noixnoi.jpg",
+        title: "noi x noi",
+        tone: "gold",
+      },
+      {
+        href: "/info#obiettivi",
+        id: "sdg-goals",
+        image: "obiettivi.jpg",
+        title: "17 Obiettivi per il futuro",
+        tone: "rose",
+      },
+      {
+        href: "/info#dubbi",
+        id: "faq",
+        image: "FAQ.jpg",
+        title: "dubbi? le FAQ ti aiutano",
+        tone: "violet",
+      },
     ],
-    projectStatus: "Wedoo \u00E8 un progetto in fase di sviluppo.",
-    rightsLine: "2025 Wedoo \u2013 Tutti i diritti riservati",
+    video: {
+      previewAlt: "Wedoo spiegato in un click",
+      previewImage: "home-video-placeholder-desktop.png",
+      title: "Wedoo spiegato in un click",
+    },
+    patronage: {
+      image: "patrocinio.png",
+      imageAlt: "Patrocinio Wedoo",
+      title: "Con il patrocinio di...",
+    },
+    footer: {
+      contactEmail: "help@wedoo.com",
+      contactLabel: "Contatti",
+      disclaimers: [
+        "Alcune funzionalit\u00E0 e contenuti sono a scopo dimostrativo.",
+        "Le aziende e le opportunit\u00E0 presenti sono a puro scopo dimostrativo.",
+      ],
+      projectStatus: "Wedoo \u00E8 un progetto in fase di sviluppo.",
+      rightsLine: "2025 Wedoo \u2013 Tutti i diritti riservati",
+    },
   },
-} as const satisfies PublicHomeContent;
+} as const satisfies PublicHomeResponse;
+
+export function mapPublicHomeResponseToContent(
+  response: PublicHomeResponse,
+): PublicHomeContent {
+  return response.sections;
+}
+
+export const publicHomeMock = mapPublicHomeResponseToContent(publicHomeResponseMock);
 
 export const publicHomeFeatureCardsMock = publicHomeMock.featureCards;
