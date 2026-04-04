@@ -67,7 +67,7 @@ Regole:
 - [x] [DATA][node=n/a][route=/portale/azienda/annunci][test=tests/integration/job-draft.test.ts] Definire `JobDraft` per creazione annuncio azienda a step.
 - [x] [DATA][node=n/a][route=/portale/candidato/annuncio/:jobId][test=tests/integration/job-listing-detail.test.ts] Definire `JobListing` e `JobDetail` per card annuncio e pagina dettaglio.
 - [x] [DATA][node=n/a][route=/articoli][test=tests/integration/content-preview.test.ts] Definire `ArticlePreview` e `PodcastPreview` per hub contenuti.
-- [ ] [DATA][node=n/a][route=n/a][test=tests/integration/mock-services.test.ts] Creare servizi mock `get*Mock()` o `mock*Service()` per simulare chiamate server in modo consistente.
+- [x] [DATA][node=n/a][route=n/a][test=tests/integration/mock-services.test.ts] Creare servizi mock `get*Mock()` o `mock*Service()` per simulare chiamate server in modo consistente.
 
 ### Landing Pubblica
 
