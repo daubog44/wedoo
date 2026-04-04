@@ -2,11 +2,16 @@ import type {
   FaqGroup,
   ImpactCard,
   KnowledgeEntry,
-  KnowledgeKind,
   LegalDocument,
   PortalRole,
   SdgEntry,
 } from "./types";
+import {
+  articlePreviewsMock,
+  mapArticlePreviewToKnowledgeEntry,
+  mapPodcastPreviewToKnowledgeEntry,
+  podcastPreviewsMock,
+} from "./content-preview";
 
 export const documents = [
   {
@@ -126,59 +131,9 @@ export const faqGroups = [
 ] as const satisfies ReadonlyArray<FaqGroup>;
 
 export const knowledgeContent = {
-  articles: [
-    {
-      description:
-        "Come scrivere offerte che parlano di impatto senza scivolare nel greenwashing e senza nascondere salario o aspettative.",
-      id: "employer-branding-esg",
-      title: "Employer branding ESG senza facciata",
-    },
-    {
-      description:
-        "Una checklist pratica per leggere un annuncio sostenibile: range economico, modello di lavoro, obiettivi e responsabilita.",
-      id: "leggere-annuncio",
-      title: "Come leggere un annuncio prima di candidarti",
-    },
-    {
-      description:
-        "Perche un buon matching non promette magia ma riduce rumore, frizione e candidature poco rilevanti.",
-      id: "matching-credibile",
-      title: "Matching credibile: meno hype, piu contesto",
-    },
-    {
-      description:
-        "Dal CV ai primi colloqui: segnali utili per capire se un'opportunita ti fara crescere oppure ti terra solo occupato.",
-      id: "segnali-primo-ruolo",
-      title: "Primo ruolo, primi segnali da leggere bene",
-    },
-  ],
-  podcasts: [
-    {
-      description:
-        "Conversazioni brevi su primi ruoli, recruiting trasparente e nuove aspettative della Gen Z nel mercato del lavoro.",
-      id: "no-hype",
-      title: "No hype: lavoro, impatto, realta",
-    },
-    {
-      description:
-        "PMI, startup e team HR raccontano cosa significa pubblicare offerte piu leggibili e piu concrete.",
-      id: "aziende-credibili",
-      title: "Aziende credibili",
-    },
-    {
-      description:
-        "Un formato piu operativo dedicato a portfolio, CV, colloqui e segnali deboli per chi cerca il primo stage.",
-      id: "first-role",
-      title: "First role notes",
-    },
-    {
-      description:
-        "HR, founder e team di prodotto raccontano cosa rende un annuncio leggibile gia prima del colloquio.",
-      id: "hiring-senza-fuffa",
-      title: "Hiring senza fuffa",
-    },
-  ],
-} as const satisfies Record<KnowledgeKind, readonly KnowledgeEntry[]>;
+  articles: articlePreviewsMock.map(mapArticlePreviewToKnowledgeEntry),
+  podcasts: podcastPreviewsMock.map(mapPodcastPreviewToKnowledgeEntry),
+} as const satisfies Record<"articles" | "podcasts", readonly KnowledgeEntry[]>;
 
 export const routeMap = {
   company: {

@@ -120,6 +120,23 @@ export type KnowledgeEntry = {
   title: string
 }
 
+export type ArticlePreview = {
+  audienceLabel: string
+  excerpt: string
+  id: string
+  readingTimeLabel: string
+  title: string
+}
+
+export type PodcastPreview = {
+  audienceLabel: string
+  durationLabel: string
+  excerpt: string
+  formatLabel: string
+  id: string
+  title: string
+}
+
 export type FaqGroup = {
   id: string
   items: Array<{
