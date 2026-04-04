@@ -13,7 +13,9 @@ export const publicCopy = {
       "Ogni annuncio \u00E8 una promessa verificata.",
       "Perch\u00E9 il cambiamento non pu\u00F2 essere una bugia.",
     ],
-    howItWorksMobile:
+    howItWorksEyebrow: "Scopri come funziona",
+    howItWorksMobileDescription: "Chiara, semplice, per entrambi.",
+    howItWorksMobileTitle:
       "Una piattaforma unica per chi cerca lavoro con impatto e chi lo offre.",
     howItWorksTitle:
       "Wedoo \u00E8 dove il talento e la sostenibilit\u00E0 si incontrano per davvero",

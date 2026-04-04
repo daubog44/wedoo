@@ -60,10 +60,17 @@ test.describe("landing page", () => {
       }),
     ).toBeVisible();
     await expect(
-      page.locator(isMobile ? "p:visible" : "h2:visible").filter({
+      page.locator("h2:visible").filter({
         hasText: isMobile
-          ? publicCopy.home.howItWorksMobile
+          ? publicCopy.home.howItWorksMobileTitle
           : publicCopy.home.howItWorksTitle,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.locator("p:visible").filter({
+        hasText: isMobile
+          ? publicCopy.home.howItWorksMobileDescription
+          : publicCopy.home.howItWorksEyebrow,
       }),
     ).toBeVisible();
     const candidateRoleLink = page.getByRole("link", {

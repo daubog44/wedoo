@@ -330,10 +330,10 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         <h2
           className="font-wedoo-heading absolute text-center text-[36px] font-normal text-[var(--wedoo-ink-strong)]"
           style={{
-            left: 179,
+            left: 174,
             lineHeight: "normal",
             top: 393,
-            width: 1083,
+            width: 1093,
           }}
         >
           {content.howItWorks.title}
@@ -632,30 +632,51 @@ function MobileTopSection({
 
 function MobileHowItWorksSection({ content }: { content: PublicHomeContent }) {
   return (
-    <section className="h-[299px] w-full bg-[var(--wedoo-violet-panel)]">
+    <section className="relative h-[365px] w-full bg-[var(--wedoo-violet-panel)]">
       <div className={mobileFrameClassName}>
-        <p
-          className="font-wedoo-accent absolute text-center text-[24px] text-[var(--wedoo-white-soft)]"
+        <h2
+          className="font-wedoo-heading absolute text-center text-[24px] leading-[1.15] text-[var(--wedoo-white-soft)]"
           style={{
-            left: pct(7, 360),
-            lineHeight: "normal",
-            top: 18,
-            width: pct(346, 360),
+            left: pct(20, 360),
+            top: 20,
+            width: pct(320, 360),
           }}
         >
           {content.howItWorks.mobileTitle}
-          <br />
+        </h2>
+
+        <p
+          className="font-wedoo-accent absolute text-center text-[18px] text-[var(--wedoo-white-soft)]"
+          style={{
+            left: pct(72, 360),
+            lineHeight: "normal",
+            top: 110,
+            width: pct(216, 360),
+          }}
+        >
+          {content.howItWorks.eyebrow}
+        </p>
+
+        <p
+          className="font-wedoo-accent absolute text-center text-[18px] text-[var(--wedoo-white-soft)]"
+          style={{
+            left: pct(21, 360),
+            lineHeight: "normal",
+            top: 146,
+            width: pct(318, 360),
+          }}
+        >
           {content.howItWorks.mobileDescription}
         </p>
 
-        <div className="absolute top-[152px]" style={{ left: pct(90, 360) }}>
+        <div className="absolute top-[239px]" style={{ left: pct(92, 360) }}>
           <HomeCandidateRoleButton
             className="h-[52px] w-[176px] min-w-0 rounded-[8px] px-0 text-[24px] leading-[normal] hover:-translate-y-0"
             label={content.howItWorks.candidateLabel}
           />
         </div>
 
-        <div className="absolute top-[227px]" style={{ left: pct(90, 360) }}>
+        <div className="absolute top-[307px]" style={{ left: pct(92, 360) }}>
           <HomeCompanyRoleButton
             className="h-[52px] w-[176px] min-w-0 rounded-[8px] px-0 text-[24px] leading-[normal] hover:-translate-y-0"
             label={content.howItWorks.companyLabel}
