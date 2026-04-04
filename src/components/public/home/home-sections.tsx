@@ -16,6 +16,7 @@ import { HomeDownloadAppButton } from "./home-download-app-button";
 import { homeFeatureToneStyles } from "./home-constants";
 import { HomeAuthButtonGroup } from "./home-auth-button-group";
 import { HomeCandidateRoleButton } from "./home-candidate-role-button";
+import { HomeCompanyRoleButton } from "./home-company-role-button";
 
 const mobileFrameClassName = "relative mx-auto h-full w-full max-w-[360px]";
 const desktopFrameClassName = "relative mx-auto w-[1440px]";
@@ -321,13 +322,10 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         </div>
 
         <div className="absolute left-[824px] top-[617px]">
-          <HomeRouteButton
+          <HomeCompanyRoleButton
             className="h-[60px] w-[189px] min-w-0 rounded-[8px] text-[24px] leading-[normal] hover:-translate-y-0"
-            to={routeMap.company.showcase}
-            variant="roleCompany"
-          >
-            {content.howItWorks.companyLabel}
-          </HomeRouteButton>
+            label={content.howItWorks.companyLabel}
+          />
         </div>
       </div>
     </section>
@@ -605,13 +603,10 @@ function MobileHowItWorksSection({ content }: { content: PublicHomeContent }) {
         </div>
 
         <div className="absolute top-[227px]" style={{ left: pct(90, 360) }}>
-          <HomeRouteButton
+          <HomeCompanyRoleButton
             className="h-[52px] w-[176px] min-w-0 rounded-[8px] px-0 text-[24px] leading-[normal] hover:-translate-y-0"
-            to={routeMap.company.showcase}
-            variant="roleCompany"
-          >
-            {content.howItWorks.companyLabel}
-          </HomeRouteButton>
+            label={content.howItWorks.companyLabel}
+          />
         </div>
       </div>
     </section>
