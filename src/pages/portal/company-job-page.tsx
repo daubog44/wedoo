@@ -6,12 +6,12 @@ import {
   DetailGoalRow,
   DetailSection,
 } from "../../components/site";
-import { jobs } from "../../data/jobs";
+import { getJobEntryById } from "../../data/jobs";
 import { assetPath } from "../../lib/site-utils";
 
 export default function CompanyJobPage() {
   const params = useParams();
-  const job = jobs.find((entry) => entry.id === params.jobId) ?? jobs[0];
+  const job = getJobEntryById(params.jobId);
 
   return (
     <main className="px-4 pb-12 pt-8 md:px-8">

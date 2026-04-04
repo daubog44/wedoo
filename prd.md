@@ -65,7 +65,7 @@ Regole:
 - [x] [DATA][node=n/a][route=/candidato][test=tests/integration/candidate-profile-summary.test.ts] Definire `CandidateProfileSummary` per card e dettaglio profilo.
 - [x] [DATA][node=n/a][route=/azienda][test=tests/integration/company-profile-summary.test.ts] Definire `CompanyProfileSummary` per showcase azienda.
 - [x] [DATA][node=n/a][route=/portale/azienda/annunci][test=tests/integration/job-draft.test.ts] Definire `JobDraft` per creazione annuncio azienda a step.
-- [ ] [DATA][node=n/a][route=/portale/candidato/annuncio/:jobId][test=tests/integration/job-listing-detail.test.ts] Definire `JobListing` e `JobDetail` per card annuncio e pagina dettaglio.
+- [x] [DATA][node=n/a][route=/portale/candidato/annuncio/:jobId][test=tests/integration/job-listing-detail.test.ts] Definire `JobListing` e `JobDetail` per card annuncio e pagina dettaglio.
 - [ ] [DATA][node=n/a][route=/articoli][test=tests/integration/content-preview.test.ts] Definire `ArticlePreview` e `PodcastPreview` per hub contenuti.
 - [ ] [DATA][node=n/a][route=n/a][test=tests/integration/mock-services.test.ts] Creare servizi mock `get*Mock()` o `mock*Service()` per simulare chiamate server in modo consistente.
 

@@ -31,6 +31,45 @@ export type JobEntry = {
   title: string
 }
 
+export type JobListing = {
+  company: {
+    logo: string
+    name: string
+  }
+  employment: {
+    contractLabel: string
+    salaryLabel: string
+    scheduleLabel: string
+  }
+  id: string
+  role: {
+    location: string
+    previewDescription: string
+    previewTags: string[]
+    sdgIds: string[]
+    title: string
+  }
+}
+
+export type JobDetail = {
+  companyOverview: {
+    paragraphs: string[]
+  }
+  contact: {
+    email: string
+    name: string
+    phone: string
+  }
+  description: string
+  id: string
+  qualifications: {
+    hardSkills: string[]
+    requirementsLabel: string
+    softSkills: string[]
+  }
+  summaryBullets: string[]
+}
+
 export type CandidateEntry = {
   avatar: string
   bio: string
