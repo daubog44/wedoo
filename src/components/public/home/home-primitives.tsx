@@ -9,6 +9,7 @@ import { AppIcon } from "../../../lib/icons";
 import type { MajesticonName } from "../../../lib/majesticons-map";
 import { assetPath, cn } from "../../../lib/site-utils";
 import { SiteIcon } from "../../site";
+import type { SiteIconName } from "../../site/site-icon";
 import { wedooSdgPalette } from "./home-constants";
 
 const homeButtonBaseClassName =
@@ -39,26 +40,30 @@ export type HomeButtonVariant = keyof typeof homeButtonVariants;
 
 type CommonButtonProps = PropsWithChildren<{
   className?: string;
-  icon?: MajesticonName;
+  icon?: MajesticonName | SiteIconName;
   iconPosition?: "start" | "end";
   variant: HomeButtonVariant;
 }>;
 
 function renderButtonContent(
   children: ReactNode,
-  icon?: MajesticonName,
+  icon?: MajesticonName | SiteIconName,
   iconPosition: "start" | "end" = "end",
 ) {
+  const iconClassName = cn(
+    "h-5 w-5 shrink-0",
+    icon === "smartphone" && "h-7 w-7",
+    icon === "smartphone-apps-line" && "h-7 w-7",
+    icon === "arrow-right-line" && "h-[1.6875rem] w-8",
+    icon === "chevron-right" && "h-[1.6875rem] w-8",
+  );
+
   const iconNode = icon ? (
-    <AppIcon
-      className={cn(
-        "h-5 w-5 shrink-0",
-        icon === "smartphone-apps-line" && "h-7 w-7",
-        icon === "arrow-right-line" && "h-[1.6875rem] w-8",
-        icon === "chevron-right" && "h-[1.6875rem] w-8",
-      )}
-      name={icon}
-    />
+    icon === "smartphone" ? (
+      <SiteIcon className={iconClassName} name="smartphone" />
+    ) : (
+      <AppIcon className={iconClassName} name={icon as MajesticonName} />
+    )
   ) : null;
 
   return (

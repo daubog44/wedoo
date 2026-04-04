@@ -32,6 +32,7 @@ test.describe("landing page", () => {
     await expect(downloadLink).toBeVisible();
     await expect(downloadLink).toHaveAttribute("href", "/manifest.webmanifest");
     await expect(downloadLink).toHaveAttribute("download", "wedoo.webmanifest");
+    await expect(downloadLink.locator("svg")).toBeVisible();
 
     const authButtonGroup = page.getByRole("group", {
       name: publicCopy.home.authButtonGroupLabel,

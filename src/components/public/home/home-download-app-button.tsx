@@ -12,7 +12,7 @@ export function HomeDownloadAppButton({
       className={className}
       download="wedoo.webmanifest"
       href="/manifest.webmanifest"
-      icon="smartphone-apps-line"
+      icon="smartphone"
       iconPosition="start"
       variant="appPrimary"
     >
