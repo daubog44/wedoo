@@ -62,7 +62,7 @@ Regole:
 - [x] [DATA][node=n/a][route=n/a][test=tests/integration/public-home-response.test.ts] Definire `PublicHomeResponse` come contratto mock server-like per la landing pubblica.
 - [x] [DATA][node=n/a][route=/accedi][test=tests/integration/auth-view-model.test.ts] Definire `AuthViewModel` per login, registrazione e stati errore.
 - [x] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-profile-draft.test.ts] Definire `CandidateProfileDraft` con contatti, formazione, esperienze e competenze.
-- [ ] [DATA][node=n/a][route=/candidato][test=tests/integration/candidate-profile-summary.test.ts] Definire `CandidateProfileSummary` per card e dettaglio profilo.
+- [x] [DATA][node=n/a][route=/candidato][test=tests/integration/candidate-profile-summary.test.ts] Definire `CandidateProfileSummary` per card e dettaglio profilo.
 - [x] [DATA][node=n/a][route=/azienda][test=tests/integration/company-profile-summary.test.ts] Definire `CompanyProfileSummary` per showcase azienda.
 - [ ] [DATA][node=n/a][route=/portale/azienda/annunci][test=tests/integration/job-draft.test.ts] Definire `JobDraft` per creazione annuncio azienda a step.
 - [ ] [DATA][node=n/a][route=/portale/candidato/annuncio/:jobId][test=tests/integration/job-listing-detail.test.ts] Definire `JobListing` e `JobDetail` per card annuncio e pagina dettaglio.
