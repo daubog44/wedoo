@@ -77,7 +77,7 @@ Regole:
 - [x] [COMP][node=144:1944][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo candidato come variante secondaria menta.
 - [x] [COMP][node=144:1949][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo azienda come variante secondaria viola.
 - [x] [COMP][node=146:2252][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" gialla come variante riusabile.
-- [ ] [COMP][node=222:529][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" rosa come variante riusabile.
+- [x] [COMP][node=222:529][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" rosa come variante riusabile.
 - [ ] [COMP][node=222:540][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" lilla come variante riusabile.
 - [ ] [COMP][node=2:414][route=/][test=tests/e2e/public/landing-page.spec.ts] Mappare l'icona `Smartphone` per la CTA download.
 - [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire hero copy, titolo e subtitle della landing.
