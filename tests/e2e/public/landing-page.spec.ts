@@ -60,18 +60,19 @@ test.describe("landing page", () => {
           : publicCopy.home.howItWorksTitle,
       }),
     ).toBeVisible();
-    await expect(
-      page.getByRole("link", {
-        name: publicCopy.home.candidateCta,
-        exact: true,
-      }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("link", {
-        name: publicCopy.home.companyCta,
-        exact: true,
-      }),
-    ).toBeVisible();
+    const candidateRoleLink = page.getByRole("link", {
+      name: publicCopy.home.candidateCta,
+      exact: true,
+    });
+    await expect(candidateRoleLink).toBeVisible();
+    await expect(candidateRoleLink).toHaveAttribute("href", "/candidato");
+
+    const companyRoleLink = page.getByRole("link", {
+      name: publicCopy.home.companyCta,
+      exact: true,
+    });
+    await expect(companyRoleLink).toBeVisible();
+    await expect(companyRoleLink).toHaveAttribute("href", "/azienda");
 
     await expect(
       page.locator("p:visible").filter({
