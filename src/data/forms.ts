@@ -1,3 +1,12 @@
+import {
+  candidateRegistrationAuthViewModel,
+  companyRegistrationAuthViewModel,
+  loginAuthViewModel,
+  type AuthFieldViewModel,
+  type AuthTone,
+  type AuthViewModel,
+} from "./auth";
+
 export type FormTone = "mint" | "violet" | "lilac";
 
 export type FormField =
@@ -64,113 +73,43 @@ export type FormPageConfig = {
   tone: FormTone;
 };
 
-export const loginForm: FormPageConfig = {
-  background: "accedi.png",
-  ctaLabel: "continua",
-  ctaTo: "/portale/candidato",
-  footerPrompt: {
-    label: "non hai già un account?",
-    linkLabel: "registrati",
-    linkTo: "/registrati",
-  },
-  providerButtons: true,
-  rows: [
-    {
-      columns: 1,
-      fields: [
-        {
-          id: "email",
-          inputType: "email",
-          kind: "input",
-          label: "email*",
-          placeholder: "inserisci la mail",
-        },
-        {
-          id: "password",
-          inputType: "password",
-          kind: "input",
-          label: "password*",
-          placeholder: "inserisci una password",
-        },
-      ],
-    },
-  ],
-  subtitle: "Accedi",
-  title: "Benvenut*!",
-  tone: "lilac",
-};
+function mapAuthToneToFormTone(tone: AuthTone): FormTone {
+  return tone;
+}
 
-export const candidateForms: FormPageConfig[] = [
-  {
-    background: "formcandidati1.png",
-    ctaLabel: "continua",
-    ctaTo: "/registrati/candidato/2",
-    footerPrompt: {
-      label: "hai già un account?",
-      linkLabel: "accedi",
-      linkTo: "/accedi",
-    },
-    providerButtons: true,
+function mapAuthFieldToFormField(field: AuthFieldViewModel): FormField {
+  return field;
+}
+
+function buildAuthFormConfig(viewModel: AuthViewModel): FormPageConfig {
+  return {
+    background: viewModel.background,
+    ctaLabel: viewModel.ctaLabel,
+    ctaTo: viewModel.ctaTo,
+    footerPrompt: viewModel.footerPrompt,
+    providerButtons: viewModel.providerButtons,
     rows: [
       {
         columns: 1,
-        fields: [
-          {
-            id: "full-name",
-            inputType: "text",
-            kind: "input",
-            label: "nome e cognome*",
-            placeholder: "inserisci nome e cognome",
-          },
-          {
-            id: "email",
-            inputType: "email",
-            kind: "input",
-            label: "email*",
-            placeholder: "inserisci la mail",
-          },
-          {
-            id: "phone",
-            inputType: "tel",
-            kind: "input",
-            label: "numero di telefono*",
-            placeholder: "inserisci il numero di telefono",
-          },
-          {
-            id: "password",
-            inputType: "password",
-            kind: "input",
-            label: "password*",
-            placeholder: "inserisci una password",
-          },
-          {
-            id: "confirm-password",
-            inputType: "password",
-            kind: "input",
-            label: "conferma password*",
-            placeholder: "re-inserisci la password",
-          },
-          {
-            id: "privacy",
-            kind: "checkbox",
-            label: "ho preso visione dell'informativa sulla",
-            linkHref:
-              "/assets/documenti/Informativa%20privacy%20per%20sito.pdf",
-            linkLabel: "privacy",
-          },
-        ],
+        fields: viewModel.fields.map(mapAuthFieldToFormField),
       },
     ],
-    subtitle: "Registrati",
-    title: "Benvenut*!",
-    tone: "mint",
-  },
+    subtitle: viewModel.subtitle,
+    title: viewModel.title,
+    tone: mapAuthToneToFormTone(viewModel.tone),
+  };
+}
+
+export const loginForm: FormPageConfig = buildAuthFormConfig(loginAuthViewModel);
+
+export const candidateForms: FormPageConfig[] = [
+  buildAuthFormConfig(candidateRegistrationAuthViewModel),
   {
     background: "formcandidati2.png",
     ctaLabel: "conferma",
     ctaTo: "/portale/candidato",
     footerPrompt: {
-      label: "hai già un account?",
+      label: "hai giÃ  un account?",
       linkLabel: "accedi",
       linkTo: "/accedi",
     },
@@ -190,7 +129,7 @@ export const candidateForms: FormPageConfig[] = [
           {
             id: "citta",
             kind: "select",
-            label: "città",
+            label: "cittÃ ",
             options: ["Milano", "Roma", "Torino"],
             placeholder: "scegli",
             size: "xs",
@@ -213,7 +152,7 @@ export const candidateForms: FormPageConfig[] = [
             kind: "select",
             label: "in quale/i SDGs rispecchi il tuo impegno?",
             options: [
-              "Parità di genere",
+              "ParitÃ  di genere",
               "Consumo responsabile",
               "Clima",
               "Ridurre le disuguaglianze",
@@ -242,70 +181,7 @@ export const candidateForms: FormPageConfig[] = [
 ];
 
 export const companyForms: FormPageConfig[] = [
-  {
-    background: "formaziende1.png",
-    ctaLabel: "continua",
-    ctaTo: "/registrati/azienda/2",
-    footerPrompt: {
-      label: "hai già un account?",
-      linkLabel: "accedi",
-      linkTo: "/accedi",
-    },
-    providerButtons: true,
-    rows: [
-      {
-        columns: 1,
-        fields: [
-          {
-            id: "vat",
-            inputType: "text",
-            kind: "input",
-            label: "partita IVA*",
-            placeholder: "inserisci p. IVA",
-          },
-          {
-            id: "company",
-            inputType: "text",
-            kind: "input",
-            label: "ragione sociale*",
-            placeholder: "inserisci ragione sociale",
-          },
-          {
-            id: "email",
-            inputType: "email",
-            kind: "input",
-            label: "email*",
-            placeholder: "inserisci la mail",
-          },
-          {
-            id: "password",
-            inputType: "password",
-            kind: "input",
-            label: "password*",
-            placeholder: "inserisci una password",
-          },
-          {
-            id: "confirm-password",
-            inputType: "password",
-            kind: "input",
-            label: "conferma password*",
-            placeholder: "re-inserisci la password",
-          },
-          {
-            id: "privacy",
-            kind: "checkbox",
-            label: "ho preso visione dell'informativa sulla",
-            linkHref:
-              "/assets/documenti/Informativa%20privacy%20per%20sito.pdf",
-            linkLabel: "privacy",
-          },
-        ],
-      },
-    ],
-    subtitle: "Compila il tuo primo annuncio per registrarti",
-    title: "Benvenut*!",
-    tone: "violet",
-  },
+  buildAuthFormConfig(companyRegistrationAuthViewModel),
   {
     background: "formaziende2.png",
     ctaLabel: "continua",
@@ -543,7 +419,7 @@ export const companyForms: FormPageConfig[] = [
           {
             id: "citta",
             kind: "select",
-            label: "città",
+            label: "cittÃ ",
             options: ["Milano", "Roma", "Torino"],
             placeholder: "scegli",
             size: "xs",
@@ -631,7 +507,7 @@ export const companyForms: FormPageConfig[] = [
           {
             id: "mode",
             kind: "select",
-            label: "modalità di lavoro",
+            label: "modalitÃ  di lavoro",
             options: ["ibrido", "smart", "in presenza"],
             placeholder: "scegli",
           },
@@ -640,7 +516,7 @@ export const companyForms: FormPageConfig[] = [
             kind: "select",
             label: "SDGs di riferimento",
             options: [
-              "Parità di genere",
+              "ParitÃ  di genere",
               "Consumo responsabile",
               "Lotta al cambiamento climatico",
               "Ridurre le disuguaglianze",
@@ -651,7 +527,7 @@ export const companyForms: FormPageConfig[] = [
             id: "certifications",
             kind: "file",
             label:
-              "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilità",
+              "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilitÃ ",
           },
         ],
       },
