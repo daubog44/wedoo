@@ -819,7 +819,7 @@ function MobileFooter({ content }: { content: PublicHomeContent }) {
 
 export function MobileHomePage({ content, onOpenAuth }: HomePageProps) {
   return (
-    <div className="block overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1456px]:hidden">
+    <div className="block overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1440px]:hidden">
       <MobileTopSection content={content} onOpenAuth={onOpenAuth} />
       <MobileHowItWorksSection content={content} />
       <MobileImpactSection content={content} />
@@ -833,7 +833,7 @@ export function MobileHomePage({ content, onOpenAuth }: HomePageProps) {
 
 export function DesktopHomePage({ content, onOpenAuth }: HomePageProps) {
   return (
-    <div className="hidden w-full overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1456px]:block">
+    <div className="hidden w-full overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1440px]:block">
       <DesktopTopBar navigation={content.navigation} onOpenAuth={onOpenAuth} />
       <main>
         <DesktopHeroSection content={content} />
@@ -862,6 +862,7 @@ export function HomeAuthDialog({
 
   const title =
     intent === "login" ? "Accedi a Wedoo" : "Crea il tuo profilo Wedoo";
+  const titleId = `home-auth-dialog-title-${intent}`;
 
   return (
     <div
@@ -869,6 +870,7 @@ export function HomeAuthDialog({
       onClick={onClose}
     >
       <div
+        aria-labelledby={titleId}
         aria-modal="true"
         className="w-full max-w-[28rem] rounded-[1.5rem] border border-[var(--wedoo-border-strong)] bg-[var(--wedoo-page-bg)] p-6 text-[var(--wedoo-ink)] shadow-[var(--wedoo-shadow-hero)]"
         onClick={(event) => event.stopPropagation()}
@@ -876,7 +878,9 @@ export function HomeAuthDialog({
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="font-wedoo-heading text-[1.875rem] leading-none">{title}</p>
+            <h2 className="font-wedoo-heading text-[1.875rem] leading-none" id={titleId}>
+              {title}
+            </h2>
             <p className="mt-3 max-w-[24rem] text-[1rem] leading-[1.45] text-[var(--wedoo-muted-ink)]">
               {navigation.authDialogDescription}
             </p>
