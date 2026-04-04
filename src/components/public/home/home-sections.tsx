@@ -390,7 +390,7 @@ function DesktopImpactSection({ content }: { content: PublicHomeContent }) {
           style={{
             left: 73,
             lineHeight: "normal",
-            top: 23,
+            top: 39,
             width: 1295,
           }}
         >
@@ -689,14 +689,14 @@ function MobileHowItWorksSection({ content }: { content: PublicHomeContent }) {
 
 function MobileImpactSection({ content }: { content: PublicHomeContent }) {
   return (
-    <section className="relative h-[156px] w-full">
+    <section className="relative h-[160px] w-full">
       <div className={mobileFrameClassName}>
         <p
-          className="font-wedoo-body absolute text-center text-[22px] text-[var(--wedoo-ink)]"
+          className="font-wedoo-accent absolute text-center text-[22px] text-[var(--wedoo-ink)]"
           style={{
             left: pct(9, 360),
             lineHeight: "normal",
-            top: 29,
+            top: 24,
             width: pct(340, 360),
           }}
         >

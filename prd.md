@@ -82,7 +82,7 @@ Regole:
 - [x] [COMP][node=2:414][route=/][test=tests/e2e/public/landing-page.spec.ts] Mappare l'icona `Smartphone` per la CTA download.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire hero copy, titolo e subtitle della landing.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire la sezione "come funziona".
-- [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire la sezione statement impatto.
+- [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire la sezione statement impatto.
 - [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire le tre feature card.
 - [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire sezione video e placeholder media.
 - [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire sezione patrocinio.
