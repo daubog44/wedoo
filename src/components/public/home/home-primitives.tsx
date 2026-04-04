@@ -55,6 +55,7 @@ function renderButtonContent(
         "h-5 w-5 shrink-0",
         icon === "smartphone-apps-line" && "h-7 w-7",
         icon === "arrow-right-line" && "h-[1.6875rem] w-8",
+        icon === "chevron-right" && "h-[1.6875rem] w-8",
       )}
       name={icon}
     />

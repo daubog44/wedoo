@@ -76,7 +76,7 @@ Regole:
 - [x] [COMP][node=143:1908][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA download app come variante primaria con icona.
 - [x] [COMP][node=144:1944][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo candidato come variante secondaria menta.
 - [x] [COMP][node=144:1949][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo azienda come variante secondaria viola.
-- [ ] [COMP][node=146:2252][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" gialla come variante riusabile.
+- [x] [COMP][node=146:2252][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" gialla come variante riusabile.
 - [ ] [COMP][node=222:529][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" rosa come variante riusabile.
 - [ ] [COMP][node=222:540][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA card "scopri" lilla come variante riusabile.
 - [ ] [COMP][node=2:414][route=/][test=tests/e2e/public/landing-page.spec.ts] Mappare l'icona `Smartphone` per la CTA download.

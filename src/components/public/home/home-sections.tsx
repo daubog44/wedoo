@@ -17,6 +17,7 @@ import { homeFeatureToneStyles } from "./home-constants";
 import { HomeAuthButtonGroup } from "./home-auth-button-group";
 import { HomeCandidateRoleButton } from "./home-candidate-role-button";
 import { HomeCompanyRoleButton } from "./home-company-role-button";
+import { HomeDiscoverGoldButton } from "./home-discover-gold-button";
 
 const mobileFrameClassName = "relative mx-auto h-full w-full max-w-[360px]";
 const desktopFrameClassName = "relative mx-auto w-[1440px]";
@@ -109,6 +110,7 @@ function DesktopFeatureCard({
   layout: DesktopFeatureCardLayout;
 }) {
   const toneStyle = homeFeatureToneStyles[card.tone];
+  const discoverLabel = "scopri";
 
   return (
     <article
@@ -134,14 +136,22 @@ function DesktopFeatureCard({
         </h4>
 
         <div className="mt-9">
-          <HomeRouteButton
-            className="h-[57px] w-[181px] min-w-0 gap-[15.5px] rounded-[8px] px-0 pl-[43.5px] pr-6 text-[24px] leading-[normal] hover:-translate-y-0"
-            icon="arrow-right-line"
-            to={card.href}
-            variant={toneStyle.buttonVariant}
-          >
-            scopri
-          </HomeRouteButton>
+          {card.tone === "gold" ? (
+            <HomeDiscoverGoldButton
+              className="h-[57px] w-[181px] min-w-0 gap-[15.5px] rounded-[8px] px-0 pl-[43.5px] pr-6 text-[24px] leading-[normal] hover:-translate-y-0"
+              label={discoverLabel}
+              to={card.href}
+            />
+          ) : (
+            <HomeRouteButton
+              className="h-[57px] w-[181px] min-w-0 gap-[15.5px] rounded-[8px] px-0 pl-[43.5px] pr-6 text-[24px] leading-[normal] hover:-translate-y-0"
+              icon="arrow-right-line"
+              to={card.href}
+              variant={toneStyle.buttonVariant}
+            >
+              {discoverLabel}
+            </HomeRouteButton>
+          )}
         </div>
       </div>
     </article>
@@ -150,6 +160,7 @@ function DesktopFeatureCard({
 
 function MobileFeatureCard({ card }: { card: PublicHomeFeatureCard }) {
   const toneStyle = homeFeatureToneStyles[card.tone];
+  const discoverLabel = "scopri";
 
   return (
     <article
@@ -170,14 +181,22 @@ function MobileFeatureCard({ card }: { card: PublicHomeFeatureCard }) {
         </h4>
 
         <div className="mt-[22px] flex justify-center">
-          <HomeRouteButton
-            className="h-[49px] w-[159px] min-w-0 gap-[20px] rounded-[8px] px-0 pl-[28.5px] pr-3 text-[24px] leading-[normal] hover:-translate-y-0"
-            icon="arrow-right-line"
-            to={card.href}
-            variant={toneStyle.buttonVariant}
-          >
-            scopri
-          </HomeRouteButton>
+          {card.tone === "gold" ? (
+            <HomeDiscoverGoldButton
+              className="h-[49px] w-[159px] min-w-0 gap-[20px] rounded-[8px] px-0 pl-[28.5px] pr-3 text-[24px] leading-[normal] hover:-translate-y-0"
+              label={discoverLabel}
+              to={card.href}
+            />
+          ) : (
+            <HomeRouteButton
+              className="h-[49px] w-[159px] min-w-0 gap-[20px] rounded-[8px] px-0 pl-[28.5px] pr-3 text-[24px] leading-[normal] hover:-translate-y-0"
+              icon="arrow-right-line"
+              to={card.href}
+              variant={toneStyle.buttonVariant}
+            >
+              {discoverLabel}
+            </HomeRouteButton>
+          )}
         </div>
       </div>
     </article>

@@ -98,6 +98,11 @@ test.describe("landing page", () => {
 
     const discoverLinks = page.getByRole("link", { name: publicCopy.home.discoverCta });
     await expect(discoverLinks).toHaveCount(3);
+    await expect(
+      page.locator('a[href="/info#noixnoi"]:visible').getByText(publicCopy.home.discoverCta, {
+        exact: true,
+      }),
+    ).toBeVisible();
 
     await page.getByRole("button", { name: publicCopy.home.signInCta }).click();
     const dialog = page.getByRole("dialog");
