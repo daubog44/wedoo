@@ -1,3 +1,7 @@
+import {
+  companyProfileSummaryMock,
+  mapCompanyProfileSummaryToShowcase,
+} from "./company-profile";
 import type { PortalRole, RoleShowcase } from "./types";
 
 export const roleShowcases = {
@@ -44,54 +48,5 @@ export const roleShowcases = {
     ],
     title: "Pensato per chi cerca.\nE fatica a trovare.",
   },
-  company: {
-    badge: "Percorso azienda",
-    cta: "/registrati/azienda/1",
-    description:
-      "Per team HR, startup e PMI che vogliono parlare in modo credibile con la Gen Z.",
-    metrics: [
-      { label: "Passi per pubblicare il primo annuncio", value: "5 step" },
-      { label: "Target principale", value: "Gen Z" },
-      { label: "Posizionamento", value: "ESG first" },
-    ],
-    slides: [
-      {
-        description:
-          "Parli con una community in cerca di senso, impatto e futuro.",
-        image: "azienda_1.png",
-        title: "Target ultra preciso: Gen Z\norientati alla sostenibilità",
-      },
-      {
-        description:
-          "I candidati vogliono coerenza, e noi ti guidiamo a mostrarla al meglio.",
-        image: "azienda_2.png",
-        title: "Verifica degli annunci\ne trasparenza",
-      },
-      {
-        description:
-          "Il nostro sistema suggerisce solo candidati in linea, evitando candidature poco rilevanti (sempre con la possibilità di poterle ricercare manualmente).",
-        image: "azienda_3.png",
-        title: "Matching profilato,\nrisultati reali",
-      },
-      {
-        description:
-          "Badge, dati, certificazioni:\nracconta chi sei davvero,\nnoi ti aiutiamo.",
-        image: "azienda_4.png",
-        title: "Employer Branding guidato",
-      },
-      {
-        description:
-          "Non serve essere grandi:\nse fai le cose per bene, qui\nsei nel posto giusto.",
-        image: "azienda_5.png",
-        title: "Soluzioni anche per\nstartup e PMI",
-      },
-      {
-        description:
-          "In futuro prevediamo di inserire funzioni a pagamento per aiutare le aziende ad aumentare la propria visibilità.",
-        image: "azienda_6.png",
-        title: "Contenuti gratuiti\nper la versione base",
-      },
-    ],
-    title: "Target ultra preciso: Gen Z\norientati alla sostenibilità",
-  },
+  company: mapCompanyProfileSummaryToShowcase(companyProfileSummaryMock),
 } satisfies Record<PortalRole, RoleShowcase>;
