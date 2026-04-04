@@ -108,6 +108,11 @@ test.describe("landing page", () => {
         exact: true,
       }),
     ).toBeVisible();
+    await expect(
+      page.locator('a[href="/info#dubbi"]:visible').getByText(publicCopy.home.discoverCta, {
+        exact: true,
+      }),
+    ).toBeVisible();
 
     await page.getByRole("button", { name: publicCopy.home.signInCta }).click();
     const dialog = page.getByRole("dialog");
