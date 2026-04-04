@@ -4,7 +4,10 @@ import path from "node:path";
 const repoRoot = process.cwd();
 const worklogsRoot = path.join(repoRoot, "docs", "worklogs");
 const now = new Date();
-const date = now.toISOString().slice(0, 10);
+const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(
+  2,
+  "0",
+)}-${String(now.getDate()).padStart(2, "0")}`;
 const time = `${String(now.getHours()).padStart(2, "0")}${String(
   now.getMinutes(),
 ).padStart(2, "0")}`;

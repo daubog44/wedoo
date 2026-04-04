@@ -1,0 +1,61 @@
+param(
+  [Parameter(ValueFromRemainingArguments = $true)]
+  [string[]]$ForwardArgs
+)
+
+$ErrorActionPreference = "Stop"
+
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$runtimeRoot = Join-Path $repoRoot ".codex-appserver-runtime"
+$codexHome = Join-Path $runtimeRoot ".codex"
+$globalHome = Join-Path ([Environment]::GetFolderPath("UserProfile")) ".codex"
+$configPath = Join-Path $codexHome "config.toml"
+
+if (Test-Path $runtimeRoot) {
+  Remove-Item -Recurse -Force $runtimeRoot
+}
+
+New-Item -ItemType Directory -Force -Path $codexHome | Out-Null
+
+foreach ($fileName in @("auth.json", "cap_sid")) {
+  $source = Join-Path $globalHome $fileName
+  $destination = Join-Path $codexHome $fileName
+  if (Test-Path $source -PathType Leaf) {
+    Copy-Item -Force $source $destination
+  }
+}
+
+$configToml = @'
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+service_tier = "fast"
+sandbox_mode = "danger-full-access"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.github]
+url = "https://api.githubcopilot.com/mcp/"
+bearer_token_env_var = "GITHUB_PAT_TOKEN"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+'@
+
+[System.IO.File]::WriteAllText($configPath, $configToml, [System.Text.Encoding]::UTF8)
+
+$env:CODEX_HOME = $codexHome
+$env:HOME = $runtimeRoot
+$env:USERPROFILE = $runtimeRoot
+
+$codexBinary = (Get-Command codex.cmd -CommandType Application).Source
+& $codexBinary @ForwardArgs
+exit $LASTEXITCODE

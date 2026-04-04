@@ -1,0 +1,56 @@
+version: "3"
+
+vars:
+  ROUNDS: '{{default "25" .ROUNDS}}'
+  SLUG: '{{default "session" .SLUG}}'
+
+tasks:
+  potter:preflight:
+    desc: Run the hard external preflight without starting the real Ralph loop
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -WithPreflight -PreflightOnly
+
+  potter:preflight:global:
+    desc: Run the hard external preflight against the global Codex home
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -UseGlobalHome -WithPreflight -PreflightOnly
+
+  potter:yolo:
+    desc: Run readiness checks, create a session worklog, then launch Codex Potter in yolo mode with an isolated Codex home that reuses auth
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}}
+
+  potter:yolo:dry:
+    desc: Dry run the Ralph bootstrap without launching Codex Potter
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -DryRun
+
+  potter:yolo:checked:
+    desc: Run readiness checks, run external preflight, then launch Codex Potter in yolo mode
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -WithPreflight
+
+  potter:yolo:checked:dry:
+    desc: Dry run the Ralph bootstrap with external preflight enabled
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -WithPreflight -DryRun
+
+  potter:yolo:global:
+    desc: Run the bootstrap against the existing global Codex home
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -UseGlobalHome
+
+  potter:yolo:global:dry:
+    desc: Dry run the bootstrap against the existing global Codex home
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -UseGlobalHome -DryRun
+
+  potter:yolo:global:checked:
+    desc: Run the bootstrap against the global Codex home with external preflight enabled
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -UseGlobalHome -WithPreflight
+
+  potter:yolo:global:checked:dry:
+    desc: Dry run the global bootstrap with external preflight enabled
+    cmds:
+      - powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/potter-yolo.ps1 -Slug {{.SLUG}} -Rounds {{.ROUNDS}} -UseGlobalHome -WithPreflight -DryRun

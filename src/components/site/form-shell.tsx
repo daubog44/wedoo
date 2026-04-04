@@ -57,16 +57,13 @@ export function BackdropPageShell({
     <div className="min-h-screen overflow-x-hidden bg-brand-page">
       <TopLogoBar />
       <div
-        className="w-full relative"
+        className="relative mx-auto min-h-[420px] w-full max-w-[1080px] bg-top bg-no-repeat px-4 sm:min-h-[520px] sm:px-6 lg:min-h-[750px] lg:px-0"
         style={{
           backgroundImage: `url(${assetPath(background)})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "contain",
-          backgroundPosition: "center",
-          height: "100vh"
+          backgroundSize: "100% auto",
         }}
       >
-        <div style={{ marginLeft: "17%", paddingTop: "10%" }}>
+        <div className="px-[8%] pt-[12%] sm:px-[14%] sm:pt-[10%] lg:px-[17%]">
           {children}
         </div>
       </div>

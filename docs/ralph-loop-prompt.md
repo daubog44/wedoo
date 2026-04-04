@@ -1,5 +1,48 @@
 # Ralph Loop Prompt
 
+Comando consigliato con `Taskfile` per avviare il loop con Codex Potter in modalita `--yolo` dalla root del repository:
+
+```powershell
+task potter:yolo SLUG=landing-page ROUNDS=25
+```
+
+Dry run del bootstrap senza lanciare davvero Potter:
+
+```powershell
+task potter:yolo:dry SLUG=landing-page ROUNDS=25
+```
+
+Variante con preflight esterno completo prima del loop:
+
+```powershell
+task potter:yolo:checked SLUG=landing-page ROUNDS=25
+```
+
+Variante che usa la home globale di Codex senza isolamento:
+
+```powershell
+task potter:yolo:global SLUG=landing-page ROUNDS=25
+```
+
+Comando CLI diretto equivalente, se vuoi bypassare `task`:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\potter-yolo.ps1 -Slug landing-page -Rounds 25
+```
+
+La procedura standard sopra:
+
+- avvia prima il dev server locale su `http://127.0.0.1:4173`
+- esegue `loop:ready`
+- crea il worklog di sessione
+- usa una home Codex locale isolata in `.codex-potter-home`
+- copia i file di autenticazione Codex necessari dalla home globale, cosi OAuth Figma continua a essere disponibile
+- avvia `codex-potter exec` con `--yolo`, `danger-full-access` e reasoning `medium`
+
+La variante `potter:yolo:checked` aggiunge anche un preflight esterno e bloccante su Figma MCP, GitHub MCP e Playwright locale.
+
+La variante `potter:yolo:global` usa invece direttamente la home globale di Codex.
+
 Lavora in questo repository come agente autonomo dentro un Ralph Loop.
 Usa `AGENTS.md` come istruzione principale permanente del loop e usa `prd.md` come backlog operativo vivo.
 Usa `docs/ralph-loop-worklog.md` come policy del diario operativo e usa `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md` come worklog reale di sessione.
@@ -25,13 +68,23 @@ Per ogni task:
 
 - leggi il `Node ID` dal task attivo in `prd.md`
 - se il task e un `FRAME`, fai prima discovery con `get_metadata` sul frame corrente
+- classifica il frame come `mobile`, `tablet` o `desktop` usando dimensioni del frame, naming e struttura
 - usa Figma MCP come fonte primaria: `get_design_context`, `get_screenshot`, `get_metadata` quando serve
 - ignora micro-nodi, icone singole, vettori decorativi e layer minuti gia contenuti in componenti o frame piu grandi
 - se individui child frame, componenti principali, stati UI o task tecnici mancanti, aggiorna subito `prd.md`
 - registra nel worklog le discovery Figma davvero rilevanti
+- registra nel worklog quale viewport Figma e il riferimento principale del task
 - usa gli export PNG di sezione in `artifacts/figma-exports/**` solo come riferimento secondario, quando il MCP non basta a leggere bene una sezione lunga, densa o croppata
 - se servono export di sezione, parti da `npm run loop:assets` e scegli solo quelli coerenti con il task corrente
 - se un export di sezione contraddice Figma MCP, prevale Figma MCP
+
+Regole su viewport e responsive:
+
+- non trattare un frame mobile come layout desktop semplicemente scalandolo o centrandolo nel mezzo della pagina
+- non trattare un frame desktop come layout mobile semplicemente comprimendolo
+- se esiste solo il frame mobile, implementa prima la resa mobile fedele e poi deriva una desktop version sensata
+- se esiste solo il frame desktop, implementa prima la resa desktop fedele e poi deriva una mobile version sensata
+- se esistono varianti mobile e desktop della stessa schermata, usa ciascuna variante per la viewport corretta e non mischiarle
 
 Implementazione:
 
@@ -69,7 +122,7 @@ Ordine di lavoro per ogni iterazione:
 11. crea o aggiorna test E2E, integration test e VRT se pertinenti
 12. fai self-review del diff prima dei test
 13. esegui `npm run test:all`
-14. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile
+14. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile, dando priorita alla viewport corrispondente al frame Figma principale
 15. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
 16. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
 17. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task

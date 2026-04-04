@@ -129,6 +129,35 @@ Regola obbligatoria di discovery:
 - se trovi elementi rilevanti mancanti, aggiorna `prd.md` subito nel punto corretto prima di continuare
 - non serve promuovere a task autonomi i micro-layer decorativi o le singole icone che fanno gia parte di un contenitore piu grande
 
+## Regola obbligatoria su viewport e device target
+
+Devi distinguere esplicitamente se il frame Figma rappresenta una vista mobile, tablet o desktop prima di implementarlo.
+
+Segnali da usare insieme:
+
+- dimensioni del frame in Figma
+- nome del frame o della pagina
+- presenza di safe area, status bar, notch o pattern tipici mobile
+- larghezza utile del contenuto
+- variante parallela dello stesso screen in altre viewport
+
+Regole pratiche:
+
+- se il frame ha larghezza tipica smartphone, trattalo come mobile-first
+- se il frame ha larghezza tipica tablet, trattalo come tablet
+- se il frame ha larghezza ampia da laptop o desktop, trattalo come desktop
+- non prendere un frame mobile e scalarlo semplicemente su desktop
+- non prendere un frame desktop e comprimerlo semplicemente su mobile
+- se esiste solo il frame mobile, implementa prima la resa mobile fedele e poi deriva una versione desktop sensata senza inventare un layout arbitrario
+- se esiste solo il frame desktop, implementa prima la resa desktop fedele e poi costruisci una resa mobile coerente con lo stesso linguaggio visivo
+- se esistono sia frame mobile sia frame desktop della stessa pagina, non mischiare i due: usa ciascun frame per la viewport corretta
+
+Regola di mapping:
+
+- nel worklog annota sempre quale viewport Figma stai usando come riferimento principale del task: `mobile`, `tablet` o `desktop`
+- se il task riguarda una route pubblica o una pagina intera, nei test e nella review finale verifica che la resa desktop somigli al frame desktop e la resa mobile somigli al frame mobile
+- se il frame attivo e mobile e stai guardando il browser desktop, non centrare semplicemente un canvas stretto nel mezzo della pagina come soluzione finale, a meno che Figma mostri davvero un layout desktop di quel tipo
+
 Regola sugli export di sezione:
 
 - se il task riguarda una pagina lunga, una sezione complessa o un frame che nel MCP risulta poco leggibile per crop, maschere o densita visiva, controlla anche gli export PNG di sezione
@@ -207,17 +236,18 @@ Ad ogni iterazione del loop segui questo ordine:
 5. Trova il primo task incompleto `- [ ]`.
 6. Registra nel worklog l'inizio del task se non e gia stato registrato.
 7. Recupera il `Node ID` e interroga Figma MCP.
-8. Implementa il task nel codice del progetto.
-9. Aggiorna o crea i mock data necessari come se provenissero da un backend.
-10. Aggiorna o crea i test rilevanti.
-11. Esegui una self-review del task e del diff prima dei test.
-12. Esegui i test necessari.
-13. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
-14. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
-15. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
-16. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
-17. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
-18. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
+8. Classifica il frame come `mobile`, `tablet` o `desktop` e registra questa decisione nel worklog.
+9. Implementa il task nel codice del progetto.
+10. Aggiorna o crea i mock data necessari come se provenissero da un backend.
+11. Aggiorna o crea i test rilevanti.
+12. Esegui una self-review del task e del diff prima dei test.
+13. Esegui i test necessari.
+14. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
+15. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
+16. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
+17. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
+18. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
+19. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
 
 # REGOLE SU PRD.MD
 
@@ -292,6 +322,13 @@ Tutto cio che implementi deve essere usabile almeno su:
 
 Non limitarti a una sola viewport.
 Se Figma mostra varianti desktop, devi comunque costruire una resa mobile sensata e coerente con il linguaggio visivo.
+
+Regola esplicita:
+
+- una vista mobile non deve essere trattata come layout desktop semplicemente centrando una colonna stretta nel mezzo dello schermo
+- una vista desktop non deve essere trattata come layout mobile semplicemente comprimendo tutto
+- se il task usa un frame mobile come riferimento principale, la review finale deve confermare che il browser mobile assomigli al frame mobile e che il browser desktop mostri un adattamento coerente, non la stessa schermata mobile ingrandita
+- se il task usa un frame desktop come riferimento principale, la review finale deve confermare che il browser desktop assomigli al frame desktop e che il browser mobile mostri una vera riorganizzazione responsive
 
 ## Mock backend
 

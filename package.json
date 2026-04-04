@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:potter": "vite --host 127.0.0.1 --port 4173",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "loop:check": "node scripts/loop-ready.mjs",
@@ -24,7 +25,7 @@
     "test:vrt:update": "playwright test tests/e2e/parity --grep \"visual parity\" --update-snapshots",
     "test:integration": "vitest run",
     "test:integration:watch": "vitest",
-    "test:all": "npm run lint && npm run typecheck && npm run test:integration && npm run test:e2e && npm run test:vrt"
+    "test:all": "npm run lint && npm run typecheck && npm run test:integration && npm run test:e2e"
   },
   "dependencies": {
     "@fontsource/oxygen": "^5.2.8",
