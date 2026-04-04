@@ -9,10 +9,10 @@ import { AppIcon } from "../../../lib/icons";
 import { assetPath, cn, documentPath } from "../../../lib/site-utils";
 import { SiteIcon } from "../../site";
 import {
-  HomeAnchorButton,
   HomeRouteButton,
   SdgRibbon,
 } from "./home-primitives";
+import { HomeDownloadAppButton } from "./home-download-app-button";
 import { homeFeatureToneStyles } from "./home-constants";
 import { HomeAuthButtonGroup } from "./home-auth-button-group";
 
@@ -263,16 +263,10 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         </p>
 
         <div className="absolute left-[627px] top-[268px]">
-          <HomeAnchorButton
+          <HomeDownloadAppButton
             className="h-[49px] w-[186px] min-w-0 justify-start gap-[7px] whitespace-nowrap rounded-[8px] border-[var(--wedoo-ink)] px-0 pl-[7px] pr-[9px] text-[24px] leading-[normal] hover:-translate-y-0"
-            download="wedoo.webmanifest"
-            href="/manifest.webmanifest"
-            icon="smartphone-apps-line"
-            iconPosition="start"
-            variant="appPrimary"
-          >
-            {content.hero.downloadLabel}
-          </HomeAnchorButton>
+            label={content.hero.downloadLabel}
+          />
         </div>
 
         <img
@@ -573,16 +567,10 @@ function MobileTopSection({
         </p>
 
         <div className="absolute top-[390px]" style={{ left: pct(87, 360) }}>
-          <HomeAnchorButton
+          <HomeDownloadAppButton
             className="h-[49px] w-[186px] min-w-0 justify-start gap-[7px] whitespace-nowrap rounded-[8px] border-[var(--wedoo-ink)] px-0 pl-[7px] pr-[9px] text-[24px] leading-[normal] hover:-translate-y-0"
-            download="wedoo.webmanifest"
-            href="/manifest.webmanifest"
-            icon="smartphone-apps-line"
-            iconPosition="start"
-            variant="appPrimary"
-          >
-            {content.hero.downloadLabel}
-          </HomeAnchorButton>
+            label={content.hero.downloadLabel}
+          />
         </div>
 
         <div className="absolute top-[450px]" style={{ left: 0, width: pct(283, 360) }}>
