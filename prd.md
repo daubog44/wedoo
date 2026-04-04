@@ -72,7 +72,7 @@ Regole:
 ### Landing Pubblica
 
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Implementare la `Landing Page` come baseline visiva pubblica e riferimento per i token principali.
-- [ ] [COMP][node=199:591][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre `Button Group` come pattern auth header riusabile.
+- [x] [COMP][node=199:591][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre `Button Group` come pattern auth header riusabile.
 - [ ] [COMP][node=143:1908][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA download app come variante primaria con icona.
 - [ ] [COMP][node=144:1944][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo candidato come variante secondaria menta.
 - [ ] [COMP][node=144:1949][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA ruolo azienda come variante secondaria viola.

@@ -21,6 +21,7 @@ export const publicCopy = {
     companyCta: "azienda",
     downloadCta: "scarica l'app",
     discoverCta: "scopri",
+    authButtonGroupLabel: "Azioni autenticazione home",
     videoTitle: "Wedoo spiegato in un click",
     patronageTitle: "Con il patrocinio di...",
     contactEmail: "help@wedoo.com",

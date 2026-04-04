@@ -10,11 +10,11 @@ import { assetPath, cn, documentPath } from "../../../lib/site-utils";
 import { SiteIcon } from "../../site";
 import {
   HomeAnchorButton,
-  HomeButton,
   HomeRouteButton,
   SdgRibbon,
 } from "./home-primitives";
 import { homeFeatureToneStyles } from "./home-constants";
+import { HomeAuthButtonGroup } from "./home-auth-button-group";
 
 const mobileFrameClassName = "relative mx-auto h-full w-full max-w-[360px]";
 const desktopFrameClassName = "relative mx-auto w-[1440px]";
@@ -73,38 +73,6 @@ function LanguageChipCompact({
       <span className="font-sans leading-none">{label}</span>
       <SiteIcon className={mobile ? "h-3 w-3" : "h-4 w-4"} name="chevron-down" />
     </button>
-  );
-}
-
-function AuthTriggerGroup({
-  mobile = false,
-  navigation,
-  onOpenAuth,
-}: {
-  mobile?: boolean;
-  navigation: PublicHomeNavigationCopy;
-  onOpenAuth: (intent: HomeAuthIntent) => void;
-}) {
-  return (
-    <div className="flex w-full gap-4">
-      <HomeButton
-        className={cn(
-          "min-w-0 flex-1 rounded-[8px] px-0 text-[24px] leading-[normal] hover:-translate-y-0",
-          mobile ? "h-[49px]" : "h-[49px]",
-        )}
-        onClick={() => onOpenAuth("login")}
-        variant="authSecondary"
-      >
-        {navigation.signInLabel}
-      </HomeButton>
-      <HomeButton
-        className="h-[49px] min-w-0 flex-1 rounded-[8px] px-0 text-[24px] leading-[normal] hover:-translate-y-0"
-        onClick={() => onOpenAuth("signup")}
-        variant="authPrimary"
-      >
-        {navigation.signUpLabel}
-      </HomeButton>
-    </div>
   );
 }
 
@@ -233,7 +201,7 @@ function DesktopTopBar({
         </Link>
 
         <div className="absolute left-[730px] top-[42px] w-[287px]">
-          <AuthTriggerGroup navigation={navigation} onOpenAuth={onOpenAuth} />
+          <HomeAuthButtonGroup navigation={navigation} onOpenAuth={onOpenAuth} />
         </div>
 
         <div
@@ -560,7 +528,7 @@ function MobileTopSection({
           className="absolute top-[69px]"
           style={{ left: pct(37, 360), width: pct(287, 360) }}
         >
-          <AuthTriggerGroup mobile navigation={content.navigation} onOpenAuth={onOpenAuth} />
+          <HomeAuthButtonGroup navigation={content.navigation} onOpenAuth={onOpenAuth} />
         </div>
 
         <div

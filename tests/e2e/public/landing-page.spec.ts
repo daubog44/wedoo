@@ -32,13 +32,17 @@ test.describe("landing page", () => {
     await expect(downloadLink).toBeVisible();
     await expect(downloadLink).toHaveAttribute("href", "/manifest.webmanifest");
 
+    const authButtonGroup = page.getByRole("group", {
+      name: publicCopy.home.authButtonGroupLabel,
+    });
+    await expect(authButtonGroup).toBeVisible();
     await expect(
-      page.getByRole("button", {
+      authButtonGroup.getByRole("button", {
         name: publicCopy.home.signInCta,
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole("button", {
+      authButtonGroup.getByRole("button", {
         name: publicCopy.home.signUpCta,
       }),
     ).toBeVisible();
