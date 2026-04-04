@@ -1,56 +1,8 @@
+import { candidateProfileDraftMock, createCandidateRegistrationWizardSteps } from './candidate-profile'
 import type { WizardStep } from './types'
 
-export const candidateWizardSteps: WizardStep[] = [
-  {
-    description:
-      'Parti dalle info essenziali e vai online con un onboarding molto piu leggero di un form HR tradizionale.',
-    eyebrow: 'Step 1',
-    fields: [
-      { key: 'fullName', label: 'Nome e cognome', placeholder: 'Inserisci nome e cognome', type: 'text' },
-      { key: 'email', label: 'Email', placeholder: 'Inserisci la mail', type: 'email' },
-      { key: 'phone', label: 'Numero di telefono', placeholder: 'Inserisci il numero di telefono', type: 'tel' },
-      { key: 'password', label: 'Password', placeholder: 'Crea una password', type: 'password' },
-      { key: 'confirmPassword', label: 'Conferma password', placeholder: 'Ripeti la password', type: 'password' },
-      {
-        helper: 'Simulazione statica del flusso originale. Il consenso apre lo step successivo.',
-        key: 'privacy',
-        label: 'Ho preso visione dell informativa privacy',
-        type: 'checkbox',
-      },
-    ],
-    image: 'formcandidati1.png',
-    index: 1,
-    title: 'Registrati come candidato',
-  },
-  {
-    description:
-      'Seleziona gli SDG che ti rappresentano e le mansioni da cui vuoi partire: il matching usera soprattutto questi due segnali.',
-    eyebrow: 'Step 2',
-    fields: [
-      {
-        key: 'sdgFocus',
-        label: 'In quali SDG rispecchi il tuo impegno?',
-        options: ['Parita di genere', 'Consumo responsabile', 'Clima', 'Ridurre le disuguaglianze'],
-        type: 'chips',
-      },
-      {
-        key: 'roles',
-        label: 'Quali mansioni ti interessano?',
-        options: ['Comunicazione', 'Data', 'UX writing', 'Marketing', 'Operations'],
-        type: 'chips',
-      },
-      {
-        key: 'message',
-        label: 'Racconta in due righe cosa cerchi',
-        placeholder: 'Quali contesti, valori o responsabilita vuoi trovare nel tuo primo ruolo?',
-        type: 'textarea',
-      },
-    ],
-    image: 'formcandidati2.png',
-    index: 2,
-    title: 'Dicci qualcosa in piu',
-  },
-]
+export const candidateWizardSteps: WizardStep[] =
+  createCandidateRegistrationWizardSteps(candidateProfileDraftMock)
 
 export const companyWizardSteps: WizardStep[] = [
   {
