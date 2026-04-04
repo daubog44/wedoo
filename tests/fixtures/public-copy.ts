@@ -6,13 +6,17 @@ export const publicRoutes = {
 
 export const publicCopy = {
   home: {
-    heroTitle: "No hype. No frasi fatte. Solo realtà sostenibili.",
+    heroTitle: "No hype. No frasi fatte. Solo realt\u00E0 sostenibili.",
     heroSubtitle:
-      "Ogni annuncio è una promessa verificata. Perché il cambiamento non può essere una bugia.",
+      "Ogni annuncio \u00E8 una promessa verificata. Perch\u00E9 il cambiamento non pu\u00F2 essere una bugia.",
+    heroSubtitleLines: [
+      "Ogni annuncio \u00E8 una promessa verificata.",
+      "Perch\u00E9 il cambiamento non pu\u00F2 essere una bugia.",
+    ],
     howItWorksMobile:
       "Una piattaforma unica per chi cerca lavoro con impatto e chi lo offre.",
     howItWorksTitle:
-      "Wedoo è dove il talento e la sostenibilità si incontrano per davvero",
+      "Wedoo \u00E8 dove il talento e la sostenibilit\u00E0 si incontrano per davvero",
     impactStatement: "Wedoo aiuta la GenZ a trovare stage e tirocini in aziende",
     companyPrompt: "sei un'azienda?",
     signInCta: "accedi",

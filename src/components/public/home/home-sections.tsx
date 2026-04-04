@@ -273,6 +273,8 @@ function DesktopTopBar({
 }
 
 function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
+  const desktopHeroSubtitleLines = content.hero.subtitle.split("\n");
+
   return (
     <section className="relative h-[761px] w-full overflow-hidden">
       <div className="absolute left-0 right-0 top-[439px] h-[322px] bg-[var(--wedoo-violet-panel)]" />
@@ -288,17 +290,17 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         <h1
           className="font-wedoo-heading absolute text-center text-[48px] text-[var(--wedoo-ink)]"
           style={{
-            left: 226,
+            left: 220,
             lineHeight: "normal",
             top: 82,
-            width: 988,
+            width: 1000,
           }}
         >
           {content.hero.title}
         </h1>
 
-        <p
-          className="font-wedoo-accent absolute whitespace-pre-line text-center text-[36px] text-[var(--wedoo-ink)]"
+        <div
+          className="font-wedoo-accent absolute text-center text-[36px] text-[var(--wedoo-ink)]"
           style={{
             left: 220,
             lineHeight: "normal",
@@ -306,8 +308,10 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
             width: 1000,
           }}
         >
-          {content.hero.subtitle}
-        </p>
+          {desktopHeroSubtitleLines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
 
         <div className="absolute left-[627px] top-[268px]">
           <HomeDownloadAppButton
@@ -544,6 +548,8 @@ function MobileTopSection({
   content,
   onOpenAuth,
 }: HomePageProps) {
+  const mobileHeroSubtitleLines = content.hero.subtitle.split("\n");
+
   return (
     <section className="relative h-[469px] w-full">
       <div className={mobileFrameClassName}>
@@ -595,8 +601,8 @@ function MobileTopSection({
           {content.hero.title}
         </h1>
 
-        <p
-          className="font-wedoo-accent absolute whitespace-pre-line text-center text-[24px] text-[var(--wedoo-ink)]"
+        <div
+          className="font-wedoo-accent absolute text-center text-[24px] text-[var(--wedoo-ink)]"
           style={{
             left: pct(25, 360),
             lineHeight: "normal",
@@ -604,8 +610,10 @@ function MobileTopSection({
             width: pct(311, 360),
           }}
         >
-          {content.hero.subtitle}
-        </p>
+          {mobileHeroSubtitleLines.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
 
         <div className="absolute top-[390px]" style={{ left: pct(87, 360) }}>
           <HomeDownloadAppButton

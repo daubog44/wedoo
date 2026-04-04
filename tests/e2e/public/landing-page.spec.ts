@@ -22,8 +22,13 @@ test.describe("landing page", () => {
     ).toBeVisible();
     await expect(
       page.locator("p:visible").filter({
-        hasText: publicCopy.home.heroSubtitle,
-      }),
+        hasText: publicCopy.home.heroSubtitleLines[0],
+      }).first(),
+    ).toBeVisible();
+    await expect(
+      page.locator("p:visible").filter({
+        hasText: publicCopy.home.heroSubtitleLines[1],
+      }).first(),
     ).toBeVisible();
 
     const downloadLink = page.getByRole("link", {
