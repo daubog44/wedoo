@@ -2,6 +2,7 @@ export type AuthTone = "mint" | "violet" | "lilac";
 
 export type AuthFieldViewModel =
   | {
+      defaultChecked?: boolean;
       id: string;
       kind: "checkbox";
       label: string;
@@ -10,6 +11,7 @@ export type AuthFieldViewModel =
       required?: boolean;
     }
   | {
+      errorText?: string;
       id: string;
       kind: "input";
       inputType: "email" | "password" | "tel" | "text";
@@ -30,6 +32,7 @@ export type AuthViewModel = {
   background: string;
   ctaLabel: string;
   ctaTo: string;
+  dividerLabel?: string;
   errors: readonly AuthErrorViewModel[];
   fields: readonly AuthFieldViewModel[];
   footerPrompt?: {
@@ -37,8 +40,14 @@ export type AuthViewModel = {
     linkLabel: string;
     linkTo: string;
   };
+  forgotPasswordLabel?: string;
   id: "login" | "register-candidate" | "register-company";
+  providerOptions?: readonly {
+    id: "apple" | "google";
+    label: string;
+  }[];
   providerButtons?: boolean;
+  showMissingFieldErrorsByDefault?: boolean;
   subtitle?: string;
   title: string;
   tone: AuthTone;
@@ -55,8 +64,9 @@ const privacyField = {
 
 export const loginAuthViewModel = {
   background: "accedi.png",
-  ctaLabel: "continua",
+  ctaLabel: "accedi",
   ctaTo: "/portale/candidato",
+  dividerLabel: "oppure",
   errors: [
     {
       description: "Inserisci email e password prima di continuare.",
@@ -67,19 +77,28 @@ export const loginAuthViewModel = {
   ],
   fields: [
     {
+      errorText: "*email mancante",
       id: "email",
       inputType: "email",
       kind: "input",
-      label: "email*",
-      placeholder: "inserisci la mail",
+      label: "email",
+      placeholder: "inserisci qui la tua mail",
       required: true,
     },
     {
+      errorText: "*password mancante",
       id: "password",
       inputType: "password",
       kind: "input",
-      label: "password*",
-      placeholder: "inserisci una password",
+      label: "password",
+      placeholder: "inserisci la password",
+      required: true,
+    },
+    {
+      defaultChecked: true,
+      id: "terms",
+      kind: "checkbox",
+      label: "accetto i termini e le condizioni",
       required: true,
     },
   ],
@@ -88,10 +107,22 @@ export const loginAuthViewModel = {
     linkLabel: "registrati",
     linkTo: "/registrati",
   },
+  forgotPasswordLabel: "password dimenticata",
   id: "login",
   providerButtons: true,
+  providerOptions: [
+    {
+      id: "google",
+      label: "accedi con Google",
+    },
+    {
+      id: "apple",
+      label: "accedi con Apple",
+    },
+  ],
+  showMissingFieldErrorsByDefault: true,
   subtitle: "Accedi",
-  title: "Benvenut*!",
+  title: "Bentornat*!",
   tone: "lilac",
 } as const satisfies AuthViewModel;
 

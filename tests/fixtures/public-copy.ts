@@ -1,6 +1,7 @@
 export const publicRoutes = {
   home: "/",
   info: "/info",
+  login: "/accedi",
   register: "/registrati",
 } as const;
 
@@ -36,6 +37,21 @@ export const publicCopy = {
     termsOfUse: "Termini d'uso",
     contactEmail: "help@wedoo.com",
     signInDialogTitle: "Accedi a Wedoo",
+  },
+  login: {
+    ctaLabel: "accedi",
+    emailError: "*email mancante",
+    emailLabel: "email",
+    forgotPassword: "password dimenticata",
+    heading: "Bentornat*!",
+    providerApple: "accedi con Apple",
+    providerGoogle: "accedi con Google",
+    passwordError: "*password mancante",
+    passwordLabel: "password",
+    registerPrompt: "non hai un account?",
+    registerPromptLink: "registrati",
+    subtitle: "Accedi",
+    termsLabel: "accetto i termini e le condizioni",
   },
   info: {
     aboutHeading: "noi x noi",

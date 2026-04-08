@@ -30,7 +30,7 @@ describe("mock data services", () => {
     expect(login).toMatchObject({
       id: "login",
       providerButtons: true,
-      title: "Benvenut*!",
+      title: "Bentornat*!",
     });
   });
 

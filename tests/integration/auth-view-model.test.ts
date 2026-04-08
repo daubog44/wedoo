@@ -17,6 +17,16 @@ describe("AuthViewModel", () => {
         title: "Campi mancanti",
       },
     ]);
+    expect(loginAuthViewModel.fields.map((field) => field.id)).toEqual([
+      "email",
+      "password",
+      "terms",
+    ]);
+    expect(loginAuthViewModel.providerOptions?.map((provider) => provider.id)).toEqual([
+      "google",
+      "apple",
+    ]);
+    expect(loginAuthViewModel.showMissingFieldErrorsByDefault).toBe(true);
   });
 
   it("centralizes the required fields for candidate and company registration", () => {
