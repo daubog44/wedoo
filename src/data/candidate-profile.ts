@@ -18,11 +18,20 @@ export type CandidateContactOption = {
 };
 
 export type CandidateEducationDraftEntry = {
+  activities: readonly string[];
   course: string;
   current: boolean;
+  degreeType: string;
   endYear?: string;
+  erasmus: {
+    city: string;
+    country: string;
+    institution: string;
+  };
   id: string;
   institution: string;
+  projectWorkDescription: string;
+  specificCourses: readonly string[];
   startYear: string;
 };
 
@@ -71,18 +80,37 @@ export const candidateProfileDraftMock = {
   },
   education: [
     {
-      course: "Laurea magistrale in Design della comunicazione",
-      current: true,
-      id: "edu-polimi",
-      institution: "Politecnico di Milano",
-      startYear: "2024",
+      activities: ["erasmus+", "project work", "corsi specifici"],
+      course: "comunicazione pubblica d'impresa",
+      current: false,
+      degreeType: "laurea magistrale",
+      endYear: "2021",
+      erasmus: {
+        city: "",
+        country: "",
+        institution: "",
+      },
+      id: "edu-sapienza",
+      institution: "università della Sapienza - Roma",
+      projectWorkDescription: "",
+      specificCourses: ["Employer branding ESG"],
+      startYear: "2016",
     },
     {
-      course: "Laurea triennale in Scienze della comunicazione",
+      activities: [],
+      course: "comunicazione e media digitali",
       current: false,
+      degreeType: "laurea triennale",
       endYear: "2023",
-      id: "edu-statale",
-      institution: "Universita degli Studi di Milano",
+      erasmus: {
+        city: "",
+        country: "",
+        institution: "",
+      },
+      id: "edu-roma-tre",
+      institution: "Università Roma Tre",
+      projectWorkDescription: "",
+      specificCourses: [],
       startYear: "2021",
     },
   ],
@@ -155,6 +183,132 @@ export function getCandidateContactCityOptions(
 
 export function formatCandidateContactLocation(contact: CandidateContactDraft) {
   return `${contact.postalCode} - ${contact.city} (${contact.provinceCode})`;
+}
+
+export const candidateEducationDegreeOptions = [
+  "laurea triennale",
+  "laurea magistrale",
+  "master",
+  "diploma scuola superiore",
+  "specializzazione post-diploma",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateEducationExtracurricularOptions = [
+  "erasmus+",
+  "project work",
+  "corsi specifici",
+  "corsi di lingue",
+  "informatica",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateEducationYearOptions = [
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+  "2024",
+  "2025",
+  "2026",
+  "in corso",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateEducationCountryOptions = [
+  "Italia",
+  "Spagna",
+  "Francia",
+  "Germania",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+const candidateEducationCityOptionsByCountry = {
+  Francia: [
+    { label: "Parigi", value: "Parigi" },
+    { label: "Lione", value: "Lione" },
+  ],
+  Germania: [
+    { label: "Berlino", value: "Berlino" },
+    { label: "Monaco", value: "Monaco" },
+  ],
+  Italia: [
+    { label: "Roma", value: "Roma" },
+    { label: "Milano", value: "Milano" },
+  ],
+  Spagna: [
+    { label: "Barcellona", value: "Barcellona" },
+    { label: "Madrid", value: "Madrid" },
+  ],
+} as const satisfies Record<string, readonly CandidateContactOption[]>;
+
+const candidateEducationInstituteOptionsByCity = {
+  Barcellona: [
+    { label: "Universitat de Barcelona", value: "Universitat de Barcelona" },
+    { label: "Pompeu Fabra University", value: "Pompeu Fabra University" },
+  ],
+  Berlino: [
+    { label: "Humboldt-Universität zu Berlin", value: "Humboldt-Universität zu Berlin" },
+  ],
+  Lione: [
+    { label: "Université Lumière Lyon 2", value: "Université Lumière Lyon 2" },
+  ],
+  Madrid: [
+    { label: "Universidad Complutense de Madrid", value: "Universidad Complutense de Madrid" },
+  ],
+  Milano: [
+    { label: "Università Cattolica del Sacro Cuore", value: "Università Cattolica del Sacro Cuore" },
+  ],
+  Monaco: [
+    { label: "Ludwig-Maximilians-Universität München", value: "Ludwig-Maximilians-Universität München" },
+  ],
+  Parigi: [
+    { label: "Sorbonne Université", value: "Sorbonne Université" },
+  ],
+  Roma: [
+    { label: "università della Sapienza - Roma", value: "università della Sapienza - Roma" },
+    { label: "Università Roma Tre", value: "Università Roma Tre" },
+  ],
+} as const satisfies Record<string, readonly CandidateContactOption[]>;
+
+export const candidateEducationSpecificCourseOptions = [
+  "Employer branding ESG",
+  "Digital storytelling",
+  "Social media strategy",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export function getCandidateEducationCityOptions(
+  country: string,
+): readonly CandidateContactOption[] {
+  const countryOptions =
+    candidateEducationCityOptionsByCountry[
+      country as keyof typeof candidateEducationCityOptionsByCountry
+    ];
+
+  if (countryOptions) {
+    return countryOptions;
+  }
+
+  return Object.values(candidateEducationCityOptionsByCountry).flat();
+}
+
+export function getCandidateEducationInstituteOptions(
+  city: string,
+): readonly CandidateContactOption[] {
+  const cityOptions =
+    candidateEducationInstituteOptionsByCity[
+      city as keyof typeof candidateEducationInstituteOptionsByCity
+    ];
+
+  if (cityOptions) {
+    return cityOptions;
+  }
+
+  return Object.values(candidateEducationInstituteOptionsByCity).flat();
 }
 
 export function createCandidateRegistrationWizardSteps(

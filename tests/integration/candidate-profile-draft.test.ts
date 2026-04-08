@@ -12,6 +12,14 @@ describe("CandidateProfileDraft", () => {
     expect(candidateProfileDraftMock.contact.postalCode).toBe("00012");
     expect(candidateProfileDraftMock.contact.provinceCode).toBe("RM");
     expect(candidateProfileDraftMock.education).toHaveLength(2);
+    expect(candidateProfileDraftMock.education[0]).toMatchObject({
+      activities: ["erasmus+", "project work", "corsi specifici"],
+      course: "comunicazione pubblica d'impresa",
+      degreeType: "laurea magistrale",
+      institution: "università della Sapienza - Roma",
+      specificCourses: ["Employer branding ESG"],
+      startYear: "2016",
+    });
     expect(candidateProfileDraftMock.experiences[0]?.company).toBe("Impact Hub Milano");
     expect(candidateProfileDraftMock.skills.hardSkills).toContain("Copywriting");
   });

@@ -1,5 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
 import { CandidateContactsStep } from "../../components/public/candidate-contacts-step";
+import { CandidateEducationStep } from "../../components/public/candidate-education-step";
 import {
   BackdropPageShell,
   FormPageContent,
@@ -17,7 +18,20 @@ export default function CandidateWizardPage() {
     return (
       <>
         <TopLogoBar />
-        <CandidateContactsStep draft={candidateProfileDraftMock} />
+        <CandidateContactsStep
+          draft={candidateProfileDraftMock}
+          saveTo="/registrati/candidato/3"
+        />
+        <SiteFooter className="mt-0" />
+      </>
+    );
+  }
+
+  if (stepIndex === 3) {
+    return (
+      <>
+        <TopLogoBar />
+        <CandidateEducationStep draft={candidateProfileDraftMock} />
         <SiteFooter className="mt-0" />
       </>
     );

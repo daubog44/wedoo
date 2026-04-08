@@ -14,6 +14,7 @@ import { SiteIcon } from "../site";
 
 type CandidateContactsStepProps = {
   draft: CandidateProfileDraft;
+  saveTo?: string;
 };
 
 type CandidateContactsFormState = {
@@ -168,7 +169,10 @@ function createInitialFormState(): CandidateContactsFormState {
   };
 }
 
-export function CandidateContactsStep({ draft }: CandidateContactsStepProps) {
+export function CandidateContactsStep({
+  draft,
+  saveTo = "/portale/candidato",
+}: CandidateContactsStepProps) {
   const navigate = useNavigate();
   const [formState, setFormState] = useState(createInitialFormState);
 
@@ -225,7 +229,7 @@ export function CandidateContactsStep({ draft }: CandidateContactsStepProps) {
               className="space-y-8"
               onSubmit={(event) => {
                 event.preventDefault();
-                navigate("/portale/candidato");
+                navigate(saveTo);
               }}
             >
               <ContactSection
