@@ -112,6 +112,20 @@ test.describe("landing page", () => {
     await expect(patronageSection.locator("img")).toHaveCount(0);
     await expect(
       page.locator("p:visible").filter({
+        hasText: publicCopy.home.footerRightsLine,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: publicCopy.home.privacyPolicy, exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: publicCopy.home.cookiePolicy, exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: publicCopy.home.termsOfUse, exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.locator("p:visible").filter({
         hasText: publicCopy.home.contactEmail,
       }),
     ).toBeVisible();

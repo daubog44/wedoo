@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { documents, routeMap } from "../../../data/core";
 import type {
@@ -103,6 +104,43 @@ function LegalLinks({ small = false }: { small?: boolean }) {
         </span>
       ))}
     </>
+  );
+}
+
+function FooterLegalCopy({
+  content,
+  compact = false,
+  className,
+  style,
+}: {
+  content: PublicHomeContent["footer"];
+  compact?: boolean;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <div
+      className={cn(
+        "absolute flex flex-col items-center text-center font-medium text-[var(--wedoo-white-soft)]",
+        compact ? "gap-[6px] text-[10px]" : "gap-2 text-[15px]",
+        className,
+      )}
+      style={{ fontFamily: '"Inter", var(--wedoo-font-body)', ...style }}
+    >
+      <p className="leading-none">&copy; {content.rightsLine}</p>
+      <p className="leading-none italic">{content.projectStatus}</p>
+      <p className="leading-none">
+        {content.contactLabel}: {content.contactEmail}
+      </p>
+      <p className={cn("leading-none", compact ? "" : "whitespace-nowrap")}>
+        <LegalLinks small={compact} />
+      </p>
+      {content.disclaimers.map((line) => (
+        <p className="leading-none italic" key={line}>
+          {line}
+        </p>
+      ))}
+    </div>
   );
 }
 
@@ -520,26 +558,7 @@ function DesktopFooter({ content }: { content: PublicHomeContent }) {
           />
         </Link>
 
-        <div
-          className="font-wedoo-body absolute top-[77px] flex flex-col items-center text-center text-[15px]"
-          style={{ left: 463, width: 514 }}
-        >
-          <p style={{ lineHeight: "normal" }}>&copy; {content.footer.rightsLine}</p>
-          <p className="mt-6 italic" style={{ lineHeight: "normal" }}>
-            {content.footer.projectStatus}
-          </p>
-          <p className="mt-6" style={{ lineHeight: "normal" }}>
-            {content.footer.contactLabel}: {content.footer.contactEmail}
-          </p>
-          <p className="mt-6 whitespace-nowrap" style={{ lineHeight: "normal" }}>
-            <LegalLinks />
-          </p>
-          {content.footer.disclaimers.map((line) => (
-            <p className="mt-6 italic" key={line} style={{ lineHeight: "normal" }}>
-              {line}
-            </p>
-          ))}
-        </div>
+        <FooterLegalCopy content={content.footer} className="top-[77px]" style={{ left: 463, width: 514 }} />
       </div>
     </footer>
   );
@@ -794,36 +813,22 @@ function MobilePatronageSection({ content }: { content: PublicHomeContent }) {
 
 function MobileFooter({ content }: { content: PublicHomeContent }) {
   return (
-    <footer className="relative h-[231px] w-full bg-[var(--wedoo-violet-deep)] text-[var(--wedoo-white-soft)]">
+    <footer className="relative h-[236px] w-full bg-[var(--wedoo-violet-deep)] text-[var(--wedoo-white-soft)]">
       <div className={mobileFrameClassName}>
-        <Link className="absolute top-[11px]" style={{ left: pct(12, 360) }} to="/">
+        <Link className="absolute top-[10px]" style={{ left: pct(12, 360) }} to="/">
           <img
             alt="Wedoo"
-            className="h-[44px] w-[109px] object-contain"
-            src={assetPath("scritta-wedoo.png")}
+            className="h-[51px] w-[109px] object-contain"
+            src={assetPath("Frame-2@2x.png")}
           />
         </Link>
 
-        <div
-          className="absolute top-[63px] text-center text-[10px]"
+        <FooterLegalCopy
+          compact
+          content={content.footer}
+          className="top-[67px]"
           style={{ left: pct(15, 360), width: pct(334, 360) }}
-        >
-          <p style={{ lineHeight: "normal" }}>&copy; {content.footer.rightsLine}</p>
-          <p className="mt-4 italic" style={{ lineHeight: "normal" }}>
-            {content.footer.projectStatus}
-          </p>
-          <p className="mt-4" style={{ lineHeight: "normal" }}>
-            {content.footer.contactLabel}: {content.footer.contactEmail}
-          </p>
-          <p className="mt-4" style={{ lineHeight: "normal" }}>
-            <LegalLinks small />
-          </p>
-          {content.footer.disclaimers.map((line) => (
-            <p className="mt-4 italic" key={line} style={{ lineHeight: "normal" }}>
-              {line}
-            </p>
-          ))}
-        </div>
+        />
       </div>
     </footer>
   );
