@@ -120,13 +120,13 @@ Regole:
 - [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Coprire i principali stati errore e il consenso del login pubblico.
 - [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Aggiungere snapshot VRT reali per la route login quando il frame auth si stabilizza.
 - [x] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Coprire il flow contatti del wizard candidato.
-- [ ] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Aggiungere snapshot VRT reali per il frame contatti quando il flow si stabilizza.
+- [x] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Aggiungere snapshot VRT reali per il frame contatti quando il flow si stabilizza.
 - [x] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Coprire il flow formazione del wizard candidato.
-- [ ] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-education.visual.spec.ts] Aggiungere snapshot VRT reali per il frame formazione quando il flow si stabilizza.
+- [x] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-education.visual.spec.ts] Aggiungere snapshot VRT reali per il frame formazione quando il flow si stabilizza.
 - [x] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Coprire il flow esperienze lavorative del wizard candidato.
-- [ ] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-work-experience.visual.spec.ts] Aggiungere snapshot VRT reali per il frame esperienze quando il flow si stabilizza.
+- [x] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-work-experience.visual.spec.ts] Aggiungere snapshot VRT reali per il frame esperienze quando il flow si stabilizza.
 - [x] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Coprire il flow competenze del wizard candidato.
-- [ ] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-skills.visual.spec.ts] Aggiungere snapshot VRT reali per il frame competenze quando il flow si stabilizza.
+- [x] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-skills.visual.spec.ts] Aggiungere snapshot VRT reali per il frame competenze quando il flow si stabilizza.
 - [ ] [TEST][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Coprire il primo step del wizard annuncio azienda.
 - [ ] [TEST][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-1.visual.spec.ts] Aggiungere snapshot VRT reali per il primo step annuncio azienda quando il flow si stabilizza.
 - [ ] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il secondo step del wizard annuncio azienda.
