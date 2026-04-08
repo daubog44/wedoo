@@ -1,16 +1,16 @@
 import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import type {
-  CandidateContactOption,
-  CandidateProfileDraft,
-} from "../../data/candidate-profile";
+import type { CandidateProfileDraft } from "../../data/candidate-profile";
 import {
   candidateContactProvinceOptions,
   formatCandidateContactLocation,
   getCandidateContactCityOptions,
 } from "../../data/candidate-profile";
-import { cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
+import {
+  CandidateWizardSelectField,
+  CandidateWizardTextField,
+} from "./candidate-wizard-fields";
 
 type CandidateContactsStepProps = {
   draft: CandidateProfileDraft;
@@ -24,9 +24,6 @@ type CandidateContactsFormState = {
   postalCode: string;
   province: string;
 };
-
-const contactFieldClassName =
-  "h-[50px] rounded-[8px] border border-brand-mint-deep bg-transparent px-4 font-wedoo-body text-[1.375rem] leading-none text-brand-ink outline-none transition placeholder:text-black/35 focus:border-brand-mint-deep focus:ring-2 focus:ring-brand-mint-deep/20";
 
 function ContactSummaryItem({ value }: { value: string }) {
   return (
@@ -59,103 +56,6 @@ function ContactSection({
       </ul>
       {children}
     </section>
-  );
-}
-
-function ContactFieldLabel({
-  hideLabel = false,
-  htmlFor,
-  label,
-}: {
-  hideLabel?: boolean;
-  htmlFor: string;
-  label: string;
-}) {
-  return (
-    <label
-      className={cn(
-        "font-wedoo-accent text-[1.125rem] font-normal leading-none text-black md:text-[1.5rem]",
-        hideLabel && "sr-only",
-      )}
-      htmlFor={htmlFor}
-    >
-      {label}
-    </label>
-  );
-}
-
-function ContactSelectField({
-  id,
-  label,
-  onChange,
-  options,
-  value,
-}: {
-  id: string;
-  label: string;
-  onChange: (value: string) => void;
-  options: readonly CandidateContactOption[];
-  value: string;
-}) {
-  return (
-    <div className="grid gap-2">
-      <ContactFieldLabel htmlFor={id} label={label} />
-      <div className="relative">
-        <select
-          className={cn(
-            contactFieldClassName,
-            "w-full appearance-none pr-12",
-            value ? "text-brand-ink" : "text-black/35",
-          )}
-          id={id}
-          onChange={(event) => onChange(event.target.value)}
-          value={value}
-        >
-          <option value="">scegli</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <SiteIcon
-          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink"
-          name="chevron-down"
-        />
-      </div>
-    </div>
-  );
-}
-
-function ContactTextField({
-  hideLabel = false,
-  id,
-  label,
-  onChange,
-  placeholder = "scrivi",
-  type = "text",
-  value,
-}: {
-  hideLabel?: boolean;
-  id: string;
-  label: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  type?: "email" | "tel" | "text";
-  value: string;
-}) {
-  return (
-    <div className="grid gap-2">
-      <ContactFieldLabel hideLabel={hideLabel} htmlFor={id} label={label} />
-      <input
-        className={cn(contactFieldClassName, "w-full")}
-        id={id}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-        type={type}
-        value={value}
-      />
-    </div>
   );
 }
 
@@ -237,21 +137,21 @@ export function CandidateContactsStep({
                 summary={formatCandidateContactLocation(draft.contact)}
               >
                 <div className="grid gap-4 md:grid-cols-3 md:gap-[40px]">
-                  <ContactSelectField
+                  <CandidateWizardSelectField
                     id="candidate-contact-province"
                     label="provincia"
                     onChange={updateProvince}
                     options={candidateContactProvinceOptions}
                     value={formState.province}
                   />
-                  <ContactSelectField
+                  <CandidateWizardSelectField
                     id="candidate-contact-city"
                     label={"citt\u00E0"}
                     onChange={(value) => updateField("city", value)}
                     options={cityOptions}
                     value={formState.city}
                   />
-                  <ContactTextField
+                  <CandidateWizardTextField
                     id="candidate-contact-postal-code"
                     label="CAP"
                     onChange={(value) => updateField("postalCode", value)}
@@ -261,7 +161,7 @@ export function CandidateContactsStep({
               </ContactSection>
 
               <ContactSection heading="e-mail" summary={draft.contact.email}>
-                <ContactTextField
+                <CandidateWizardTextField
                   id="candidate-contact-email"
                   hideLabel
                   label="e-mail"
@@ -275,7 +175,7 @@ export function CandidateContactsStep({
                 heading="numero di telefono"
                 summary={draft.contact.phone}
               >
-                <ContactTextField
+                <CandidateWizardTextField
                   id="candidate-contact-phone"
                   hideLabel
                   label="numero di telefono"

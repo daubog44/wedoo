@@ -101,10 +101,10 @@ Regole:
 - [x] [FRAME][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Implementare `pop up formazione` come modal o step del profilo candidato.
 - [x] [FRAME][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Implementare `pop up esperienze lavorative` come modal o step del profilo candidato.
 - [x] [FRAME][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Implementare `pop up competenze` come modal o step del profilo candidato.
-- [ ] [COMP][node=280:1093][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select grande come base dei campi a tendina.
-- [ ] [COMP][node=280:1099][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select anno come variante select compatta.
-- [ ] [COMP][node=281:1255][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Estrarre il pattern `Input` text field come base dei campi testuali.
-- [ ] [COMP][node=2:543][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Mappare il componente `Chevron down` per i campi select.
+- [x] [COMP][node=280:1093][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select grande come base dei campi a tendina.
+- [x] [COMP][node=280:1099][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select anno come variante select compatta.
+- [x] [COMP][node=281:1255][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Estrarre il pattern `Input` text field come base dei campi testuali.
+- [x] [COMP][node=2:543][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Mappare il componente `Chevron down` per i campi select.
 
 ### Wizard Azienda E Creazione Annuncio
 

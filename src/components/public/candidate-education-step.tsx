@@ -1,7 +1,6 @@
 import { type ReactNode, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type {
-  CandidateContactOption,
   CandidateEducationDraftEntry,
   CandidateProfileDraft,
 } from "../../data/candidate-profile";
@@ -17,6 +16,12 @@ import {
 import { AppIcon } from "../../lib/icons";
 import { cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
+import {
+  CandidateWizardFieldLabel,
+  CandidateWizardSelectField,
+  CandidateWizardTextField,
+  CandidateWizardYearSelectField,
+} from "./candidate-wizard-fields";
 
 type CandidateEducationStepProps = {
   draft: CandidateProfileDraft;
@@ -36,9 +41,6 @@ type CandidateEducationFormState = {
   specificCourse: string;
   startYear: string;
 };
-
-const educationFieldClassName =
-  "h-[50px] rounded-[8px] border border-brand-mint-deep bg-transparent px-4 font-wedoo-body text-[1.375rem] leading-none text-brand-ink outline-none transition placeholder:text-black/35 focus:border-brand-mint-deep focus:ring-2 focus:ring-brand-mint-deep/20";
 
 const emptyEducationEntry: CandidateEducationDraftEntry = {
   activities: [],
@@ -98,28 +100,6 @@ function SectionTitle({
   );
 }
 
-function FieldLabel({
-  hideLabel = false,
-  htmlFor,
-  label,
-}: {
-  hideLabel?: boolean;
-  htmlFor: string;
-  label: string;
-}) {
-  return (
-    <label
-      className={cn(
-        "font-wedoo-accent text-[1.125rem] font-normal leading-none text-black md:text-[1.5rem]",
-        hideLabel && "sr-only",
-      )}
-      htmlFor={htmlFor}
-    >
-      {label}
-    </label>
-  );
-}
-
 function HintList({
   className,
   items,
@@ -138,81 +118,6 @@ function HintList({
         <li key={item}>{item}</li>
       ))}
     </ul>
-  );
-}
-
-function SelectField({
-  hideLabel = false,
-  id,
-  label,
-  onChange,
-  options,
-  value,
-}: {
-  hideLabel?: boolean;
-  id: string;
-  label: string;
-  onChange: (value: string) => void;
-  options: readonly CandidateContactOption[];
-  value: string;
-}) {
-  return (
-    <div className="grid gap-2">
-      <FieldLabel hideLabel={hideLabel} htmlFor={id} label={label} />
-      <div className="relative">
-        <select
-          className={cn(
-            educationFieldClassName,
-            "w-full appearance-none pr-12",
-            value ? "text-brand-ink" : "text-black/35",
-          )}
-          id={id}
-          onChange={(event) => onChange(event.target.value)}
-          value={value}
-        >
-          <option value="">scegli</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <SiteIcon
-          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink"
-          name="chevron-down"
-        />
-      </div>
-    </div>
-  );
-}
-
-function TextField({
-  hideLabel = false,
-  id,
-  label,
-  onChange,
-  placeholder = "scrivi",
-  value,
-}: {
-  hideLabel?: boolean;
-  id: string;
-  label: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  value: string;
-}) {
-  return (
-    <div className="grid gap-2">
-      <FieldLabel hideLabel={hideLabel} htmlFor={id} label={label} />
-      <input
-        className={cn(educationFieldClassName, "w-full")}
-        id={id}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-        type="text"
-        value={value}
-      />
-    </div>
   );
 }
 
@@ -331,7 +236,7 @@ export function CandidateEducationStep({
                 </div>
                 <HintList items={candidateEducationDegreeOptions.map((option) => option.label)} />
               </div>
-              <SelectField
+              <CandidateWizardSelectField
                 hideLabel
                 id="candidate-education-degree"
                 label="titolo di studio"
@@ -344,7 +249,7 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <SectionTitle>campo di studi</SectionTitle>
               <SummaryList items={[education.course]} />
-              <TextField
+              <CandidateWizardTextField
                 hideLabel
                 id="candidate-education-field"
                 label="campo di studi"
@@ -356,7 +261,7 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <SectionTitle>istituto di rilascio</SectionTitle>
               <SummaryList items={[education.institution]} />
-              <TextField
+              <CandidateWizardTextField
                 hideLabel
                 id="candidate-education-issuing-institution"
                 label="istituto di rilascio"
@@ -366,14 +271,14 @@ export function CandidateEducationStep({
             </section>
 
             <section className="grid gap-4 md:grid-cols-[207px_207px_1fr] md:items-start">
-              <SelectField
+              <CandidateWizardYearSelectField
                 id="candidate-education-start-year"
                 label="da anno"
                 onChange={(value) => updateField("startYear", value)}
                 options={candidateEducationYearOptions}
                 value={formState.startYear}
               />
-              <SelectField
+              <CandidateWizardYearSelectField
                 id="candidate-education-end-year"
                 label="ad anno"
                 onChange={(value) => updateField("endYear", value)}
@@ -392,7 +297,7 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <SectionTitle>{"attivit\u00E0 extracurriculari"}</SectionTitle>
               <SummaryList items={education.activities} />
-              <SelectField
+              <CandidateWizardSelectField
                 hideLabel
                 id="candidate-education-activities"
                 label={"attivit\u00E0 extracurriculari"}
@@ -419,14 +324,14 @@ export function CandidateEducationStep({
                   </p>
                 </div>
               </div>
-              <SelectField
+              <CandidateWizardSelectField
                 id="candidate-education-country"
                 label="paese"
                 onChange={updateCountry}
                 options={candidateEducationCountryOptions}
                 value={formState.erasmusCountry}
               />
-              <SelectField
+              <CandidateWizardSelectField
                 id="candidate-education-city"
                 label={"citt\u00E0"}
                 onChange={updateCity}
@@ -438,7 +343,7 @@ export function CandidateEducationStep({
                   collegato con localit\u00E0, fornisce gli istituti che si trovano
                   nella zona scelta
                 </p>
-                <SelectField
+                <CandidateWizardSelectField
                   id="candidate-education-institution"
                   label="istituto"
                   onChange={(value) => updateField("erasmusInstitution", value)}
@@ -457,7 +362,7 @@ export function CandidateEducationStep({
                 </p>
               </div>
               <div className="grid gap-2">
-                <FieldLabel
+                <CandidateWizardFieldLabel
                   htmlFor="candidate-education-project-work-description"
                   label="descrizione"
                 />
@@ -499,7 +404,7 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <SectionTitle emphasize>corsi specifici</SectionTitle>
               <SummaryList items={education.specificCourses} />
-              <SelectField
+              <CandidateWizardSelectField
                 hideLabel
                 id="candidate-education-specific-course"
                 label="corsi specifici"

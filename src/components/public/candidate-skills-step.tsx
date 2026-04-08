@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import type {
-  CandidateContactOption,
-  CandidateProfileDraft,
-} from "../../data/candidate-profile";
+import type { CandidateProfileDraft } from "../../data/candidate-profile";
 import {
   candidateHardSkillOptions,
   candidateSoftSkillOptions,
 } from "../../data/candidate-profile";
-import { cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
+import { CandidateWizardSelectField } from "./candidate-wizard-fields";
 
 type CandidateSkillsStepProps = {
   draft: CandidateProfileDraft;
@@ -20,9 +17,6 @@ type CandidateSkillsFormState = {
   hardSkill: string;
   softSkill: string;
 };
-
-const skillsFieldClassName =
-  "h-[50px] rounded-[8px] border border-brand-mint-deep bg-transparent px-4 font-wedoo-body text-[1.375rem] leading-none text-brand-ink outline-none transition placeholder:text-black/35 focus:border-brand-mint-deep focus:ring-2 focus:ring-brand-mint-deep/20";
 
 function formatSkillItem(item: string, index: number, items: readonly string[]) {
   return `${item}${index === items.length - 1 ? "." : ";"}`;
@@ -43,71 +37,6 @@ function SkillList({ items }: { items: readonly string[] }) {
         <li key={item}>{formatSkillItem(item, index, items)}</li>
       ))}
     </ul>
-  );
-}
-
-function FieldLabel({
-  hideLabel = false,
-  htmlFor,
-  label,
-}: {
-  hideLabel?: boolean;
-  htmlFor: string;
-  label: string;
-}) {
-  return (
-    <label
-      className={cn(
-        "font-wedoo-accent text-[1.125rem] font-normal leading-none text-black md:text-[1.5rem]",
-        hideLabel && "sr-only",
-      )}
-      htmlFor={htmlFor}
-    >
-      {label}
-    </label>
-  );
-}
-
-function SelectField({
-  id,
-  label,
-  onChange,
-  options,
-  value,
-}: {
-  id: string;
-  label: string;
-  onChange: (value: string) => void;
-  options: readonly CandidateContactOption[];
-  value: string;
-}) {
-  return (
-    <div className="grid gap-2">
-      <FieldLabel hideLabel htmlFor={id} label={label} />
-      <div className="relative">
-        <select
-          className={cn(
-            skillsFieldClassName,
-            "w-full appearance-none pr-12",
-            value ? "text-brand-ink" : "text-black/35",
-          )}
-          id={id}
-          onChange={(event) => onChange(event.target.value)}
-          value={value}
-        >
-          <option value="">scegli</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <SiteIcon
-          className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink"
-          name="chevron-down"
-        />
-      </div>
-    </div>
   );
 }
 
@@ -167,7 +96,7 @@ export function CandidateSkillsStep({
               <section className="space-y-5">
                 <SectionTitle>soft skills</SectionTitle>
                 <SkillList items={draft.skills.softSkills} />
-                <SelectField
+                <CandidateWizardSelectField
                   id="candidate-skills-soft"
                   label="soft skills"
                   onChange={(value) => updateField("softSkill", value)}
@@ -179,7 +108,7 @@ export function CandidateSkillsStep({
               <section className="space-y-5">
                 <SectionTitle>hard skills</SectionTitle>
                 <SkillList items={draft.skills.hardSkills} />
-                <SelectField
+                <CandidateWizardSelectField
                   id="candidate-skills-hard"
                   label="hard skills"
                   onChange={(value) => updateField("hardSkill", value)}
