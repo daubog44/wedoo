@@ -150,7 +150,7 @@ export const publicHomeResponseMock = {
     ],
     video: {
       previewAlt: "Wedoo spiegato in un click",
-      previewImage: "home-video-placeholder-desktop.png",
+      previewImage: "Rectangle-28@2x.png",
       title: "Wedoo spiegato in un click",
     },
     patronage: {

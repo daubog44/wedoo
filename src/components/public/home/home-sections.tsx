@@ -473,7 +473,7 @@ function DesktopVideoSection({ content }: { content: PublicHomeContent }) {
           <img
             alt={content.video.previewAlt}
             className="h-[500px] w-full object-cover"
-            src={assetPath("Rectangle-28@2x.png")}
+            src={assetPath(content.video.previewImage)}
           />
         </div>
       </div>

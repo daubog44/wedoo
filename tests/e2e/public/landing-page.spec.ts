@@ -98,6 +98,7 @@ test.describe("landing page", () => {
         name: publicCopy.home.videoTitle,
       }),
     ).toBeVisible();
+    await expect(page.getByRole("img", { name: publicCopy.home.videoTitle })).toBeVisible();
     await expect(
       page.locator("h2:visible, h4:visible").filter({
         hasText: publicCopy.home.patronageTitle,
