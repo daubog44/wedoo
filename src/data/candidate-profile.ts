@@ -36,13 +36,13 @@ export type CandidateEducationDraftEntry = {
 };
 
 export type CandidateWorkExperienceDraftEntry = {
+  city: string;
   company: string;
+  country: string;
   current: boolean;
   description: string;
+  endYear?: string;
   id: string;
-  location: string;
-  role: string;
-  startMonth: string;
   startYear: string;
 };
 
@@ -116,15 +116,14 @@ export const candidateProfileDraftMock = {
   ],
   experiences: [
     {
-      company: "Impact Hub Milano",
-      current: true,
-      description:
-        "Supporto a community events, newsletter e contenuti social per startup a impatto.",
-      id: "exp-impact-hub",
-      location: "Milano",
-      role: "Junior community & content assistant",
-      startMonth: "Settembre",
-      startYear: "2025",
+      city: "Roma",
+      company: "agenzia creativa srl",
+      country: "Italia",
+      current: false,
+      description: "supporto gestione social, creazione contenuti per PMI",
+      endYear: "2020",
+      id: "exp-agenzia-creativa",
+      startYear: "2020",
     },
   ],
   motivations: {
@@ -309,6 +308,62 @@ export function getCandidateEducationInstituteOptions(
   }
 
   return Object.values(candidateEducationInstituteOptionsByCity).flat();
+}
+
+export const candidateWorkExperienceCountryOptions =
+  candidateEducationCountryOptions;
+
+export const candidateWorkExperienceYearOptions = candidateEducationYearOptions;
+
+const candidateWorkExperienceCompanyOptionsByCity = {
+  Barcellona: [
+    { label: "Agencia Creativa BCN", value: "Agencia Creativa BCN" },
+    { label: "Impact Studio Barcelona", value: "Impact Studio Barcelona" },
+  ],
+  Berlino: [
+    { label: "Sustain Berlin Media", value: "Sustain Berlin Media" },
+  ],
+  Lione: [
+    { label: "Atelier Impact Lyon", value: "Atelier Impact Lyon" },
+  ],
+  Madrid: [
+    { label: "Impacto Studio Madrid", value: "Impacto Studio Madrid" },
+  ],
+  Milano: [
+    { label: "Impact Hub Milano", value: "Impact Hub Milano" },
+    { label: "ESG Story Lab", value: "ESG Story Lab" },
+  ],
+  Monaco: [
+    { label: "Green Signals Munich", value: "Green Signals Munich" },
+  ],
+  Parigi: [
+    { label: "Studio Impact Paris", value: "Studio Impact Paris" },
+  ],
+  Roma: [
+    { label: "agenzia creativa srl", value: "agenzia creativa srl" },
+    { label: "studio comunicazione sostenibile", value: "studio comunicazione sostenibile" },
+  ],
+} as const satisfies Record<string, readonly CandidateContactOption[]>;
+
+export function getCandidateWorkExperienceCityOptions(
+  country: string,
+): readonly CandidateContactOption[] {
+  return getCandidateEducationCityOptions(country);
+}
+
+export function getCandidateWorkExperienceCompanyOptions(
+  city: string,
+): readonly CandidateContactOption[] {
+  const cityOptions =
+    candidateWorkExperienceCompanyOptionsByCity[
+      city as keyof typeof candidateWorkExperienceCompanyOptionsByCity
+    ];
+
+  if (cityOptions) {
+    return cityOptions;
+  }
+
+  return Object.values(candidateWorkExperienceCompanyOptionsByCity).flat();
 }
 
 export function createCandidateRegistrationWizardSteps(

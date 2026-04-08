@@ -1,6 +1,7 @@
 import { Navigate, useParams } from "react-router-dom";
 import { CandidateContactsStep } from "../../components/public/candidate-contacts-step";
 import { CandidateEducationStep } from "../../components/public/candidate-education-step";
+import { CandidateWorkExperienceStep } from "../../components/public/candidate-work-experience-step";
 import {
   BackdropPageShell,
   FormPageContent,
@@ -31,7 +32,20 @@ export default function CandidateWizardPage() {
     return (
       <>
         <TopLogoBar />
-        <CandidateEducationStep draft={candidateProfileDraftMock} />
+        <CandidateEducationStep
+          draft={candidateProfileDraftMock}
+          saveTo="/registrati/candidato/4"
+        />
+        <SiteFooter className="mt-0" />
+      </>
+    );
+  }
+
+  if (stepIndex === 4) {
+    return (
+      <>
+        <TopLogoBar />
+        <CandidateWorkExperienceStep draft={candidateProfileDraftMock} />
         <SiteFooter className="mt-0" />
       </>
     );

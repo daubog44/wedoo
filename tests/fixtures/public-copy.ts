@@ -1,6 +1,7 @@
 export const publicRoutes = {
   candidateContacts: "/registrati/candidato/2",
   candidateEducation: "/registrati/candidato/3",
+  candidateWorkExperience: "/registrati/candidato/4",
   home: "/",
   info: "/info",
   login: "/accedi",
@@ -85,6 +86,18 @@ export const publicCopy = {
     specificCourseHeading: "corsi specifici",
     specificCourseSummary: "Employer branding ESG",
     titleOfStudyHeading: "titolo di studio",
+    saveCta: "salva",
+  },
+  candidateWorkExperience: {
+    activitiesHeading: "attivit\u00E0 svolte",
+    activitiesSummary: "supporto gestione social, creazione contenuti per PMI",
+    cityLabel: "citt\u00E0",
+    closeLabel: "Chiudi esperienze lavorative",
+    companyHelper: "i filtri si adattano alla zona geografica",
+    companyLabel: "ragione sociale",
+    companySummary: "agenzia creativa srl",
+    countryLabel: "paese",
+    heading: "esperienze lavorative",
     saveCta: "salva",
   },
   info: {

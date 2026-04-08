@@ -20,7 +20,14 @@ describe("CandidateProfileDraft", () => {
       specificCourses: ["Employer branding ESG"],
       startYear: "2016",
     });
-    expect(candidateProfileDraftMock.experiences[0]?.company).toBe("Impact Hub Milano");
+    expect(candidateProfileDraftMock.experiences[0]).toMatchObject({
+      city: "Roma",
+      company: "agenzia creativa srl",
+      country: "Italia",
+      description: "supporto gestione social, creazione contenuti per PMI",
+      endYear: "2020",
+      startYear: "2020",
+    });
     expect(candidateProfileDraftMock.skills.hardSkills).toContain("Copywriting");
   });
 

@@ -99,7 +99,7 @@ Regole:
 
 - [x] [FRAME][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Implementare `pop up contatti` come modal o step del profilo candidato.
 - [x] [FRAME][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Implementare `pop up formazione` come modal o step del profilo candidato.
-- [ ] [FRAME][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Implementare `pop up esperienze lavorative` come modal o step del profilo candidato.
+- [x] [FRAME][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Implementare `pop up esperienze lavorative` come modal o step del profilo candidato.
 - [ ] [FRAME][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Implementare `pop up competenze` come modal o step del profilo candidato.
 - [ ] [COMP][node=280:1093][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select grande come base dei campi a tendina.
 - [ ] [COMP][node=280:1099][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Estrarre il pattern `Input` select anno come variante select compatta.
@@ -123,7 +123,7 @@ Regole:
 - [ ] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Aggiungere snapshot VRT reali per il frame contatti quando il flow si stabilizza.
 - [x] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Coprire il flow formazione del wizard candidato.
 - [ ] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-education.visual.spec.ts] Aggiungere snapshot VRT reali per il frame formazione quando il flow si stabilizza.
-- [ ] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Coprire il flow esperienze lavorative del wizard candidato.
+- [x] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Coprire il flow esperienze lavorative del wizard candidato.
 - [ ] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-work-experience.visual.spec.ts] Aggiungere snapshot VRT reali per il frame esperienze quando il flow si stabilizza.
 - [ ] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Coprire il flow competenze del wizard candidato.
 - [ ] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-skills.visual.spec.ts] Aggiungere snapshot VRT reali per il frame competenze quando il flow si stabilizza.
