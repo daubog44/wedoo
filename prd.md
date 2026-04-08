@@ -86,7 +86,7 @@ Regole:
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire la sezione statement impatto.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire le tre feature card.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire sezione video e placeholder media.
-- [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire sezione patrocinio.
+- [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire sezione patrocinio.
 - [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Rifinire footer legale e contatti.
 
 ### Auth E Stati Errore

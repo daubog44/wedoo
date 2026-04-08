@@ -39,8 +39,6 @@ export type PublicHomeVideoCopy = {
 };
 
 export type PublicHomePatronageCopy = {
-  image: string;
-  imageAlt: string;
   title: string;
 };
 
@@ -154,8 +152,6 @@ export const publicHomeResponseMock = {
       title: "Wedoo spiegato in un click",
     },
     patronage: {
-      image: "patrocinio.png",
-      imageAlt: "Patrocinio Wedoo",
       title: "Con il patrocinio di...",
     },
     footer: {

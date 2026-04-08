@@ -483,15 +483,17 @@ function DesktopVideoSection({ content }: { content: PublicHomeContent }) {
 
 function DesktopPatronageSection({ content }: { content: PublicHomeContent }) {
   return (
-    <section className="relative h-[520px] w-full">
+    <section aria-labelledby="home-patronage-title-desktop" className="relative h-[496px] w-full">
       <div className={desktopFrameClassName}>
         <div
+          aria-hidden="true"
           className="absolute top-0 rounded-[20px] border border-[var(--wedoo-border-strong)]"
           style={{ height: 452, left: desktopPct(48), width: desktopPct(1344) }}
         />
 
         <h2
-          className="font-wedoo-heading absolute text-center text-[clamp(1.75rem,2.5vw,2.25rem)] font-normal uppercase text-[var(--wedoo-ink-strong)]"
+          className="font-wedoo-accent absolute text-center text-[clamp(1.75rem,2.5vw,2.25rem)] font-normal uppercase text-[var(--wedoo-ink-strong)]"
+          id="home-patronage-title-desktop"
           style={{
             left: desktopPct(243),
             lineHeight: "normal",
@@ -501,17 +503,6 @@ function DesktopPatronageSection({ content }: { content: PublicHomeContent }) {
         >
           {content.patronage.title}
         </h2>
-
-        <div
-          className="absolute top-[154px] flex justify-center"
-          style={{ left: desktopPct(146), width: desktopPct(1148) }}
-        >
-          <img
-            alt={content.patronage.imageAlt}
-            className="max-h-[188px] w-full object-contain"
-            src={assetPath(content.patronage.image)}
-          />
-        </div>
       </div>
     </section>
   );
@@ -776,15 +767,17 @@ function MobileVideoSection({ content }: { content: PublicHomeContent }) {
 
 function MobilePatronageSection({ content }: { content: PublicHomeContent }) {
   return (
-    <section className="relative h-[520px] w-full">
+    <section aria-labelledby="home-patronage-title-mobile" className="relative h-[288px] w-full">
       <div className={mobileFrameClassName}>
         <div
+          aria-hidden="true"
           className="absolute top-0 rounded-[20px] border border-[var(--wedoo-border-strong)]"
-          style={{ height: 502, left: pct(29, 360), width: pct(299, 360) }}
+          style={{ height: 240, left: pct(29, 360), width: pct(299, 360) }}
         />
 
         <h4
-          className="font-sans absolute text-center text-[20px] font-medium uppercase text-[var(--wedoo-ink-strong)]"
+          className="font-wedoo-accent absolute text-center text-[20px] font-normal uppercase text-[var(--wedoo-ink-strong)]"
+          id="home-patronage-title-mobile"
           style={{
             left: pct(55, 360),
             lineHeight: "normal",
@@ -794,17 +787,6 @@ function MobilePatronageSection({ content }: { content: PublicHomeContent }) {
         >
           {content.patronage.title}
         </h4>
-
-        <div
-          className="absolute flex justify-center"
-          style={{ left: pct(44, 360), top: 110, width: pct(269, 360) }}
-        >
-          <img
-            alt={content.patronage.imageAlt}
-            className="max-h-[180px] w-full object-contain"
-            src={assetPath(content.patronage.image)}
-          />
-        </div>
       </div>
     </section>
   );

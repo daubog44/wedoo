@@ -104,6 +104,12 @@ test.describe("landing page", () => {
         hasText: publicCopy.home.patronageTitle,
       }),
     ).toBeVisible();
+    const patronageSection = page.locator("section").filter({
+      has: page.locator("h2:visible, h4:visible").filter({
+        hasText: publicCopy.home.patronageTitle,
+      }),
+    });
+    await expect(patronageSection.locator("img")).toHaveCount(0);
     await expect(
       page.locator("p:visible").filter({
         hasText: publicCopy.home.contactEmail,
