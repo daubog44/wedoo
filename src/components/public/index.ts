@@ -1,3 +1,4 @@
+export * from "./auth";
 export * from "./faq-section";
 export * from "./home";
 export * from "./home-hero-section";

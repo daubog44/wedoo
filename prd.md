@@ -92,8 +92,8 @@ Regole:
 ### Auth E Stati Errore
 
 - [x] [FRAME][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Implementare il frame `campi mancanti` come stato login con error handling coerente con Figma.
-- [ ] [COMP][node=658:688][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Checkbox` come base per consensi e toggle form.
-- [ ] [COMP][node=658:684][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Text Link` come link testuale secondario per auth e form.
+- [x] [COMP][node=658:688][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Checkbox` come base per consensi e toggle form.
+- [x] [COMP][node=658:684][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Text Link` come link testuale secondario per auth e form.
 
 ### Wizard Candidato
 

@@ -36,6 +36,10 @@ test.describe("login page", () => {
     const termsCheckbox = loginLayout.getByRole("checkbox", { name: publicCopy.login.termsLabel });
     await expect(termsCheckbox).toBeVisible();
     await expect(termsCheckbox).toHaveAttribute("aria-checked", "true");
+    await termsCheckbox.click();
+    await expect(termsCheckbox).toHaveAttribute("aria-checked", "false");
+    await termsCheckbox.click();
+    await expect(termsCheckbox).toHaveAttribute("aria-checked", "true");
 
     await expect(
       loginLayout.getByRole("button", { name: publicCopy.login.providerGoogle, exact: true }),

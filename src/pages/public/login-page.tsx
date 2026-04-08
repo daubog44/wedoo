@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthCheckbox, AuthTextLink } from "../../components/public";
 import { SiteFooter, SiteIcon } from "../../components/site";
 import { loginAuthViewModel } from "../../data/auth";
 import { assetPath, cn } from "../../lib/site-utils";
@@ -27,21 +28,6 @@ function LoginLanguageChip({ className }: { className?: string }) {
       <span>ita</span>
       <SiteIcon className="h-4 w-4" name="chevron-down" />
     </button>
-  );
-}
-
-function LoginCheckIcon() {
-  return (
-    <svg aria-hidden="true" className="h-[13px] w-[15px]" viewBox="0 0 15 13">
-      <path
-        d="M1 7.1L5.1 11L14 1.5"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
-    </svg>
   );
 }
 
@@ -106,45 +92,20 @@ function LoginConsent({
   checked,
   compact = false,
   field,
-  idPrefix,
   onToggle,
 }: {
   checked: boolean;
   compact?: boolean;
   field: LoginCheckboxField;
-  idPrefix: string;
   onToggle: () => void;
 }) {
-  const labelId = `${idPrefix}-${field.id}-label`;
-
   return (
-    <div className="flex items-center gap-3">
-      <button
-        aria-checked={checked}
-        aria-labelledby={labelId}
-        className="grid h-[23px] w-[23px] shrink-0 place-items-center rounded-[4px] bg-[var(--brand-mint)]"
-        onClick={onToggle}
-        role="checkbox"
-        type="button"
-      >
-        {checked ? (
-          <span className="grid h-[23px] w-[23px] place-items-center rounded-[4px] bg-[var(--brand-violet)] text-[var(--wedoo-white-soft)]">
-            <LoginCheckIcon />
-          </span>
-        ) : null}
-      </button>
-      <button
-        className={cn(
-          "font-wedoo-body text-left text-[var(--wedoo-ink)]",
-          compact ? "text-[18px] leading-none" : "text-[22px] leading-none",
-        )}
-        id={labelId}
-        onClick={onToggle}
-        type="button"
-      >
-        {field.label}
-      </button>
-    </div>
+    <AuthCheckbox
+      checked={checked}
+      compact={compact}
+      label={field.label}
+      onCheckedChange={() => onToggle()}
+    />
   );
 }
 
@@ -278,18 +239,14 @@ function LoginDesktopView({
               value={values.password ?? ""}
             />
           </div>
-          <button
-            className="font-wedoo-body mt-[10px] text-[22px] italic leading-none text-[var(--wedoo-ink)]"
-            type="button"
-          >
+          <AuthTextLink className="mt-[10px]" type="button">
             {loginAuthViewModel.forgotPasswordLabel}
-          </button>
+          </AuthTextLink>
           {loginTermsField ? (
             <div className="mt-[18px]">
               <LoginConsent
                 checked={termsAccepted}
                 field={loginTermsField}
-                idPrefix="desktop-login"
                 onToggle={onToggleTerms}
               />
             </div>
@@ -371,19 +328,15 @@ function LoginMobileView({
                   value={values.password ?? ""}
                 />
               </div>
-              <button
-                className="font-wedoo-body mt-3 text-[18px] italic leading-none text-[var(--wedoo-ink)]"
-                type="button"
-              >
+              <AuthTextLink className="mt-3" compact type="button">
                 {loginAuthViewModel.forgotPasswordLabel}
-              </button>
+              </AuthTextLink>
               {loginTermsField ? (
                 <div className="mt-4">
                   <LoginConsent
                     checked={termsAccepted}
                     compact
                     field={loginTermsField}
-                    idPrefix="mobile-login"
                     onToggle={onToggleTerms}
                   />
                 </div>
