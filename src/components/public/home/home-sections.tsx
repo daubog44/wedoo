@@ -21,8 +21,9 @@ import { HomeDiscoverGoldButton } from "./home-discover-gold-button";
 import { HomeDiscoverRoseButton } from "./home-discover-rose-button";
 import { HomeDiscoverVioletButton } from "./home-discover-violet-button";
 
-const mobileFrameClassName = "relative mx-auto h-full w-full max-w-[360px]";
-const desktopFrameClassName = "relative mx-auto w-[1440px]";
+const mobileFrameClassName =
+  "relative mx-auto h-full w-full max-w-[360px] sm:max-w-[420px] md:max-w-[520px]";
+const desktopFrameClassName = "relative mx-auto h-full w-full max-w-[1440px]";
 
 export type HomeAuthIntent = "login" | "signup";
 
@@ -58,6 +59,7 @@ const desktopFeatureCardLayouts: readonly DesktopFeatureCardLayout[] = [
 ] as const;
 
 const pct = (value: number, base: number) => `${(value / base) * 100}%`;
+const desktopPct = (value: number) => pct(value, 1440);
 
 function LanguageChipCompact({
   label,
@@ -122,18 +124,19 @@ function DesktopFeatureCard({
       )}
       style={{
         height: layout.frameHeight,
-        left: layout.frameLeft,
-        width: 429,
+        left: desktopPct(layout.frameLeft),
+        width: desktopPct(429),
       }}
     >
       <img
         alt={card.title}
-        className="absolute left-[5px] top-[5px] h-[262px] w-[419px] rounded-t-[20px] object-cover"
+        className="absolute left-[5px] top-[5px] h-[262px] rounded-t-[20px] object-cover"
+        style={{ width: "calc(100% - 10px)" }}
         src={assetPath(layout.image)}
       />
 
-      <div className="absolute inset-x-0 top-[296px] flex flex-col items-center px-8 text-center">
-        <h4 className="font-wedoo-accent whitespace-pre-line text-[24px] leading-[1.15] text-[var(--wedoo-ink-strong)]">
+      <div className="absolute inset-x-0 top-[296px] flex flex-col items-center px-6 text-center xl:px-8">
+        <h4 className="font-wedoo-accent whitespace-pre-line text-[clamp(1.125rem,1.666vw,1.5rem)] leading-[1.15] text-[var(--wedoo-ink-strong)]">
           {layout.displayTitle ?? card.title}
         </h4>
 
@@ -179,7 +182,7 @@ function MobileFeatureCard({ card }: { card: PublicHomeFeatureCard }) {
   return (
     <article
       className={cn(
-        "mx-auto h-[324px] w-[90%] rounded-[25px] border-[5px] bg-[var(--wedoo-page-bg)]",
+        "mx-auto h-[324px] w-[90%] max-w-[324px] rounded-[25px] border-[5px] bg-[var(--wedoo-page-bg)] sm:max-w-[352px]",
         toneStyle.borderClassName,
       )}
     >
@@ -237,34 +240,31 @@ function DesktopTopBar({
   onOpenAuth: (intent: HomeAuthIntent) => void;
 }) {
   return (
-    <header className="relative h-[112px] w-full overflow-hidden">
-      <div className={desktopFrameClassName}>
-        <Link className="absolute left-10 top-5" to="/">
+    <header className="w-full overflow-hidden">
+      <div className="mx-auto flex h-[112px] w-full max-w-[1440px] items-start justify-between gap-4 px-6 pt-5 xl:px-10">
+        <Link className="shrink-0" to="/">
           <img
             alt="Wedoo"
-            className="h-[92px] w-[197px] object-contain"
+            className="h-[72px] w-[154px] object-contain xl:h-[92px] xl:w-[197px]"
             src={assetPath("Frame-1@2x.png")}
           />
         </Link>
 
-        <div className="absolute left-[730px] top-[42px] w-[287px]">
-          <HomeAuthButtonGroup navigation={navigation} onOpenAuth={onOpenAuth} />
-        </div>
-
-        <div
-          className="absolute top-[52px] flex justify-center"
-          style={{ left: 1042, width: 178 }}
-        >
+        <div className="flex min-w-0 items-center justify-end gap-4 pt-[22px] xl:gap-6">
+          <div className="w-full min-w-[15rem] max-w-[287px]">
+            <HomeAuthButtonGroup
+              className="gap-3 xl:gap-4"
+              navigation={navigation}
+              onOpenAuth={onOpenAuth}
+            />
+          </div>
           <HomeRouteButton
-            className="h-auto min-w-0 justify-center px-0 text-center text-[24px] leading-[normal] text-[var(--wedoo-ink)] hover:-translate-y-0"
+            className="h-auto min-w-0 justify-center px-0 text-center text-[20px] leading-[normal] text-[var(--wedoo-ink)] hover:-translate-y-0 xl:text-[24px]"
             to={routeMap.company.showcase}
             variant="textLink"
           >
             {navigation.companyPrompt}
           </HomeRouteButton>
-        </div>
-
-        <div className="absolute left-[1311px] top-12">
           <LanguageChipCompact label={navigation.languageLabel} />
         </div>
       </div>
@@ -283,29 +283,30 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         <img
           alt=""
           aria-hidden="true"
-          className="absolute left-[384px] top-[25px] h-[34px] w-[1056px] object-cover"
+          className="absolute top-[25px] h-[34px] object-cover"
+          style={{ left: desktopPct(384), width: desktopPct(1056) }}
           src={assetPath("The-future-forward-1-1@2x.png")}
         />
 
         <h1
-          className="font-wedoo-heading absolute text-center text-[48px] text-[var(--wedoo-ink)]"
+          className="font-wedoo-heading absolute text-center text-[clamp(2rem,3.333vw,3rem)] text-[var(--wedoo-ink)]"
           style={{
-            left: 220,
+            left: desktopPct(220),
             lineHeight: "normal",
             top: 82,
-            width: 1000,
+            width: desktopPct(1000),
           }}
         >
           {content.hero.title}
         </h1>
 
         <div
-          className="font-wedoo-accent absolute text-center text-[36px] text-[var(--wedoo-ink)]"
+          className="font-wedoo-accent absolute text-center text-[clamp(1.5rem,2.5vw,2.25rem)] text-[var(--wedoo-ink)]"
           style={{
-            left: 220,
+            left: desktopPct(220),
             lineHeight: "normal",
             top: 163,
-            width: 1000,
+            width: desktopPct(1000),
           }}
         >
           {desktopHeroSubtitleLines.map((line) => (
@@ -313,9 +314,12 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
           ))}
         </div>
 
-        <div className="absolute left-[627px] top-[268px]">
+        <div
+          className="absolute top-[268px] flex justify-center"
+          style={{ left: desktopPct(627), width: desktopPct(186) }}
+        >
           <HomeDownloadAppButton
-            className="h-[49px] w-[186px] min-w-0 justify-start gap-[7px] whitespace-nowrap rounded-[8px] border-[var(--wedoo-ink)] px-0 pl-[7px] pr-[9px] text-[24px] leading-[normal] hover:-translate-y-0"
+            className="h-[49px] w-full min-w-0 justify-start gap-[7px] whitespace-nowrap rounded-[8px] border-[var(--wedoo-ink)] px-0 pl-[7px] pr-[9px] text-[24px] leading-[normal] hover:-translate-y-0"
             label={content.hero.downloadLabel}
           />
         </div>
@@ -323,56 +327,63 @@ function DesktopHeroSection({ content }: { content: PublicHomeContent }) {
         <img
           alt=""
           aria-hidden="true"
-          className="absolute left-0 top-[338px] h-[33px] w-[1056px] object-cover"
+          className="absolute left-0 top-[338px] h-[33px] object-cover"
+          style={{ width: desktopPct(1056) }}
           src={assetPath("The-future-forward-1-2@2x.png")}
         />
 
         <h2
-          className="font-wedoo-heading absolute text-center text-[36px] font-normal text-[var(--wedoo-ink-strong)]"
+          className="font-wedoo-heading absolute text-center text-[clamp(2rem,2.5vw,2.25rem)] font-normal text-[var(--wedoo-ink-strong)]"
           style={{
-            left: 174,
+            left: desktopPct(174),
             lineHeight: "normal",
             top: 393,
-            width: 1093,
+            width: desktopPct(1093),
           }}
         >
           {content.howItWorks.title}
         </h2>
 
         <p
-          className="font-wedoo-accent absolute text-center text-[24px] text-[var(--wedoo-white-soft)]"
+          className="font-wedoo-accent absolute text-center text-[clamp(1.125rem,1.666vw,1.5rem)] text-[var(--wedoo-white-soft)]"
           style={{
-            left: 602,
+            left: desktopPct(602),
             lineHeight: "normal",
             top: 450,
-            width: 237,
+            width: desktopPct(237),
           }}
         >
           {content.howItWorks.eyebrow}
         </p>
 
         <p
-          className="font-wedoo-accent absolute text-center text-[24px] text-[var(--wedoo-white-soft)]"
+          className="font-wedoo-accent absolute text-center text-[clamp(1rem,1.666vw,1.5rem)] text-[var(--wedoo-white-soft)]"
           style={{
-            left: 265,
+            left: desktopPct(265),
             lineHeight: "normal",
             top: 509,
-            width: 911,
+            width: desktopPct(911),
           }}
         >
           {content.howItWorks.desktopDescription}
         </p>
 
-        <div className="absolute left-[426px] top-[617px]">
+        <div
+          className="absolute top-[617px] flex justify-center"
+          style={{ left: desktopPct(426), width: desktopPct(189) }}
+        >
           <HomeCandidateRoleButton
-            className="h-[60px] w-[189px] min-w-0 rounded-[8px] text-[24px] leading-[normal] hover:-translate-y-0"
+            className="h-[60px] w-full min-w-0 rounded-[8px] text-[24px] leading-[normal] hover:-translate-y-0"
             label={content.howItWorks.candidateLabel}
           />
         </div>
 
-        <div className="absolute left-[824px] top-[617px]">
+        <div
+          className="absolute top-[617px] flex justify-center"
+          style={{ left: desktopPct(824), width: desktopPct(189) }}
+        >
           <HomeCompanyRoleButton
-            className="h-[60px] w-[189px] min-w-0 rounded-[8px] text-[24px] leading-[normal] hover:-translate-y-0"
+            className="h-[60px] w-full min-w-0 rounded-[8px] text-[24px] leading-[normal] hover:-translate-y-0"
             label={content.howItWorks.companyLabel}
           />
         </div>
@@ -386,12 +397,12 @@ function DesktopImpactSection({ content }: { content: PublicHomeContent }) {
     <section className="relative h-[181px] w-full">
       <div className={desktopFrameClassName}>
         <p
-          className="font-wedoo-accent absolute text-center text-[36px] text-[var(--wedoo-ink)]"
+          className="font-wedoo-accent absolute text-center text-[clamp(1.625rem,2.5vw,2.25rem)] text-[var(--wedoo-ink)]"
           style={{
-            left: 73,
+            left: desktopPct(73),
             lineHeight: "normal",
             top: 39,
-            width: 1295,
+            width: desktopPct(1295),
           }}
         >
           {content.impactStatement.desktop}
@@ -405,7 +416,6 @@ function DesktopFeatureSection({ content }: { content: PublicHomeContent }) {
   return (
     <section className="relative h-[471px] w-full">
       <div className={desktopFrameClassName}>
-
         {content.featureCards.map((card, index) => (
           <DesktopFeatureCard
             card={card}
@@ -431,16 +441,16 @@ function DesktopVideoSection({ content }: { content: PublicHomeContent }) {
       <div className={desktopFrameClassName}>
         <div
           className="absolute top-[53px] rounded-[50px] bg-[var(--wedoo-violet-panel)]"
-          style={{ height: 600, left: 474, width: 900 }}
+          style={{ height: 600, left: desktopPct(474), width: desktopPct(900) }}
         />
 
         <h2
-          className="font-wedoo-heading absolute text-center text-[36px] font-normal text-[var(--wedoo-ink-strong)]"
+          className="font-wedoo-heading absolute text-center text-[clamp(1.75rem,2.5vw,2.25rem)] font-normal text-[var(--wedoo-ink-strong)]"
           style={{
-            left: 112,
+            left: desktopPct(112),
             lineHeight: "normal",
             top: 107,
-            width: 441,
+            width: desktopPct(441),
           }}
         >
           {highlightedVideoTitle ? (
@@ -458,7 +468,7 @@ function DesktopVideoSection({ content }: { content: PublicHomeContent }) {
 
         <div
           className="absolute top-[200px] overflow-hidden rounded-[50px] shadow-[var(--wedoo-shadow-hero)]"
-          style={{ left: 437, width: 800 }}
+          style={{ left: desktopPct(437), width: desktopPct(800) }}
         >
           <img
             alt={content.video.previewAlt}
@@ -477,16 +487,16 @@ function DesktopPatronageSection({ content }: { content: PublicHomeContent }) {
       <div className={desktopFrameClassName}>
         <div
           className="absolute top-0 rounded-[20px] border border-[var(--wedoo-border-strong)]"
-          style={{ height: 452, left: 48, width: 1344 }}
+          style={{ height: 452, left: desktopPct(48), width: desktopPct(1344) }}
         />
 
         <h2
-          className="font-wedoo-heading absolute text-center text-[36px] font-normal uppercase text-[var(--wedoo-ink-strong)]"
+          className="font-wedoo-heading absolute text-center text-[clamp(1.75rem,2.5vw,2.25rem)] font-normal uppercase text-[var(--wedoo-ink-strong)]"
           style={{
-            left: 243,
+            left: desktopPct(243),
             lineHeight: "normal",
             top: 50,
-            width: 953,
+            width: desktopPct(953),
           }}
         >
           {content.patronage.title}
@@ -494,7 +504,7 @@ function DesktopPatronageSection({ content }: { content: PublicHomeContent }) {
 
         <div
           className="absolute top-[154px] flex justify-center"
-          style={{ left: 146, width: 1148 }}
+          style={{ left: desktopPct(146), width: desktopPct(1148) }}
         >
           <img
             alt={content.patronage.imageAlt}
@@ -839,7 +849,7 @@ function MobileFooter({ content }: { content: PublicHomeContent }) {
 
 export function MobileHomePage({ content, onOpenAuth }: HomePageProps) {
   return (
-    <div className="block overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1440px]:hidden">
+    <div className="block overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1024px]:hidden">
       <MobileTopSection content={content} onOpenAuth={onOpenAuth} />
       <MobileHowItWorksSection content={content} />
       <MobileImpactSection content={content} />
@@ -853,7 +863,7 @@ export function MobileHomePage({ content, onOpenAuth }: HomePageProps) {
 
 export function DesktopHomePage({ content, onOpenAuth }: HomePageProps) {
   return (
-    <div className="hidden w-full overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1440px]:block">
+    <div className="hidden w-full overflow-x-hidden bg-[var(--wedoo-page-bg)] min-[1024px]:block">
       <DesktopTopBar navigation={content.navigation} onOpenAuth={onOpenAuth} />
       <main>
         <DesktopHeroSection content={content} />

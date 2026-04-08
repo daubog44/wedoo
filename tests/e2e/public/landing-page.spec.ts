@@ -8,7 +8,7 @@ test.describe("landing page", () => {
   }, testInfo) => {
     const isMobile = testInfo.project.name === "chromium-mobile";
     if (!isMobile) {
-      await page.setViewportSize({ width: 1440, height: 1100 });
+      await page.setViewportSize({ width: 1280, height: 1100 });
     }
 
     await page.goto(publicRoutes.home);
@@ -126,6 +126,28 @@ test.describe("landing page", () => {
         exact: true,
       }),
     ).toBeVisible();
+
+    const firstDiscoverLink = page.locator('a[href="/info#noixnoi"]:visible').first();
+    const secondDiscoverLink = page.locator('a[href="/info#obiettivi"]:visible').first();
+    const thirdDiscoverLink = page.locator('a[href="/info#dubbi"]:visible').first();
+    const [firstDiscoverBox, secondDiscoverBox, thirdDiscoverBox] = await Promise.all([
+      firstDiscoverLink.boundingBox(),
+      secondDiscoverLink.boundingBox(),
+      thirdDiscoverLink.boundingBox(),
+    ]);
+    expect(firstDiscoverBox).not.toBeNull();
+    expect(secondDiscoverBox).not.toBeNull();
+    expect(thirdDiscoverBox).not.toBeNull();
+
+    if (isMobile) {
+      expect(secondDiscoverBox!.y).toBeGreaterThan(firstDiscoverBox!.y + 80);
+      expect(thirdDiscoverBox!.y).toBeGreaterThan(secondDiscoverBox!.y + 80);
+    } else {
+      expect(Math.abs(firstDiscoverBox!.y - secondDiscoverBox!.y)).toBeLessThan(30);
+      expect(Math.abs(secondDiscoverBox!.y - thirdDiscoverBox!.y)).toBeLessThan(30);
+      expect(secondDiscoverBox!.x).toBeGreaterThan(firstDiscoverBox!.x + 120);
+      expect(thirdDiscoverBox!.x).toBeGreaterThan(secondDiscoverBox!.x + 120);
+    }
 
     await page.getByRole("button", { name: publicCopy.home.signInCta }).click();
     const dialog = page.getByRole("dialog");
