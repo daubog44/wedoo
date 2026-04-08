@@ -28,7 +28,8 @@ describe("CandidateProfileDraft", () => {
       endYear: "2020",
       startYear: "2020",
     });
-    expect(candidateProfileDraftMock.skills.hardSkills).toContain("Copywriting");
+    expect(candidateProfileDraftMock.skills.hardSkills).toContain("Meta Business Suite");
+    expect(candidateProfileDraftMock.skills.softSkills).toContain("Creativit\u00E0");
   });
 
   it("derives the candidate registration wizard steps from the draft", () => {

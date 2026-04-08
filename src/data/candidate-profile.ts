@@ -134,9 +134,19 @@ export const candidateProfileDraftMock = {
   },
   privacyAccepted: true,
   skills: {
-    hardSkills: ["Content strategy", "Copywriting", "Social media", "Canva"],
+    hardSkills: [
+      "Social Media (Instagram, Facebook)",
+      "Canva (conoscenza base)",
+      "Meta Business Suite",
+    ],
     languages: ["Italiano C2", "Inglese B2"],
-    softSkills: ["Teamwork", "Organizzazione", "Ascolto"],
+    softSkills: [
+      "Creativit\u00E0",
+      "Adattabilit\u00E0",
+      "Precisione",
+      "Teamwork",
+      "Proattivit\u00E0",
+    ],
     tools: ["Notion", "Figma", "Google Workspace"],
   },
 } as const satisfies CandidateProfileDraft;
@@ -365,6 +375,18 @@ export function getCandidateWorkExperienceCompanyOptions(
 
   return Object.values(candidateWorkExperienceCompanyOptionsByCity).flat();
 }
+
+export const candidateSoftSkillOptions = [
+  ...candidateProfileDraftMock.skills.softSkills,
+  "Ascolto attivo",
+  "Leadership inclusiva",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateHardSkillOptions = [
+  ...candidateProfileDraftMock.skills.hardSkills,
+  "Copywriting",
+  "Content strategy",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
 
 export function createCandidateRegistrationWizardSteps(
   draft: CandidateProfileDraft,

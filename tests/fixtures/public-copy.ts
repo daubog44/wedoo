@@ -1,6 +1,7 @@
 export const publicRoutes = {
   candidateContacts: "/registrati/candidato/2",
   candidateEducation: "/registrati/candidato/3",
+  candidateSkills: "/registrati/candidato/5",
   candidateWorkExperience: "/registrati/candidato/4",
   home: "/",
   info: "/info",
@@ -99,6 +100,27 @@ export const publicCopy = {
     countryLabel: "paese",
     heading: "esperienze lavorative",
     saveCta: "salva",
+  },
+  candidateSkills: {
+    closeLabel: "Chiudi competenze",
+    hardSkillOptions: ["Copywriting", "Content strategy"],
+    hardSkillsHeading: "hard skills",
+    hardSkillsSummary: [
+      "Social Media (Instagram, Facebook);",
+      "Canva (conoscenza base);",
+      "Meta Business Suite.",
+    ],
+    heading: "competenze",
+    saveCta: "salva",
+    softSkillOptions: ["Ascolto attivo", "Leadership inclusiva"],
+    softSkillsHeading: "soft skills",
+    softSkillsSummary: [
+      "Creativit\u00E0;",
+      "Adattabilit\u00E0;",
+      "Precisione;",
+      "Teamwork;",
+      "Proattivit\u00E0.",
+    ],
   },
   info: {
     aboutHeading: "noi x noi",
