@@ -5,8 +5,16 @@ export type CandidateContactDraft = {
   email: string;
   fullName: string;
   linkedinUrl?: string;
+  postalCode: string;
   phone: string;
   portfolioUrl?: string;
+  province: string;
+  provinceCode: string;
+};
+
+export type CandidateContactOption = {
+  label: string;
+  value: string;
 };
 
 export type CandidateEducationDraftEntry = {
@@ -51,12 +59,15 @@ export type CandidateProfileDraft = {
 
 export const candidateProfileDraftMock = {
   contact: {
-    city: "Milano",
-    email: "giulia.rossi@wedoo.dev",
-    fullName: "Giulia Rossi",
-    linkedinUrl: "https://www.linkedin.com/in/giulia-rossi-wedoo",
-    phone: "+39 333 000 1122",
-    portfolioUrl: "https://portfolio.wedoo.dev/giulia-rossi",
+    city: "Guidonia Montecelio",
+    email: "azzurra.signorelli@email.com",
+    fullName: "Azzurra Signorelli",
+    linkedinUrl: "https://www.linkedin.com/in/azzurra-signorelli-wedoo",
+    phone: "+39 3201234567",
+    portfolioUrl: "https://portfolio.wedoo.dev/azzurra-signorelli",
+    postalCode: "00012",
+    province: "Roma",
+    provinceCode: "RM",
   },
   education: [
     {
@@ -102,6 +113,49 @@ export const candidateProfileDraftMock = {
     tools: ["Notion", "Figma", "Google Workspace"],
   },
 } as const satisfies CandidateProfileDraft;
+
+export const candidateContactProvinceOptions = [
+  { label: "Roma", value: "Roma" },
+  { label: "Milano", value: "Milano" },
+  { label: "Torino", value: "Torino" },
+] as const satisfies readonly CandidateContactOption[];
+
+const candidateContactCityOptionsByProvince = {
+  Milano: [
+    { label: "Milano", value: "Milano" },
+    { label: "Sesto San Giovanni", value: "Sesto San Giovanni" },
+    { label: "Rho", value: "Rho" },
+  ],
+  Roma: [
+    { label: "Guidonia Montecelio", value: "Guidonia Montecelio" },
+    { label: "Roma", value: "Roma" },
+    { label: "Tivoli", value: "Tivoli" },
+  ],
+  Torino: [
+    { label: "Torino", value: "Torino" },
+    { label: "Moncalieri", value: "Moncalieri" },
+    { label: "Rivoli", value: "Rivoli" },
+  ],
+} as const satisfies Record<string, readonly CandidateContactOption[]>;
+
+export function getCandidateContactCityOptions(
+  province: string,
+): readonly CandidateContactOption[] {
+  const provinceOptions =
+    candidateContactCityOptionsByProvince[
+      province as keyof typeof candidateContactCityOptionsByProvince
+    ];
+
+  if (provinceOptions) {
+    return provinceOptions;
+  }
+
+  return Object.values(candidateContactCityOptionsByProvince).flat();
+}
+
+export function formatCandidateContactLocation(contact: CandidateContactDraft) {
+  return `${contact.postalCode} - ${contact.city} (${contact.provinceCode})`;
+}
 
 export function createCandidateRegistrationWizardSteps(
   draft: CandidateProfileDraft,

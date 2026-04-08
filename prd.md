@@ -97,7 +97,7 @@ Regole:
 
 ### Wizard Candidato
 
-- [ ] [FRAME][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Implementare `pop up contatti` come modal o step del profilo candidato.
+- [x] [FRAME][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Implementare `pop up contatti` come modal o step del profilo candidato.
 - [ ] [FRAME][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Implementare `pop up formazione` come modal o step del profilo candidato.
 - [ ] [FRAME][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-experience.spec.ts] Implementare `pop up esperienze lavorative` come modal o step del profilo candidato.
 - [ ] [FRAME][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Implementare `pop up competenze` come modal o step del profilo candidato.
@@ -119,7 +119,7 @@ Regole:
 - [x] [TEST][node=143:1822][route=/registrati][test=tests/e2e/parity/register-page.visual.spec.ts] Creare e mantenere una baseline visuale dedicata per la route registrazione quando il layout evolve.
 - [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Coprire i principali stati errore e il consenso del login pubblico.
 - [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Aggiungere snapshot VRT reali per la route login quando il frame auth si stabilizza.
-- [ ] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Coprire il flow contatti del wizard candidato.
+- [x] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Coprire il flow contatti del wizard candidato.
 - [ ] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Aggiungere snapshot VRT reali per il frame contatti quando il flow si stabilizza.
 - [ ] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Coprire il flow formazione del wizard candidato.
 - [ ] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-education.visual.spec.ts] Aggiungere snapshot VRT reali per il frame formazione quando il flow si stabilizza.

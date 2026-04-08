@@ -2,12 +2,15 @@ import { describe, expect, it } from "vitest";
 import {
   candidateProfileDraftMock,
   createCandidateRegistrationWizardSteps,
+  formatCandidateContactLocation,
 } from "../../src/data/candidate-profile";
 import { candidateWizardSteps } from "../../src/data/wizards";
 
 describe("CandidateProfileDraft", () => {
   it("captures contacts, education, experiences and skills in one server-like draft", () => {
-    expect(candidateProfileDraftMock.contact.fullName).toBe("Giulia Rossi");
+    expect(candidateProfileDraftMock.contact.fullName).toBe("Azzurra Signorelli");
+    expect(candidateProfileDraftMock.contact.postalCode).toBe("00012");
+    expect(candidateProfileDraftMock.contact.provinceCode).toBe("RM");
     expect(candidateProfileDraftMock.education).toHaveLength(2);
     expect(candidateProfileDraftMock.experiences[0]?.company).toBe("Impact Hub Milano");
     expect(candidateProfileDraftMock.skills.hardSkills).toContain("Copywriting");
@@ -19,7 +22,7 @@ describe("CandidateProfileDraft", () => {
     expect(steps).toHaveLength(2);
     expect(steps[0]?.fields[0]).toMatchObject({
       key: "fullName",
-      placeholder: "Giulia Rossi",
+      placeholder: "Azzurra Signorelli",
       type: "text",
     });
     expect(steps[1]?.fields[0]).toMatchObject({
@@ -27,6 +30,12 @@ describe("CandidateProfileDraft", () => {
       options: ["Parita di genere", "Consumo responsabile", "Clima"],
       type: "chips",
     });
+  });
+
+  it("formats the saved contact location for the contact step summary", () => {
+    expect(formatCandidateContactLocation(candidateProfileDraftMock.contact)).toBe(
+      "00012 - Guidonia Montecelio (RM)",
+    );
   });
 
   it("keeps exported candidate wizard steps aligned with the draft-backed factory", () => {

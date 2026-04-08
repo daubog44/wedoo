@@ -1,4 +1,5 @@
 export const publicRoutes = {
+  candidateContacts: "/registrati/candidato/2",
   home: "/",
   info: "/info",
   login: "/accedi",
@@ -52,6 +53,22 @@ export const publicCopy = {
     registerPromptLink: "registrati",
     subtitle: "Accedi",
     termsLabel: "accetto i termini e le condizioni",
+  },
+  candidateContacts: {
+    closeLabel: "Chiudi contatti",
+    emailHeading: "e-mail",
+    emailLabel: "e-mail",
+    heading: "contatti",
+    locationHeading: "località",
+    locationSummary: "00012 - Guidonia Montecelio (RM)",
+    phoneHeading: "numero di telefono",
+    phoneLabel: "numero di telefono",
+    phoneSummary: "+39 3201234567",
+    provinceLabel: "provincia",
+    cityLabel: "città",
+    postalCodeLabel: "CAP",
+    saveCta: "salva",
+    emailSummary: "azzurra.signorelli@email.com",
   },
   info: {
     aboutHeading: "noi x noi",

@@ -41,7 +41,7 @@ describe("mock data services", () => {
       getCompanyProfileSummaryMock(),
     ]);
 
-    expect(candidateDraft.contact.fullName).toBe("Giulia Rossi");
+    expect(candidateDraft.contact.fullName).toBe("Azzurra Signorelli");
     expect(candidateSummary.id).toBe("riccardo-stagni");
     expect(companySummary.onboarding.firstJobDraftSteps).toBe(5);
   });
