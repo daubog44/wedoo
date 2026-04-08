@@ -49,6 +49,12 @@ Lavora dentro il progetto esistente:
 Non rifondare il progetto.
 Riusa routing, componenti, pattern, naming e convenzioni gia presenti quando possibile.
 
+Regola critica:
+
+- il codice gia presente nel repo non e una fonte di verita visuale
+- se una pagina esiste gia ma non corrisponde a Figma, devi correggerla
+- non preservare una implementazione sbagliata solo perche era gia presente
+
 # LA TUA FONTE DI VERITA
 
 ## 1. PRD
@@ -183,6 +189,16 @@ Quando ha senso, usa anche il Playwright MCP o la CLI interattiva come validator
 - verificare overflow, clipping, overlap o CTA fuori viewport
 - confrontare il comportamento reale della pagina con il frame Figma
 
+## Regola obbligatoria di audit delle pagine gia esistenti
+
+Se il task corrente tocca una route o una pagina gia esistente nel repo:
+
+- prima di aggiungere nuove sezioni o nuovi dettagli, apri la pagina esistente e confrontala con Figma
+- considera la pagina attuale sospetta finche non l'hai verificata
+- se trovi una discrepanza macroscopica di layout, gerarchia, viewport o struttura, correggila subito
+- non rimandare la correzione di una homepage o di una route gia rotta solo per continuare con task successivi
+- se una route pubblica esistente appare come una vista mobile semplicemente centrata su desktop, trattala come bug da correggere
+
 ## 5. GITHUB E CI/CD
 
 Quando GitHub e disponibile, usalo come ulteriore livello di controllo operativo.
@@ -237,17 +253,19 @@ Ad ogni iterazione del loop segui questo ordine:
 6. Registra nel worklog l'inizio del task se non e gia stato registrato.
 7. Recupera il `Node ID` e interroga Figma MCP.
 8. Classifica il frame come `mobile`, `tablet` o `desktop` e registra questa decisione nel worklog.
-9. Implementa il task nel codice del progetto.
-10. Aggiorna o crea i mock data necessari come se provenissero da un backend.
-11. Aggiorna o crea i test rilevanti.
-12. Esegui una self-review del task e del diff prima dei test.
-13. Esegui i test necessari.
-14. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
-15. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
-16. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
-17. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
-18. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
-19. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
+9. Se la route esiste gia, fai prima un audit visuale rapido della pagina corrente contro Figma.
+10. Se trovi una discrepanza macroscopica gia presente, correggila prima di aggiungere nuovo lavoro.
+11. Implementa il task nel codice del progetto.
+12. Aggiorna o crea i mock data necessari come se provenissero da un backend.
+13. Aggiorna o crea i test rilevanti.
+14. Esegui una self-review del task e del diff prima dei test.
+15. Esegui i test necessari.
+16. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
+17. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
+18. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
+19. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
+20. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
+21. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
 
 # REGOLE SU PRD.MD
 
@@ -622,6 +640,12 @@ Se noti tramite Playwright MCP o browser automation:
 - differenze evidenti con Figma
 
 allora il task non e ancora finito, anche se i test strutturali passano.
+
+Regola aggiuntiva:
+
+- se la route esisteva gia prima del task, la review visiva finale deve confermare anche che non restino discrepanze macroscopiche preesistenti
+- per ogni pagina pubblica gia esistente toccata dal task, devi controllare almeno una viewport desktop e una mobile
+- se la pagina continua a sembrare una versione mobile stirata o centrata su desktop, il task non e chiuso
 
 # ERRORI DA EVITARE
 

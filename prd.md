@@ -71,6 +71,7 @@ Regole:
 
 ### Landing Pubblica
 
+- [ ] [FRAME][node=143:1822][route=/][test=tests/e2e/parity/landing-page.visual.spec.ts] Auditare e correggere la parity desktop/mobile della landing esistente prima di proseguire con altri raffinamenti della homepage.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Implementare la `Landing Page` come baseline visiva pubblica e riferimento per i token principali.
 - [x] [COMP][node=199:591][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre `Button Group` come pattern auth header riusabile.
 - [x] [COMP][node=143:1908][route=/][test=tests/e2e/public/landing-page.spec.ts] Estrarre la CTA download app come variante primaria con icona.

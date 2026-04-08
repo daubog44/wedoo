@@ -44,9 +44,9 @@ function Initialize-IsolatedCodexHome {
     }
   }
 
-  $configToml = @'
+$configToml = @'
 model = "gpt-5.4"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 service_tier = "fast"
 sandbox_mode = "danger-full-access"
@@ -194,7 +194,7 @@ Se tutto passa, stampa una sola riga che inizi con PREFLIGHT_OK:
 Se qualcosa fallisce, stampa una sola riga che inizi con PREFLIGHT_FAIL:
 Non aggiungere altro oltre alla riga finale.
 "@
-  $output = $prompt | & codex-potter exec --codex-bin $CodexWrapper --json -m gpt-5.4 -c 'model_reasoning_effort="medium"' --rounds 1 --sandbox danger-full-access --yolo 2>&1 | Out-String
+  $output = $prompt | & codex-potter exec --codex-bin $CodexWrapper --json -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --rounds 1 --sandbox danger-full-access --yolo 2>&1 | Out-String
 
   if ($output -match "PREFLIGHT_OK:") {
     Write-Host "MCP preflight ok."
@@ -270,11 +270,11 @@ Write-Host "Starting Codex Potter in yolo mode..."
 
 if ($DryRun) {
   Write-Host "DRY RUN"
-  Write-Host "Get-Content -Raw .\docs\ralph-loop-prompt.md | codex-potter exec -m gpt-5.4 -c 'model_reasoning_effort=""medium""' --rounds $Rounds --sandbox danger-full-access --yolo"
+  Write-Host "Get-Content -Raw .\docs\ralph-loop-prompt.md | codex-potter exec -m gpt-5.4 -c 'model_reasoning_effort=""xhigh""' --rounds $Rounds --sandbox danger-full-access --yolo"
   exit 0
 }
 
 Get-Content -Raw .\docs\ralph-loop-prompt.md |
-  & codex-potter exec --codex-bin $CodexWrapper -m gpt-5.4 -c 'model_reasoning_effort="medium"' --rounds $Rounds --sandbox danger-full-access --yolo
+  & codex-potter exec --codex-bin $CodexWrapper -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --rounds $Rounds --sandbox danger-full-access --yolo
 
 exit $LASTEXITCODE

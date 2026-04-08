@@ -30,6 +30,10 @@ Comando CLI diretto equivalente, se vuoi bypassare `task`:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\potter-yolo.ps1 -Slug landing-page -Rounds 25
 ```
 
+Prerequisito operativo:
+
+- esporta `GITHUB_PAT_TOKEN` nella sessione prima di usare i comandi sopra, perche il bootstrap configura GitHub MCP e il preflight valida anche il token
+
 La procedura standard sopra:
 
 - avvia prima il dev server locale su `http://127.0.0.1:4173`
@@ -37,11 +41,17 @@ La procedura standard sopra:
 - crea il worklog di sessione
 - usa una home Codex locale isolata in `.codex-potter-home`
 - copia i file di autenticazione Codex necessari dalla home globale, cosi OAuth Figma continua a essere disponibile
-- avvia `codex-potter exec` con `--yolo`, `danger-full-access` e reasoning `medium`
+- avvia `codex-potter exec` con `--yolo`, `danger-full-access` e reasoning `xhigh`
 
 La variante `potter:yolo:checked` aggiunge anche un preflight esterno e bloccante su Figma MCP, GitHub MCP e Playwright locale.
 
 La variante `potter:yolo:global` usa invece direttamente la home globale di Codex.
+
+Per eseguire solo il preflight esterno senza lanciare il loop:
+
+```powershell
+task potter:preflight SLUG=landing-page ROUNDS=1
+```
 
 Lavora in questo repository come agente autonomo dentro un Ralph Loop.
 Usa `AGENTS.md` come istruzione principale permanente del loop e usa `prd.md` come backlog operativo vivo.
@@ -60,6 +70,8 @@ Vincoli operativi:
 - mantieni React, TypeScript, Vite, React Router e i pattern gia presenti nel repo
 - non saltare task
 - lavora su un solo task principale alla volta
+- non trattare il codice gia presente come fonte di verita visuale
+- se una pagina esiste gia ma e incoerente con Figma, correggila
 - non inventare feature fuori da Figma o fuori da `prd.md`, salvo prerequisiti tecnici realmente necessari
 - se scopri nuovi task necessari, aggiorna `prd.md` nel punto corretto invece di tenerli impliciti
 - registra nel worklog di sessione le decisioni rilevanti, i problemi trovati, come li hai risolti e lo stato dei test
@@ -74,6 +86,7 @@ Per ogni task:
 - se individui child frame, componenti principali, stati UI o task tecnici mancanti, aggiorna subito `prd.md`
 - registra nel worklog le discovery Figma davvero rilevanti
 - registra nel worklog quale viewport Figma e il riferimento principale del task
+- se la route esiste gia, fai prima un audit visuale rapido della pagina corrente e correggi subito eventuali discrepanze macroscopiche
 - usa gli export PNG di sezione in `artifacts/figma-exports/**` solo come riferimento secondario, quando il MCP non basta a leggere bene una sezione lunga, densa o croppata
 - se servono export di sezione, parti da `npm run loop:assets` e scegli solo quelli coerenti con il task corrente
 - se un export di sezione contraddice Figma MCP, prevale Figma MCP
@@ -85,6 +98,7 @@ Regole su viewport e responsive:
 - se esiste solo il frame mobile, implementa prima la resa mobile fedele e poi deriva una desktop version sensata
 - se esiste solo il frame desktop, implementa prima la resa desktop fedele e poi deriva una mobile version sensata
 - se esistono varianti mobile e desktop della stessa schermata, usa ciascuna variante per la viewport corretta e non mischiarle
+- se una pagina pubblica esistente su desktop assomiglia ancora a una colonna mobile centrata, trattala come bug aperto da correggere
 
 Implementazione:
 
@@ -123,10 +137,11 @@ Ordine di lavoro per ogni iterazione:
 12. fai self-review del diff prima dei test
 13. esegui `npm run test:all`
 14. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile, dando priorita alla viewport corrispondente al frame Figma principale
-15. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
-16. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
-17. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task
-18. solo quando tutto e coerente, aggiorna `prd.md` marcando il task come completato
+15. se la route esisteva gia, conferma esplicitamente che non siano rimaste discrepanze macroscopiche preesistenti
+16. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
+17. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
+18. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task
+19. solo quando tutto e coerente, aggiorna `prd.md` marcando il task come completato
 
 Regole Git e GitHub:
 

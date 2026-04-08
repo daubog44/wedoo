@@ -27,7 +27,7 @@ foreach ($fileName in @("auth.json", "cap_sid")) {
 
 $configToml = @'
 model = "gpt-5.4"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 service_tier = "fast"
 sandbox_mode = "danger-full-access"
