@@ -1,6 +1,9 @@
-import { useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import type { JobDraft, JobDraftOption } from "../../data/job-draft";
+import { useEffect, useId, useState } from "react";
+import type {
+  JobDraft,
+  JobDraftOption,
+  JobDraftStepTwoInput,
+} from "../../data/job-draft";
 import { AppIcon } from "../../lib/icons";
 import { assetPath, cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
@@ -13,15 +16,12 @@ import {
 
 type CompanyJobDraftStepTwoProps = {
   draft: JobDraft;
+  onPreview?: (values: JobDraftStepTwoInput) => void | Promise<void>;
+  onSaveDraft?: (values: JobDraftStepTwoInput) => void | Promise<void>;
+  onSubmitDraft?: (values: JobDraftStepTwoInput) => void | Promise<void>;
 };
 
-type CompanyJobDraftStepTwoState = {
-  contractTypeId: string;
-  hoursId: string;
-  selectedFileName: string;
-  selectedSdgIds: string[];
-  workModeId: string;
-};
+type CompanyJobDraftStepTwoState = JobDraftStepTwoInput;
 
 const draftStepTwoHints = {
   contractExamples: "full time, part-time, turni, stage, ecc.",
@@ -36,13 +36,13 @@ const draftStepTwoHints = {
 
 const desktopPct = (value: number) => `${(value / 1440) * 100}%`;
 
-function createInitialFormState(): CompanyJobDraftStepTwoState {
+function createInitialFormState(draft: JobDraft): CompanyJobDraftStepTwoState {
   return {
-    contractTypeId: "",
-    hoursId: "",
-    selectedFileName: "",
-    selectedSdgIds: [],
-    workModeId: "",
+    contractTypeId: draft.role.contractTypeId,
+    hoursId: draft.role.hoursId,
+    selectedFileName: draft.role.certificationLabel,
+    selectedSdgIds: [...draft.role.sdgIds],
+    workModeId: draft.role.workModeId,
   };
 }
 
@@ -75,11 +75,13 @@ function JobDraftUploadButton({
   compact = false,
   id,
   onFileChange,
+  resetKey,
   selectedFileName,
 }: {
   compact?: boolean;
   id: string;
   onFileChange: (fileName: string) => void;
+  resetKey: number;
   selectedFileName: string;
 }) {
   return (
@@ -97,6 +99,7 @@ function JobDraftUploadButton({
       <input
         className="sr-only"
         id={id}
+        key={`${id}-${resetKey}`}
         onChange={(event) =>
           onFileChange(event.target.files?.[0]?.name ?? "")
         }
@@ -241,6 +244,7 @@ function JobDraftDesktopStepTwoView({
   onSdgAdd,
   onSdgRemove,
   onSubmit,
+  uploadResetKey,
   uploadId,
   draft,
 }: {
@@ -251,12 +255,13 @@ function JobDraftDesktopStepTwoView({
     value: string,
   ) => void;
   onFileChange: (value: string) => void;
-  onPreview: () => void;
+  onPreview: () => void | Promise<void>;
   onReset: () => void;
-  onSaveDraft: () => void;
+  onSaveDraft: () => void | Promise<void>;
   onSdgAdd: (value: string) => void;
   onSdgRemove: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: () => void | Promise<void>;
+  uploadResetKey: number;
   uploadId: string;
 }) {
   return (
@@ -341,6 +346,7 @@ function JobDraftDesktopStepTwoView({
               <JobDraftUploadButton
                 id={uploadId}
                 onFileChange={onFileChange}
+                resetKey={uploadResetKey}
                 selectedFileName={formState.selectedFileName}
               />
             </div>
@@ -398,6 +404,7 @@ function JobDraftMobileStepTwoView({
   onSdgAdd,
   onSdgRemove,
   onSubmit,
+  uploadResetKey,
   uploadId,
   draft,
 }: {
@@ -408,12 +415,13 @@ function JobDraftMobileStepTwoView({
     value: string,
   ) => void;
   onFileChange: (value: string) => void;
-  onPreview: () => void;
+  onPreview: () => void | Promise<void>;
   onReset: () => void;
-  onSaveDraft: () => void;
+  onSaveDraft: () => void | Promise<void>;
   onSdgAdd: (value: string) => void;
   onSdgRemove: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: () => void | Promise<void>;
+  uploadResetKey: number;
   uploadId: string;
 }) {
   return (
@@ -504,6 +512,7 @@ function JobDraftMobileStepTwoView({
                 compact
                 id={uploadId}
                 onFileChange={onFileChange}
+                resetKey={uploadResetKey}
                 selectedFileName={formState.selectedFileName}
               />
             </div>
@@ -529,10 +538,17 @@ function JobDraftMobileStepTwoView({
 
 export function CompanyJobDraftStepTwo({
   draft,
+  onPreview,
+  onSaveDraft,
+  onSubmitDraft,
 }: CompanyJobDraftStepTwoProps) {
-  const navigate = useNavigate();
-  const [formState, setFormState] = useState(() => createInitialFormState());
+  const [formState, setFormState] = useState(() => createInitialFormState(draft));
   const uploadFieldId = useId().replace(/:/g, "");
+  const [uploadResetKey, setUploadResetKey] = useState(0);
+
+  useEffect(() => {
+    setFormState(createInitialFormState(draft));
+  }, [draft]);
 
   function updateField(
     field: "contractTypeId" | "hoursId" | "workModeId",
@@ -545,7 +561,14 @@ export function CompanyJobDraftStepTwo({
   }
 
   function resetForm() {
-    setFormState(createInitialFormState());
+    setFormState({
+      contractTypeId: "",
+      hoursId: "",
+      selectedFileName: "",
+      selectedSdgIds: [],
+      workModeId: "",
+    });
+    setUploadResetKey((previous) => previous + 1);
   }
 
   return (
@@ -557,9 +580,9 @@ export function CompanyJobDraftStepTwo({
         onFileChange={(value) =>
           setFormState((previous) => ({ ...previous, selectedFileName: value }))
         }
-        onPreview={() => navigate(draft.flow.previewPath)}
+        onPreview={() => onPreview?.(formState)}
         onReset={resetForm}
-        onSaveDraft={() => navigate("/portale/azienda/annunci")}
+        onSaveDraft={() => onSaveDraft?.(formState)}
         onSdgAdd={(value) =>
           setFormState((previous) => ({
             ...previous,
@@ -574,7 +597,8 @@ export function CompanyJobDraftStepTwo({
             selectedSdgIds: previous.selectedSdgIds.filter((item) => item !== value),
           }))
         }
-        onSubmit={() => navigate(draft.flow.completionPath)}
+        onSubmit={() => onSubmitDraft?.(formState)}
+        uploadResetKey={uploadResetKey}
         uploadId={`desktop-upload-${uploadFieldId}`}
       />
 
@@ -585,9 +609,9 @@ export function CompanyJobDraftStepTwo({
         onFileChange={(value) =>
           setFormState((previous) => ({ ...previous, selectedFileName: value }))
         }
-        onPreview={() => navigate(draft.flow.previewPath)}
+        onPreview={() => onPreview?.(formState)}
         onReset={resetForm}
-        onSaveDraft={() => navigate("/portale/azienda/annunci")}
+        onSaveDraft={() => onSaveDraft?.(formState)}
         onSdgAdd={(value) =>
           setFormState((previous) => ({
             ...previous,
@@ -602,7 +626,8 @@ export function CompanyJobDraftStepTwo({
             selectedSdgIds: previous.selectedSdgIds.filter((item) => item !== value),
           }))
         }
-        onSubmit={() => navigate(draft.flow.completionPath)}
+        onSubmit={() => onSubmitDraft?.(formState)}
+        uploadResetKey={uploadResetKey}
         uploadId={`mobile-upload-${uploadFieldId}`}
       />
     </main>

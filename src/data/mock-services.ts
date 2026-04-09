@@ -20,7 +20,7 @@ import type {
   PodcastPreview,
 } from "./types";
 import type { JobDraft } from "./job-draft";
-import { jobDraftMock } from "./job-draft";
+import { createEmptyJobDraft, jobDraftMock } from "./job-draft";
 import {
   getJobDetailById,
   getJobListingById,
@@ -34,6 +34,50 @@ function cloneMock<T>(value: T): T {
   }
 
   return JSON.parse(JSON.stringify(value)) as T;
+}
+
+const jobDraftStorageKey = "wedoo.company-job-draft";
+let persistedJobDraftMock: JobDraft | null = null;
+
+function getDefaultJobDraftMock(): JobDraft {
+  return createEmptyJobDraft(jobDraftMock);
+}
+
+function readStoredJobDraftMock(): JobDraft {
+  if (persistedJobDraftMock) {
+    return persistedJobDraftMock;
+  }
+
+  if (typeof window === "undefined" || !("sessionStorage" in window)) {
+    persistedJobDraftMock = getDefaultJobDraftMock();
+    return persistedJobDraftMock;
+  }
+
+  const storedValue = window.sessionStorage.getItem(jobDraftStorageKey);
+
+  if (!storedValue) {
+    persistedJobDraftMock = getDefaultJobDraftMock();
+    return persistedJobDraftMock;
+  }
+
+  try {
+    persistedJobDraftMock = JSON.parse(storedValue) as JobDraft;
+  } catch {
+    persistedJobDraftMock = getDefaultJobDraftMock();
+  }
+
+  return persistedJobDraftMock;
+}
+
+function writeStoredJobDraftMock(nextDraft: JobDraft): JobDraft {
+  const clonedDraft = cloneMock(nextDraft);
+  persistedJobDraftMock = clonedDraft;
+
+  if (typeof window !== "undefined" && "sessionStorage" in window) {
+    window.sessionStorage.setItem(jobDraftStorageKey, JSON.stringify(clonedDraft));
+  }
+
+  return clonedDraft;
 }
 
 export function getPublicHomeMock(): Promise<PublicHomeResponse> {
@@ -84,8 +128,20 @@ export function getPodcastPreviewsMock(): Promise<readonly PodcastPreview[]> {
   return Promise.resolve(cloneMock(podcastPreviewsMock));
 }
 
+export function getJobDraftMockSnapshot(): JobDraft {
+  return cloneMock(readStoredJobDraftMock());
+}
+
 export function getJobDraftMock(): Promise<JobDraft> {
-  return Promise.resolve(cloneMock(jobDraftMock));
+  return Promise.resolve(getJobDraftMockSnapshot());
+}
+
+export function saveJobDraftMock(nextDraft: JobDraft): Promise<JobDraft> {
+  return Promise.resolve(cloneMock(writeStoredJobDraftMock(nextDraft)));
+}
+
+export function resetJobDraftMock(): Promise<JobDraft> {
+  return Promise.resolve(cloneMock(writeStoredJobDraftMock(getDefaultJobDraftMock())));
 }
 
 export function getJobListingsMock(): Promise<readonly JobListing[]> {
@@ -114,8 +170,11 @@ export const mockDataService = {
   getJobDetailMock,
   getJobDetailsMock,
   getJobDraftMock,
+  getJobDraftMockSnapshot,
   getJobListingMock,
   getJobListingsMock,
   getPodcastPreviewsMock,
   getPublicHomeMock,
+  resetJobDraftMock,
+  saveJobDraftMock,
 } as const;

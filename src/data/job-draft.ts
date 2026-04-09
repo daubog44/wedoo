@@ -94,6 +94,26 @@ export type JobDraft = {
   role: JobDraftRole;
 };
 
+export type JobDraftStepOneInput = {
+  capId: string;
+  cityId: string;
+  description: string;
+  experienceLevelId: string;
+  provinceId: string;
+  remoteAllowed: boolean;
+  sectorId: string;
+  skillId: string;
+  travelRequired: boolean;
+};
+
+export type JobDraftStepTwoInput = {
+  contractTypeId: string;
+  hoursId: string;
+  selectedFileName: string;
+  selectedSdgIds: readonly string[];
+  workModeId: string;
+};
+
 function getOptionLabels(options: readonly JobDraftOption[]): string[] {
   return options.map((option) => option.label);
 }
@@ -273,6 +293,71 @@ export const jobDraftMock = {
     workModeId: "ibrido",
   },
 } as const satisfies JobDraft;
+
+export function createEmptyJobDraft(baseDraft: JobDraft): JobDraft {
+  return {
+    ...baseDraft,
+    geography: {
+      ...baseDraft.geography,
+      capId: "",
+      cityId: "",
+      provinceId: "",
+    },
+    role: {
+      ...baseDraft.role,
+      certificationLabel: "",
+      contractTypeId: "",
+      description: "",
+      experienceLevelId: "",
+      hoursId: "",
+      sdgIds: [],
+      sectorId: "",
+      skillIds: [],
+      workModeId: "",
+    },
+  };
+}
+
+export function applyJobDraftStepOne(
+  draft: JobDraft,
+  values: JobDraftStepOneInput,
+): JobDraft {
+  return {
+    ...draft,
+    geography: {
+      ...draft.geography,
+      capId: values.capId,
+      cityId: values.cityId,
+      provinceId: values.provinceId,
+      remoteAllowed: values.remoteAllowed,
+      travelRequired: values.travelRequired,
+    },
+    role: {
+      ...draft.role,
+      description: values.description,
+      experienceLevelId: values.experienceLevelId,
+      sectorId: values.sectorId,
+      skillIds: values.skillId ? [values.skillId] : [],
+    },
+  };
+}
+
+export function applyJobDraftStepTwo(
+  draft: JobDraft,
+  values: JobDraftStepTwoInput,
+): JobDraft {
+  return {
+    ...draft,
+    role: {
+      ...draft.role,
+      certificationLabel: values.selectedFileName,
+      contractTypeId: values.contractTypeId,
+      hoursId: values.hoursId,
+      sdgIds: [...values.selectedSdgIds],
+      workModeId: values.workModeId,
+    },
+  };
+}
 
 export function getJobDraftCityOptions(
   catalogs: JobDraftCatalogs,

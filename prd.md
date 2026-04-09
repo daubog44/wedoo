@@ -111,6 +111,7 @@ Regole:
 - [x] [FRAME][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Implementare `Portale annunci` step geografia e descrizione come primo step di creazione annuncio.
 - [x] [FRAME][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Implementare `Portale annunci` step contratto, modalita, SDG e certificazioni come secondo step di creazione annuncio.
 - [x] [FRAME][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Allineare lo step `Portale annunci` a selezione multipla SDG coerente con la guida Figma.
+- [x] [DATA][node=n/a][route=/portale/azienda/annunci/nuovo][test=tests/integration/mock-services.test.ts] Persistire la bozza `JobDraft` tra step, CTA `bozza` e riapertura della route dedicata.
 
 ### Strategia Test E Parity
 
@@ -133,6 +134,7 @@ Regole:
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il secondo step del wizard annuncio azienda.
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-2.visual.spec.ts] Aggiungere snapshot VRT reali per il secondo step annuncio azienda quando il flow si stabilizza.
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Estendere il flow del secondo step a selezione multipla SDG e CTA `cancella` `bozza` `invia`.
+- [x] [TEST][node=n/a][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il resume della bozza `JobDraft` dopo il salvataggio e la riapertura del wizard azienda.
 - [x] [TEST][node=n/a][route=n/a][test=tests/e2e/parity/figma-backlog.spec.ts] Ridurre progressivamente il backlog `fixme` di parity Figma man mano che le schermate vengono implementate.
 
 ## Regola Operativa

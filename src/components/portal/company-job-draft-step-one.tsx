@@ -1,6 +1,9 @@
-import { useId, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import type { JobDraft, JobDraftOption } from "../../data/job-draft";
+import { useEffect, useId, useState } from "react";
+import type {
+  JobDraft,
+  JobDraftOption,
+  JobDraftStepOneInput,
+} from "../../data/job-draft";
 import {
   getJobDraftCapOptions,
   getJobDraftCityOptions,
@@ -11,20 +14,10 @@ import { SiteIcon } from "../site";
 
 type CompanyJobDraftStepOneProps = {
   draft: JobDraft;
-  saveTo?: string;
+  onContinue?: (values: JobDraftStepOneInput) => void | Promise<void>;
 };
 
-type CompanyJobDraftStepOneState = {
-  capId: string;
-  cityId: string;
-  description: string;
-  experienceLevelId: string;
-  provinceId: string;
-  remoteAllowed: boolean;
-  sectorId: string;
-  skillId: string;
-  travelRequired: boolean;
-};
+type CompanyJobDraftStepOneState = JobDraftStepOneInput;
 
 const draftStepOneHints = {
   experienceSuggestions: [
@@ -45,14 +38,14 @@ function createInitialFormState(
   draft: JobDraft,
 ): CompanyJobDraftStepOneState {
   return {
-    capId: "",
-    cityId: "",
-    description: "",
-    experienceLevelId: "",
-    provinceId: "",
+    capId: draft.geography.capId,
+    cityId: draft.geography.cityId,
+    description: draft.role.description,
+    experienceLevelId: draft.role.experienceLevelId,
+    provinceId: draft.geography.provinceId,
     remoteAllowed: draft.geography.remoteAllowed,
-    sectorId: "",
-    skillId: "",
+    sectorId: draft.role.sectorId,
+    skillId: draft.role.skillIds[0] ?? "",
     travelRequired: draft.geography.travelRequired,
   };
 }
@@ -376,7 +369,7 @@ function JobDraftDesktopView({
   onSkillChange: (value: string) => void;
   sectorOptions: readonly JobDraftOption[];
   skillOptions: readonly JobDraftOption[];
-  onSubmit: () => void;
+  onSubmit: () => void | Promise<void>;
 }) {
   return (
     <section className="hidden min-[1024px]:block" data-job-draft-layout="desktop">
@@ -559,7 +552,7 @@ function JobDraftMobileView({
   onSkillChange: (value: string) => void;
   sectorOptions: readonly JobDraftOption[];
   skillOptions: readonly JobDraftOption[];
-  onSubmit: () => void;
+  onSubmit: () => void | Promise<void>;
 }) {
   return (
     <section className="min-[1024px]:hidden" data-job-draft-layout="mobile">
@@ -701,9 +694,8 @@ function JobDraftMobileView({
 
 export function CompanyJobDraftStepOne({
   draft,
-  saveTo = "/portale/azienda/annunci",
+  onContinue,
 }: CompanyJobDraftStepOneProps) {
-  const navigate = useNavigate();
   const [formState, setFormState] = useState(() => createInitialFormState(draft));
   const capDatalistId = useId().replace(/:/g, "");
   const cityOptions = getJobDraftCityOptions(draft.catalogs, formState.provinceId);
@@ -712,6 +704,10 @@ export function CompanyJobDraftStepOne({
     formState.provinceId,
     formState.cityId,
   );
+
+  useEffect(() => {
+    setFormState(createInitialFormState(draft));
+  }, [draft]);
 
   function updateCheckbox(
     field: "remoteAllowed" | "travelRequired",
@@ -801,7 +797,7 @@ export function CompanyJobDraftStepOne({
         }
         sectorOptions={draft.catalogs.sectors}
         skillOptions={draft.catalogs.skillTags}
-        onSubmit={() => navigate(saveTo)}
+        onSubmit={() => onContinue?.(formState)}
       />
 
       <JobDraftMobileView
@@ -834,7 +830,7 @@ export function CompanyJobDraftStepOne({
         }
         sectorOptions={draft.catalogs.sectors}
         skillOptions={draft.catalogs.skillTags}
-        onSubmit={() => navigate(saveTo)}
+        onSubmit={() => onContinue?.(formState)}
       />
     </main>
   );

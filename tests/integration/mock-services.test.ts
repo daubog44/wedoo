@@ -11,6 +11,8 @@ import {
   getPodcastPreviewsMock,
   getPublicHomeMock,
   mockDataService,
+  resetJobDraftMock,
+  saveJobDraftMock,
 } from "../../src/data/mock-services";
 import {
   articlePreviewsMock,
@@ -62,6 +64,56 @@ describe("mock data services", () => {
     expect(jobDraft.flow.totalSteps).toBe(5);
     expect(listings[0]?.id).toBe("addetto-comunicazione");
     expect(jobDetail.id).toBe("copywriter-junior");
+  });
+
+  it("persists and resets the company job draft through the mock service", async () => {
+    const emptyDraft = await resetJobDraftMock();
+    const savedDraft = await saveJobDraftMock({
+      ...emptyDraft,
+      geography: {
+        ...emptyDraft.geography,
+        capId: "00100",
+        cityId: "roma",
+        provinceId: "rm",
+      },
+      role: {
+        ...emptyDraft.role,
+        certificationLabel: "Informativa privacy per sito.pdf",
+        contractTypeId: "stage",
+        description: "Supporterai il team comunicazione tra social e contenuti ESG.",
+        experienceLevelId: "stage",
+        hoursId: "full-time",
+        sdgIds: ["climate-action", "responsible-consumption"],
+        sectorId: "communication",
+        skillIds: ["canva"],
+        workModeId: "smart",
+      },
+    });
+    const resumedDraft = await getJobDraftMock();
+
+    expect(savedDraft).toMatchObject({
+      geography: {
+        capId: "00100",
+        cityId: "roma",
+        provinceId: "rm",
+      },
+      role: {
+        certificationLabel: "Informativa privacy per sito.pdf",
+        contractTypeId: "stage",
+        description: "Supporterai il team comunicazione tra social e contenuti ESG.",
+        hoursId: "full-time",
+        sdgIds: ["climate-action", "responsible-consumption"],
+        workModeId: "smart",
+      },
+    });
+    expect(resumedDraft).toEqual(savedDraft);
+    expect(resumedDraft).not.toBe(savedDraft);
+
+    const resetDraft = await resetJobDraftMock();
+
+    expect(resetDraft.geography.provinceId).toBe("");
+    expect(resetDraft.role.contractTypeId).toBe("");
+    expect(resetDraft.role.sdgIds).toEqual([]);
   });
 
   it("exposes the same async helpers through the aggregated mockDataService", async () => {

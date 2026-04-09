@@ -6,12 +6,34 @@ import { waitForWedooPageReady } from "../../fixtures/playwright-helpers";
 async function openCompanyJobDraftStepTwo(
   page: import("@playwright/test").Page,
   layoutName: "desktop" | "mobile",
+  options?: {
+    fillStepOne?: boolean;
+  },
 ) {
   await page.goto(portalRoutes.companyJobDraftStep1);
   await waitForWedooPageReady(page);
 
-  await page
+  const stepOne = page
     .locator(`[data-job-draft-layout="${layoutName}"]`)
+    .getByTestId("company-job-draft-step-1");
+
+  if (options?.fillStepOne) {
+    await stepOne.getByLabel(portalCopy.companyJobDraftStep1.provinceLabel).selectOption("rm");
+    await stepOne
+      .getByLabel("job description")
+      .fill("Supporterai il team comunicazione tra social, contenuti e storytelling ESG.");
+    await stepOne
+      .getByLabel(portalCopy.companyJobDraftStep1.sectorLabel)
+      .selectOption("communication");
+    await stepOne
+      .getByLabel(portalCopy.companyJobDraftStep1.skillsLabel)
+      .selectOption("canva");
+    await stepOne
+      .getByLabel(portalCopy.companyJobDraftStep1.experienceLabel)
+      .selectOption("stage");
+  }
+
+  await stepOne
     .getByRole("button", {
       name: portalCopy.companyJobDraftStep1.continueCta,
       exact: true,
@@ -48,7 +70,9 @@ test.describe("company job draft step 2", () => {
       "documenti",
       "Informativa privacy per sito.pdf",
     );
-    const { step } = await openCompanyJobDraftStepTwo(page, layoutName);
+    const { step } = await openCompanyJobDraftStepTwo(page, layoutName, {
+      fillStepOne: true,
+    });
 
     await expect(
       step.getByText("full time, part-time, turni, stage, ecc.", { exact: true }),
@@ -129,6 +153,13 @@ test.describe("company job draft step 2", () => {
       step.getByText("Informativa privacy per sito.pdf", { exact: true }),
     ).toHaveCount(0);
 
+    await contractField.selectOption("stage");
+    await hoursField.selectOption("full-time");
+    await modeField.selectOption("smart");
+    await sdgField.selectOption("climate-action");
+    await sdgField.selectOption("responsible-consumption");
+    await fileInput.setInputFiles(documentPath);
+
     await step
       .getByRole("button", {
         name: portalCopy.companyJobDraftStep2.saveDraftCta,
@@ -140,6 +171,70 @@ test.describe("company job draft step 2", () => {
       page.getByRole("heading", {
         name: portalCopy.companyJobs.createCardHeading,
       }),
+    ).toBeVisible();
+
+    await page
+      .getByRole("link", { name: portalCopy.companyJobs.createCta, exact: true })
+      .click();
+    await waitForWedooPageReady(page);
+
+    await expect(page).toHaveURL(portalRoutes.companyJobDraftStep1);
+
+    const reopenedStepOne = page
+      .locator(`[data-job-draft-layout="${layoutName}"]`)
+      .getByTestId("company-job-draft-step-1");
+
+    await expect(
+      reopenedStepOne.getByLabel(portalCopy.companyJobDraftStep1.provinceLabel),
+    ).toHaveValue("rm");
+    await expect(reopenedStepOne.getByLabel("città")).toHaveValue("roma");
+    await expect(reopenedStepOne.getByLabel("CAP")).toHaveValue("00100");
+    await expect(reopenedStepOne.getByLabel("job description")).toHaveValue(
+      "Supporterai il team comunicazione tra social, contenuti e storytelling ESG.",
+    );
+    await expect(
+      reopenedStepOne.getByLabel(portalCopy.companyJobDraftStep1.sectorLabel),
+    ).toHaveValue("communication");
+    await expect(
+      reopenedStepOne.getByLabel(portalCopy.companyJobDraftStep1.skillsLabel),
+    ).toHaveValue("canva");
+    await expect(
+      reopenedStepOne.getByLabel(portalCopy.companyJobDraftStep1.experienceLabel),
+    ).toHaveValue("stage");
+
+    await reopenedStepOne
+      .getByRole("button", {
+        name: portalCopy.companyJobDraftStep1.continueCta,
+        exact: true,
+      })
+      .click();
+    await waitForWedooPageReady(page);
+
+    const reopenedStepTwo = page
+      .locator(`[data-job-draft-layout="${layoutName}"]`)
+      .getByTestId("company-job-draft-step-2");
+
+    await expect(
+      reopenedStepTwo.getByLabel(portalCopy.companyJobDraftStep2.contractLabel),
+    ).toHaveValue("stage");
+    await expect(
+      reopenedStepTwo.getByLabel(portalCopy.companyJobDraftStep2.hoursLabel),
+    ).toHaveValue("full-time");
+    await expect(
+      reopenedStepTwo.getByLabel(portalCopy.companyJobDraftStep2.modeLabel),
+    ).toHaveValue("smart");
+    await expect(
+      reopenedStepTwo.getByTestId("company-job-draft-sdg-list").getByRole("button", {
+        name: "Rimuovi SDG Lotta al cambiamento climatico",
+      }),
+    ).toBeVisible();
+    await expect(
+      reopenedStepTwo.getByTestId("company-job-draft-sdg-list").getByRole("button", {
+        name: "Rimuovi SDG Consumo responsabile",
+      }),
+    ).toBeVisible();
+    await expect(
+      reopenedStepTwo.getByText("Informativa privacy per sito.pdf", { exact: true }).first(),
     ).toBeVisible();
   });
 
