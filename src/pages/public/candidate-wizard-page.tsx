@@ -10,7 +10,7 @@ import {
   TopLogoBar,
 } from "../../components/site";
 import { candidateProfileDraftMock } from "../../data/candidate-profile";
-import { candidateForms } from "../../data/forms";
+import { candidateRegistrationForm } from "../../data/forms";
 
 export default function CandidateWizardPage() {
   const params = useParams();
@@ -65,16 +65,14 @@ export default function CandidateWizardPage() {
     );
   }
 
-  const step = candidateForms[stepIndex - 1];
-
-  if (stepIndex !== 1 || !step) {
+  if (stepIndex !== 1) {
     return <Navigate replace to="/registrati/candidato/1" />;
   }
 
   return (
     <>
-      <BackdropPageShell background={step.background}>
-        <FormPageContent config={step} />
+      <BackdropPageShell background={candidateRegistrationForm.background}>
+        <FormPageContent config={candidateRegistrationForm} />
       </BackdropPageShell>
       <SiteFooter className="mt-0" />
     </>

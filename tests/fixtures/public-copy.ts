@@ -1,4 +1,5 @@
 export const publicRoutes = {
+  candidateRegistration: "/registrati/candidato/1",
   candidateContacts: "/registrati/candidato/2",
   candidateEducation: "/registrati/candidato/3",
   candidateSkills: "/registrati/candidato/5",
@@ -56,6 +57,13 @@ export const publicCopy = {
     registerPromptLink: "registrati",
     subtitle: "Accedi",
     termsLabel: "accetto i termini e le condizioni",
+  },
+  candidateRegistration: {
+    ctaLabel: "continua",
+    heading: "Benvenut*!",
+    loginPrompt: "hai gi\u00E0 un account?",
+    loginPromptLink: "accedi",
+    subtitle: "Registrati",
   },
   candidateContacts: {
     closeLabel: "Chiudi contatti",

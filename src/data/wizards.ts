@@ -1,8 +1,4 @@
-import { candidateProfileDraftMock, createCandidateRegistrationWizardSteps } from './candidate-profile'
 import type { WizardStep } from './types'
-
-export const candidateWizardSteps: WizardStep[] =
-  createCandidateRegistrationWizardSteps(candidateProfileDraftMock)
 
 export const companyWizardSteps: WizardStep[] = [
   {

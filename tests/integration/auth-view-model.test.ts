@@ -5,7 +5,11 @@ import {
   companyRegistrationAuthViewModel,
   loginAuthViewModel,
 } from "../../src/data/auth";
-import { candidateForms, companyForms, loginForm } from "../../src/data/forms";
+import {
+  candidateRegistrationForm,
+  companyForms,
+  loginForm,
+} from "../../src/data/forms";
 
 describe("AuthViewModel", () => {
   it("defines the login error state for missing required fields", () => {
@@ -50,7 +54,7 @@ describe("AuthViewModel", () => {
 
   it("keeps the existing form configs aligned with the auth view models", () => {
     expect(loginForm.rows[0]?.fields).toEqual([...loginAuthViewModel.fields]);
-    expect(candidateForms[0]?.rows[0]?.fields).toEqual([
+    expect(candidateRegistrationForm.rows[0]?.fields).toEqual([
       ...candidateRegistrationAuthViewModel.fields,
     ]);
     expect(companyForms[0]?.rows[0]?.fields).toEqual([

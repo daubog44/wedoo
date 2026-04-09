@@ -18,6 +18,36 @@ test.describe("public routes", () => {
     ).toBeVisible();
   });
 
+  test("candidate registration step 1 remains reachable from the public flow", async ({
+    page,
+  }) => {
+    await page.goto(publicRoutes.register);
+    await waitForWedooPageReady(page);
+
+    await page.getByRole("link", { name: publicCopy.register.candidateCta }).click();
+    await waitForWedooPageReady(page);
+
+    await expect(page).toHaveURL(publicRoutes.candidateRegistration);
+    await expect(
+      page.getByRole("heading", {
+        name: publicCopy.candidateRegistration.heading,
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(publicCopy.candidateRegistration.subtitle, { exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", {
+        name: publicCopy.candidateRegistration.ctaLabel,
+      }),
+    ).toHaveAttribute("href", publicRoutes.candidateContacts);
+    await expect(
+      page.getByRole("link", {
+        name: publicCopy.candidateRegistration.loginPromptLink,
+      }),
+    ).toHaveAttribute("href", "/accedi");
+  });
+
   test("info page exposes the main sections", async ({ page }) => {
     await page.goto(publicRoutes.info);
     await waitForWedooPageReady(page);
