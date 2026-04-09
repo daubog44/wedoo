@@ -114,12 +114,12 @@ Regole:
 
 ### Strategia Test E Parity
 
-- [ ] [TEST][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Sostituire lo smoke generico della landing con un test E2E piu aderente al frame Figma.
+- [x] [TEST][node=143:1822][route=/][test=tests/e2e/public/landing-page.spec.ts] Sostituire lo smoke generico della landing con un test E2E piu aderente al frame Figma.
 - [x] [TEST][node=143:1822][route=/][test=tests/e2e/parity/landing-page.visual.spec.ts] Creare e mantenere la baseline visuale della landing aggiornata e intenzionale man mano che il frame evolve.
 - [x] [TEST][node=143:1822][route=/info][test=tests/e2e/parity/info-page.visual.spec.ts] Creare e mantenere una baseline visuale dedicata per la route info quando il layout evolve.
 - [x] [TEST][node=143:1822][route=/registrati][test=tests/e2e/parity/register-page.visual.spec.ts] Creare e mantenere una baseline visuale dedicata per la route registrazione quando il layout evolve.
-- [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Coprire i principali stati errore e il consenso del login pubblico.
-- [ ] [TEST][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Aggiungere snapshot VRT reali per la route login quando il frame auth si stabilizza.
+- [x] [TEST][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Coprire i principali stati errore e il consenso del login pubblico.
+- [x] [TEST][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Aggiungere snapshot VRT reali per la route login quando il frame auth si stabilizza.
 - [x] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-contacts.spec.ts] Coprire il flow contatti del wizard candidato.
 - [x] [TEST][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Aggiungere snapshot VRT reali per il frame contatti quando il flow si stabilizza.
 - [x] [TEST][node=280:1079][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-education.spec.ts] Coprire il flow formazione del wizard candidato.
@@ -133,7 +133,7 @@ Regole:
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il secondo step del wizard annuncio azienda.
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-2.visual.spec.ts] Aggiungere snapshot VRT reali per il secondo step annuncio azienda quando il flow si stabilizza.
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Estendere il flow del secondo step a selezione multipla SDG e CTA `cancella` `bozza` `invia`.
-- [ ] [TEST][node=n/a][route=n/a][test=tests/e2e/parity/figma-backlog.spec.ts] Ridurre progressivamente il backlog `fixme` di parity Figma man mano che le schermate vengono implementate.
+- [x] [TEST][node=n/a][route=n/a][test=tests/e2e/parity/figma-backlog.spec.ts] Ridurre progressivamente il backlog `fixme` di parity Figma man mano che le schermate vengono implementate.
 
 ## Regola Operativa
 

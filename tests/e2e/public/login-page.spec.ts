@@ -3,10 +3,13 @@ import { publicCopy, publicRoutes } from "../../fixtures/public-copy";
 import { waitForWedooPageReady } from "../../fixtures/playwright-helpers";
 
 test.describe("login page", () => {
-  test("matches the missing fields state for Figma frame 658:667", async ({
+  test("matches the missing fields state and consent toggle for Figma frame 658:667", async ({
     page,
   }, testInfo) => {
     const isMobile = testInfo.project.name === "chromium-mobile";
+    if (!isMobile) {
+      await page.setViewportSize({ width: 1440, height: 1100 });
+    }
 
     await page.goto(publicRoutes.login);
     await waitForWedooPageReady(page);
@@ -50,6 +53,34 @@ test.describe("login page", () => {
     await expect(
       loginLayout.getByRole("link", { name: publicCopy.login.registerPromptLink }),
     ).toHaveAttribute("href", "/registrati");
+
+    await loginLayout
+      .getByRole("button", { name: publicCopy.login.ctaLabel, exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/accedi$/);
+    await expect(loginLayout.getByText(publicCopy.login.emailError, { exact: true })).toBeVisible();
+    await expect(
+      loginLayout.getByText(publicCopy.login.passwordError, { exact: true }),
+    ).toBeVisible();
+  });
+
+  test("submits to the candidate portal once required credentials are filled", async ({
+    page,
+  }, testInfo) => {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    if (!isMobile) {
+      await page.setViewportSize({ width: 1440, height: 1100 });
+    }
+
+    await page.goto(publicRoutes.login);
+    await waitForWedooPageReady(page);
+
+    const loginLayout = page.locator(
+      `[data-login-layout="${isMobile ? "mobile" : "desktop"}"]`,
+    );
+
+    const emailField = loginLayout.getByLabel(publicCopy.login.emailLabel);
+    const passwordField = loginLayout.getByLabel(publicCopy.login.passwordLabel);
 
     await emailField.fill("giulia@wedoo.it");
     await passwordField.fill("supersegreta");
