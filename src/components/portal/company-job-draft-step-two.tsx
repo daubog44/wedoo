@@ -1,8 +1,9 @@
 import { useId, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { JobDraft } from "../../data/job-draft";
+import type { JobDraft, JobDraftOption } from "../../data/job-draft";
 import { AppIcon } from "../../lib/icons";
 import { assetPath, cn } from "../../lib/site-utils";
+import { SiteIcon } from "../site";
 import {
   JobDraftFieldLabel,
   JobDraftHintText,
@@ -18,7 +19,7 @@ type CompanyJobDraftStepTwoState = {
   contractTypeId: string;
   hoursId: string;
   selectedFileName: string;
-  selectedSdgId: string;
+  selectedSdgIds: string[];
   workModeId: string;
 };
 
@@ -40,7 +41,7 @@ function createInitialFormState(): CompanyJobDraftStepTwoState {
     contractTypeId: "",
     hoursId: "",
     selectedFileName: "",
-    selectedSdgId: "",
+    selectedSdgIds: [],
     workModeId: "",
   };
 }
@@ -110,6 +111,126 @@ function JobDraftUploadButton({
   );
 }
 
+function JobDraftSelectedValues({
+  compact = false,
+  onRemove,
+  options,
+  selectedIds,
+}: {
+  compact?: boolean;
+  onRemove: (value: string) => void;
+  options: readonly JobDraftOption[];
+  selectedIds: readonly string[];
+}) {
+  const selectedOptions = selectedIds
+    .map((id) => options.find((option) => option.id === id))
+    .filter((option): option is JobDraftOption => Boolean(option));
+
+  if (selectedOptions.length === 0) {
+    return null;
+  }
+
+  return (
+    <ul
+      className={cn(
+        "flex flex-wrap gap-2",
+        compact ? "pt-1" : "pt-2",
+      )}
+      data-testid="company-job-draft-sdg-list"
+    >
+      {selectedOptions.map((option) => (
+        <li key={option.id}>
+          <button
+            aria-label={`Rimuovi SDG ${option.label}`}
+            className={cn(
+              "font-wedoo-body inline-flex items-center gap-2 rounded-full border border-brand-violet-400 bg-brand-page text-brand-ink transition hover:bg-brand-violet/8",
+              compact ? "px-3 py-1 text-[15px]" : "px-3 py-1.5 text-[16px]",
+            )}
+            onClick={() => onRemove(option.id)}
+            type="button"
+          >
+            <span>{option.label}</span>
+            <span aria-hidden="true" className="font-wedoo-accent text-[0.9em] leading-none">
+              x
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function JobDraftSdgField({
+  compact = false,
+  dataNodeId,
+  id,
+  label,
+  onAdd,
+  onRemove,
+  options,
+  selectedIds,
+}: {
+  compact?: boolean;
+  dataNodeId?: string;
+  id: string;
+  label: string;
+  onAdd: (value: string) => void;
+  onRemove: (value: string) => void;
+  options: readonly JobDraftOption[];
+  selectedIds: readonly string[];
+}) {
+  const availableOptions = options.filter(
+    (option) => !selectedIds.includes(option.id),
+  );
+
+  return (
+    <div className="grid gap-0">
+      <JobDraftFieldLabel compact={compact} htmlFor={id} label={label} />
+      <div className="relative" data-node-id={dataNodeId}>
+        <select
+          className={cn(
+            "font-wedoo-body w-full appearance-none rounded-[8px] border border-brand-violet-400 bg-brand-page pr-10 text-brand-ink outline-none transition focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
+            compact ? "h-[44px] px-3 text-[18px]" : "h-[37px] px-[7px] text-[22px]",
+            "text-brand-ink/55",
+          )}
+          id={id}
+          onChange={(event) => {
+            const nextValue = event.target.value;
+            if (!nextValue) {
+              return;
+            }
+
+            onAdd(nextValue);
+            event.target.value = "";
+          }}
+          value=""
+        >
+          <option value="">scegli</option>
+          {availableOptions.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <SiteIcon
+          className={cn(
+            "pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-brand-ink",
+            "h-4 w-4",
+          )}
+          data-node-id="2:543"
+          name="chevron-down"
+        />
+      </div>
+      <JobDraftSelectedValues
+        compact={compact}
+        onRemove={onRemove}
+        options={options}
+        selectedIds={selectedIds}
+      />
+    </div>
+  );
+}
+
 function JobDraftDesktopStepTwoView({
   formState,
   onChange,
@@ -117,6 +238,8 @@ function JobDraftDesktopStepTwoView({
   onPreview,
   onReset,
   onSaveDraft,
+  onSdgAdd,
+  onSdgRemove,
   onSubmit,
   uploadId,
   draft,
@@ -124,13 +247,15 @@ function JobDraftDesktopStepTwoView({
   draft: JobDraft;
   formState: CompanyJobDraftStepTwoState;
   onChange: (
-    field: "contractTypeId" | "hoursId" | "selectedSdgId" | "workModeId",
+    field: "contractTypeId" | "hoursId" | "workModeId",
     value: string,
   ) => void;
   onFileChange: (value: string) => void;
   onPreview: () => void;
   onReset: () => void;
   onSaveDraft: () => void;
+  onSdgAdd: (value: string) => void;
+  onSdgRemove: (value: string) => void;
   onSubmit: () => void;
   uploadId: string;
 }) {
@@ -196,13 +321,14 @@ function JobDraftDesktopStepTwoView({
               value={formState.workModeId}
             />
 
-            <JobDraftSelectField
+            <JobDraftSdgField
               dataNodeId="259:1139"
               id="desktop-company-job-draft-sdg"
               label="SDGs di riferimento"
-              onChange={(value) => onChange("selectedSdgId", value)}
+              onAdd={onSdgAdd}
+              onRemove={onSdgRemove}
               options={draft.catalogs.sdgs}
-              value={formState.selectedSdgId}
+              selectedIds={formState.selectedSdgIds}
             />
 
             <div className="space-y-2">
@@ -269,6 +395,8 @@ function JobDraftMobileStepTwoView({
   onPreview,
   onReset,
   onSaveDraft,
+  onSdgAdd,
+  onSdgRemove,
   onSubmit,
   uploadId,
   draft,
@@ -276,13 +404,15 @@ function JobDraftMobileStepTwoView({
   draft: JobDraft;
   formState: CompanyJobDraftStepTwoState;
   onChange: (
-    field: "contractTypeId" | "hoursId" | "selectedSdgId" | "workModeId",
+    field: "contractTypeId" | "hoursId" | "workModeId",
     value: string,
   ) => void;
   onFileChange: (value: string) => void;
   onPreview: () => void;
   onReset: () => void;
   onSaveDraft: () => void;
+  onSdgAdd: (value: string) => void;
+  onSdgRemove: (value: string) => void;
   onSubmit: () => void;
   uploadId: string;
 }) {
@@ -350,14 +480,15 @@ function JobDraftMobileStepTwoView({
             />
             <JobDraftHintText compact>{draftStepTwoHints.modeExamples}</JobDraftHintText>
 
-            <JobDraftSelectField
+            <JobDraftSdgField
               compact
               dataNodeId="259:1139"
               id="mobile-company-job-draft-sdg"
               label="SDGs di riferimento"
-              onChange={(value) => onChange("selectedSdgId", value)}
+              onAdd={onSdgAdd}
+              onRemove={onSdgRemove}
               options={draft.catalogs.sdgs}
-              value={formState.selectedSdgId}
+              selectedIds={formState.selectedSdgIds}
             />
             <JobDraftHintText compact>{draftStepTwoHints.sdgGuide}</JobDraftHintText>
 
@@ -404,7 +535,7 @@ export function CompanyJobDraftStepTwo({
   const uploadFieldId = useId().replace(/:/g, "");
 
   function updateField(
-    field: "contractTypeId" | "hoursId" | "selectedSdgId" | "workModeId",
+    field: "contractTypeId" | "hoursId" | "workModeId",
     value: string,
   ) {
     setFormState((previous) => ({
@@ -429,6 +560,20 @@ export function CompanyJobDraftStepTwo({
         onPreview={() => navigate(draft.flow.previewPath)}
         onReset={resetForm}
         onSaveDraft={() => navigate("/portale/azienda/annunci")}
+        onSdgAdd={(value) =>
+          setFormState((previous) => ({
+            ...previous,
+            selectedSdgIds: previous.selectedSdgIds.includes(value)
+              ? previous.selectedSdgIds
+              : [...previous.selectedSdgIds, value],
+          }))
+        }
+        onSdgRemove={(value) =>
+          setFormState((previous) => ({
+            ...previous,
+            selectedSdgIds: previous.selectedSdgIds.filter((item) => item !== value),
+          }))
+        }
         onSubmit={() => navigate(draft.flow.completionPath)}
         uploadId={`desktop-upload-${uploadFieldId}`}
       />
@@ -443,6 +588,20 @@ export function CompanyJobDraftStepTwo({
         onPreview={() => navigate(draft.flow.previewPath)}
         onReset={resetForm}
         onSaveDraft={() => navigate("/portale/azienda/annunci")}
+        onSdgAdd={(value) =>
+          setFormState((previous) => ({
+            ...previous,
+            selectedSdgIds: previous.selectedSdgIds.includes(value)
+              ? previous.selectedSdgIds
+              : [...previous.selectedSdgIds, value],
+          }))
+        }
+        onSdgRemove={(value) =>
+          setFormState((previous) => ({
+            ...previous,
+            selectedSdgIds: previous.selectedSdgIds.filter((item) => item !== value),
+          }))
+        }
         onSubmit={() => navigate(draft.flow.completionPath)}
         uploadId={`mobile-upload-${uploadFieldId}`}
       />
