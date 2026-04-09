@@ -23,6 +23,7 @@ async function openCompanyJobDraftStepTwo(
 
   const layout = page.locator(`[data-job-draft-layout="${layoutName}"]`);
   const step = layout.getByTestId("company-job-draft-step-2");
+  await expect(page.locator("footer")).toHaveCount(0);
 
   await expect(
     step.getByRole("heading", {

@@ -28,6 +28,7 @@ test.describe("company job draft step 1", () => {
     await expect(page).toHaveURL(portalRoutes.companyJobDraftStep1);
 
     const step = layout.getByTestId("company-job-draft-step-1");
+    await expect(page.locator("footer")).toHaveCount(0);
     await expect(
       step.getByRole("heading", {
         level: 1,
