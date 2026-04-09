@@ -57,7 +57,7 @@ function createInitialFormState(
   };
 }
 
-function JobDraftLanguageChip({ compact = false }: { compact?: boolean }) {
+export function JobDraftLanguageChip({ compact = false }: { compact?: boolean }) {
   return (
     <button
       aria-label="Lingua italiana"
@@ -75,7 +75,7 @@ function JobDraftLanguageChip({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function JobDraftSectionHeading({
+export function JobDraftSectionHeading({
   children,
   compact = false,
 }: {
@@ -94,7 +94,7 @@ function JobDraftSectionHeading({
   );
 }
 
-function JobDraftFieldLabel({
+export function JobDraftFieldLabel({
   compact = false,
   htmlFor,
   label,
@@ -158,7 +158,7 @@ function JobDraftToggle({
   );
 }
 
-function JobDraftSelectField({
+export function JobDraftSelectField({
   compact = false,
   dataNodeId,
   id,
@@ -301,7 +301,7 @@ function JobDraftDescriptionEditor({
   );
 }
 
-function JobDraftHintText({
+export function JobDraftHintText({
   children,
   className,
   compact = false,

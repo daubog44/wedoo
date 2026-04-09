@@ -106,6 +106,6 @@ test.describe("company job draft step 1", () => {
       })
       .click();
 
-    await expect(page).toHaveURL(portalRoutes.companyJobs);
+    await expect(page).toHaveURL(portalRoutes.companyJobDraftStep2);
   });
 });
