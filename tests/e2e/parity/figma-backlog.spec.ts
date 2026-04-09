@@ -24,12 +24,4 @@ test.describe("figma parity backlog", () => {
   test("Candidate contacts modal matches Figma frame 281:1207", async () => {
     test.fixme();
   });
-
-  test("Company job wizard step 1 matches Figma frame 258:847", async () => {
-    test.fixme();
-  });
-
-  test("Company job wizard step 2 matches Figma frame 259:1050", async () => {
-    test.fixme();
-  });
 });
