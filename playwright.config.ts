@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const devPort = Number(process.env.WEDOO_DEV_PORT ?? 4600);
+const baseURL = `http://127.0.0.1:${devPort}`;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 45_000,
@@ -11,7 +14,7 @@ export default defineConfig({
   outputDir: "test-results/playwright",
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://127.0.0.1:4173",
+    baseURL,
     trace: "on-first-retry",
   },
   projects: [
@@ -25,8 +28,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run dev -- --host 127.0.0.1 --port 4173",
-    url: "http://127.0.0.1:4173",
+    command: `npm run dev -- --host=127.0.0.1 --port=${devPort}`,
+    url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

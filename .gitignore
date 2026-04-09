@@ -10,6 +10,9 @@ playwright-report/
 test-results/
 artifacts/
 .codex-potter-home/
+.codex-appserver-runtime/
+.codexpotter/
+tmp/
 
 node_modules
 dist

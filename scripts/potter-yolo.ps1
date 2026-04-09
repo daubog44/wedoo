@@ -13,10 +13,12 @@ $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $CodexHome = Join-Path $RepoRoot ".codex-potter-home"
 $ConfigPath = Join-Path $CodexHome "config.toml"
 $GlobalCodexHome = Join-Path $HOME ".codex"
-$LocalAppUrl = "http://127.0.0.1:4173"
+$LocalAppPort = if ($env:WEDOO_DEV_PORT) { [int]$env:WEDOO_DEV_PORT } else { 4600 }
+$LocalAppUrl = "http://127.0.0.1:$LocalAppPort"
 $ViteLog = Join-Path $RepoRoot "vite-potter.log"
 $ViteErrLog = Join-Path $RepoRoot "vite-potter.err.log"
 $VitePidPath = Join-Path $RepoRoot ".codexpotter\vite-potter.pid"
+$PotterProjectsRoot = Join-Path $RepoRoot ".codexpotter\projects"
 $CodexWrapper = Join-Path $RepoRoot "scripts\codex-wrapper.cmd"
 
 Set-Location $RepoRoot
@@ -139,6 +141,40 @@ function Test-GitHubToken {
   }
 }
 
+function Test-PrdHasOpenTasks {
+  $prdPath = Join-Path $RepoRoot "prd.md"
+  if (-not (Test-Path $prdPath -PathType Leaf)) {
+    return $false
+  }
+
+  return [bool](Select-String -Path $prdPath -Pattern '^- \[ \]' -SimpleMatch:$false)
+}
+
+function Reset-StalePotterTracker {
+  if (-not (Test-PrdHasOpenTasks)) {
+    return
+  }
+
+  if (-not (Test-Path $PotterProjectsRoot -PathType Container)) {
+    return
+  }
+
+  $latestMain = Get-ChildItem -Path $PotterProjectsRoot -Filter MAIN.md -Recurse -ErrorAction SilentlyContinue |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
+
+  if (-not $latestMain) {
+    return
+  }
+
+  $mainContent = Get-Content -Raw $latestMain.FullName
+  if ($mainContent -match 'status:\s*skip' -or $mainContent -match 'finite_incantatem:\s*true') {
+    $projectDir = Split-Path $latestMain.FullName -Parent
+    Remove-Item -Recurse -Force $projectDir -ErrorAction SilentlyContinue
+    Write-Host "Removed stale Codex Potter tracker: $projectDir"
+  }
+}
+
 function Test-PlaywrightLocalBrowser {
   Write-Host "Checking local app with Playwright browser ..."
   $playwrightCheck = @'
@@ -247,6 +283,7 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Worklog: $worklogPath"
 $absoluteWorklogPath = Join-Path $RepoRoot $worklogPath
+Reset-StalePotterTracker
 
 if ($WithPreflight -or $PreflightOnly) {
   Test-GitHubToken

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:potter": "vite --host 127.0.0.1 --port 4173",
+    "dev:potter": "vite --host 127.0.0.1 --port 4600",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "loop:check": "node scripts/loop-ready.mjs",

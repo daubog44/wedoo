@@ -36,7 +36,7 @@ Prerequisito operativo:
 
 La procedura standard sopra:
 
-- avvia prima il dev server locale su `http://127.0.0.1:4173`
+- avvia prima il dev server locale su `http://127.0.0.1:4600`
 - esegue `loop:ready`
 - crea il worklog di sessione
 - usa una home Codex locale isolata in `.codex-potter-home`
@@ -72,6 +72,8 @@ Vincoli operativi:
 - lavora su un solo task principale alla volta
 - non trattare il codice gia presente come fonte di verita visuale
 - se una pagina esiste gia ma e incoerente con Figma, correggila
+- non trattare `.codexpotter/**` come backlog di prodotto
+- se il tracker interno `MAIN.md` risulta `skip` o chiuso ma `prd.md` ha ancora task aperti, continua dal `prd.md`
 - non inventare feature fuori da Figma o fuori da `prd.md`, salvo prerequisiti tecnici realmente necessari
 - se scopri nuovi task necessari, aggiorna `prd.md` nel punto corretto invece di tenerli impliciti
 - registra nel worklog di sessione le decisioni rilevanti, i problemi trovati, come li hai risolti e lo stato dei test

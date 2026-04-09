@@ -54,6 +54,8 @@ Regola critica:
 - il codice gia presente nel repo non e una fonte di verita visuale
 - se una pagina esiste gia ma non corrisponde a Figma, devi correggerla
 - non preservare una implementazione sbagliata solo perche era gia presente
+- il tracker interno `.codexpotter/**` non sostituisce `prd.md`
+- se un file `MAIN.md` interno risulta chiuso o `skip` ma `prd.md` contiene ancora task aperti, considera il tracker interno come bookkeeping stantio e continua dal `prd.md`
 
 # LA TUA FONTE DI VERITA
 
