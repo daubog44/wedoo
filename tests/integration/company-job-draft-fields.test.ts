@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import {
   JobDraftHintText,
   JobDraftLanguageChip,
+  JobDraftMobileHero,
   JobDraftSectionHeading,
   JobDraftSelectField,
 } from "../../src/components/portal/company-job-draft-fields";
@@ -57,5 +58,22 @@ describe("company job draft shared fields", () => {
     fireEvent.change(select, { target: { value: "stage" } });
 
     expect(handleChange).toHaveBeenCalledWith("stage");
+  });
+
+  it("renders the shared mobile hero with separated media panel", () => {
+    render(
+      React.createElement(JobDraftMobileHero, {
+        assetName: "formaziende4.png",
+        heading: "Crea il tuo annuncio",
+        mediaTestId: "job-draft-mobile-hero-media",
+      }),
+    );
+
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Crea il tuo annuncio" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("job-draft-mobile-hero-media"),
+    ).toBeInTheDocument();
   });
 });

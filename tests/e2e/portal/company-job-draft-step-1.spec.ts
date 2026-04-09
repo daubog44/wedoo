@@ -51,6 +51,21 @@ test.describe("company job draft step 1", () => {
       step.getByText("una volta scelta la provincia", { exact: false }),
     ).toBeVisible();
 
+    if (isMobile) {
+      const [headingBox, heroMediaBox] = await Promise.all([
+        step
+          .getByRole("heading", {
+            level: 1,
+            name: portalCopy.companyJobDraftStep1.heading,
+          })
+          .boundingBox(),
+        step.getByTestId("company-job-draft-step-1-mobile-hero-media").boundingBox(),
+      ]);
+      expect(headingBox).not.toBeNull();
+      expect(heroMediaBox).not.toBeNull();
+      expect(headingBox!.x + headingBox!.width).toBeLessThan(heroMediaBox!.x + 12);
+    }
+
     const provinceField = step.getByLabel(
       portalCopy.companyJobDraftStep1.provinceLabel,
     );

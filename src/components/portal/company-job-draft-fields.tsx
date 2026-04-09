@@ -1,5 +1,5 @@
 import type { JobDraftOption } from "../../data/job-draft";
-import { cn } from "../../lib/site-utils";
+import { assetPath, cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
 
 export function JobDraftLanguageChip({ compact = false }: { compact?: boolean }) {
@@ -128,5 +128,43 @@ export function JobDraftHintText({
     >
       {children}
     </p>
+  );
+}
+
+export function JobDraftMobileHero({
+  assetName,
+  heading,
+  mediaTestId,
+}: {
+  assetName: string;
+  heading: string;
+  mediaTestId: string;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[32px] border border-brand-violet-400 bg-brand-page shadow-[0_18px_48px_-30px_rgba(42,26,81,0.22)]">
+      <div className="grid min-h-[224px] grid-cols-[minmax(0,1fr)_148px]">
+        <div className="flex items-end px-5 pb-6 pt-16">
+          <h1 className="font-wedoo-heading max-w-[170px] text-[34px] leading-[0.92] text-brand-ink">
+            {heading}
+          </h1>
+        </div>
+
+        <div
+          className="relative min-h-[224px] overflow-hidden"
+          data-testid={mediaTestId}
+        >
+          <img
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-right"
+            src={assetPath(assetName)}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_38%)]" />
+        </div>
+      </div>
+
+      <div className="absolute right-4 top-4">
+        <JobDraftLanguageChip compact />
+      </div>
+    </div>
   );
 }

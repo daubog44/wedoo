@@ -54,6 +54,21 @@ async function openCompanyJobDraftStepTwo(
     }),
   ).toBeVisible();
 
+  if (layoutName === "mobile") {
+    const [headingBox, heroMediaBox] = await Promise.all([
+      step
+        .getByRole("heading", {
+          level: 1,
+          name: portalCopy.companyJobDraftStep2.heading,
+        })
+        .boundingBox(),
+      step.getByTestId("company-job-draft-step-2-mobile-hero-media").boundingBox(),
+    ]);
+    expect(headingBox).not.toBeNull();
+    expect(heroMediaBox).not.toBeNull();
+    expect(headingBox!.x + headingBox!.width).toBeLessThan(heroMediaBox!.x + 12);
+  }
+
   return { layout, step };
 }
 

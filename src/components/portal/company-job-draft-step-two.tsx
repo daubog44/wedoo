@@ -11,6 +11,7 @@ import {
   JobDraftFieldLabel,
   JobDraftHintText,
   JobDraftLanguageChip,
+  JobDraftMobileHero,
   JobDraftSelectField,
 } from "./company-job-draft-fields";
 
@@ -431,22 +432,14 @@ function JobDraftMobileStepTwoView({
         data-node-id="259:1050"
         data-testid="company-job-draft-step-2"
       >
-        <div className="relative h-[250px] overflow-hidden rounded-[32px]">
-          <img
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-right"
-            src={assetPath("formaziende5.png")}
-          />
-          <div className="absolute right-4 top-4">
-            <JobDraftLanguageChip compact />
-          </div>
-          <h1 className="font-wedoo-heading absolute bottom-6 left-5 max-w-[228px] text-[38px] leading-[0.95] text-brand-ink">
-            Crea il tuo annuncio
-          </h1>
-        </div>
+        <JobDraftMobileHero
+          assetName="formaziende5.png"
+          heading="Crea il tuo annuncio"
+          mediaTestId="company-job-draft-step-2-mobile-hero-media"
+        />
 
         <form
-          className="-mt-8 rounded-[28px] border border-brand-violet-400 bg-[rgba(255,255,255,0.96)] px-5 pb-5 pt-6 shadow-[0_18px_48px_-28px_rgba(42,26,81,0.35)]"
+          className="-mt-4 rounded-[28px] border border-brand-violet-400 bg-[rgba(255,255,255,0.96)] px-5 pb-5 pt-6 shadow-[0_18px_48px_-28px_rgba(42,26,81,0.35)]"
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit();
