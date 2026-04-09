@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { SiteIcon } from "../../components/site";
+import { jobDraftMock } from "../../data/job-draft";
 import { jobs } from "../../data/jobs";
 
 export default function CompanyJobsPage() {
@@ -12,7 +13,7 @@ export default function CompanyJobsPage() {
             <h4 className="mt-8 text-2xl">Crea un nuovo annuncio</h4>
             <Link
               className="mt-8 inline-flex min-w-[12rem] items-center justify-center rounded-xl border border-brand-violet bg-brand-violet px-4 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-violet"
-              to="/registrati/azienda/2"
+              to={jobDraftMock.flow.portalDraftPath}
             >
               crea
             </Link>

@@ -85,6 +85,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: "portale/azienda/annunci/nuovo",
+        lazy: lazyRoute(() => import("./pages/portal/company-job-draft-page")),
+      },
+      {
         path: "portale/candidato",
         element: <PortalLayout role="candidate" />,
         children: [

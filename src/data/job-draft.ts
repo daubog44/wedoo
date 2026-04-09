@@ -5,9 +5,19 @@ export type JobDraftOption = {
   label: string;
 };
 
+export type JobDraftCityOption = JobDraftOption & {
+  provinceId: string;
+};
+
+export type JobDraftCapOption = JobDraftOption & {
+  cityId: string;
+  provinceId: string;
+};
+
 export type JobDraftFlow = {
   completionPath: string;
   draftStartStep: number;
+  portalDraftPath: string;
   previewPath: string;
   registrationPath: string;
   totalSteps: number;
@@ -59,8 +69,8 @@ export type JobDraftRole = {
 };
 
 export type JobDraftCatalogs = {
-  capCodes: readonly JobDraftOption[];
-  cities: readonly JobDraftOption[];
+  capCodes: readonly JobDraftCapOption[];
+  cities: readonly JobDraftCityOption[];
   contractTypes: readonly JobDraftOption[];
   experienceLevels: readonly JobDraftOption[];
   hoursOptions: readonly JobDraftOption[];
@@ -144,14 +154,15 @@ function createInputField({
 export const jobDraftMock = {
   catalogs: {
     capCodes: [
-      { id: "20124", label: "20124" },
-      { id: "20129", label: "20129" },
-      { id: "00100", label: "00100" },
+      { cityId: "milano", id: "20124", label: "20124", provinceId: "mi" },
+      { cityId: "milano", id: "20129", label: "20129", provinceId: "mi" },
+      { cityId: "roma", id: "00100", label: "00100", provinceId: "rm" },
+      { cityId: "torino", id: "10121", label: "10121", provinceId: "to" },
     ],
     cities: [
-      { id: "milano", label: "Milano" },
-      { id: "roma", label: "Roma" },
-      { id: "torino", label: "Torino" },
+      { id: "milano", label: "Milano", provinceId: "mi" },
+      { id: "roma", label: "Roma", provinceId: "rm" },
+      { id: "torino", label: "Torino", provinceId: "to" },
     ],
     contractTypes: [
       { id: "stage", label: "stage" },
@@ -225,6 +236,7 @@ export const jobDraftMock = {
   flow: {
     completionPath: "/portale/azienda",
     draftStartStep: 2,
+    portalDraftPath: "/portale/azienda/annunci/nuovo",
     previewPath: "/portale/azienda/annunci/addetto-comunicazione",
     registrationPath: "/registrati/azienda/1",
     totalSteps: 5,
@@ -234,7 +246,7 @@ export const jobDraftMock = {
     cityId: "milano",
     provinceId: "mi",
     remoteAllowed: true,
-    travelRequired: false,
+    travelRequired: true,
   },
   id: "company-job-draft",
   recruiter: {
@@ -261,6 +273,35 @@ export const jobDraftMock = {
     workModeId: "ibrido",
   },
 } as const satisfies JobDraft;
+
+export function getJobDraftCityOptions(
+  catalogs: JobDraftCatalogs,
+  provinceId: string,
+): readonly JobDraftCityOption[] {
+  if (!provinceId) {
+    return catalogs.cities;
+  }
+
+  return catalogs.cities.filter((option) => option.provinceId === provinceId);
+}
+
+export function getJobDraftCapOptions(
+  catalogs: JobDraftCatalogs,
+  provinceId: string,
+  cityId: string,
+): readonly JobDraftCapOption[] {
+  return catalogs.capCodes.filter((option) => {
+    if (cityId) {
+      return option.cityId === cityId;
+    }
+
+    if (provinceId) {
+      return option.provinceId === provinceId;
+    }
+
+    return true;
+  });
+}
 
 export function createCompanyJobDraftFormConfigs(
   draft: JobDraft,

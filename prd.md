@@ -108,7 +108,7 @@ Regole:
 
 ### Wizard Azienda E Creazione Annuncio
 
-- [ ] [FRAME][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Implementare `Portale annunci` step geografia e descrizione come primo step di creazione annuncio.
+- [x] [FRAME][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Implementare `Portale annunci` step geografia e descrizione come primo step di creazione annuncio.
 - [ ] [FRAME][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Implementare `Portale annunci` step contratto, modalita, SDG e certificazioni come secondo step di creazione annuncio.
 
 ### Strategia Test E Parity
@@ -127,7 +127,7 @@ Regole:
 - [x] [TEST][node=280:860][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-work-experience.visual.spec.ts] Aggiungere snapshot VRT reali per il frame esperienze quando il flow si stabilizza.
 - [x] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-skills.spec.ts] Coprire il flow competenze del wizard candidato.
 - [x] [TEST][node=280:951][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-skills.visual.spec.ts] Aggiungere snapshot VRT reali per il frame competenze quando il flow si stabilizza.
-- [ ] [TEST][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Coprire il primo step del wizard annuncio azienda.
+- [x] [TEST][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-1.spec.ts] Coprire il primo step del wizard annuncio azienda.
 - [ ] [TEST][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-1.visual.spec.ts] Aggiungere snapshot VRT reali per il primo step annuncio azienda quando il flow si stabilizza.
 - [ ] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il secondo step del wizard annuncio azienda.
 - [ ] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-2.visual.spec.ts] Aggiungere snapshot VRT reali per il secondo step annuncio azienda quando il flow si stabilizza.

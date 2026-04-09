@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   createCompanyJobDraftFormConfigs,
+  getJobDraftCapOptions,
+  getJobDraftCityOptions,
   jobDraftMock,
 } from "../../src/data/job-draft";
 import { companyForms } from "../../src/data/forms";
@@ -11,6 +13,7 @@ describe("JobDraft", () => {
     expect(jobDraftMock.flow).toEqual({
       completionPath: "/portale/azienda",
       draftStartStep: 2,
+      portalDraftPath: "/portale/azienda/annunci/nuovo",
       previewPath: "/portale/azienda/annunci/addetto-comunicazione",
       registrationPath: "/registrati/azienda/1",
       totalSteps: 5,
@@ -54,6 +57,24 @@ describe("JobDraft", () => {
       id: "certifications",
       kind: "file",
     });
+  });
+
+  it("filters city and CAP options from the selected geography", () => {
+    expect(
+      getJobDraftCityOptions(jobDraftMock.catalogs, "rm").map(
+        (option) => option.label,
+      ),
+    ).toEqual(["Roma"]);
+    expect(
+      getJobDraftCapOptions(jobDraftMock.catalogs, "mi", "milano").map(
+        (option) => option.label,
+      ),
+    ).toEqual(["20124", "20129"]);
+    expect(
+      getJobDraftCapOptions(jobDraftMock.catalogs, "to", "").map(
+        (option) => option.label,
+      ),
+    ).toEqual(["10121"]);
   });
 
   it("keeps the exported company wizard forms aligned with the job draft mapper", () => {
