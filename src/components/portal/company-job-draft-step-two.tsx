@@ -12,7 +12,7 @@ import {
   JobDraftHintText,
   JobDraftLanguageChip,
   JobDraftSelectField,
-} from "./company-job-draft-step-one";
+} from "./company-job-draft-fields";
 
 type CompanyJobDraftStepTwoProps = {
   draft: JobDraft;

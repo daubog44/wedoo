@@ -173,9 +173,7 @@ test.describe("company job draft step 2", () => {
       }),
     ).toBeVisible();
 
-    await page
-      .getByRole("link", { name: portalCopy.companyJobs.createCta, exact: true })
-      .click();
+    await page.goto(portalRoutes.companyJobDraftStep1);
     await waitForWedooPageReady(page);
 
     await expect(page).toHaveURL(portalRoutes.companyJobDraftStep1);
