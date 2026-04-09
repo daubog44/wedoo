@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $CodexHome = Join-Path $RepoRoot ".codex-potter-home"
 $ConfigPath = Join-Path $CodexHome "config.toml"
-$GlobalCodexHome = Join-Path $HOME ".codex"
+$GlobalCodexHome = Join-Path ([Environment]::GetFolderPath("UserProfile")) ".codex"
 $LocalAppPort = if ($env:WEDOO_DEV_PORT) { [int]$env:WEDOO_DEV_PORT } else { 4600 }
 $LocalAppUrl = "http://127.0.0.1:$LocalAppPort"
 $ViteLog = Join-Path $RepoRoot "vite-potter.log"
@@ -74,6 +74,48 @@ enabled = true
   [System.IO.File]::WriteAllText($ConfigPath, $configToml, [System.Text.Encoding]::UTF8)
 
   $env:CODEX_HOME = $CodexHome
+}
+
+function Get-PotterExecArgs {
+  param(
+    [int]$ExecRounds = $Rounds,
+    [switch]$JsonOutput
+  )
+
+  $args = @("exec")
+
+  if (-not $UseGlobalHome) {
+    $args += @("--codex-bin", $CodexWrapper)
+  }
+
+  if ($JsonOutput) {
+    $args += "--json"
+  }
+
+  $args += @(
+    "-m",
+    "gpt-5.4",
+    "-c",
+    'model_reasoning_effort="xhigh"',
+    "--rounds",
+    $ExecRounds.ToString(),
+    "--sandbox",
+    "danger-full-access",
+    "--yolo"
+  )
+
+  return ,$args
+}
+
+function Get-DryRunCommand {
+  $command = "Get-Content -Raw .\docs\ralph-loop-prompt.md | codex-potter exec"
+
+  if (-not $UseGlobalHome) {
+    $command += " --codex-bin .\scripts\codex-wrapper.cmd"
+  }
+
+  $command += " -m gpt-5.4 -c 'model_reasoning_effort=""xhigh""' --rounds $Rounds --sandbox danger-full-access --yolo"
+  return $command
 }
 
 function Test-LocalAppUrl {
@@ -168,7 +210,10 @@ function Reset-StalePotterTracker {
   }
 
   $mainContent = Get-Content -Raw $latestMain.FullName
-  if ($mainContent -match 'status:\s*skip' -or $mainContent -match 'finite_incantatem:\s*true') {
+  $isClosedTracker = $mainContent -match 'status:\s*skip' -or $mainContent -match 'finite_incantatem:\s*true'
+  $isBootstrapTracker = $mainContent -match 'short_title:\s*"Bootstrap Ralph loop"' -or $mainContent -match '#\s*Ralph Loop Prompt'
+
+  if ($isClosedTracker -or $isBootstrapTracker) {
     $projectDir = Split-Path $latestMain.FullName -Parent
     Remove-Item -Recurse -Force $projectDir -ErrorAction SilentlyContinue
     Write-Host "Removed stale Codex Potter tracker: $projectDir"
@@ -230,7 +275,8 @@ Se tutto passa, stampa una sola riga che inizi con PREFLIGHT_OK:
 Se qualcosa fallisce, stampa una sola riga che inizi con PREFLIGHT_FAIL:
 Non aggiungere altro oltre alla riga finale.
 "@
-  $output = $prompt | & codex-potter exec --codex-bin $CodexWrapper --json -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --rounds 1 --sandbox danger-full-access --yolo 2>&1 | Out-String
+  $preflightArgs = Get-PotterExecArgs -ExecRounds 1 -JsonOutput
+  $output = $prompt | & codex-potter @preflightArgs 2>&1 | Out-String
 
   if ($output -match "PREFLIGHT_OK:") {
     Write-Host "MCP preflight ok."
@@ -261,7 +307,8 @@ function Append-WorklogNote {
 }
 
 if ($UseGlobalHome) {
-  Write-Host "Using existing Codex configuration from current session."
+  $env:CODEX_HOME = $GlobalCodexHome
+  Write-Host "Using global CODEX_HOME without local wrapper: $GlobalCodexHome"
 } else {
   Initialize-IsolatedCodexHome
   Write-Host "Using isolated CODEX_HOME with copied Codex auth: $CodexHome"
@@ -270,9 +317,19 @@ if ($UseGlobalHome) {
 Ensure-LocalAppServer
 
 Write-Host "Running readiness checks..."
-& npm run loop:ready
-if ($LASTEXITCODE -ne 0) {
-  exit $LASTEXITCODE
+if ($UseGlobalHome) {
+  $env:WEDOO_LOOP_CHECK_MODE = "global"
+} else {
+  $env:WEDOO_LOOP_CHECK_MODE = "bootstrap"
+}
+
+try {
+  & npm run loop:ready
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+} finally {
+  Remove-Item Env:WEDOO_LOOP_CHECK_MODE -ErrorAction SilentlyContinue
 }
 
 Write-Host "Creating worklog session..."
@@ -307,11 +364,12 @@ Write-Host "Starting Codex Potter in yolo mode..."
 
 if ($DryRun) {
   Write-Host "DRY RUN"
-  Write-Host "Get-Content -Raw .\docs\ralph-loop-prompt.md | codex-potter exec -m gpt-5.4 -c 'model_reasoning_effort=""xhigh""' --rounds $Rounds --sandbox danger-full-access --yolo"
+  Write-Host (Get-DryRunCommand)
   exit 0
 }
 
+$execArgs = Get-PotterExecArgs -ExecRounds $Rounds
 Get-Content -Raw .\docs\ralph-loop-prompt.md |
-  & codex-potter exec --codex-bin $CodexWrapper -m gpt-5.4 -c 'model_reasoning_effort="xhigh"' --rounds $Rounds --sandbox danger-full-access --yolo
+  & codex-potter @execArgs
 
 exit $LASTEXITCODE

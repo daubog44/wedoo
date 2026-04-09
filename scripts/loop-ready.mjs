@@ -22,6 +22,7 @@ const requiredDirs = [
   "tests/e2e/parity",
   "tests/integration",
 ];
+const loopCheckMode = process.env.WEDOO_LOOP_CHECK_MODE === "global" ? "global" : "bootstrap";
 
 function checkPaths(paths, label) {
   const missing = paths.filter((target) => !existsSync(resolve(process.cwd(), target)));
@@ -43,22 +44,25 @@ function checkGitHubMcpConfig() {
     resolve(process.cwd(), "scripts/codex-wrapper.ps1"),
     resolve(process.cwd(), "scripts/potter-yolo.ps1"),
   ];
+  const usingGlobalCodexHome = loopCheckMode === "global";
   const bootstrapWillConfigureGitHub =
     Boolean(process.env.GITHUB_PAT_TOKEN) && bootstrapConfigFiles.every((target) => existsSync(target));
 
-  if (bootstrapWillConfigureGitHub) {
+  if (!usingGlobalCodexHome && bootstrapWillConfigureGitHub) {
     console.log("[ok] GitHub MCP will be configured by local bootstrap scripts");
     return true;
   }
 
-  const configPath = resolve(
-    process.env.CODEX_HOME ?? resolve(process.env.USERPROFILE ?? process.env.HOME ?? "", ".codex"),
-    "config.toml",
-  );
+  const codexHome = process.env.CODEX_HOME ?? resolve(process.env.USERPROFILE ?? process.env.HOME ?? "", ".codex");
+  const configPath = resolve(codexHome, "config.toml");
 
   if (!existsSync(configPath)) {
-    console.warn("[warn] Codex config.toml not found");
-    return true;
+    console.warn(
+      usingGlobalCodexHome
+        ? `[warn] Current Codex config.toml not found in ${codexHome}`
+        : "[warn] Codex config.toml not found",
+    );
+    return false;
   }
 
   const config = readFileSync(configPath, "utf8");
@@ -67,12 +71,18 @@ function checkGitHubMcpConfig() {
   const hasEnvVarReference = config.includes('bearer_token_env_var = "GITHUB_');
 
   if (hasGitHubServer && (hasInlinePat || hasEnvVarReference)) {
-    console.log("[ok] GitHub MCP appears configured");
+    console.log(
+      usingGlobalCodexHome ? "[ok] GitHub MCP appears configured in current Codex home" : "[ok] GitHub MCP appears configured",
+    );
     return true;
   }
 
-  console.warn("[warn] GitHub MCP is not fully configured");
-  return true;
+  console.warn(
+    usingGlobalCodexHome
+      ? "[warn] GitHub MCP is not fully configured in current Codex home"
+      : "[warn] GitHub MCP is not fully configured",
+  );
+  return false;
 }
 
 console.log("Wedoo loop bootstrap check");
@@ -92,5 +102,9 @@ if (filesOk && dirsOk && prdNodeReport.status === 0) {
 }
 
 if (!githubConfigOk) {
-  console.warn("[warn] GitHub MCP can stay unavailable locally, but CI/PR checks won't be inspectable through MCP until it is configured");
+  console.warn(
+    loopCheckMode === "global"
+      ? "[warn] `potter:yolo:global` relies on the current/global Codex config; configure GitHub MCP there before using checked preflight or CI/PR inspection"
+      : "[warn] GitHub MCP can stay unavailable locally, but CI/PR checks won't be inspectable through MCP until it is configured",
+  );
 }

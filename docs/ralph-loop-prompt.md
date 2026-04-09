@@ -32,7 +32,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\potter-yolo.ps1 -S
 
 Prerequisito operativo:
 
-- esporta `GITHUB_PAT_TOKEN` nella sessione prima di usare i comandi sopra, perche il bootstrap configura GitHub MCP e il preflight valida anche il token
+- esporta `GITHUB_PAT_TOKEN` nella sessione prima di usare i comandi sopra: il bootstrap locale configura GitHub MCP, mentre la variante `global` si aspetta che GitHub MCP sia gia presente nella home globale; il preflight valida anche il token
 
 La procedura standard sopra:
 
@@ -45,7 +45,7 @@ La procedura standard sopra:
 
 La variante `potter:yolo:checked` aggiunge anche un preflight esterno e bloccante su Figma MCP, GitHub MCP e Playwright locale.
 
-La variante `potter:yolo:global` usa invece direttamente la home globale di Codex.
+La variante `potter:yolo:global` usa direttamente `~/.codex`, non passa da `scripts/codex-wrapper.ps1` e quindi riusa solo la configurazione MCP gia presente nella home globale.
 
 Per eseguire solo il preflight esterno senza lanciare il loop:
 
