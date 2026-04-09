@@ -39,7 +39,22 @@ function checkPaths(paths, label) {
 }
 
 function checkGitHubMcpConfig() {
-  const configPath = resolve(process.env.USERPROFILE ?? "", ".codex", "config.toml");
+  const bootstrapConfigFiles = [
+    resolve(process.cwd(), "scripts/codex-wrapper.ps1"),
+    resolve(process.cwd(), "scripts/potter-yolo.ps1"),
+  ];
+  const bootstrapWillConfigureGitHub =
+    Boolean(process.env.GITHUB_PAT_TOKEN) && bootstrapConfigFiles.every((target) => existsSync(target));
+
+  if (bootstrapWillConfigureGitHub) {
+    console.log("[ok] GitHub MCP will be configured by local bootstrap scripts");
+    return true;
+  }
+
+  const configPath = resolve(
+    process.env.CODEX_HOME ?? resolve(process.env.USERPROFILE ?? process.env.HOME ?? "", ".codex"),
+    "config.toml",
+  );
 
   if (!existsSync(configPath)) {
     console.warn("[warn] Codex config.toml not found");

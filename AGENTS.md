@@ -118,6 +118,14 @@ Per ogni schermata o componente da implementare:
 
 Usa gli export PNG di sezione in `artifacts/figma-exports/**` solo come supporto secondario, mai come sostituto del Figma MCP.
 
+Regola di sincronizzazione del design:
+
+- considera Figma e gli export di sezione come design vivo, non statico
+- se il frame corrente, i suoi child frame o gli export coerenti mostrano una parte nuova o aggiornata rispetto al codice attuale o ai task gia tracciati, devi trattarla come nuova informazione di prodotto
+- in quel caso aggiorna subito `prd.md` con il nuovo task o con il task di allineamento necessario
+- se l'aggiornamento di design e prerequisito del task corrente, implementalo subito nello stesso ciclo
+- non assumere che i VRT esistenti bastino a dire che la UI sia ancora corretta: se Figma e cambiato, il codice e le baseline vanno riallineati
+
 ## Regole di analisi Figma
 
 Quando analizzi il file Figma:
@@ -174,6 +182,7 @@ Regola sugli export di sezione:
 - usa come riferimento utile soprattutto i file che iniziano con `Sezione ` o che vivono dentro cartelle `Sezione ...`
 - non consultare tutti gli export a ogni task: guardali solo quando migliorano davvero la lettura del design
 - se un export di sezione contraddice il MCP, il MCP resta la fonte principale e l'export va trattato come ausilio visivo
+- se un export coerente con il task mostra una sezione o uno stato che non compare piu nel codice o nei task correnti, verifica in Figma MCP se il design e stato aggiornato e, se confermato, aggiungi o aggiorna il task relativo in `prd.md`
 
 ## 3. PLAYWRIGHT
 
@@ -191,6 +200,20 @@ Quando ha senso, usa anche il Playwright MCP o la CLI interattiva come validator
 - verificare overflow, clipping, overlap o CTA fuori viewport
 - confrontare il comportamento reale della pagina con il frame Figma
 
+Regola preferita di audit visuale:
+
+- non fare affidamento sulla sola finestra browser del Playwright MCP se risulta instabile, nera o in timeout
+- per i task UI sensibili usa come fallback standard `npm run loop:capture -- <route> <task-slug>`
+- questo comando deve salvare screenshot desktop e mobile in `artifacts/loop-captures/**`
+- usa questi screenshot salvati come audit visuale del risultato reale della pagina prima di chiudere il task
+
+Regola obbligatoria di coerenza UI contro design:
+
+- per ogni pagina o route toccata dal task, confronta il risultato reale con almeno una tra queste fonti visuali: Figma screenshot MCP, export di sezione coerente, baseline VRT esistente
+- se VRT, screenshot reali ed export/Figma raccontano storie diverse, non chiudere il task finche non hai capito quale fonte riflette il design attuale
+- se la UI reale e il VRT sono allineati ma Figma/export mostrano un design piu nuovo, considera il VRT obsoleto e riallinea implementazione e baseline
+- se la UI reale diverge dal VRT senza una ragione di design valida, trattalo come regressione da correggere
+
 ## Regola obbligatoria di audit delle pagine gia esistenti
 
 Se il task corrente tocca una route o una pagina gia esistente nel repo:
@@ -200,6 +223,7 @@ Se il task corrente tocca una route o una pagina gia esistente nel repo:
 - se trovi una discrepanza macroscopica di layout, gerarchia, viewport o struttura, correggila subito
 - non rimandare la correzione di una homepage o di una route gia rotta solo per continuare con task successivi
 - se una route pubblica esistente appare come una vista mobile semplicemente centrata su desktop, trattala come bug da correggere
+- se i test verdi o i VRT verdi stanno solo confermando una UI gia sbagliata rispetto a Figma/export, correggi prima la UI e poi aggiorna i test o le baseline in modo intenzionale
 
 ## 5. GITHUB E CI/CD
 
@@ -257,17 +281,19 @@ Ad ogni iterazione del loop segui questo ordine:
 8. Classifica il frame come `mobile`, `tablet` o `desktop` e registra questa decisione nel worklog.
 9. Se la route esiste gia, fai prima un audit visuale rapido della pagina corrente contro Figma.
 10. Se trovi una discrepanza macroscopica gia presente, correggila prima di aggiungere nuovo lavoro.
-11. Implementa il task nel codice del progetto.
-12. Aggiorna o crea i mock data necessari come se provenissero da un backend.
-13. Aggiorna o crea i test rilevanti.
-14. Esegui una self-review del task e del diff prima dei test.
-15. Esegui i test necessari.
-16. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
-17. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
-18. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
-19. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
-20. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
-21. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
+11. Se Figma o gli export coerenti mostrano parti nuove o aggiornate rispetto al codice o al `prd`, aggiorna subito `prd.md` e integra il nuovo lavoro richiesto dal design attuale.
+12. Implementa il task nel codice del progetto.
+13. Aggiorna o crea i mock data necessari come se provenissero da un backend.
+14. Aggiorna o crea i test rilevanti.
+15. Esegui una self-review del task e del diff prima dei test.
+16. Esegui i test necessari.
+17. Se i test passano, fai una seconda review rapida del risultato finale rispetto a Figma.
+18. Se il frame e complesso e c'e un export PNG di sezione rilevante, confronta anche quello nella review finale.
+19. Se esiste un VRT della route, confronta anche quello con l'UI reale e verifica che non stia semplicemente congelando una UI ormai incoerente con il design attuale.
+20. Se il codice e collegato a una PR o a un branch remoto, verifica anche lo stato CI/CD disponibile su GitHub.
+21. Registra nel worklog i risultati del task, i test eseguiti, i problemi trovati, come sono stati risolti e le eventuali decisioni rilevanti.
+22. Se i controlli sono coerenti, marca il task in `prd.md` come completato.
+23. Se durante il lavoro scopri nuovi componenti, pagine, stati o task necessari, aggiorna anche `prd.md`.
 
 # REGOLE SU PRD.MD
 
@@ -284,6 +310,7 @@ Aggiorna `prd.md` se trovi:
 - task tecnici indispensabili per supportare una pagina Figma
 - contratti mock o modelli dati mancanti
 - task E2E mancanti per una feature implementata
+- differenze di design dovute a un aggiornamento di Figma o degli export di sezione rilevanti
 
 ## Come aggiornare `prd.md`
 
@@ -480,7 +507,8 @@ Quando possibile, valida in questo ordine:
 3. test di integrazione o unit, se servono
 4. test E2E o test mirati Playwright
 5. validazione visiva finale con Playwright MCP o CLI, se il task e visualmente sensibile
-6. review finale del risultato rispetto a Figma
+6. confronto finale tra UI reale, Figma, export rilevanti e VRT esistenti
+7. review finale del risultato rispetto al design aggiornato
 
 ## Regola su Playwright
 
@@ -516,6 +544,7 @@ Per le route stabili:
 - le snapshot devono essere mantenute man mano che la UI si stabilizza
 - le baseline VRT vengono salvate in `__screenshots__`
 - non aggiornare le snapshot senza prima verificare che la modifica sia intenzionale e coerente con Figma
+- il VRT non sostituisce il confronto col design: se Figma o gli export coerenti cambiano, devi capire se la baseline e diventata obsoleta e aggiornare codice e snapshot in modo esplicito
 
 Policy di update baseline:
 
@@ -648,6 +677,8 @@ Regola aggiuntiva:
 - se la route esisteva gia prima del task, la review visiva finale deve confermare anche che non restino discrepanze macroscopiche preesistenti
 - per ogni pagina pubblica gia esistente toccata dal task, devi controllare almeno una viewport desktop e una mobile
 - se la pagina continua a sembrare una versione mobile stirata o centrata su desktop, il task non e chiuso
+- per i task UI sensibili registra nel worklog il path della cartella screenshot generata in `artifacts/loop-captures/**`
+- se Figma o gli export coerenti mostrano una variante piu nuova della UI, il task non e chiuso finche non hai verificato se quella variante va implementata subito o aggiunta al `prd`
 
 # ERRORI DA EVITARE
 
@@ -660,6 +691,7 @@ Regola aggiuntiva:
 - non fare refactor larghi mentre stai chiudendo un task Figma mirato
 - non introdurre dipendenze nuove senza una motivazione chiara
 - non dichiarare completato un task solo perche il layout sembra vicino: servono review e test
+- non dichiarare coerente una pagina solo perche il VRT e verde se Figma o gli export mostrano un design diverso o piu aggiornato
 - non correggere i test per nascondere un bug reale del codice
 - non ignorare una CI fallita quando la causa e nel progetto o nel tuo diff
 

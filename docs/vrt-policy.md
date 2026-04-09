@@ -7,6 +7,9 @@ Le baseline VRT vengono salvate in una cartella centralizzata:
 - `__screenshots__/chromium-desktop/...`
 - `__screenshots__/chromium-mobile/...`
 
+Queste baseline attuali sono state stabilizzate su ambiente Windows.
+Per questo la CI esegue la suite VRT su `windows-latest`, mentre il gate funzionale gira su Linux.
+
 Gli artifact temporanei e i diff di Playwright vengono salvati in:
 
 - `test-results/playwright`
@@ -40,3 +43,4 @@ Non aggiornare una baseline se:
 - un file visuale per route o macro-frame stabile
 - nome file descrittivo, per esempio `landing-page.visual.spec.ts`
 - niente aggiornamenti massivi di baseline senza verifica mirata
+- se la CI VRT fallisce solo su Linux mentre localmente e verde su Windows, non aggiornare automaticamente le baseline: riallinea prima il runner o la strategia della pipeline

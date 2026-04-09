@@ -55,7 +55,7 @@ sandbox_mode = "danger-full-access"
 
 [mcp_servers.playwright]
 command = "npx"
-args = ["@playwright/mcp@latest"]
+args = ["@playwright/mcp@latest", "--headless", "--isolated"]
 
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"

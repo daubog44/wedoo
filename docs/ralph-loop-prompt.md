@@ -84,6 +84,7 @@ Per ogni task:
 - se il task e un `FRAME`, fai prima discovery con `get_metadata` sul frame corrente
 - classifica il frame come `mobile`, `tablet` o `desktop` usando dimensioni del frame, naming e struttura
 - usa Figma MCP come fonte primaria: `get_design_context`, `get_screenshot`, `get_metadata` quando serve
+- tratta Figma e gli export di sezione come design vivo: se mostrano parti nuove o aggiornate rispetto al codice o ai task tracciati, aggiorna `prd.md` e implementa l'allineamento necessario
 - ignora micro-nodi, icone singole, vettori decorativi e layer minuti gia contenuti in componenti o frame piu grandi
 - se individui child frame, componenti principali, stati UI o task tecnici mancanti, aggiorna subito `prd.md`
 - registra nel worklog le discovery Figma davvero rilevanti
@@ -92,6 +93,7 @@ Per ogni task:
 - usa gli export PNG di sezione in `artifacts/figma-exports/**` solo come riferimento secondario, quando il MCP non basta a leggere bene una sezione lunga, densa o croppata
 - se servono export di sezione, parti da `npm run loop:assets` e scegli solo quelli coerenti con il task corrente
 - se un export di sezione contraddice Figma MCP, prevale Figma MCP
+- se un export coerente mostra una parte nuova o un allineamento diverso rispetto alla UI reale o al `prd`, verifica in Figma MCP e poi aggiorna `prd.md` o implementa la parte nuova
 
 Regole su viewport e responsive:
 
@@ -115,6 +117,7 @@ Implementazione:
 Testing e validazione:
 
 - se tocchi UI, devi scrivere o aggiornare tu i test necessari
+- non considerare sufficiente un VRT verde se la UI reale, Figma o gli export coerenti non sono ancora allineati
 - Playwright E2E e il livello minimo obbligatorio per route pubbliche, auth, wizard, modali, dashboard e pagine portale principali
 - aggiungi integration test quando c'e logica non banale su mapping, helper, servizi mock, filtri, stepper o trasformazioni dati
 - quando una route o un macro-frame e stabile, deve esistere anche un file `*.visual.spec.ts` in `tests/e2e/parity`
@@ -122,6 +125,11 @@ Testing e validazione:
 - non aggiornare baseline VRT per nascondere bug o mismatch non capiti
 - aggiorna una baseline solo se il cambiamento visuale e intenzionale, verificato e coerente con Figma
 - annota nel worklog quando aggiorni una baseline e perche
+- se il browser Playwright MCP e instabile o non renderizza bene, usa `npm run loop:capture -- <route> <task-slug>` per salvare screenshot desktop/mobile reali in `artifacts/loop-captures/**`
+- usa quelle immagini salvate come audit visuale finale del risultato reale prima di chiudere il task
+- confronta sempre almeno due fonti tra UI reale, Figma screenshot MCP, export rilevanti e baseline VRT
+- se VRT e UI reale sono coerenti ma Figma/export mostrano un design piu nuovo, considera il VRT obsoleto e riallinea codice e baseline
+- se la UI reale diverge dal VRT senza una ragione di design valida, trattalo come regressione
 
 Ordine di lavoro per ogni iterazione:
 
@@ -133,17 +141,20 @@ Ordine di lavoro per ogni iterazione:
 6. registra nel worklog l'inizio del task
 7. interroga Figma MCP sul `Node ID` corretto
 8. se il task e un frame, fai discovery iniziale con `get_metadata`
-9. implementa il task
-10. aggiorna mock data e contratti server-like se necessario
-11. crea o aggiorna test E2E, integration test e VRT se pertinenti
-12. fai self-review del diff prima dei test
-13. esegui `npm run test:all`
-14. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile, dando priorita alla viewport corrispondente al frame Figma principale
-15. se la route esisteva gia, conferma esplicitamente che non siano rimaste discrepanze macroscopiche preesistenti
-16. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
-17. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
-18. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task
-19. solo quando tutto e coerente, aggiorna `prd.md` marcando il task come completato
+9. se Figma o gli export coerenti mostrano una parte nuova o aggiornata, aggiorna subito `prd.md` e integra il nuovo lavoro necessario
+10. implementa il task
+11. aggiorna mock data e contratti server-like se necessario
+12. crea o aggiorna test E2E, integration test e VRT se pertinenti
+13. fai self-review del diff prima dei test
+14. esegui `npm run test:all`
+15. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile, dando priorita alla viewport corrispondente al frame Figma principale
+16. per i task UI sensibili genera anche screenshot desktop/mobile reali con `npm run loop:capture -- <route> <task-slug>` e usa quei file per l'audit finale quando il browser MCP non e affidabile
+17. confronta il risultato reale almeno con Figma MCP e con una seconda fonte rilevante tra export di sezione e VRT esistente
+18. se la route esisteva gia, conferma esplicitamente che non siano rimaste discrepanze macroscopiche preesistenti
+19. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
+20. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
+21. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task
+22. solo quando tutto e coerente, aggiorna `prd.md` marcando il task come completato
 
 Regole Git e GitHub:
 
@@ -163,6 +174,7 @@ Definition of done di un task:
 - test pertinenti scritti o aggiornati
 - `npm run test:all` verde
 - parity visiva verificata quando rilevante
+- coerenza verificata tra UI reale, Figma e VRT/export rilevanti
 - `prd.md` aggiornato
 - `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md` aggiornato con una nota sintetica rilevante
 - CI/GitHub verificata se disponibile

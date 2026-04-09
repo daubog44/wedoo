@@ -28,14 +28,14 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run quality gate
-        run: npm run test:all
+      - name: Run quality gate without VRT
+        run: npm run lint && npm run typecheck && npm run test:integration && npm run test:e2e:functional
 
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
+          name: playwright-report-functional
           path: playwright-report
           if-no-files-found: ignore
 
@@ -43,6 +43,44 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-results
+          name: playwright-results-functional
+          path: test-results/playwright
+          if-no-files-found: ignore
+
+  visual-parity:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run visual parity suite
+        run: npm run test:vrt
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-vrt
+          path: playwright-report
+          if-no-files-found: ignore
+
+      - name: Upload Playwright results and visual diffs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results-vrt
           path: test-results/playwright
           if-no-files-found: ignore
