@@ -8,7 +8,8 @@ export function PortalLayout({ role }: { role: PortalRole }) {
     (role === "candidate" && pathname.startsWith("/portale/candidato/annuncio/")) ||
     (role === "company" &&
       (pathname.startsWith("/portale/azienda/candidati/") ||
-        pathname === "/portale/azienda/annunci"));
+        pathname === "/portale/azienda/annunci" ||
+        pathname.startsWith("/portale/azienda/annunci/")));
 
   return (
     <div className="min-h-screen bg-brand-page">

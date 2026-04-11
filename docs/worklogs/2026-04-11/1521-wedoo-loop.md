@@ -312,3 +312,21 @@
 - action: review stretta del router dopo la chiusura di `/portale/azienda/annunci`: emersa la route `/portale/azienda/annunci/:jobId` ancora legata a `CompanyJobPage` legacy, mentre il nuovo shell e il wizard continuano a puntare alla preview. Promosso in PRD un task tecnico di mapping Figma/export prima di qualunque riallineamento della preview.
 - tests: n/a
 - note: `get_metadata` root `0:1` non ha fornito un mapping affidabile della preview annuncio nel payload troncato; serve discovery dedicata senza assumere che il frame `Anteprima annuncio` letto in audit precedenti corrisponda davvero a questa route
+
+- timestamp: 2026-04-11 21:14
+- task: mapping preview annuncio azienda contro Figma/export
+- node: desktop `172:1273`, mobile `178:1640`
+- viewport: desktop + mobile
+- files: prd.md, src/pages/portal/company-job-page.tsx, artifacts/loop-captures/2026-04-11/2102-company-job-preview-before, artifacts/figma-exports/from-public-assets-2026-04-03/Annuncio di Lavoro.png
+- action: discovery Figma via search testuale e screenshot ha escluso `Annuncio di Candidato/Anteprima annuncio` come target della route: quel frame coincide con il detail candidato azienda gia implementato. L'unico frame vivo coerente col bottone `visualizza anteprima` resta `Annuncio di Lavoro` desktop/mobile; non esiste una preview recruiter separata nel file. Decisione: mantenere `/portale/azienda/annunci/:jobId` come route standalone e riallinearla a `172:1273/178:1640`, adattando le CTA finali al contesto azienda invece di assorbirla nel management shell.
+- tests: `npm run loop:capture -- /portale/azienda/annunci/addetto-comunicazione company-job-preview-before`
+- note: scoperto anche il frame Figma `271:938` `Sezione "visualizza annunci"` come possibile backlog successivo distinto dalla preview
+
+- timestamp: 2026-04-11 21:17
+- task: riallineamento preview annuncio azienda contro Figma/VRT
+- node: desktop `172:1273`, mobile `178:1640`
+- viewport: desktop + mobile
+- files: src/data/types.ts, src/data/company-job-preview.ts, src/components/layout/portal-layout.tsx, src/components/portal/company-job-preview-view.tsx, src/pages/portal/company-job-page.tsx, tests/fixtures/portal-copy.ts, tests/integration/company-job-preview-response.test.ts, tests/e2e/portal/company-job-page.spec.ts, tests/e2e/portal/company-jobs-page.spec.ts, tests/e2e/portal/company-job-draft-step-2.spec.ts, tests/e2e/parity/company-job-page.visual.spec.ts, __screenshots__/chromium-*/parity/company-job-page.visual.spec.ts/company-job-page.png, prd.md, .codexpotter/kb/company-job-preview.md
+- action: sostituita `CompanyJobPage` legacy con una shell standalone lilla coerente col frame `Annuncio di Lavoro`, nascosta la navbar portale anche su `/portale/azienda/annunci/:jobId`, introdotto `CompanyJobPreviewResponse` con hydration da `JobDraft` persistito quando disponibile e riallineati i flow preview da management shell e wizard step 2
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/company-job-preview-response.test.ts`; `npx playwright test tests/e2e/portal/company-job-page.spec.ts tests/e2e/portal/company-jobs-page.spec.ts tests/e2e/portal/company-job-draft-step-2.spec.ts`; `npx playwright test tests/e2e/parity/company-job-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/company-job-page.visual.spec.ts`; `npm run loop:capture -- /portale/azienda/annunci/addetto-comunicazione company-job-preview-after`; `npm run test:all`
+- note: capture finale `artifacts/loop-captures/2026-04-11/2114-company-job-preview-after`; dalla review finale resta aperto il frame Figma `271:938` `Sezione "visualizza annunci"` come gap successivo per il CTA `visualizza annunci`

@@ -265,8 +265,11 @@ test.describe("company job draft step 2", () => {
 
     await expect(page).toHaveURL(/\/portale\/azienda\/annunci\/addetto-comunicazione$/);
     await expect(
-      page.getByRole("heading", {
-        name: "anteprima dell'annuncio di:",
+      page.locator('[data-portal-page="company-job-preview"]'),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", {
+        name: portalCopy.companyJob.primaryCta,
       }),
     ).toBeVisible();
 

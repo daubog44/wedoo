@@ -57,7 +57,9 @@ Regole:
 
 ## Audit Design Drift Attuale
 
-- [ ] [TECH][node=n/a][route=/portale/azienda/annunci/:jobId][test=n/a] Mappare il frame Figma o gli export vivi della preview annuncio azienda e decidere se la route legacy `/portale/azienda/annunci/:jobId` va riallineata o assorbita dal nuovo shell `/portale/azienda/annunci`.
+- [x] [TECH][node=n/a][route=/portale/azienda/annunci/:jobId][test=n/a] Mappare il frame Figma o gli export vivi della preview annuncio azienda e decidere se la route legacy `/portale/azienda/annunci/:jobId` va riallineata o assorbita dal nuovo shell `/portale/azienda/annunci`.
+- [x] [FRAME][node=172:1273][route=/portale/azienda/annunci/:jobId][test=tests/e2e/portal/company-job-page.spec.ts] Riallineare la preview annuncio azienda al frame Figma `Annuncio di Lavoro` desktop `172:1273` e mobile `178:1640`, adattando le CTA recruiter della preview e rimuovendo la shell legacy con navbar.
+- [x] [TEST][node=172:1273][route=/portale/azienda/annunci/:jobId][test=tests/e2e/parity/company-job-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della preview annuncio azienda quando la shell standalone si stabilizza.
 - [x] [FRAME][node=185:1738][route=/portale/azienda/annunci][test=tests/e2e/portal/company-jobs-page.spec.ts] Auditare la sezione portale azienda `crea/modifica annuncio` contro il frame Figma desktop `185:1738` e i corrispettivi mobile della pagina `Form di accesso per mobile`, correggendo launcher/lista annunci legacy e navigazione verso preview e bozza.
 - [x] [TEST][node=185:1738][route=/portale/azienda/annunci][test=tests/e2e/parity/company-jobs-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della sezione `crea/modifica annuncio` quando il layout si stabilizza sul frame Figma reale.
 - [x] [FRAME][node=181:608][route=/portale/azienda/candidati/:candidateId][test=tests/e2e/portal/company-candidate-page.spec.ts] Auditare e riallineare il detail candidato azienda contro i frame Figma desktop `181:608` e mobile `184:795`, correggendo il pannello mint legacy, la shell detail e le CTA recruiter del profilo.

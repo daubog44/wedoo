@@ -111,6 +111,45 @@ export type CandidateJobDetailResponse = {
   title: string
 }
 
+export type CompanyJobPreviewResponse = {
+  closePath: string
+  company: {
+    logo: string
+    name: string
+    sectorLabel: string
+  }
+  contactLine: string
+  ctas: {
+    cancelLabel: string
+    certificationsLabel: string
+    contactLabel: string
+    primaryLabel: string
+    saveDraftLabel: string
+  }
+  editorToolbarLabel: string
+  footnotes: readonly string[]
+  id: string
+  mobileDockLabel: string
+  requirementsLabel: string
+  sections: {
+    companyBody: string
+    companyTitle: string
+    descriptionBody: string
+    descriptionTitle: string
+    offerItems: readonly string[]
+    offerTitle: string
+    summaryItems: readonly string[]
+    summaryTitle: string
+  }
+  skills: {
+    hardItems: readonly string[]
+    hardTitle: string
+    softItems: readonly string[]
+    softTitle: string
+  }
+  title: string
+}
+
 export type CandidateEntry = {
   avatar: string
   bio: string
