@@ -1,5 +1,6 @@
 export const portalRoutes = {
   candidateDashboard: "/portale/candidato",
+  candidateCv: "/portale/candidato/cv",
   candidateJob: "/portale/candidato/annuncio/addetto-comunicazione",
   companyCandidate: "/portale/azienda/candidati/azzurra-signorelli",
   companyDashboard: "/portale/azienda",
@@ -17,6 +18,17 @@ export const portalCopy = {
     cvSection: "Modifica CV",
     firstJobTitle: "ADDETTO COMUNICAZIONE",
     profileName: "Azzurra Signorelli",
+  },
+  candidateCv: {
+    activityLabel: "attivita",
+    agendaTitle: "obiettivi Agenda 2030",
+    backLabel: "Torna alla dashboard candidato",
+    goalLabel: "candidati al tuo primo lavoro",
+    mobileDockLabel: "Navigazione rapida candidato",
+    name: "Azzurra Signorelli",
+    personalDataTitle: "dati personali",
+    uploadCvLabel: "carica CV",
+    workPreferenceTitle: "preferenze di lavoro",
   },
   candidateJob: {
     certificationsCta: "visualizza certificazioni",

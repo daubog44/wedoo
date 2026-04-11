@@ -5,7 +5,9 @@ import { PortalNavbar } from "../site";
 export function PortalLayout({ role }: { role: PortalRole }) {
   const { pathname } = useLocation();
   const hideNavbar =
-    (role === "candidate" && pathname.startsWith("/portale/candidato/annuncio/")) ||
+    (role === "candidate" &&
+      (pathname === "/portale/candidato/cv" ||
+        pathname.startsWith("/portale/candidato/annuncio/"))) ||
     (role === "company" &&
       (pathname.startsWith("/portale/azienda/candidati/") ||
         pathname === "/portale/azienda/annunci" ||

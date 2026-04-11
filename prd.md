@@ -57,6 +57,8 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=288:1266][route=/portale/candidato/cv][test=tests/e2e/portal/candidate-cv-page.spec.ts] Auditare e riallineare la preview CV candidato contro i frame Figma desktop `288:1266` e mobile `288:1325`, correggendo la `DetailCard` legacy, la shell portale e le CTA `modifica` `carica CV` `attivita`.
+- [x] [TEST][node=288:1266][route=/portale/candidato/cv][test=tests/e2e/parity/candidate-cv-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della preview CV candidato quando il layout si stabilizza sul frame Figma reale.
 - [x] [FRAME][node=271:938][route=/portale/azienda/annunci][test=tests/e2e/portal/company-published-jobs-page.spec.ts] Auditare e implementare la vista azienda `visualizza annunci` contro il frame Figma desktop `271:938` e gli export coerenti, correggendo il CTA `visualizza annunci` che oggi non porta ancora alla lista annunci pubblicati.
 - [x] [TEST][node=271:938][route=/portale/azienda/annunci][test=tests/e2e/parity/company-published-jobs-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della vista `visualizza annunci` quando la lista annunci azienda si stabilizza.
 - [x] [TECH][node=n/a][route=/portale/azienda/annunci/:jobId][test=n/a] Mappare il frame Figma o gli export vivi della preview annuncio azienda e decidere se la route legacy `/portale/azienda/annunci/:jobId` va riallineata o assorbita dal nuovo shell `/portale/azienda/annunci`.

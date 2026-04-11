@@ -111,6 +111,34 @@ export type CandidateJobDetailResponse = {
   title: string
 }
 
+export type CandidateCvResponse = {
+  backPath: string
+  candidate: {
+    avatar: string
+    fullName: string
+    goalLabel: string
+  }
+  mobileDockLabel: string
+  photoHint: string
+  sections: {
+    agendaItems: readonly string[]
+    agendaTitle: string
+    personalDataItems: readonly string[]
+    personalDataTitle: string
+    workPreferenceItems: readonly string[]
+    workPreferenceTitle: string
+  }
+  sidebar: {
+    activityItems: readonly string[]
+    activityLabel: string
+    backHelperLabel: string
+    editLabel: string
+    editSecondaryLabel: string
+    editTitleLabel: string
+    uploadCvLabel: string
+  }
+}
+
 export type CompanyJobPreviewResponse = {
   closePath: string
   company: {

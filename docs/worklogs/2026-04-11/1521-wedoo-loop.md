@@ -348,3 +348,21 @@
 - action: chiuso il gap `visualizza annunci` introducendo lo stato query-driven `section=published-jobs` sullo stesso shell `/portale/azienda/annunci`, con lista card pubblicate desktop coerente al frame `271:938`, preview CTA verso `/portale/azienda/annunci/:jobId`, filtri desktop e variante mobile derivata senza navbar legacy
 - tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/company-job-management-response.test.ts`; `npx playwright test tests/e2e/portal/company-published-jobs-page.spec.ts tests/e2e/portal/company-jobs-page.spec.ts`; `npx playwright test tests/e2e/parity/company-published-jobs-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/company-published-jobs-page.visual.spec.ts`; `npm run test:all`
 - note: `npm run loop:capture -- "/portale/azienda/annunci?section=published-jobs" company-published-jobs-after` e andato in timeout due volte e ha lasciato cartelle vuote (`2137-...`, `2139-...`); review finale chiusa con parity desktop/mobile, E2E dedicati e quality gate completo. Verifica GitHub: nessuna PR aperta su `codex/ralph-loop-bootstrap`
+
+- timestamp: 2026-04-11 21:54
+- task: audit preview CV candidato contro Figma/VRT
+- node: desktop `288:1266`, mobile `288:1325`
+- viewport: desktop + mobile
+- files: prd.md, src/pages/portal/candidate-cv-page.tsx, tests/e2e/portal, tests/e2e/parity
+- action: review post-backlog vuoto ha promosso `/portale/candidato/cv` come prossimo gap reale del router; discovery Figma ha trovato i frame `Profilo utente` desktop `288:1266` e mobile `288:1325`, mentre la route corrente monta ancora una `DetailCard` mint legacy senza shell o dock coerenti
+- tests: pending
+- note: il frame desktop mostra due pannelli standalone con avatar, CTA `modifica`/`carica CV`, dropdown `attivita` e blocchi dati personali/preferenze/Agenda 2030; il mobile conferma bottom dock e top bar candidate
+
+- timestamp: 2026-04-11 22:02
+- task: audit preview CV candidato contro Figma/VRT
+- node: desktop `288:1266`, mobile `288:1325`
+- viewport: desktop + mobile
+- files: src/data/types.ts, src/data/candidate-cv.ts, src/components/portal/candidate-cv-view.tsx, src/pages/portal/candidate-cv-page.tsx, src/components/layout/portal-layout.tsx, tests/fixtures/portal-copy.ts, tests/integration/candidate-cv-response.test.ts, tests/e2e/portal/candidate-cv-page.spec.ts, tests/e2e/parity/candidate-cv-page.visual.spec.ts, __screenshots__/chromium-*/parity/candidate-cv-page.visual.spec.ts/candidate-cv-page.png, prd.md, .codexpotter/kb/candidate-cv.md, .codexpotter/kb/README.md
+- action: sostituita la preview CV legacy con una shell standalone Figma-first desktop/mobile, introdotto `CandidateCvResponse`, nascosta la `PortalNavbar` su `/portale/candidato/cv`, riallineate top bar/dock mobile e aggiunte coperture integration/E2E/parity dedicate
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/candidate-cv-response.test.ts`; `npx playwright test tests/e2e/portal/candidate-cv-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-cv-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-cv-page.visual.spec.ts`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-before`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-after`; `npm run test:all`
+- note: capture finali disponibili in `artifacts/loop-captures/2026-04-11/2152-candidate-cv-before` e `2159-candidate-cv-after`; verifica GitHub su `codex/ralph-loop-bootstrap`: nessuna PR aperta
