@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   candidateProfileDraftMock,
+  formatCandidateWorkPreferenceItemsForCv,
   formatCandidateContactLocation,
 } from "../../src/data/candidate-profile";
 
@@ -28,11 +29,32 @@ describe("CandidateProfileDraft", () => {
     });
     expect(candidateProfileDraftMock.skills.hardSkills).toContain("Meta Business Suite");
     expect(candidateProfileDraftMock.skills.softSkills).toContain("Creativit\u00E0");
+    expect(candidateProfileDraftMock.workPreferences).toEqual({
+      companyTypes: ["B-Corp", "PMI"],
+      contractTypes: ["tempo indeterminato", "stage retribuito"],
+      locations: ["Roma"],
+      schedules: ["full time (9-18)"],
+      workModes: ["ibrido", "full remote"],
+    });
   });
 
   it("formats the saved contact location for the contact step summary", () => {
     expect(formatCandidateContactLocation(candidateProfileDraftMock.contact)).toBe(
       "00012 - Guidonia Montecelio (RM)",
     );
+  });
+
+  it("formats the structured work preferences for the candidate cv summary", () => {
+    expect(
+      formatCandidateWorkPreferenceItemsForCv(
+        candidateProfileDraftMock.workPreferences,
+      ),
+    ).toEqual([
+      "Lavoro ibrido, full remote;",
+      "Zona Roma citta;",
+      "Aziende B-Corp, PMI con impatto sostenibile;",
+      "Full time (9-18);",
+      "Contratto a tempo indeterminato, contratto di stage retribuito con possibilita di estensione a tempo indeterminato.",
+    ]);
   });
 });

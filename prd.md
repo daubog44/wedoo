@@ -57,6 +57,7 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=280:1000][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-preferences.spec.ts] Implementare `pop up preferenze di lavoro` come step candidato riusabile, introducendo un contratto strutturato per modalita, localita, tipologia di azienda, orari e contratto e rimuovendo gli hardcode corrispondenti dalla preview CV.
 - [x] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-onboarding.test.ts] Definire `CandidateOnboardingDraft` per il flow pubblico candidato, coprendo registrazione account, localita, SDG e mansioni prima dei modal profilo.
 - [x] [FRAME][node=273:1313][route=/registrati/candidato/1][test=tests/e2e/public/public-routes.spec.ts] Auditare e riallineare il primo step pubblico candidato contro i frame Figma desktop `273:1313` e mobile `234:590`, correggendo layout, campi, consensi e CTA `continua`.
 - [x] [FRAME][node=273:1384][route=/registrati/candidato/2][test=tests/e2e/wizards/candidate-preferences.spec.ts] Implementare lo step pubblico candidato `Dicci qualcosa in più` contro i frame Figma desktop `273:1384` e mobile `234:813`, collegandolo al draft candidato e riallineando la sequenza del wizard successivo.

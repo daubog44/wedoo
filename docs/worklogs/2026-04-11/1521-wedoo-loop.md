@@ -420,3 +420,30 @@
 - action: introdotti `CandidateOnboardingDraft` e le shell pubbliche Figma-first per step 1-2 candidato, rimosso il vecchio auth shell generico da `/registrati/candidato/1`, spostati i modal profilo alle route `/registrati/candidato/3-6`, riallineati fixture e test, aggiunte parity desktop/mobile dedicate e hydration del `CandidateProfileDraft` dai dati pubblici del nuovo onboarding
 - tests: `npm run typecheck`; `npx vitest run tests/integration/auth-view-model.test.ts tests/integration/candidate-onboarding.test.ts`; `npx playwright test tests/e2e/public/public-routes.spec.ts tests/e2e/wizards/candidate-preferences.spec.ts tests/e2e/wizards/candidate-contacts.spec.ts tests/e2e/wizards/candidate-education.spec.ts tests/e2e/wizards/candidate-work-experience.spec.ts tests/e2e/wizards/candidate-skills.spec.ts`; `npm run loop:capture -- /registrati/candidato/1 candidate-registration-step-1-review`; `npm run loop:capture -- /registrati/candidato/2 candidate-registration-step-2-review`; `npx playwright test tests/e2e/parity/candidate-registration-flow.visual.spec.ts --update-snapshots`; `npm run test:all`
 - note: audit visuale finale basato su `artifacts/loop-captures/2026-04-11/2254-candidate-registration-step-1-review` e `2254-candidate-registration-step-2-review`; un falso diff parity e apparso quando update e verify sono stati lanciati in parallelo, risolto con rerun seriale verde
+
+- timestamp: 2026-04-11 23:11
+- task: discovery gap candidato `preferenze di lavoro`
+- node: `280:1000`
+- viewport: desktop
+- files: `prd.md`, `.codexpotter/projects/2026/04/11/1/MAIN.md`, `.codexpotter/kb/candidate-profile.md`, `src/data/candidate-profile.ts`, `src/data/candidate-cv.ts`, `src/components/public/candidate-preferences-step.tsx`, `src/pages/public/candidate-wizard-page.tsx`
+- action: review root Figma a backlog vuoto ha trovato il frame top-level non tracciato `280:1000 pop up preferenze di lavoro`; il codice attuale copre solo lo step pubblico `273:1384` con provincia/citta/CAP/SDG/mansioni, mentre `CandidateProfileDraft` non ha un contratto strutturato per modalita, localita, tipologia azienda, orari e contratto e `candidateCvResponseMock` continua a esporre queste informazioni come stringhe hardcoded. Aggiunto un solo task concreto al PRD e riallineato il tracker interno, senza implementazione nello stesso round.
+- tests: n/a
+- note: prossimo round da aprire sul task `280:1000`, con probabile estensione del flow `/registrati/candidato/:stepIndex` e riuso dei dati nella preview CV
+
+- timestamp: 2026-04-11 23:26
+- task: implementazione modal candidato `preferenze di lavoro`
+- node: `280:1000`
+- viewport: desktop come riferimento principale, mobile derivato
+- files: `src/data/candidate-profile.ts`, `src/data/candidate-cv.ts`, `src/pages/public/candidate-wizard-page.tsx`, `src/components/public/candidate-work-preferences-step.tsx`, `tests/integration/*`, `tests/e2e/wizards/*`
+- action: discovery Figma completata su frame `650x1213`; confermato che il modal riusa la shell dei modal candidato gia implementati ma introduce un dominio nuovo con cinque famiglie di preferenze (`modalita`, `localita`, `tipologia di azienda`, `orari`, `tipologia di contratto`). Avviata l'estensione del draft candidato e del flow `/registrati/candidato/:stepIndex` per eliminare gli hardcode dalla preview CV.
+- tests: pending
+- note: nessun sibling mobile dedicato trovato nello stesso cluster Figma; la resa mobile verra derivata mantenendo tipografia, pannello e gerarchia dei modal candidato esistenti
+
+- timestamp: 2026-04-11 23:34
+- task: implementazione modal candidato `preferenze di lavoro`
+- node: `280:1000`
+- viewport: desktop come riferimento principale, mobile derivato
+- files: `src/data/candidate-profile.ts`, `src/data/candidate-cv.ts`, `src/pages/public/candidate-wizard-page.tsx`, `src/components/public/candidate-work-preferences-step.tsx`, `tests/fixtures/public-copy.ts`, `tests/integration/candidate-{profile-draft,cv-response}.test.ts`, `tests/e2e/wizards/candidate-{skills,work-preferences}.spec.ts`, `tests/e2e/parity/candidate-work-preferences.visual.spec.ts`, `__screenshots__/chromium-*/parity/candidate-work-preferences.visual.spec.ts/candidate-work-preferences-step.png`, `prd.md`, `.codexpotter/kb/candidate-profile.md`
+- action: esteso `CandidateProfileDraft` con `workPreferences`, aggiunto formatter CV riusabile, inserito il nuovo step `/registrati/candidato/7` dopo `competenze`, aggiunta parity dedicata come per gli altri modal candidato e rimossa la dipendenza da stringhe hardcoded in `candidate-cv.ts`.
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/candidate-profile-draft.test.ts tests/integration/candidate-cv-response.test.ts`; `npx playwright test tests/e2e/wizards/candidate-skills.spec.ts tests/e2e/wizards/candidate-work-preferences.spec.ts tests/e2e/portal/candidate-cv-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-work-preferences.visual.spec.ts tests/e2e/parity/candidate-cv-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-work-preferences.visual.spec.ts tests/e2e/parity/candidate-cv-page.visual.spec.ts`; `npm run loop:capture -- /registrati/candidato/7 candidate-work-preferences-after`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-work-preferences-after`; `npm run test:all`
+- note: capture finali in `artifacts/loop-captures/2026-04-11/2326-candidate-work-preferences-after` e `artifacts/loop-captures/2026-04-11/2326-candidate-cv-work-preferences-after`; review GitHub conferma `search_pull_requests head:codex/ralph-loop-bootstrap state:open = 0`

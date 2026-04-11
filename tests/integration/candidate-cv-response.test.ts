@@ -12,9 +12,13 @@ describe("candidate cv response", () => {
       "azzurra.signorelli@email.com;",
       "+39 3201234567",
     ]);
-    expect(candidateCvResponseMock.sections.workPreferenceItems[0]).toBe(
+    expect(candidateCvResponseMock.sections.workPreferenceItems).toEqual([
       "Lavoro ibrido, full remote;",
-    );
+      "Zona Roma citta;",
+      "Aziende B-Corp, PMI con impatto sostenibile;",
+      "Full time (9-18);",
+      "Contratto a tempo indeterminato, contratto di stage retribuito con possibilita di estensione a tempo indeterminato.",
+    ]);
     expect(candidateCvResponseMock.sidebar.activityItems).toContain(
       "calendario colloqui",
     );

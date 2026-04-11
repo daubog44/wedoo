@@ -61,6 +61,6 @@ test.describe("candidate skills step", () => {
       })
       .click();
 
-    await expect(page).toHaveURL(/\/portale\/candidato$/);
+    await expect(page).toHaveURL(/\/registrati\/candidato\/7$/);
   });
 });

@@ -5,6 +5,7 @@ import { CandidateEducationStep } from "../../components/public/candidate-educat
 import { CandidatePreferencesStep } from "../../components/public/candidate-preferences-step";
 import { CandidateRegistrationStep } from "../../components/public/candidate-registration-step";
 import { CandidateSkillsStep } from "../../components/public/candidate-skills-step";
+import { CandidateWorkPreferencesStep } from "../../components/public/candidate-work-preferences-step";
 import { CandidateWorkExperienceStep } from "../../components/public/candidate-work-experience-step";
 import { SiteFooter, TopLogoBar } from "../../components/site";
 import {
@@ -25,7 +26,7 @@ export default function CandidateWizardPage() {
     onboarding,
   );
 
-  if (!Number.isFinite(stepIndex) || stepIndex < 1 || stepIndex > 6) {
+  if (!Number.isFinite(stepIndex) || stepIndex < 1 || stepIndex > 7) {
     return <Navigate replace to="/registrati/candidato/1" />;
   }
 
@@ -125,7 +126,17 @@ export default function CandidateWizardPage() {
     return (
       <>
         <TopLogoBar />
-        <CandidateSkillsStep draft={profileDraft} />
+        <CandidateSkillsStep draft={profileDraft} saveTo="/registrati/candidato/7" />
+        <SiteFooter className="mt-0" />
+      </>
+    );
+  }
+
+  if (stepIndex === 7) {
+    return (
+      <>
+        <TopLogoBar />
+        <CandidateWorkPreferencesStep draft={profileDraft} />
         <SiteFooter className="mt-0" />
       </>
     );

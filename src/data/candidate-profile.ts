@@ -51,6 +51,21 @@ export type CandidateSkillsDraft = {
   tools: readonly string[];
 };
 
+export type CandidateWorkPreferenceFieldKey =
+  | "companyTypes"
+  | "contractTypes"
+  | "locations"
+  | "schedules"
+  | "workModes";
+
+export type CandidateWorkPreferencesDraft = {
+  companyTypes: readonly string[];
+  contractTypes: readonly string[];
+  locations: readonly string[];
+  schedules: readonly string[];
+  workModes: readonly string[];
+};
+
 export type CandidateProfileDraft = {
   contact: CandidateContactDraft;
   education: readonly CandidateEducationDraftEntry[];
@@ -62,6 +77,7 @@ export type CandidateProfileDraft = {
   };
   privacyAccepted: boolean;
   skills: CandidateSkillsDraft;
+  workPreferences: CandidateWorkPreferencesDraft;
 };
 
 export const candidateProfileDraftMock = {
@@ -147,6 +163,13 @@ export const candidateProfileDraftMock = {
     ],
     tools: ["Notion", "Figma", "Google Workspace"],
   },
+  workPreferences: {
+    companyTypes: ["B-Corp", "PMI"],
+    contractTypes: ["tempo indeterminato", "stage retribuito"],
+    locations: ["Roma"],
+    schedules: ["full time (9-18)"],
+    workModes: ["ibrido", "full remote"],
+  },
 } as const satisfies CandidateProfileDraft;
 
 export const candidateContactProvinceOptions = [
@@ -190,6 +213,146 @@ export function getCandidateContactCityOptions(
 
 export function formatCandidateContactLocation(contact: CandidateContactDraft) {
   return `${contact.postalCode} - ${contact.city} (${contact.provinceCode})`;
+}
+
+export const candidateWorkModeOptions = [
+  "ibrido",
+  "full remote",
+  "in presenza",
+  "smart working flessibile",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateWorkLocationOptions = [
+  "Roma",
+  "Milano",
+  "Torino",
+  "Bologna",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateWorkCompanyTypeOptions = [
+  "B-Corp",
+  "PMI",
+  "startup",
+  "cooperativa",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateWorkScheduleOptions = [
+  "full time (9-18)",
+  "part time",
+  "turni flessibili",
+  "settimana corta",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateWorkContractTypeOptions = [
+  "tempo indeterminato",
+  "stage retribuito",
+  "apprendistato",
+  "tempo determinato",
+].map((value) => ({ label: value, value })) satisfies readonly CandidateContactOption[];
+
+export const candidateWorkPreferenceSections = [
+  {
+    key: "workModes",
+    options: candidateWorkModeOptions,
+    title: "modalita",
+  },
+  {
+    key: "locations",
+    options: candidateWorkLocationOptions,
+    title: "localita",
+  },
+  {
+    key: "companyTypes",
+    options: candidateWorkCompanyTypeOptions,
+    title: "tipologia di azienda",
+  },
+  {
+    key: "schedules",
+    options: candidateWorkScheduleOptions,
+    title: "orari",
+  },
+  {
+    key: "contractTypes",
+    options: candidateWorkContractTypeOptions,
+    title: "tipologia di contratto",
+  },
+] as const satisfies readonly {
+  key: CandidateWorkPreferenceFieldKey;
+  options: readonly CandidateContactOption[];
+  title: string;
+}[];
+
+function joinPreferenceValues(values: readonly string[]) {
+  return values.join(", ");
+}
+
+function capitalizeLabel(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function formatContractPreference(values: readonly string[]) {
+  if (values.length === 0) {
+    return null;
+  }
+
+  const normalizedValues = values.map((value) => {
+    if (value === "tempo indeterminato") {
+      return "a tempo indeterminato";
+    }
+
+    if (value === "stage retribuito") {
+      return "di stage retribuito con possibilita di estensione a tempo indeterminato";
+    }
+
+    return value;
+  });
+
+  const [firstValue, ...otherValues] = normalizedValues;
+  const extraValues = otherValues.map((value) => `contratto ${value}`);
+
+  return `Contratto ${[firstValue, ...extraValues].join(", ")}.`;
+}
+
+function formatCompanyPreference(values: readonly string[]) {
+  if (values.length === 0) {
+    return null;
+  }
+
+  const normalizedValues = values.map((value) =>
+    value === "PMI" ? "PMI con impatto sostenibile" : value,
+  );
+
+  return `Aziende ${joinPreferenceValues(normalizedValues)};`;
+}
+
+function formatLocationPreference(values: readonly string[]) {
+  if (values.length === 0) {
+    return null;
+  }
+
+  if (values.length === 1) {
+    return `Zona ${values[0]} citta;`;
+  }
+
+  return `Zone ${joinPreferenceValues(values)};`;
+}
+
+export function formatCandidateWorkPreferenceItemsForCv(
+  workPreferences: CandidateWorkPreferencesDraft,
+) {
+  const items = [
+    workPreferences.workModes.length > 0
+      ? `Lavoro ${joinPreferenceValues(workPreferences.workModes)};`
+      : null,
+    formatLocationPreference(workPreferences.locations),
+    formatCompanyPreference(workPreferences.companyTypes),
+    workPreferences.schedules.length > 0
+      ? `${capitalizeLabel(joinPreferenceValues(workPreferences.schedules))};`
+      : null,
+    formatContractPreference(workPreferences.contractTypes),
+  ].filter((value): value is string => Boolean(value));
+
+  return items;
 }
 
 export const candidateEducationDegreeOptions = [
