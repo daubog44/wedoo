@@ -110,6 +110,29 @@ export type CandidateDashboardResponse = {
   searchPlaceholder: string
 }
 
+export type CompanyDashboardProfile = {
+  companyLogo: string
+  companyName: string
+  id: string
+}
+
+export type CompanyDashboardCandidate = {
+  avatar: string
+  ctaLabel: string
+  id: string
+  locationLabel: string
+  name: string
+  sdgIds: readonly string[]
+  statusLabel: string
+  tagLabels: readonly string[]
+}
+
+export type CompanyDashboardResponse = {
+  candidates: readonly CompanyDashboardCandidate[]
+  profile: CompanyDashboardProfile
+  searchPlaceholder: string
+}
+
 export type WizardField = {
   helper?: string
   key: string

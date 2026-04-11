@@ -6,6 +6,8 @@ import {
 } from "./auth";
 import type { CandidateDashboardResponse } from "./types";
 import { candidateDashboardResponseMock } from "./candidate-dashboard";
+import type { CompanyDashboardResponse } from "./types";
+import { companyDashboardResponseMock } from "./company-dashboard";
 import type { CandidateProfileDraft } from "./candidate-profile";
 import { candidateProfileDraftMock } from "./candidate-profile";
 import type { CandidateProfileSummary } from "./candidate-profile-summary";
@@ -106,6 +108,10 @@ export function getCandidateDashboardMock(): Promise<CandidateDashboardResponse>
   return Promise.resolve(cloneMock(candidateDashboardResponseMock));
 }
 
+export function getCompanyDashboardMock(): Promise<CompanyDashboardResponse> {
+  return Promise.resolve(cloneMock(companyDashboardResponseMock));
+}
+
 export function getCandidateProfileSummariesMock(): Promise<
   readonly CandidateProfileSummary[]
 > {
@@ -170,6 +176,7 @@ export const mockDataService = {
   getArticlePreviewsMock,
   getAuthViewModelMock,
   getCandidateDashboardMock,
+  getCompanyDashboardMock,
   getCandidateProfileDraftMock,
   getCandidateProfileSummariesMock,
   getCandidateProfileSummaryMock,

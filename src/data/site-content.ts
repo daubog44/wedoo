@@ -17,10 +17,10 @@ export const portalNavigation: Record<
     { label: "Podcast", to: "/podcast" },
   ],
   company: [
-    { label: "bacheca candidati", to: "/portale/azienda" },
-    { label: "crea/modifica annuncio", to: "/portale/azienda/annunci" },
-    { label: "articoli", to: "/articoli" },
-    { label: "podcast", to: "/podcast" },
+    { label: "Bacheca annunci", to: "/portale/azienda" },
+    { label: "Crea/modifica annuncio", to: "/portale/azienda/annunci" },
+    { label: "Articoli", to: "/articoli" },
+    { label: "Podcast", to: "/podcast" },
   ],
 };
 

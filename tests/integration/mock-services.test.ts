@@ -5,6 +5,7 @@ import {
   getCandidateDashboardMock,
   getCandidateProfileDraftMock,
   getCandidateProfileSummaryMock,
+  getCompanyDashboardMock,
   getCompanyProfileSummaryMock,
   getJobDetailMock,
   getJobDraftMock,
@@ -38,17 +39,25 @@ describe("mock data services", () => {
   });
 
   it("returns cloned candidate and company contracts for downstream consumers", async () => {
-    const [candidateDashboard, candidateDraft, candidateSummary, companySummary] =
+    const [
+      candidateDashboard,
+      candidateDraft,
+      candidateSummary,
+      companyDashboard,
+      companySummary,
+    ] =
       await Promise.all([
         getCandidateDashboardMock(),
         getCandidateProfileDraftMock(),
         getCandidateProfileSummaryMock("riccardo-stagni"),
+        getCompanyDashboardMock(),
         getCompanyProfileSummaryMock(),
       ]);
 
     expect(candidateDashboard.profile.fullName).toBe("Azzurra Signorelli");
     expect(candidateDraft.contact.fullName).toBe("Azzurra Signorelli");
     expect(candidateSummary.id).toBe("riccardo-stagni");
+    expect(companyDashboard.profile.companyName).toBe("Agenzia Creativa S.r.l.");
     expect(companySummary.onboarding.firstJobDraftSteps).toBe(5);
   });
 
@@ -121,9 +130,10 @@ describe("mock data services", () => {
   });
 
   it("exposes the same async helpers through the aggregated mockDataService", async () => {
-    const [articleList, candidateDashboard] = await Promise.all([
+    const [articleList, candidateDashboard, companyDashboard] = await Promise.all([
       mockDataService.getArticlePreviewsMock(),
       mockDataService.getCandidateDashboardMock(),
+      mockDataService.getCompanyDashboardMock(),
     ]);
 
     expect(articleList[2]).toMatchObject({
@@ -131,5 +141,6 @@ describe("mock data services", () => {
       title: "Matching credibile: meno hype, piu contesto",
     });
     expect(candidateDashboard.listings).toHaveLength(4);
+    expect(companyDashboard.candidates).toHaveLength(4);
   });
 });

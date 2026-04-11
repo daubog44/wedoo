@@ -283,10 +283,16 @@ test.describe("company job draft step 2", () => {
       .click();
 
     await expect(page).toHaveURL("/portale/azienda");
+
+    if (layoutName === "mobile") {
+      await page.getByRole("button", { name: "Apri navigazione portale azienda" }).click();
+    }
+
     await expect(
-      page.getByRole("heading", {
-        name: "bacheca candidati",
-      }),
+      page.getByRole("link", { name: portalCopy.companyDashboard.activeSection }),
+    ).toHaveAttribute("aria-current", "page");
+    await expect(
+      page.getByRole("heading", { name: portalCopy.companyDashboard.profileName }),
     ).toBeVisible();
   });
 });

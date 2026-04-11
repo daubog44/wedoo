@@ -57,6 +57,8 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=n/a][route=/portale/azienda][test=tests/e2e/portal/company-dashboard-page.spec.ts] Auditare la dashboard azienda contro il frame/export Figma `Interfaccia account AZIENDA`, correggendo shell portale, card candidati, profilo azienda laterale e drift desktop/mobile.
+- [x] [TEST][node=n/a][route=/portale/azienda][test=tests/e2e/parity/company-dashboard-page.visual.spec.ts] Creare e mantenere una baseline visuale dedicata per la dashboard azienda quando il layout si stabilizza.
 - [x] [FRAME][node=159:2896][route=/portale/candidato][test=tests/e2e/portal/candidate-dashboard-page.spec.ts] Auditare la dashboard candidato contro il frame Figma `Interfaccia account CANDIDATO`, verificando shell, navigazione, card profilo/annunci e copertura Playwright dedicata.
 - [x] [FRAME][node=n/a][route=/azienda][test=tests/e2e/public/company-showcase-page.spec.ts] Auditare la route showcase azienda contro gli export Figma aggiornati desktop/mobile `Sezione _azienda_*.png`, correggendo shell, carousel condiviso e baseline VRT in modo intenzionale.
 - [x] [FRAME][node=n/a][route=/candidato][test=tests/e2e/public/candidate-showcase-page.spec.ts] Auditare la route showcase candidato contro gli export Figma aggiornati desktop/mobile `Sezione _candidato_*.png`, correggendo shell legacy, carousel e baseline VRT in modo intenzionale.
