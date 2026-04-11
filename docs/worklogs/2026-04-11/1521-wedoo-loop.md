@@ -285,3 +285,30 @@
 - action: introdotto `CompanyCandidateDetailResponse` server-like con presentazione dedicata per le candidate, nascosta la `PortalNavbar` sulla route `/portale/azienda/candidati/*`, riscritta la pagina in shell standalone menta desktop/mobile con close interno, rich text box, CTA recruiter e dock mobile a 5 icone, poi aggiunte coperture integration/E2E/parity e baseline dedicate. Capture finale salvato in `artifacts/loop-captures/2026-04-11/2009-company-candidate-detail-after`
 - tests: `npm run lint`; `npm run typecheck`; `npx vitest run tests/integration/company-candidate-detail-response.test.ts`; `npx playwright test tests/e2e/portal/company-candidate-page.spec.ts tests/e2e/portal/company-dashboard-page.spec.ts`; `npx playwright test tests/e2e/parity/company-candidate-page.visual.spec.ts --update-snapshots`; `npm run loop:capture -- /portale/azienda/candidati/azzurra-signorelli company-candidate-detail-after`; `npm run test:all`
 - note: controllo GitHub eseguito su `daubog44/wedoo` con `search_pull_requests head:codex/ralph-loop-bootstrap state:open = 0`; dalla review router+Figma il prossimo gap promosso nel PRD e `/portale/azienda/annunci` contro il frame `185:1738`
+
+- timestamp: 2026-04-11 20:18
+- task: audit launcher/lista annunci azienda contro Figma/VRT
+- node: desktop `185:1738`
+- viewport: desktop
+- files: src/pages/portal/company-jobs-page.tsx, prd.md, .codexpotter/projects/2026/04/11/1/MAIN.md
+- action: avviata discovery del nuovo primo task aperto del PRD. La route reale `/portale/azienda/annunci` e ancora un launcher minimale a due card, mentre Figma `185:1738` mostra una sezione portale completa con rail azienda a sinistra, area form recruiter a destra e CTA `visualizza anteprima`
+- tests: n/a
+- note: resta da identificare il frame mobile corrispondente nella pagina `Form di accesso per mobile`; il task resta aperto come prossimo blocco di implementazione
+
+- timestamp: 2026-04-11 20:58
+- task: audit launcher/lista annunci azienda contro Figma/VRT
+- node: desktop `185:1738`, mobile `267:442`
+- viewport: desktop + mobile
+- files: src/data/types.ts, src/data/company-job-management.ts, src/data/mock-services.ts, src/components/layout/portal-layout.tsx, src/components/portal/company-job-management-view.tsx, src/pages/portal/company-jobs-page.tsx, tests/fixtures/portal-copy.ts, tests/integration/company-job-management-response.test.ts, tests/e2e/portal/company-jobs-page.spec.ts, tests/e2e/portal/company-job-draft-step-1.spec.ts, tests/e2e/portal/company-job-draft-step-2.spec.ts, tests/e2e/parity/company-jobs-page.visual.spec.ts, __screenshots__/chromium-*/parity/company-jobs-page.visual.spec.ts/company-jobs-page.png, prd.md, .codexpotter/kb/company-job-management.md, .codexpotter/kb/README.md
+- action: discovery Figma completata sui frame desktop/mobile e sui sibling recruiter/azienda/offerta/publishing; sostituito il launcher legacy con una shell standalone `CompanyJobManagementView`, introdotto il contratto `CompanyJobManagementResponse`, nascosta la `PortalNavbar` sulla route, mantenuta la persistenza bozza via `mock-services` e aggiunte coperture integration/E2E/parity dedicate. Capture finale reale salvato in `artifacts/loop-captures/2026-04-11/2054-company-jobs-page-after`
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/company-job-management-response.test.ts`; `npx playwright test "tests/e2e/portal/company-jobs-page.spec.ts"`; `npx playwright test "tests/e2e/portal/company-job-draft-step-1.spec.ts" "tests/e2e/portal/company-job-draft-step-2.spec.ts"`; `npx playwright test "tests/e2e/parity/company-jobs-page.visual.spec.ts" --update-snapshots`; `npx playwright test "tests/e2e/parity/company-jobs-page.visual.spec.ts"`
+- note: `search_pull_requests` su `daubog44/wedoo` con head `codex/ralph-loop-bootstrap` restituisce `0`; i test del wizard annunci sono stati riallineati perche il vecchio launcher a due card non esiste piu su `/portale/azienda/annunci`
+
+- timestamp: 2026-04-11 21:08
+- task: review post-audit route preview annuncio azienda
+- node: n/a
+- viewport: pending discovery
+- files: prd.md, src/pages/portal/company-job-page.tsx, src/router.tsx
+- action: review stretta del router dopo la chiusura di `/portale/azienda/annunci`: emersa la route `/portale/azienda/annunci/:jobId` ancora legata a `CompanyJobPage` legacy, mentre il nuovo shell e il wizard continuano a puntare alla preview. Promosso in PRD un task tecnico di mapping Figma/export prima di qualunque riallineamento della preview.
+- tests: n/a
+- note: `get_metadata` root `0:1` non ha fornito un mapping affidabile della preview annuncio nel payload troncato; serve discovery dedicata senza assumere che il frame `Anteprima annuncio` letto in audit precedenti corrisponda davvero a questa route

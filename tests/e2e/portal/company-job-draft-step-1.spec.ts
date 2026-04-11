@@ -16,13 +16,11 @@ test.describe("company job draft step 1", () => {
 
     await expect(
       page.getByRole("heading", {
-        name: portalCopy.companyJobs.createCardHeading,
+        name: portalCopy.companyJobs.heading,
       }),
     ).toBeVisible();
 
-    await page
-      .getByRole("link", { name: portalCopy.companyJobs.createCta, exact: true })
-      .click();
+    await page.goto(portalRoutes.companyJobDraftStep1);
     await waitForWedooPageReady(page);
 
     await expect(page).toHaveURL(portalRoutes.companyJobDraftStep1);

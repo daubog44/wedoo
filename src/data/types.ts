@@ -1,3 +1,5 @@
+import type { JobDraft } from "./job-draft";
+
 export type PortalRole = 'candidate' | 'company'
 export type KnowledgeKind = 'articles' | 'podcasts'
 
@@ -208,6 +210,49 @@ export type CompanyCandidateDetailResponse = {
     softSkillItems: readonly string[]
     softSkillsTitle: string
   }
+}
+
+export type CompanyJobManagementSectionId =
+  | 'recruiter'
+  | 'company-details'
+  | 'offer-details'
+  | 'publishing'
+
+export type CompanyJobManagementPublishedJob = {
+  id: string
+  label: string
+  previewPath: string
+}
+
+export type CompanyJobManagementResponse = {
+  backPath: string
+  company: {
+    activityLabel: string
+    candidateInterestLabel: string
+    certificationLabels: readonly string[]
+    createNewLabel: string
+    editLabel: string
+    legalName: string
+    logo: string
+    publishedJobsLabel: string
+    uploadCertificationsLabel: string
+    viewApplicationsLabel: string
+    viewJobsLabel: string
+  }
+  ctas: {
+    nextLabel: string
+    previewLabel: string
+    removeLabel: string
+    saveDraftLabel: string
+    submitLabel: string
+  }
+  draft: JobDraft
+  mobileDockLabel: string
+  publishedJobs: readonly CompanyJobManagementPublishedJob[]
+  sectionOptions: readonly {
+    id: CompanyJobManagementSectionId
+    label: string
+  }[]
 }
 
 export type WizardField = {

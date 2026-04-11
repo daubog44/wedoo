@@ -38,14 +38,27 @@ export const portalCopy = {
   },
   companyDashboard: {
     activeSection: "Bacheca annunci",
-    cardCta: "scopri di più",
+    cardCta: "scopri di piu",
     companyJobsSection: "Crea/modifica annuncio",
     firstCandidateName: "AZZURRA SIGNORELLI",
     profileName: "Agenzia Creativa S.r.l.",
   },
   companyJobs: {
-    createCardHeading: "Crea un nuovo annuncio",
-    createCta: "crea",
+    backLabel: "Torna al portale azienda",
+    companyHeading: "dettagli azienda",
+    companyName: "Agenzia Creativa S.r.l.",
+    createCta: "crea nuovo annuncio",
+    editLabel: "Modifica annuncio",
+    heading: "Crea/modifica annuncio",
+    offerHeading: "dettagli area geografica",
+    previewCta: "visualizza anteprima",
+    publishedJobsLabel: "Annunci pubblicati",
+    removeCta: "cancella",
+    recruiterHeading: "dettagli recruiter",
+    saveDraftCta: "salva in bozza",
+    submitCta: "invia",
+    viewApplicationsCta: "visualizza candidature",
+    viewJobsCta: "visualizza annunci",
   },
   companyJobDraftStep1: {
     continueCta: "avanti",
@@ -70,6 +83,6 @@ export const portalCopy = {
     sdgLabel: "SDGs di riferimento",
     submitCta: "invia",
     uploadLabel:
-      "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilità",
+      "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilita",
   },
 } as const;

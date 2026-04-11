@@ -40,7 +40,7 @@ function cloneMock<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
-const jobDraftStorageKey = "wedoo.company-job-draft";
+export const jobDraftStorageKey = "wedoo.company-job-draft";
 let persistedJobDraftMock: JobDraft | null = null;
 
 function getDefaultJobDraftMock(): JobDraft {

@@ -184,7 +184,7 @@ test.describe("company job draft step 2", () => {
     await expect(page).toHaveURL(portalRoutes.companyJobs);
     await expect(
       page.getByRole("heading", {
-        name: portalCopy.companyJobs.createCardHeading,
+        name: portalCopy.companyJobs.heading,
       }),
     ).toBeVisible();
 

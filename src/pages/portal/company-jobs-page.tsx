@@ -1,45 +1,130 @@
-import { Link } from "react-router-dom";
-import { SiteIcon } from "../../components/site";
-import { jobDraftMock } from "../../data/job-draft";
-import { jobs } from "../../data/jobs";
+import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { CompanyJobManagementView } from "../../components/portal/company-job-management-view";
+import {
+  createCompanyJobManagementResponse,
+  isCompanyJobManagementSectionId,
+} from "../../data/company-job-management";
+import { createBlankCompanyOnboardingDraft } from "../../data/company-onboarding";
+import { jobDraftMock, type JobDraft } from "../../data/job-draft";
+import {
+  getJobDraftMockSnapshot,
+  jobDraftStorageKey,
+  saveJobDraftMock,
+} from "../../data/mock-services";
+import type { CompanyJobManagementSectionId } from "../../data/types";
+
+function createEmptyCompanyJobsDraft(): JobDraft {
+  return createBlankCompanyOnboardingDraft(jobDraftMock);
+}
+
+function getInitialCompanyJobsDraft(): JobDraft {
+  if (typeof window === "undefined" || !("sessionStorage" in window)) {
+    return createEmptyCompanyJobsDraft();
+  }
+
+  const storedDraft = window.sessionStorage.getItem(jobDraftStorageKey);
+
+  if (storedDraft) {
+    return getJobDraftMockSnapshot();
+  }
+
+  return createEmptyCompanyJobsDraft();
+}
 
 export default function CompanyJobsPage() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [draft, setDraft] = useState<JobDraft>(() => getInitialCompanyJobsDraft());
+  const [activityValue, setActivityValue] = useState("");
+  const [publishedJobValue, setPublishedJobValue] = useState("");
+  const rawSection = searchParams.get("section");
+  const section: CompanyJobManagementSectionId = isCompanyJobManagementSectionId(
+    rawSection,
+  )
+    ? rawSection
+    : "recruiter";
+  const response = createCompanyJobManagementResponse(draft);
+
+  function updateDraft(updater: (current: JobDraft) => JobDraft) {
+    setDraft((current) => updater(current));
+  }
+
+  function setSection(nextSection: CompanyJobManagementSectionId) {
+    const nextSearchParams = new URLSearchParams(searchParams);
+
+    if (nextSection === "recruiter") {
+      nextSearchParams.delete("section");
+    } else {
+      nextSearchParams.set("section", nextSection);
+    }
+
+    setSearchParams(nextSearchParams, { replace: true });
+  }
+
+  async function resetDraft() {
+    const blankDraft = createEmptyCompanyJobsDraft();
+    await saveJobDraftMock(blankDraft);
+    setDraft(blankDraft);
+    setActivityValue("");
+    setPublishedJobValue("");
+    setSection("recruiter");
+  }
+
+  async function previewDraft() {
+    await saveJobDraftMock(draft);
+    navigate(draft.flow.previewPath);
+  }
+
+  async function saveDraft() {
+    await saveJobDraftMock(draft);
+  }
+
+  async function submitDraft() {
+    await saveJobDraftMock(draft);
+    navigate(draft.flow.completionPath);
+  }
+
+  function viewPublishedJob() {
+    const selectedJobPath =
+      response.publishedJobs.find((job) => job.id === publishedJobValue)
+        ?.previewPath ??
+      response.publishedJobs[0]?.previewPath ??
+      draft.flow.previewPath;
+
+    navigate(selectedJobPath);
+  }
+
   return (
-    <main className="px-4 pb-12 pt-6 md:px-8">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-center text-4xl">annunci</h2>
-        <div className="mt-10 grid gap-8 md:grid-cols-2">
-          <article className="rounded-[2.5rem] border-2 border-brand-violet p-8 text-center">
-            <h4 className="mt-8 text-2xl">Crea un nuovo annuncio</h4>
-            <Link
-              className="mt-8 inline-flex min-w-[12rem] items-center justify-center rounded-xl border border-brand-violet bg-brand-violet px-4 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-violet"
-              to={jobDraftMock.flow.portalDraftPath}
-            >
-              crea
-            </Link>
-          </article>
-          <article className="rounded-[2.5rem] border-2 border-brand-violet p-8 text-center">
-            <h4 className="mt-8 text-2xl">Modifica annuncio presente</h4>
-            <details className="relative mt-8 inline-block text-left">
-              <summary className="wedoo-dropdown-summary inline-flex min-w-[15rem] cursor-pointer items-center justify-between rounded-xl border border-brand-violet bg-brand-violet px-4 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-violet">
-                modifica
-                <SiteIcon className="ml-2 h-3 w-3" name="chevron-down" />
-              </summary>
-              <div className="absolute left-0 right-0 mt-2 rounded-2xl border border-brand-violet bg-white py-2 shadow-lg">
-                {jobs.slice(0, 4).map((job, index) => (
-                  <Link
-                    className="block px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
-                    key={job.id}
-                    to={`/portale/azienda/annunci/${job.id}`}
-                  >
-                    {index === 0 ? "Addetto Comunicazione" : job.title}
-                  </Link>
-                ))}
-              </div>
-            </details>
-          </article>
-        </div>
-      </div>
+    <main className="min-h-screen bg-brand-page" data-portal-page="company-jobs">
+      <CompanyJobManagementView
+        activityValue={activityValue}
+        draft={draft}
+        onActivityChange={(value) => {
+          setActivityValue(value);
+          updateDraft((current) => ({
+            ...current,
+            role: {
+              ...current.role,
+              sectorId: value,
+            },
+          }));
+        }}
+        onBack={() => navigate(response.backPath)}
+        onCreateNew={resetDraft}
+        onDraftChange={updateDraft}
+        onPreview={previewDraft}
+        onPublishedJobChange={setPublishedJobValue}
+        onReset={resetDraft}
+        onSaveDraft={saveDraft}
+        onSectionChange={setSection}
+        onSubmit={submitDraft}
+        onViewApplications={() => navigate(response.backPath)}
+        onViewPublished={viewPublishedJob}
+        publishedJobValue={publishedJobValue}
+        response={response}
+        section={section}
+      />
     </main>
   );
 }
