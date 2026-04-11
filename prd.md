@@ -59,7 +59,7 @@ Regole:
 
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/parity/landing-page.visual.spec.ts] Auditare la landing pubblica contro Figma ed export di sezione aggiornati, correggendo drift desktop/mobile, layout macroscopici e baseline VRT obsolete prima di ulteriori raffinamenti.
 - [x] [FRAME][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Auditare la route login contro Figma ed export aggiornati, riallineando layout desktop/mobile, stato errore e baseline VRT se il design attuale e cambiato.
-- [ ] [FRAME][node=658:667][route=/registrati][test=tests/e2e/parity/register-page.visual.spec.ts] Auditare la route registrazione pubblica contro Figma ed export aggiornati, correggendo eventuali divergenze visuali o strutturali e riallineando la baseline in modo intenzionale.
+- [x] [FRAME][node=336:593][route=/registrati][test=tests/e2e/parity/register-page.visual.spec.ts] Auditare la route registrazione pubblica contro i frame Figma aggiornati desktop `336:593` e mobile `336:643`, correggendo eventuali divergenze visuali o strutturali e riallineando la baseline in modo intenzionale.
 - [ ] [FRAME][node=281:1207][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-contacts.visual.spec.ts] Auditare il wizard candidato contro i frame Figma aggiornati, verificando contatti, formazione, esperienze e competenze e correggendo i drift prima di considerare stabili i VRT dei modal step.
 - [ ] [FRAME][node=258:847][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-1.visual.spec.ts] Auditare il wizard annuncio azienda contro i frame Figma aggiornati, correggendo i drift degli step 1 e 2 e mantenendo coerenti UI reale, export rilevanti e baseline VRT.
 

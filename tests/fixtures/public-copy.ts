@@ -144,8 +144,9 @@ export const publicCopy = {
     goalsHeading: "17 obiettivi per il futuro",
   },
   register: {
-    heading: "Registrati",
     candidateCta: "candidato",
     companyCta: "azienda",
+    desktopHeading: "registrati come candidato/azienda",
+    mobileHeading: "registrati o accedi come candidato/azienda",
   },
 } as const;

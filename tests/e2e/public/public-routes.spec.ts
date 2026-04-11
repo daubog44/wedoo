@@ -3,19 +3,24 @@ import { publicCopy, publicRoutes } from "../../fixtures/public-copy";
 import { waitForWedooPageReady } from "../../fixtures/playwright-helpers";
 
 test.describe("public routes", () => {
-  test("role choice page is reachable from the public flow", async ({ page }) => {
+  test("role choice page is reachable from the public flow", async ({ page }, testInfo) => {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    const expectedHeading = isMobile
+      ? publicCopy.register.mobileHeading
+      : publicCopy.register.desktopHeading;
+
     await page.goto(publicRoutes.register);
     await waitForWedooPageReady(page);
 
     await expect(
-      page.getByRole("heading", { name: publicCopy.register.heading }),
+      page.getByRole("heading", { name: expectedHeading }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: publicCopy.register.candidateCta }),
-    ).toBeVisible();
+    ).toHaveAttribute("href", publicRoutes.candidateRegistration);
     await expect(
       page.getByRole("link", { name: publicCopy.register.companyCta }),
-    ).toBeVisible();
+    ).toHaveAttribute("href", "/registrati/azienda/1");
   });
 
   test("candidate registration step 1 remains reachable from the public flow", async ({
