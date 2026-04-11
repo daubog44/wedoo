@@ -105,3 +105,21 @@
 - action: riaperto il task finale del backlog e verificati metadata/screenshot/design context Figma dei frame `258:847` e `259:1050`; controllo visuale del browser reale conferma che layout, shell senza footer, hero desktop/mobile, pannelli form e help copy restano coerenti con il design vivo senza introdurre nuovi drift
 - tests: `npm run loop:capture -- /portale/azienda/annunci/nuovo company-job-draft-step-1-audit-before`; `npm run loop:capture -- "/portale/azienda/annunci/nuovo?step=2" company-job-draft-step-2-audit-before`; `npx playwright test tests/e2e/parity/company-job-draft-step-1.visual.spec.ts tests/e2e/parity/company-job-draft-step-2.visual.spec.ts tests/e2e/portal/company-job-draft-step-1.spec.ts tests/e2e/portal/company-job-draft-step-2.spec.ts`
 - note: nessuna PR aperta sul branch `codex/ralph-loop-bootstrap` verso `daubog44/wedoo`; audit chiuso come no-op intenzionale perche VRT, UI reale e Figma sono allineati
+
+- timestamp: 2026-04-11 17:47
+- task: audit route info contro export Figma/VRT
+- node: n/a (export `noi x noi`, `17 obiettivi per il futuro`, `dubbi? le FAQ ti aiutano!`)
+- viewport: desktop + mobile
+- files: prd.md, src/pages/public/info-page.tsx, src/components/site/faq-board.tsx, tests/e2e/public/info-page.spec.ts, tests/e2e/parity/info-page.visual.spec.ts
+- action: review stretta post-backlog completato ha individuato `/info` come gap residuo: baseline parity legacy e pagina reale non corrispondono agli export Figma aggiornati; avviato riallineamento del task e raccolto il confronto visivo iniziale
+- tests: `npm run loop:capture -- /info info-page-audit-before` (fallito per `Execution context was destroyed` durante la navigazione interna dello script); confronto manuale tra export di sezione e baseline `__screenshots__/chromium-*/parity/info-page.visual.spec.ts/info-page.png`
+- note: la route usa ancora il vecchio stack `components/site` con footer e immagini non presenti nel design vivo; serve riscrittura dedicata con shell minimale
+
+- timestamp: 2026-04-11 17:58
+- task: audit route info contro export Figma/VRT
+- node: n/a (export `noi x noi`, `17 obiettivi per il futuro`, `dubbi? le FAQ ti aiutano!`)
+- viewport: desktop + mobile
+- files: src/data/info-page.ts, src/components/public/info-sections.tsx, src/components/site/faq-board.tsx, src/data/core.ts, src/pages/public/info-page.tsx, src/styles/wedoo.css, tests/e2e/public/info-page.spec.ts, tests/fixtures/public-copy.ts, __screenshots__/chromium-desktop/parity/info-page.visual.spec.ts/info-page.png, __screenshots__/chromium-mobile/parity/info-page.visual.spec.ts/info-page.png, prd.md, .codexpotter/kb/info-page.md
+- action: sostituita la pagina info legacy con una composizione dedicata desktop/mobile aderente agli export attuali, rimosso il footer dal frame reale, introdotto il contratto `infoPageResponseMock`, riallineato il pattern FAQ e rigenerate le baseline parity desktop/mobile
+- tests: `npm run lint`; `npm run typecheck`; `npx playwright test tests/e2e/public/info-page.spec.ts tests/e2e/public/public-routes.spec.ts`; `npx playwright test tests/e2e/parity/info-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/info-page.visual.spec.ts`; `npm run test:all`
+- note: nessuna PR aperta sul branch `codex/ralph-loop-bootstrap`; per l'audit visuale finale sono stati usati gli export PNG e le baseline rigenerate perche `loop:capture` resta instabile su `/info`

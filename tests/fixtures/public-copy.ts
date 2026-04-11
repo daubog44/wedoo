@@ -141,6 +141,12 @@ export const publicCopy = {
   },
   info: {
     aboutHeading: "noi x noi",
+    faqGroupLabels: ["sugli annunci", "sull'applicazione", "sull'algoritmo"],
+    faqHeading: "dubbi? le FAQ ti aiutano!",
+    firstAnswer:
+      "Ogni offerta viene letta da un team editoriale e poi classificata con indicatori chiari: tipo di contratto, modalita di lavoro, obiettivi SDG e livello di trasparenza del brand.",
+    firstQuestion:
+      "come posso essere sicuro che un'opportunita sia davvero in linea con i miei valori?",
     goalsHeading: "17 obiettivi per il futuro",
   },
   register: {

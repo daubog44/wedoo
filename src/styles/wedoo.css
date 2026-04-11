@@ -352,6 +352,42 @@ a {
   display: none;
 }
 
+.wedoo-checker-placeholder {
+  background-color: rgba(255, 255, 255, 0.72);
+  background-image:
+    linear-gradient(45deg, rgba(17, 24, 39, 0.08) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(17, 24, 39, 0.08) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(17, 24, 39, 0.08) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(17, 24, 39, 0.08) 75%);
+  background-position:
+    0 0,
+    0 12px,
+    12px -12px,
+    -12px 0;
+  background-size: 24px 24px;
+}
+
+.wedoo-info-strip {
+  background:
+    linear-gradient(
+      90deg,
+      #294b8d 0 7%,
+      #1e6aa1 7% 14%,
+      #3cb54a 14% 21%,
+      #1a8abf 21% 28%,
+      #4b8240 28% 35%,
+      #dc9827 35% 42%,
+      #ffa42a 42% 49%,
+      #e11d87 49% 56%,
+      #ff6b22 56% 63%,
+      #a11844 63% 70%,
+      #ffb800 70% 77%,
+      #1ea4cf 77% 84%,
+      #ff402d 84% 91%,
+      #d11f3b 91% 100%
+    );
+}
+
 @keyframes wedoo-hero-move {
   from {
     background-position: 0 50%;

@@ -57,6 +57,7 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=n/a][route=/info][test=tests/e2e/public/info-page.spec.ts] Auditare la route info contro gli export Figma aggiornati desktop/mobile `noi x noi`, `17 obiettivi per il futuro` e `dubbi? le FAQ ti aiutano!`, correggendo layout legacy, shell header/footer e baseline VRT in modo intenzionale.
 - [x] [FRAME][node=143:1822][route=/][test=tests/e2e/parity/landing-page.visual.spec.ts] Auditare la landing pubblica contro Figma ed export di sezione aggiornati, correggendo drift desktop/mobile, layout macroscopici e baseline VRT obsolete prima di ulteriori raffinamenti.
 - [x] [FRAME][node=658:667][route=/accedi][test=tests/e2e/parity/login-page.visual.spec.ts] Auditare la route login contro Figma ed export aggiornati, riallineando layout desktop/mobile, stato errore e baseline VRT se il design attuale e cambiato.
 - [x] [FRAME][node=336:593][route=/registrati][test=tests/e2e/parity/register-page.visual.spec.ts] Auditare la route registrazione pubblica contro i frame Figma aggiornati desktop `336:593` e mobile `336:643`, correggendo eventuali divergenze visuali o strutturali e riallineando la baseline in modo intenzionale.

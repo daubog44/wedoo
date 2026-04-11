@@ -81,50 +81,50 @@ export const impactCards = [
 export const faqGroups = [
   {
     id: "annunci",
-    label: "Sugli annunci",
+    label: "sugli annunci",
     tone: "mint",
     items: [
       {
         answer:
           "Ogni offerta viene letta da un team editoriale e poi classificata con indicatori chiari: tipo di contratto, modalita di lavoro, obiettivi SDG e livello di trasparenza del brand.",
         question:
-          "Come posso essere sicuro che un'opportunita sia davvero in linea con i miei valori?",
+          "come posso essere sicuro che un'opportunita sia davvero in linea con i miei valori?",
       },
       {
         answer:
           "Alle aziende chiediamo certificazioni, report ESG o evidenze misurabili. Se il brand e coerente ma il ruolo e piu neutro, lo segnaliamo apertamente invece di nasconderlo dietro claim generici.",
-        question: "Come fate a verificare che un'azienda sia davvero sostenibile?",
+        question: "come fate a verificare che un'azienda sia davvero sostenibile?",
       },
     ],
   },
   {
     id: "applicazione",
-    label: "Sull'applicazione",
+    label: "sull'applicazione",
     tone: "gold",
     items: [
       {
         answer:
           "No. Wedoo e pensato proprio per stage, tirocini e primi ruoli: conta la direzione che vuoi prendere, non aver gia lavorato anni nel settore.",
         question:
-          "Bisogna gia avere esperienza nel settore della sostenibilita per candidarsi?",
+          "bisogna gia avere esperienza nel settore della sostenibilita per candidarsi?",
       },
       {
         answer:
           "Si. Nel profilo puoi dichiarare aree di interesse, mansioni e obiettivi che ti rappresentano. Il sistema poi ti mostra offerte compatibili senza bloccarti in un solo percorso.",
         question:
-          "Posso usare Wedoo anche se non so ancora che tipo di lavoro voglio fare?",
+          "Wedoo funziona anche se non so ancora che tipo di lavoro voglio fare?",
       },
     ],
   },
   {
     id: "matching",
-    label: "Sull'algoritmo",
+    label: "sull'algoritmo",
     tone: "violet",
     items: [
       {
         answer:
           "Il matching combina preferenze, competenze, SDG, tipologia di contratto e disponibilita. Il risultato non sostituisce la scelta umana: serve a togliere rumore e far emergere le opportunita piu sensate.",
-        question: "Come funziona il sistema di matching?",
+        question: "come funziona il sistema di matching?",
       },
     ],
   },

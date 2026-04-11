@@ -5,61 +5,89 @@ import { SiteIcon } from "./site-icon";
 
 const toneMap = {
   gold: {
-    left: "bg-brand-lavender-400",
-    right: "bg-brand-lavender-400",
+    answer: "bg-brand-lavender-100",
+    shell: "bg-brand-lavender-300",
   },
   mint: {
-    left: "bg-brand-lavender-300",
-    right: "bg-brand-lavender-300",
+    answer: "bg-brand-lavender-100",
+    shell: "bg-brand-lavender-200",
   },
   violet: {
-    left: "bg-brand-violet-soft",
-    right: "bg-brand-violet-soft",
+    answer: "bg-brand-lavender-100",
+    shell: "bg-brand-lavender-300",
   },
 } as const;
 
 export function FaqBoard({ groups }: { groups: readonly FaqGroup[] }) {
-  const [openId, setOpenId] = useState<string | null>(`${groups[0]?.id}-0`);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <div className="flex flex-col">
+    <div className="overflow-hidden rounded-[28px] border border-brand-lavender-200/80">
       {groups.map((group) => {
         const tone = toneMap[group.tone];
 
         return (
-          <div className="grid overflow-hidden md:grid-cols-[1fr_2fr]" key={group.id}>
-            <div className={cn("flex items-center justify-center px-6 py-8 text-center text-xl font-bold", tone.left)}>
-              <b>{group.label.toLowerCase()}</b>
-            </div>
-            <div className="bg-brand-rose-50">
-              {group.items.map((item, index) => {
-                const itemId = `${group.id}-${index}`;
-                const isOpen = openId === itemId;
+          <section
+            className="border-b border-brand-lavender-100 last:border-b-0"
+            key={group.id}
+          >
+            <div className="grid md:grid-cols-[270px_minmax(0,1fr)]">
+              <div
+                className={cn(
+                  "flex items-center px-6 py-8 text-[26px] leading-none text-brand-ink md:justify-center md:px-8 md:text-[34px]",
+                  "font-wedoo-accent font-bold",
+                  tone.shell,
+                )}
+              >
+                {group.label}
+              </div>
+              <div className={cn("grid", tone.shell)}>
+                {group.items.map((item, index) => {
+                  const itemId = `${group.id}-${index}`;
+                  const isOpen = openId === itemId;
 
-                return (
-                  <div key={itemId}>
-                    <button
-                      className={cn(
-                        "flex w-full items-center justify-between px-5 py-4 text-left text-base transition",
-                        tone.right,
-                      )}
-                      onClick={() => setOpenId((current) => (current === itemId ? null : itemId))}
-                      type="button"
+                  return (
+                    <div
+                      className="border-t border-brand-lavender-100 first:border-t-0"
+                      key={itemId}
                     >
-                      <span>{item.question.toLowerCase()}</span>
-                      <SiteIcon
-                        className="h-5 w-5"
-                        name={isOpen ? "chevron-up" : "chevron-down"}
-                      />
-                    </button>
-                    {isOpen ? (
-                      <div className="bg-brand-rose-50 px-5 py-4 text-sm leading-7 text-slate-700">{item.answer}</div>
-                    ) : null}
-                  </div>
-                );
-              })}
+                      <button
+                        aria-expanded={isOpen}
+                        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-7"
+                        onClick={() =>
+                          setOpenId((current) => (current === itemId ? null : itemId))
+                        }
+                        type="button"
+                      >
+                        <span className="font-wedoo-heading text-[24px] leading-[1.12] text-brand-ink md:text-[33px]">
+                          {item.question}
+                        </span>
+                        <SiteIcon
+                          className={cn(
+                            "h-7 w-7 shrink-0 text-brand-ink transition-transform md:h-9 md:w-9",
+                            isOpen && "rotate-180",
+                          )}
+                          name="chevron-down"
+                        />
+                      </button>
+                      {isOpen ? (
+                        <div
+                          className={cn(
+                            "px-6 pb-6 pt-0 md:px-8 md:pb-8",
+                            tone.answer,
+                          )}
+                        >
+                          <p className="max-w-[820px] text-base leading-7 text-slate-700 md:text-lg md:leading-8">
+                            {item.answer}
+                          </p>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          </section>
         );
       })}
     </div>
