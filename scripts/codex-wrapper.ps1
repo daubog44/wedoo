@@ -9,6 +9,7 @@ $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $runtimeRoot = Join-Path $repoRoot ".codex-appserver-runtime"
 $codexHome = Join-Path $runtimeRoot ".codex"
 $globalHome = Join-Path ([Environment]::GetFolderPath("UserProfile")) ".codex"
+$repoLocalSkills = Join-Path $repoRoot ".codex\skills"
 $configPath = Join-Path $codexHome "config.toml"
 
 if (Test-Path $runtimeRoot) {
@@ -16,6 +17,10 @@ if (Test-Path $runtimeRoot) {
 }
 
 New-Item -ItemType Directory -Force -Path $codexHome | Out-Null
+
+if (Test-Path $repoLocalSkills -PathType Container) {
+  Copy-Item -Recurse -Force $repoLocalSkills (Join-Path $codexHome "skills")
+}
 
 foreach ($fileName in @("auth.json", "cap_sid")) {
   $source = Join-Path $globalHome $fileName

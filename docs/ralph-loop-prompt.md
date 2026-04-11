@@ -1,183 +1,109 @@
 # Ralph Loop Prompt
 
-Comando consigliato con `Taskfile` per avviare il loop con Codex Potter in modalita `--yolo` dalla root del repository:
+## Global Priority
+
+Main task of the loop is to produce a good React prototype from Figma.
+
+That means:
+
+- visually credible UI
+- correct mobile/desktop behavior
+- backend-like data modeling
+- stable route flows
+- no obvious legacy shells left in touched areas
+
+Loop artifacts are secondary:
+
+- backlog
+- visual backlog
+- worklog
+- VRT
+- CI
+
+They are support systems.
+They do not outrank product quality.
+
+## Launch
+
+Standard:
 
 ```powershell
 task potter:yolo SLUG=landing-page ROUNDS=25
 ```
 
-Dry run del bootstrap senza lanciare davvero Potter:
+Dry run:
 
 ```powershell
 task potter:yolo:dry SLUG=landing-page ROUNDS=25
 ```
 
-Variante con preflight esterno completo prima del loop:
+Checked bootstrap:
 
 ```powershell
 task potter:yolo:checked SLUG=landing-page ROUNDS=25
 ```
 
-Variante che usa la home globale di Codex senza isolamento:
+Global Codex home:
 
 ```powershell
 task potter:yolo:global SLUG=landing-page ROUNDS=25
 ```
 
-Comando CLI diretto equivalente, se vuoi bypassare `task`:
+Capture fallback:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\potter-yolo.ps1 -Slug landing-page -Rounds 25
+npm run loop:capture -- <route> <task-slug>
 ```
 
-Prerequisito operativo:
+## Mandatory Read Order
 
-- esporta `GITHUB_PAT_TOKEN` nella sessione prima di usare i comandi sopra: il bootstrap locale configura GitHub MCP, mentre la variante `global` si aspetta che GitHub MCP sia gia presente nella home globale; il preflight valida anche il token
+At round start read:
 
-La procedura standard sopra:
+1. `AGENTS.md`
+2. `prd.md`
+3. `docs/visual-backlog.md`
+4. `docs/route-acceptance.md`
+5. `docs/gap-discovery.md`
+6. `docs/playwright-visual-audit.md`
+7. `docs/loop-subagents.md`
+8. `docs/ralph-loop-worklog.md`
+9. current session worklog
 
-- avvia prima il dev server locale su `http://127.0.0.1:4600`
-- esegue `loop:ready`
-- crea il worklog di sessione
-- usa una home Codex locale isolata in `.codex-potter-home`
-- copia i file di autenticazione Codex necessari dalla home globale, cosi OAuth Figma continua a essere disponibile
-- avvia `codex-potter exec` con `--yolo`, `danger-full-access` e reasoning `xhigh`
+## Operating Rules
 
-La variante `potter:yolo:checked` aggiunge anche un preflight esterno e bloccante su Figma MCP, GitHub MCP e Playwright locale.
+- first open `- [ ]` in `prd.md` is active task
+- one product task per round, max
+- one new backlog item per round, max
+- if `prd.md` is empty, stop unless same round already found concrete new gap; if so, write one new task and stop
+- if `prd.md` is empty, discovery sweep must stay narrow and follow `docs/gap-discovery.md`
+- visual tasks must stay synced in `docs/visual-backlog.md`
+- bookkeeping is secondary
+- tests or VRT green alone never close route
+- no-op audits need frame, capture paths, tests and explicit reason
+- if Figma is incomplete or inconsistent, implement best-fit UI yourself using nearest valid frame/export and record inference
+- use Playwright for behavioral and visual checks
+- use saved captures when browser automation is flaky
+- do not add a task only because a route exists; add it only with route + source + mismatch + proof
+- if current route is visibly broken or incomplete in real browser, fix it now instead of merely recording it as future drift
+- if Figma describes a deep section or inner canvas, scroll to that target and capture that section or element; do not rely only on full-page proof
 
-La variante `potter:yolo:global` usa direttamente `~/.codex`, non passa da `scripts/codex-wrapper.ps1` e quindi riusa solo la configurazione MCP gia presente nella home globale.
+## Preferred Skills
 
-Per eseguire solo il preflight esterno senza lanciare il loop:
+If installed in current Codex home, prefer these custom skills when relevant:
 
-```powershell
-task potter:preflight SLUG=landing-page ROUNDS=1
-```
+- `visual-audit`
+- `design-drift-audit`
+- `route-acceptance`
+- `sidecar-subagents`
 
-Lavora in questo repository come agente autonomo dentro un Ralph Loop.
-Usa `AGENTS.md` come istruzione principale permanente del loop e usa `prd.md` come backlog operativo vivo.
-Usa `docs/ralph-loop-worklog.md` come policy del diario operativo e usa `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md` come worklog reale di sessione.
-Leggi prima `AGENTS.md`, poi `prd.md`, poi `docs/ralph-loop-worklog.md`, poi il worklog di sessione corrente, poi trova il primo task incompleto e lavoraci in ordine rigoroso.
+## Definition Of Done
 
-Contesto prodotto:
+Do not mark task complete until:
 
-- il progetto e `Wedoo`
-- e un prototipo navigabile, mobile friendly, pensato come una sorta di LinkedIn per giovani talenti e aziende che offrono opportunita di lavoro, stage e tirocini coerenti con valori di sostenibilita
-- anche se il backend reale non esiste ancora, il codice deve essere scritto come se i dati arrivassero da un backend ipotetico
-
-Vincoli operativi:
-
-- non rifondare il progetto
-- mantieni React, TypeScript, Vite, React Router e i pattern gia presenti nel repo
-- non saltare task
-- lavora su un solo task principale alla volta
-- se `prd.md` risulta interamente chiuso ma esistono ancora UI, route, export o VRT da auditare rispetto al design reale, non deviare sul bootstrap: crea subito in cima al `prd.md` un task concreto di audit o riallineamento e continua da quello
-- non trattare il codice gia presente come fonte di verita visuale
-- se una pagina esiste gia ma e incoerente con Figma, correggila
-- non trattare `.codexpotter/**` come backlog di prodotto
-- se il tracker interno `MAIN.md` risulta `skip` o chiuso ma `prd.md` ha ancora task aperti, continua dal `prd.md`
-- non inventare feature fuori da Figma o fuori da `prd.md`, salvo prerequisiti tecnici realmente necessari
-- se scopri nuovi task necessari, aggiorna `prd.md` nel punto corretto invece di tenerli impliciti
-- registra nel worklog di sessione le decisioni rilevanti, i problemi trovati, come li hai risolti e lo stato dei test
-
-Per ogni task:
-
-- leggi il `Node ID` dal task attivo in `prd.md`
-- se il task e un `FRAME`, fai prima discovery con `get_metadata` sul frame corrente
-- classifica il frame come `mobile`, `tablet` o `desktop` usando dimensioni del frame, naming e struttura
-- usa Figma MCP come fonte primaria: `get_design_context`, `get_screenshot`, `get_metadata` quando serve
-- tratta Figma e gli export di sezione come design vivo: se mostrano parti nuove o aggiornate rispetto al codice o ai task tracciati, aggiorna `prd.md` e implementa l'allineamento necessario
-- ignora micro-nodi, icone singole, vettori decorativi e layer minuti gia contenuti in componenti o frame piu grandi
-- se individui child frame, componenti principali, stati UI o task tecnici mancanti, aggiorna subito `prd.md`
-- registra nel worklog le discovery Figma davvero rilevanti
-- registra nel worklog quale viewport Figma e il riferimento principale del task
-- se la route esiste gia, fai prima un audit visuale rapido della pagina corrente e correggi subito eventuali discrepanze macroscopiche
-- usa gli export PNG di sezione in `artifacts/figma-exports/**` solo come riferimento secondario, quando il MCP non basta a leggere bene una sezione lunga, densa o croppata
-- se servono export di sezione, parti da `npm run loop:assets` e scegli solo quelli coerenti con il task corrente
-- se un export di sezione contraddice Figma MCP, prevale Figma MCP
-- se un export coerente mostra una parte nuova o un allineamento diverso rispetto alla UI reale o al `prd`, verifica in Figma MCP e poi aggiorna `prd.md` o implementa la parte nuova
-
-Regole su viewport e responsive:
-
-- non trattare un frame mobile come layout desktop semplicemente scalandolo o centrandolo nel mezzo della pagina
-- non trattare un frame desktop come layout mobile semplicemente comprimendolo
-- se esiste solo il frame mobile, implementa prima la resa mobile fedele e poi deriva una desktop version sensata
-- se esiste solo il frame desktop, implementa prima la resa desktop fedele e poi deriva una mobile version sensata
-- se esistono varianti mobile e desktop della stessa schermata, usa ciascuna variante per la viewport corretta e non mischiarle
-- se una pagina pubblica esistente su desktop assomiglia ancora a una colonna mobile centrata, trattala come bug aperto da correggere
-
-Implementazione:
-
-- implementa in React/TypeScript seguendo i pattern del repo
-- struttura i dati mock come se arrivassero da un backend reale
-- non spargere mock direttamente nel JSX
-- preferisci modelli dati, helper e servizi mock riusabili
-- evita `any` se non strettamente inevitabile
-- mantieni il codice leggibile, tipizzato e semanticamente accessibile
-- non fare refactor larghi se non sono necessari per il task corrente
-
-Testing e validazione:
-
-- se tocchi UI, devi scrivere o aggiornare tu i test necessari
-- non considerare sufficiente un VRT verde se la UI reale, Figma o gli export coerenti non sono ancora allineati
-- Playwright E2E e il livello minimo obbligatorio per route pubbliche, auth, wizard, modali, dashboard e pagine portale principali
-- aggiungi integration test quando c'e logica non banale su mapping, helper, servizi mock, filtri, stepper o trasformazioni dati
-- quando una route o un macro-frame e stabile, deve esistere anche un file `*.visual.spec.ts` in `tests/e2e/parity`
-- mantieni baseline VRT desktop e mobile in `__screenshots__`
-- non aggiornare baseline VRT per nascondere bug o mismatch non capiti
-- aggiorna una baseline solo se il cambiamento visuale e intenzionale, verificato e coerente con Figma
-- annota nel worklog quando aggiorni una baseline e perche
-- se il browser Playwright MCP e instabile o non renderizza bene, usa `npm run loop:capture -- <route> <task-slug>` per salvare screenshot desktop/mobile reali in `artifacts/loop-captures/**`
-- usa quelle immagini salvate come audit visuale finale del risultato reale prima di chiudere il task
-- confronta sempre almeno due fonti tra UI reale, Figma screenshot MCP, export rilevanti e baseline VRT
-- se VRT e UI reale sono coerenti ma Figma/export mostrano un design piu nuovo, considera il VRT obsoleto e riallinea codice e baseline
-- se la UI reale diverge dal VRT senza una ragione di design valida, trattalo come regressione
-
-Ordine di lavoro per ogni iterazione:
-
-1. leggi `AGENTS.md`
-2. leggi `prd.md`
-3. leggi `docs/ralph-loop-worklog.md`
-4. leggi o crea `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`
-5. trova il primo task incompleto
-6. registra nel worklog l'inizio del task
-7. interroga Figma MCP sul `Node ID` corretto
-8. se il task e un frame, fai discovery iniziale con `get_metadata`
-9. se Figma o gli export coerenti mostrano una parte nuova o aggiornata, aggiorna subito `prd.md` e integra il nuovo lavoro necessario
-10. implementa il task
-11. aggiorna mock data e contratti server-like se necessario
-12. crea o aggiorna test E2E, integration test e VRT se pertinenti
-13. fai self-review del diff prima dei test
-14. esegui `npm run test:all`
-15. se il task e visualmente sensibile, fai anche validazione finale con Playwright su desktop e mobile, dando priorita alla viewport corrispondente al frame Figma principale
-16. per i task UI sensibili genera anche screenshot desktop/mobile reali con `npm run loop:capture -- <route> <task-slug>` e usa quei file per l'audit finale quando il browser MCP non e affidabile
-17. confronta il risultato reale almeno con Figma MCP e con una seconda fonte rilevante tra export di sezione e VRT esistente
-18. se la route esisteva gia, conferma esplicitamente che non siano rimaste discrepanze macroscopiche preesistenti
-19. se esiste un export PNG di sezione davvero utile, confrontalo nella review finale
-20. se GitHub MCP e disponibile, controlla branch, PR e CI/CD e correggi le failure causate dal diff
-21. aggiorna il worklog con test, problemi trovati, soluzioni, decisioni e stato finale del task
-22. solo quando tutto e coerente, aggiorna `prd.md` marcando il task come completato
-
-Regole Git e GitHub:
-
-- lavora preferibilmente su branch `codex/...`
-- mantieni commit piccoli e intenzionali
-- non committare task rotti o incompleti
-- non fare auto-merge
-- non dare per chiuso un task se la CI remota e rotta per colpa del diff
-- usa GitHub MCP per leggere PR, check, workflow e contesto di review quando disponibile
-
-Definition of done di un task:
-
-- Node ID letto e compreso
-- implementazione completata
-- mock data coerenti con backend futuro
-- responsive sensato almeno su mobile e desktop
-- test pertinenti scritti o aggiornati
-- `npm run test:all` verde
-- parity visiva verificata quando rilevante
-- coerenza verificata tra UI reale, Figma e VRT/export rilevanti
-- `prd.md` aggiornato
-- `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md` aggiornato con una nota sintetica rilevante
-- CI/GitHub verificata se disponibile
-
-Non chiudere un task finche codice, test, parity visiva, `prd.md` e CI disponibile non sono coerenti.
+- route matches Figma or explicit design inference
+- desktop and mobile checked
+- real capture paths exist
+- relevant tests pass
+- VRT handled intentionally if stable
+- `prd.md`, `docs/visual-backlog.md` and worklog are updated
+- CI state checked when applicable

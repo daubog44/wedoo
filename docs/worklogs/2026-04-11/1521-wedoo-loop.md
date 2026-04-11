@@ -447,3 +447,12 @@
 - action: esteso `CandidateProfileDraft` con `workPreferences`, aggiunto formatter CV riusabile, inserito il nuovo step `/registrati/candidato/7` dopo `competenze`, aggiunta parity dedicata come per gli altri modal candidato e rimossa la dipendenza da stringhe hardcoded in `candidate-cv.ts`.
 - tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/candidate-profile-draft.test.ts tests/integration/candidate-cv-response.test.ts`; `npx playwright test tests/e2e/wizards/candidate-skills.spec.ts tests/e2e/wizards/candidate-work-preferences.spec.ts tests/e2e/portal/candidate-cv-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-work-preferences.visual.spec.ts tests/e2e/parity/candidate-cv-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-work-preferences.visual.spec.ts tests/e2e/parity/candidate-cv-page.visual.spec.ts`; `npm run loop:capture -- /registrati/candidato/7 candidate-work-preferences-after`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-work-preferences-after`; `npm run test:all`
 - note: capture finali in `artifacts/loop-captures/2026-04-11/2326-candidate-work-preferences-after` e `artifacts/loop-captures/2026-04-11/2326-candidate-cv-work-preferences-after`; review GitHub conferma `search_pull_requests head:codex/ralph-loop-bootstrap state:open = 0`
+
+- timestamp: 2026-04-11 23:37
+- task: discovery prossimo gap auth recovery
+- node: desktop `657:658`, mobile `660:774/660:1217`, supporto `660:725`
+- viewport: desktop + mobile
+- files: `prd.md`, `src/pages/public/login-page.tsx`, `src/data/auth.ts`, `src/router.tsx`, `.codexpotter/kb/auth-recovery.md`
+- action: review root Figma completata a backlog chiuso; trovati i frame top-level `password dimenticata` e `assistenza clienti` non tracciati, mentre la CTA `password dimenticata` del login e oggi un bottone statico senza route. Aggiunto un solo task nuovo al PRD per il flow recovery pubblico, senza iniziare l'implementazione nello stesso round.
+- tests: n/a
+- note: il frame `657:658` mostra un cambio password con link inline all'assistenza; il router non espone ancora `/password-dimenticata` ne una pagina supporto collegata
