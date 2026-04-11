@@ -22,6 +22,12 @@ describe("company job management response", () => {
       label: "Addetto comunicazione",
       previewPath: "/portale/azienda/annunci/addetto-comunicazione",
     });
+    expect(response.publishedJobCards[0]).toMatchObject({
+      companyName: "Agenzia Creativa S.r.l.",
+      locationLabel: "20124 - Milano (MI)",
+      previewPath: "/portale/azienda/annunci/addetto-comunicazione",
+      title: "ADDETTO COMUNICAZIONE",
+    });
   });
 
   it("prefers the current draft company data when the annuncio was already started", () => {

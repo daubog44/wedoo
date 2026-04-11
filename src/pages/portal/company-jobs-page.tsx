@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { CompanyJobManagementView } from "../../components/portal/company-job-management-view";
+import { CompanyPublishedJobsView } from "../../components/portal/company-published-jobs-view";
 import {
   createCompanyJobManagementResponse,
   isCompanyJobManagementSectionId,
@@ -85,46 +86,70 @@ export default function CompanyJobsPage() {
     navigate(draft.flow.completionPath);
   }
 
-  function viewPublishedJob() {
-    const selectedJobPath =
-      response.publishedJobs.find((job) => job.id === publishedJobValue)
-        ?.previewPath ??
-      response.publishedJobs[0]?.previewPath ??
-      draft.flow.previewPath;
+  function viewPublishedJobs() {
+    setSection("published-jobs");
+  }
 
-    navigate(selectedJobPath);
+  function openPublishedJobPreview(previewPath: string) {
+    navigate(previewPath);
   }
 
   return (
     <main className="min-h-screen bg-brand-page" data-portal-page="company-jobs">
-      <CompanyJobManagementView
-        activityValue={activityValue}
-        draft={draft}
-        onActivityChange={(value) => {
-          setActivityValue(value);
-          updateDraft((current) => ({
-            ...current,
-            role: {
-              ...current.role,
-              sectorId: value,
-            },
-          }));
-        }}
-        onBack={() => navigate(response.backPath)}
-        onCreateNew={resetDraft}
-        onDraftChange={updateDraft}
-        onPreview={previewDraft}
-        onPublishedJobChange={setPublishedJobValue}
-        onReset={resetDraft}
-        onSaveDraft={saveDraft}
-        onSectionChange={setSection}
-        onSubmit={submitDraft}
-        onViewApplications={() => navigate(response.backPath)}
-        onViewPublished={viewPublishedJob}
-        publishedJobValue={publishedJobValue}
-        response={response}
-        section={section}
-      />
+      {section === "published-jobs" ? (
+        <CompanyPublishedJobsView
+          activityValue={activityValue}
+          draft={draft}
+          onActivityChange={(value) => {
+            setActivityValue(value);
+            updateDraft((current) => ({
+              ...current,
+              role: {
+                ...current.role,
+                sectorId: value,
+              },
+            }));
+          }}
+          onBack={() => navigate(response.backPath)}
+          onCreateNew={resetDraft}
+          onOpenPreview={openPublishedJobPreview}
+          onPublishedJobChange={setPublishedJobValue}
+          onSectionChange={setSection}
+          onViewApplications={() => navigate(response.backPath)}
+          onViewPublished={viewPublishedJobs}
+          publishedJobValue={publishedJobValue}
+          response={response}
+        />
+      ) : (
+        <CompanyJobManagementView
+          activityValue={activityValue}
+          draft={draft}
+          onActivityChange={(value) => {
+            setActivityValue(value);
+            updateDraft((current) => ({
+              ...current,
+              role: {
+                ...current.role,
+                sectorId: value,
+              },
+            }));
+          }}
+          onBack={() => navigate(response.backPath)}
+          onCreateNew={resetDraft}
+          onDraftChange={updateDraft}
+          onPreview={previewDraft}
+          onPublishedJobChange={setPublishedJobValue}
+          onReset={resetDraft}
+          onSaveDraft={saveDraft}
+          onSectionChange={setSection}
+          onSubmit={submitDraft}
+          onViewApplications={() => navigate(response.backPath)}
+          onViewPublished={viewPublishedJobs}
+          publishedJobValue={publishedJobValue}
+          response={response}
+          section={section}
+        />
+      )}
     </main>
   );
 }

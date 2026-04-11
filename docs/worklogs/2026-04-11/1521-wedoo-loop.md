@@ -330,3 +330,21 @@
 - action: sostituita `CompanyJobPage` legacy con una shell standalone lilla coerente col frame `Annuncio di Lavoro`, nascosta la navbar portale anche su `/portale/azienda/annunci/:jobId`, introdotto `CompanyJobPreviewResponse` con hydration da `JobDraft` persistito quando disponibile e riallineati i flow preview da management shell e wizard step 2
 - tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/company-job-preview-response.test.ts`; `npx playwright test tests/e2e/portal/company-job-page.spec.ts tests/e2e/portal/company-jobs-page.spec.ts tests/e2e/portal/company-job-draft-step-2.spec.ts`; `npx playwright test tests/e2e/parity/company-job-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/company-job-page.visual.spec.ts`; `npm run loop:capture -- /portale/azienda/annunci/addetto-comunicazione company-job-preview-after`; `npm run test:all`
 - note: capture finale `artifacts/loop-captures/2026-04-11/2114-company-job-preview-after`; dalla review finale resta aperto il frame Figma `271:938` `Sezione "visualizza annunci"` come gap successivo per il CTA `visualizza annunci`
+
+- timestamp: 2026-04-11 21:24
+- task: audit vista azienda `visualizza annunci`
+- node: desktop `271:938`
+- viewport: desktop come riferimento principale, mobile derivato
+- files: prd.md, src/pages/portal/company-jobs-page.tsx, src/components/portal/company-job-management-view.tsx, src/components/portal/managed-job-card.tsx, artifacts/figma-exports/from-public-assets-2026-04-03/Sezione _visualizza annunci_.png
+- action: review post-preview ha confermato che il CTA `visualizza annunci` della shell annunci non porta ancora alla lista Figma `271:938`; avviata implementazione come stato dedicato `published-jobs` sullo stesso route `/portale/azienda/annunci`, evitando un nuovo path e mantenendo la preview sulle singole card
+- tests: pending
+- note: il frame Figma e solo desktop; la variante mobile verra derivata in coerenza con la shell azienda gia stabilizzata
+
+- timestamp: 2026-04-11 21:47
+- task: audit vista azienda `visualizza annunci`
+- node: desktop `271:938`
+- viewport: desktop come riferimento principale, mobile derivato
+- files: src/data/types.ts, src/data/company-job-management.ts, src/pages/portal/company-jobs-page.tsx, src/components/portal/company-published-jobs-view.tsx, tests/fixtures/portal-copy.ts, tests/integration/company-job-management-response.test.ts, tests/e2e/portal/company-published-jobs-page.spec.ts, tests/e2e/parity/company-published-jobs-page.visual.spec.ts, __screenshots__/chromium-*/parity/company-published-jobs-page.visual.spec.ts/company-published-jobs-page.png, prd.md, .codexpotter/kb/company-published-jobs.md, .codexpotter/kb/README.md
+- action: chiuso il gap `visualizza annunci` introducendo lo stato query-driven `section=published-jobs` sullo stesso shell `/portale/azienda/annunci`, con lista card pubblicate desktop coerente al frame `271:938`, preview CTA verso `/portale/azienda/annunci/:jobId`, filtri desktop e variante mobile derivata senza navbar legacy
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/company-job-management-response.test.ts`; `npx playwright test tests/e2e/portal/company-published-jobs-page.spec.ts tests/e2e/portal/company-jobs-page.spec.ts`; `npx playwright test tests/e2e/parity/company-published-jobs-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/company-published-jobs-page.visual.spec.ts`; `npm run test:all`
+- note: `npm run loop:capture -- "/portale/azienda/annunci?section=published-jobs" company-published-jobs-after` e andato in timeout due volte e ha lasciato cartelle vuote (`2137-...`, `2139-...`); review finale chiusa con parity desktop/mobile, E2E dedicati e quality gate completo. Verifica GitHub: nessuna PR aperta su `codex/ralph-loop-bootstrap`

@@ -16,7 +16,10 @@ export const companyJobManagementSectionOptions = [
 export function isCompanyJobManagementSectionId(
   value: string | null,
 ): value is CompanyJobManagementSectionId {
-  return companyJobManagementSectionOptions.some((option) => option.id === value);
+  return (
+    value === "published-jobs" ||
+    companyJobManagementSectionOptions.some((option) => option.id === value)
+  );
 }
 
 export function createCompanyJobManagementResponse(
@@ -54,6 +57,16 @@ export function createCompanyJobManagementResponse(
     },
     draft,
     mobileDockLabel: "Navigazione rapida azienda",
+    publishedJobCards: jobListingsMock.slice(0, 2).map((listing) => ({
+      companyLogo: listing.company.logo,
+      companyName: listing.company.name,
+      id: listing.id,
+      locationLabel: listing.role.location,
+      previewPath: `/portale/azienda/annunci/${listing.id}`,
+      sdgIds: [...listing.role.sdgIds],
+      tagLabels: listing.role.previewTags.slice(0, 3),
+      title: listing.role.title.toUpperCase(),
+    })),
     publishedJobs: jobListingsMock.slice(0, 4).map((listing) => ({
       id: listing.id,
       label: listing.role.title,

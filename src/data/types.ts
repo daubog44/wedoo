@@ -256,11 +256,23 @@ export type CompanyJobManagementSectionId =
   | 'company-details'
   | 'offer-details'
   | 'publishing'
+  | 'published-jobs'
 
 export type CompanyJobManagementPublishedJob = {
   id: string
   label: string
   previewPath: string
+}
+
+export type CompanyJobManagementPublishedCard = {
+  companyLogo: string
+  companyName: string
+  id: string
+  locationLabel: string
+  previewPath: string
+  sdgIds: readonly string[]
+  tagLabels: readonly string[]
+  title: string
 }
 
 export type CompanyJobManagementResponse = {
@@ -287,6 +299,7 @@ export type CompanyJobManagementResponse = {
   }
   draft: JobDraft
   mobileDockLabel: string
+  publishedJobCards: readonly CompanyJobManagementPublishedCard[]
   publishedJobs: readonly CompanyJobManagementPublishedJob[]
   sectionOptions: readonly {
     id: CompanyJobManagementSectionId

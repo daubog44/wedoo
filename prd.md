@@ -57,6 +57,8 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=271:938][route=/portale/azienda/annunci][test=tests/e2e/portal/company-published-jobs-page.spec.ts] Auditare e implementare la vista azienda `visualizza annunci` contro il frame Figma desktop `271:938` e gli export coerenti, correggendo il CTA `visualizza annunci` che oggi non porta ancora alla lista annunci pubblicati.
+- [x] [TEST][node=271:938][route=/portale/azienda/annunci][test=tests/e2e/parity/company-published-jobs-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della vista `visualizza annunci` quando la lista annunci azienda si stabilizza.
 - [x] [TECH][node=n/a][route=/portale/azienda/annunci/:jobId][test=n/a] Mappare il frame Figma o gli export vivi della preview annuncio azienda e decidere se la route legacy `/portale/azienda/annunci/:jobId` va riallineata o assorbita dal nuovo shell `/portale/azienda/annunci`.
 - [x] [FRAME][node=172:1273][route=/portale/azienda/annunci/:jobId][test=tests/e2e/portal/company-job-page.spec.ts] Riallineare la preview annuncio azienda al frame Figma `Annuncio di Lavoro` desktop `172:1273` e mobile `178:1640`, adattando le CTA recruiter della preview e rimuovendo la shell legacy con navbar.
 - [x] [TEST][node=172:1273][route=/portale/azienda/annunci/:jobId][test=tests/e2e/parity/company-job-page.visual.spec.ts] Creare e mantenere una parity desktop/mobile della preview annuncio azienda quando la shell standalone si stabilizza.

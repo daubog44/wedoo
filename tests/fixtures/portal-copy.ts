@@ -7,6 +7,7 @@ export const portalRoutes = {
   companyJobDraftStep1: "/portale/azienda/annunci/nuovo",
   companyJobDraftStep2: "/portale/azienda/annunci/nuovo?step=2",
   companyJobs: "/portale/azienda/annunci",
+  companyPublishedJobs: "/portale/azienda/annunci?section=published-jobs",
 } as const;
 
 export const portalCopy = {
@@ -71,6 +72,12 @@ export const portalCopy = {
     submitCta: "invia",
     viewApplicationsCta: "visualizza candidature",
     viewJobsCta: "visualizza annunci",
+  },
+  companyPublishedJobs: {
+    helper: "visualizza annunci a griglia o impilati",
+    firstCardTitle: "ADDETTO COMUNICAZIONE",
+    secondCardTitle: "COPYWRITER JUNIOR",
+    resetFiltersCta: "resetta filtri",
   },
   companyJobDraftStep1: {
     continueCta: "avanti",
