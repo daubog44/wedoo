@@ -4,6 +4,8 @@ import {
   companyRegistrationAuthViewModel,
   loginAuthViewModel,
 } from "./auth";
+import type { CandidateDashboardResponse } from "./types";
+import { candidateDashboardResponseMock } from "./candidate-dashboard";
 import type { CandidateProfileDraft } from "./candidate-profile";
 import { candidateProfileDraftMock } from "./candidate-profile";
 import type { CandidateProfileSummary } from "./candidate-profile-summary";
@@ -100,6 +102,10 @@ export function getCandidateProfileDraftMock(): Promise<CandidateProfileDraft> {
   return Promise.resolve(cloneMock(candidateProfileDraftMock));
 }
 
+export function getCandidateDashboardMock(): Promise<CandidateDashboardResponse> {
+  return Promise.resolve(cloneMock(candidateDashboardResponseMock));
+}
+
 export function getCandidateProfileSummariesMock(): Promise<
   readonly CandidateProfileSummary[]
 > {
@@ -163,6 +169,7 @@ export function getJobDetailMock(jobId?: string): Promise<JobDetail> {
 export const mockDataService = {
   getArticlePreviewsMock,
   getAuthViewModelMock,
+  getCandidateDashboardMock,
   getCandidateProfileDraftMock,
   getCandidateProfileSummariesMock,
   getCandidateProfileSummaryMock,

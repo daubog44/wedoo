@@ -87,6 +87,29 @@ export type CandidateEntry = {
   summary: string
 }
 
+export type CandidateDashboardProfile = {
+  avatar: string
+  fullName: string
+  id: string
+}
+
+export type CandidateDashboardListing = {
+  companyLogo: string
+  companyName: string
+  ctaLabel: string
+  id: string
+  locationLabel: string
+  sdgIds: readonly string[]
+  tagLabels: readonly string[]
+  title: string
+}
+
+export type CandidateDashboardResponse = {
+  listings: readonly CandidateDashboardListing[]
+  profile: CandidateDashboardProfile
+  searchPlaceholder: string
+}
+
 export type WizardField = {
   helper?: string
   key: string

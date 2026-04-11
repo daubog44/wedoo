@@ -168,3 +168,39 @@
 - action: aperto il task successivo dopo la chiusura di `/azienda`; la shared page `KnowledgeHubPage` alimenta sia `/articoli` sia `/podcast` ma non ha ancora audit Figma-first ne copertura E2E dedicata
 - tests: pending
 - note: verificare prima se esistono frame/export contenuti coerenti e se la route reale usa ancora una shell legacy non allineata al design vivo
+
+- timestamp: 2026-04-11 18:46
+- task: discovery next audit dopo showcase pubblici
+- node: `0:1` -> `159:2896`
+- viewport: pending discovery
+- files: prd.md, docs/worklogs/2026-04-11/1521-wedoo-loop.md
+- action: verificato via Figma MCP che non esistono frame pubblici dedicati a `/articoli` o `/podcast`; le uniche occorrenze `Articoli`/`Podcast` stanno dentro `Interfaccia account CANDIDATO` e `Interfaccia account AZIENDA`. Reindirizzato quindi il prossimo audit al primo frame reale disponibile `159:2896`
+- tests: pending
+- note: la knowledge hub pubblica resta una route legacy senza sorgente Figma esplicita; non va riallineata per supposizione finche non esiste un frame dedicato
+
+- timestamp: 2026-04-11 18:47
+- task: audit dashboard candidato contro Figma/VRT
+- node: `159:2896`
+- viewport: pending discovery
+- files: src/pages/portal/candidate-dashboard-page.tsx, src/components/portal, tests/e2e/portal/candidate-dashboard-page.spec.ts, tests/e2e/parity
+- action: aperto il task successivo sul primo frame Figma reale rimasto non auditato dopo le route pubbliche showcase
+- tests: pending
+- note: prima verificare metadata/design context del frame `Interfaccia account CANDIDATO`, la route reale `/portale/candidato` e l'eventuale assenza di copertura Playwright dedicata
+
+- timestamp: 2026-04-11 18:52
+- task: audit dashboard candidato contro Figma/VRT
+- node: `159:2896`
+- viewport: desktop
+- files: src/pages/portal/candidate-dashboard-page.tsx, src/components/layout/portal-layout.tsx, src/components/site/portal-navbar.tsx, src/components/site/portal-cards.tsx, src/data/jobs.ts, artifacts/loop-captures/2026-04-11/1748-candidate-dashboard-audit-before
+- action: discovery Figma completata sul frame desktop `1440x1119`; confermato drift macroscopico della shell reale rispetto al design vivo: footer legacy, 5 card, toolbar separata e assenza del profilo laterale. Capture iniziale salvato in `artifacts/loop-captures/2026-04-11/1748-candidate-dashboard-audit-before`
+- tests: `npm run loop:capture -- /portale/candidato candidate-dashboard-audit-before`
+- note: i testi lunghi visibili nel frame sono annotazioni Figma e non UI di prodotto; il layout utile da implementare resta top bar, 4 card annunci e profilo laterale minimale
+
+- timestamp: 2026-04-11 19:10
+- task: audit dashboard candidato contro Figma/VRT
+- node: `159:2896`
+- viewport: desktop + mobile
+- files: src/data/candidate-dashboard.ts, src/data/mock-services.ts, src/data/site-content.ts, src/data/types.ts, src/components/layout/portal-layout.tsx, src/components/site/portal-navbar.tsx, src/components/portal/candidate-dashboard-job-card.tsx, src/components/portal/candidate-dashboard-profile-rail.tsx, src/pages/portal/candidate-dashboard-page.tsx, tests/fixtures/portal-copy.ts, tests/integration/candidate-dashboard-response.test.ts, tests/integration/mock-services.test.ts, tests/e2e/portal/candidate-dashboard-page.spec.ts, tests/e2e/parity/candidate-dashboard-page.visual.spec.ts, __screenshots__/chromium-desktop/parity/candidate-dashboard-page.visual.spec.ts/candidate-dashboard-page.png, __screenshots__/chromium-mobile/parity/candidate-dashboard-page.visual.spec.ts/candidate-dashboard-page.png, prd.md, .codexpotter/kb/candidate-dashboard.md, .codexpotter/kb/README.md
+- action: introdotto `CandidateDashboardResponse` server-like per il frame candidato, rimossa la shell legacy dal portale, riallineata la top bar candidato al frame desktop, costruite 4 card dedicate + profilo laterale, aggiunte copertura E2E e parity dedicate e verificata la UI reale con capture finale `artifacts/loop-captures/2026-04-11/1809-candidate-dashboard-audit-final`
+- tests: `npm run lint`; `npm run typecheck`; `npx vitest run tests/integration/candidate-dashboard-response.test.ts tests/integration/mock-services.test.ts`; `npx playwright test tests/e2e/portal/candidate-dashboard-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-dashboard-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-dashboard-page.visual.spec.ts`; `npm run loop:capture -- /portale/candidato candidate-dashboard-audit-final`; `npm run test:all`
+- note: nessuna PR aperta sul branch remoto `codex/ralph-loop-bootstrap`; `search_pull_requests` su `daubog44/wedoo` restituisce `0` risultati aperti per l'head corrente

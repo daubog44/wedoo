@@ -1,10 +1,18 @@
 export const portalRoutes = {
+  candidateDashboard: "/portale/candidato",
   companyJobDraftStep1: "/portale/azienda/annunci/nuovo",
   companyJobDraftStep2: "/portale/azienda/annunci/nuovo?step=2",
   companyJobs: "/portale/azienda/annunci",
 } as const;
 
 export const portalCopy = {
+  candidateDashboard: {
+    activeSection: "Bacheca annunci",
+    cardCta: "visualizza",
+    cvSection: "Modifica CV",
+    firstJobTitle: "ADDETTO COMUNICAZIONE",
+    profileName: "Azzurra Signorelli",
+  },
   companyJobs: {
     createCardHeading: "Crea un nuovo annuncio",
     createCta: "crea",

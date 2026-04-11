@@ -11,10 +11,10 @@ export const portalNavigation: Record<
   Array<{ disabled?: boolean; label: string; to: string }>
 > = {
   candidate: [
-    { label: "bacheca annunci", to: "/portale/candidato" },
-    { label: "modifica cv", to: "/portale/candidato/cv" },
-    { label: "articoli", to: "/articoli" },
-    { label: "podcast", to: "/podcast" },
+    { label: "Bacheca annunci", to: "/portale/candidato" },
+    { label: "Modifica CV", to: "/portale/candidato/cv" },
+    { label: "Articoli", to: "/articoli" },
+    { label: "Podcast", to: "/podcast" },
   ],
   company: [
     { label: "bacheca candidati", to: "/portale/azienda" },

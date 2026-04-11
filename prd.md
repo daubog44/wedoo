@@ -57,7 +57,7 @@ Regole:
 
 ## Audit Design Drift Attuale
 
-- [ ] [FRAME][node=n/a][route=/articoli][test=tests/e2e/public/knowledge-hub-page.spec.ts] Auditare le route contenuti `/articoli` e `/podcast` contro il design vivo Figma, verificando il frame condiviso `KnowledgeHubPage`, la shell reale e l'eventuale bisogno di parity dedicata.
+- [x] [FRAME][node=159:2896][route=/portale/candidato][test=tests/e2e/portal/candidate-dashboard-page.spec.ts] Auditare la dashboard candidato contro il frame Figma `Interfaccia account CANDIDATO`, verificando shell, navigazione, card profilo/annunci e copertura Playwright dedicata.
 - [x] [FRAME][node=n/a][route=/azienda][test=tests/e2e/public/company-showcase-page.spec.ts] Auditare la route showcase azienda contro gli export Figma aggiornati desktop/mobile `Sezione _azienda_*.png`, correggendo shell, carousel condiviso e baseline VRT in modo intenzionale.
 - [x] [FRAME][node=n/a][route=/candidato][test=tests/e2e/public/candidate-showcase-page.spec.ts] Auditare la route showcase candidato contro gli export Figma aggiornati desktop/mobile `Sezione _candidato_*.png`, correggendo shell legacy, carousel e baseline VRT in modo intenzionale.
 - [x] [FRAME][node=n/a][route=/info][test=tests/e2e/public/info-page.spec.ts] Auditare la route info contro gli export Figma aggiornati desktop/mobile `noi x noi`, `17 obiettivi per il futuro` e `dubbi? le FAQ ti aiutano!`, correggendo layout legacy, shell header/footer e baseline VRT in modo intenzionale.
@@ -147,6 +147,7 @@ Regole:
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/parity/company-job-draft-step-2.visual.spec.ts] Aggiungere snapshot VRT reali per il secondo step annuncio azienda quando il flow si stabilizza.
 - [x] [TEST][node=259:1050][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Estendere il flow del secondo step a selezione multipla SDG e CTA `cancella` `bozza` `invia`.
 - [x] [TEST][node=n/a][route=/portale/azienda/annunci/nuovo][test=tests/e2e/portal/company-job-draft-step-2.spec.ts] Coprire il resume della bozza `JobDraft` dopo il salvataggio e la riapertura del wizard azienda.
+- [x] [TEST][node=159:2896][route=/portale/candidato][test=tests/e2e/parity/candidate-dashboard-page.visual.spec.ts] Creare e mantenere una baseline visuale dedicata per la dashboard candidato quando il layout si stabilizza.
 - [x] [TEST][node=n/a][route=n/a][test=tests/e2e/parity/figma-backlog.spec.ts] Ridurre progressivamente il backlog `fixme` di parity Figma man mano che le schermate vengono implementate.
 
 ## Regola Operativa
