@@ -203,7 +203,7 @@ export function CandidateEducationStep({
 
   return (
     <CandidateWizardStepFrame
-      closeHref="/registrati/candidato/2"
+      closeHref="/registrati/candidato/3"
       closeLabel="Chiudi formazione"
       dataNodeId="280:1079"
       panelClassName="md:pb-[58px]"

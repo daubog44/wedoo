@@ -20,7 +20,7 @@ test.describe("candidate skills step", () => {
       skillsStep.getByRole("link", {
         name: publicCopy.candidateSkills.closeLabel,
       }),
-    ).toHaveAttribute("href", "/registrati/candidato/4");
+    ).toHaveAttribute("href", "/registrati/candidato/5");
 
     await expect(
       skillsStep.getByRole("heading", {

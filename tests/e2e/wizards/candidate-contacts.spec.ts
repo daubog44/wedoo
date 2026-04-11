@@ -22,7 +22,7 @@ test.describe("candidate contacts step", () => {
       contactsStep.getByRole("link", {
         name: publicCopy.candidateContacts.closeLabel,
       }),
-    ).toHaveAttribute("href", "/registrati/candidato/1");
+    ).toHaveAttribute("href", "/registrati/candidato/2");
 
     await expect(
       contactsStep.getByRole("heading", {
@@ -104,6 +104,6 @@ test.describe("candidate contacts step", () => {
       })
       .click();
 
-    await expect(page).toHaveURL(/\/registrati\/candidato\/3$/);
+    await expect(page).toHaveURL(/\/registrati\/candidato\/4$/);
   });
 });

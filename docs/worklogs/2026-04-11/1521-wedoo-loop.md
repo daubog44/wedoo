@@ -402,3 +402,21 @@
 - action: aggiunta copertura E2E dedicata alla route fallback `*`, verificando render del messaggio 404 pubblico e ritorno effettivo alla landing tramite CTA `torna alla home`
 - tests: `npx playwright test tests/e2e/public/not-found-page.spec.ts`; `npm run test:e2e`
 - note: `npm run test:all` ha avuto un singolo fallimento VRT flakey fuori task sulla parity `company-published-jobs` mobile (diff 11 pixel), subito verificato con rerun dedicato verde; la successiva `npm run test:e2e` completa e passata
+
+- timestamp: 2026-04-11 22:41
+- task: discovery flow pubblico candidato non tracciato
+- node: desktop `273:1313` `273:1384`, mobile `234:590` `234:813`
+- viewport: desktop + mobile
+- files: prd.md, .codexpotter/projects/2026/04/11/1/MAIN.md, docs/worklogs/2026-04-11/1521-wedoo-loop.md
+- action: review root Figma con `use_figma` ha trovato due frame candidato top-level non presenti nel PRD ma coerenti con la route esistente `/registrati/candidato/:stepIndex`: registrazione account `Benvenut*!` e onboarding `Dicci qualcosa in più`. Promossi in backlog insieme al prerequisito dati `CandidateOnboardingDraft`, perche il flow attuale salta il secondo step e usa ancora il form shell generico legacy.
+- tests: n/a
+- note: il frame `280:1000` `pop up preferenze di lavoro` e correlato ma distinto; verra trattato come backlog successivo del profilo candidato, non come sostituto del nuovo step pubblico `273:1384`
+
+- timestamp: 2026-04-11 23:00
+- task: riallineamento flow pubblico candidato `/registrati/candidato/:stepIndex`
+- node: desktop `273:1313` `273:1384`, mobile `234:590` `234:813`
+- viewport: desktop + mobile
+- files: `src/data/candidate-onboarding.ts`, `src/data/auth.ts`, `src/pages/public/candidate-wizard-page.tsx`, `src/components/public/candidate-onboarding-*`, `src/components/public/candidate-contacts-step.tsx`, `src/components/public/candidate-education-step.tsx`, `src/components/public/candidate-work-experience-step.tsx`, `src/components/public/candidate-skills-step.tsx`, `tests/fixtures/public-copy.ts`, `tests/integration/candidate-onboarding.test.ts`, `tests/integration/auth-view-model.test.ts`, `tests/e2e/public/public-routes.spec.ts`, `tests/e2e/wizards/candidate-preferences.spec.ts`, `tests/e2e/parity/candidate-registration-flow.visual.spec.ts`, `__screenshots__/chromium-*/parity/candidate-registration-flow.visual.spec.ts/*`, `prd.md`
+- action: introdotti `CandidateOnboardingDraft` e le shell pubbliche Figma-first per step 1-2 candidato, rimosso il vecchio auth shell generico da `/registrati/candidato/1`, spostati i modal profilo alle route `/registrati/candidato/3-6`, riallineati fixture e test, aggiunte parity desktop/mobile dedicate e hydration del `CandidateProfileDraft` dai dati pubblici del nuovo onboarding
+- tests: `npm run typecheck`; `npx vitest run tests/integration/auth-view-model.test.ts tests/integration/candidate-onboarding.test.ts`; `npx playwright test tests/e2e/public/public-routes.spec.ts tests/e2e/wizards/candidate-preferences.spec.ts tests/e2e/wizards/candidate-contacts.spec.ts tests/e2e/wizards/candidate-education.spec.ts tests/e2e/wizards/candidate-work-experience.spec.ts tests/e2e/wizards/candidate-skills.spec.ts`; `npm run loop:capture -- /registrati/candidato/1 candidate-registration-step-1-review`; `npm run loop:capture -- /registrati/candidato/2 candidate-registration-step-2-review`; `npx playwright test tests/e2e/parity/candidate-registration-flow.visual.spec.ts --update-snapshots`; `npm run test:all`
+- note: audit visuale finale basato su `artifacts/loop-captures/2026-04-11/2254-candidate-registration-step-1-review` e `2254-candidate-registration-step-2-review`; un falso diff parity e apparso quando update e verify sono stati lanciati in parallelo, risolto con rerun seriale verde

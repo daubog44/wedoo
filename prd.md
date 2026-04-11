@@ -57,6 +57,10 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-onboarding.test.ts] Definire `CandidateOnboardingDraft` per il flow pubblico candidato, coprendo registrazione account, localita, SDG e mansioni prima dei modal profilo.
+- [x] [FRAME][node=273:1313][route=/registrati/candidato/1][test=tests/e2e/public/public-routes.spec.ts] Auditare e riallineare il primo step pubblico candidato contro i frame Figma desktop `273:1313` e mobile `234:590`, correggendo layout, campi, consensi e CTA `continua`.
+- [x] [FRAME][node=273:1384][route=/registrati/candidato/2][test=tests/e2e/wizards/candidate-preferences.spec.ts] Implementare lo step pubblico candidato `Dicci qualcosa in più` contro i frame Figma desktop `273:1384` e mobile `234:813`, collegandolo al draft candidato e riallineando la sequenza del wizard successivo.
+- [x] [TEST][node=273:1313][route=/registrati/candidato/:stepIndex][test=tests/e2e/parity/candidate-registration-flow.visual.spec.ts] Creare e mantenere una parity desktop/mobile dei due step pubblici candidato quando il flow si stabilizza sul design vivo.
 - [x] [TEST][node=n/a][route=*][test=tests/e2e/public/not-found-page.spec.ts] Coprire la route pubblica 404 finche non esiste un frame o export dedicato, verificando messaggio di fallback e CTA di ritorno alla home.
 - [x] [TECH][node=n/a][route=/articoli,/podcast][test=n/a] Mappare la source of truth delle route knowledge hub pubbliche `/articoli` e `/podcast`, verificando se esistono frame Figma o export dedicati oppure se la shared page va trattata come route legacy senza parity Figma esplicita.
 - [x] [TEST][node=n/a][route=/articoli,/podcast][test=tests/e2e/public/knowledge-hub-page.spec.ts] Coprire le route knowledge hub pubbliche finche non esistono frame Figma dedicati, verificando reachability, hero copy, CTA cross-link e assenza di regressioni shell.

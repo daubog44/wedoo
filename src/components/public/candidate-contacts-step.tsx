@@ -106,7 +106,7 @@ export function CandidateContactsStep({
 
   return (
     <CandidateWizardStepFrame
-      closeHref="/registrati/candidato/1"
+      closeHref="/registrati/candidato/2"
       closeLabel="Chiudi contatti"
       dataNodeId="281:1207"
       testId="candidate-contacts-step"

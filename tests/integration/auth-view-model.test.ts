@@ -47,6 +47,10 @@ describe("AuthViewModel", () => {
       "confirm-password",
       "privacy",
     ]);
+    expect(candidateRegistrationAuthViewModel.providerOptions?.map((provider) => provider.id)).toEqual([
+      "google",
+      "apple",
+    ]);
     expect(companyRegistrationAuthViewModel.fields.map((field) => field.id)).toEqual([
       "vat",
       "company",
@@ -70,6 +74,7 @@ describe("AuthViewModel", () => {
     ]);
     expect(authViewModels.login.footerPrompt?.linkTo).toBe("/registrati");
     expect(candidateRegistrationAuthViewModel.footerPrompt?.label).toBe("hai gi\u00E0 un account?");
+    expect(candidateRegistrationAuthViewModel.fields[1]?.label).toBe("e-mail*");
     expect(companyRegistrationAuthViewModel.footerPrompt?.label).toBe("hai gi\u00E0 un account?");
   });
 });

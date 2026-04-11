@@ -22,7 +22,7 @@ test.describe("candidate education step", () => {
       educationStep.getByRole("link", {
         name: publicCopy.candidateEducation.closeLabel,
       }),
-    ).toHaveAttribute("href", "/registrati/candidato/2");
+    ).toHaveAttribute("href", "/registrati/candidato/3");
 
     await expect(
       educationStep.getByRole("heading", {
@@ -128,6 +128,6 @@ test.describe("candidate education step", () => {
       })
       .click();
 
-    await expect(page).toHaveURL(/\/registrati\/candidato\/4$/);
+    await expect(page).toHaveURL(/\/registrati\/candidato\/5$/);
   });
 });

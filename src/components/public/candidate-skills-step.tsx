@@ -66,7 +66,7 @@ export function CandidateSkillsStep({
 
   return (
     <CandidateWizardStepFrame
-      closeHref="/registrati/candidato/4"
+      closeHref="/registrati/candidato/5"
       closeLabel="Chiudi competenze"
       dataNodeId="280:951"
       testId="candidate-skills-step"

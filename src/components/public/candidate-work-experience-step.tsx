@@ -138,7 +138,7 @@ export function CandidateWorkExperienceStep({
 
   return (
     <CandidateWizardStepFrame
-      closeHref="/registrati/candidato/3"
+      closeHref="/registrati/candidato/4"
       closeLabel="Chiudi esperienze lavorative"
       dataNodeId="280:860"
       panelClassName="md:pb-[37px]"

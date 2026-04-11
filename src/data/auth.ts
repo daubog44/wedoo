@@ -158,7 +158,7 @@ export const candidateRegistrationAuthViewModel = {
       id: "email",
       inputType: "email",
       kind: "input",
-      label: "email*",
+      label: "e-mail*",
       placeholder: "inserisci la mail",
       required: true,
     },
@@ -194,6 +194,16 @@ export const candidateRegistrationAuthViewModel = {
     linkTo: "/accedi",
   },
   id: "register-candidate",
+  providerOptions: [
+    {
+      id: "google",
+      label: "entra con Google",
+    },
+    {
+      id: "apple",
+      label: "entra con Apple",
+    },
+  ],
   providerButtons: true,
   subtitle: "Registrati",
   title: "Benvenut*!",

@@ -25,7 +25,12 @@ test.describe("public routes", () => {
 
   test("candidate registration step 1 remains reachable from the public flow", async ({
     page,
-  }) => {
+  }, testInfo) => {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    const stepOne = page.locator(
+      `[data-candidate-onboarding-layout="${isMobile ? "mobile" : "desktop"}"][data-candidate-onboarding-step="1"]`,
+    );
+
     await page.goto(publicRoutes.register);
     await waitForWedooPageReady(page);
 
@@ -34,23 +39,60 @@ test.describe("public routes", () => {
 
     await expect(page).toHaveURL(publicRoutes.candidateRegistration);
     await expect(
-      page.getByRole("heading", {
-        name: publicCopy.candidateRegistration.heading,
+      stepOne.getByRole("heading", {
+        name: isMobile
+          ? publicCopy.candidateRegistration.mobileHeading
+          : publicCopy.candidateRegistration.desktopHeading,
       }),
     ).toBeVisible();
     await expect(
-      page.getByText(publicCopy.candidateRegistration.subtitle, { exact: true }),
+      stepOne.getByText(publicCopy.candidateRegistration.subtitle, { exact: true }),
+    ).toBeVisible();
+
+    for (const label of publicCopy.candidateRegistration.fieldLabels) {
+      await expect(stepOne.getByLabel(label, { exact: true })).toBeVisible();
+    }
+
+    await expect(
+      stepOne.getByRole("button", {
+        name: publicCopy.candidateRegistration.providerGoogle,
+      }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", {
+      stepOne.getByRole("button", {
+        name: publicCopy.candidateRegistration.providerApple,
+      }),
+    ).toBeVisible();
+
+    if (isMobile) {
+      await expect(
+        stepOne.getByRole("link", {
+          name: publicCopy.candidateRegistration.loginPromptLink,
+        }),
+      ).toHaveAttribute("href", "/accedi");
+    }
+
+    await stepOne.getByLabel(publicCopy.candidateRegistration.fieldLabels[0]!).fill(
+      "Azzurra Signorelli",
+    );
+    await stepOne.getByLabel(publicCopy.candidateRegistration.fieldLabels[1]!).fill(
+      "azzurra@email.com",
+    );
+    await stepOne.getByLabel(publicCopy.candidateRegistration.fieldLabels[2]!).fill(
+      "+39 3201234567",
+    );
+    await stepOne.locator('[id$="candidate-register-password"]').fill("Password123");
+    await stepOne
+      .locator('[id$="candidate-register-confirm-password"]')
+      .fill("Password123");
+    await stepOne
+      .getByRole("button", {
         name: publicCopy.candidateRegistration.ctaLabel,
-      }),
-    ).toHaveAttribute("href", publicRoutes.candidateContacts);
-    await expect(
-      page.getByRole("link", {
-        name: publicCopy.candidateRegistration.loginPromptLink,
-      }),
-    ).toHaveAttribute("href", "/accedi");
+        exact: true,
+      })
+      .click();
+
+    await expect(page).toHaveURL(publicRoutes.candidatePreferences);
   });
 
   test("company registration step 1 remains reachable from the public flow", async ({

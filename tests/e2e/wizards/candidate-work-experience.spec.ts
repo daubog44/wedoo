@@ -22,7 +22,7 @@ test.describe("candidate work experience step", () => {
       workExperienceStep.getByRole("link", {
         name: publicCopy.candidateWorkExperience.closeLabel,
       }),
-    ).toHaveAttribute("href", "/registrati/candidato/3");
+    ).toHaveAttribute("href", "/registrati/candidato/4");
     await expect(
       workExperienceStep.getByText(publicCopy.candidateWorkExperience.companyHelper, {
         exact: true,
@@ -86,6 +86,6 @@ test.describe("candidate work experience step", () => {
       })
       .click();
 
-    await expect(page).toHaveURL(/\/registrati\/candidato\/5$/);
+    await expect(page).toHaveURL(/\/registrati\/candidato\/6$/);
   });
 });
