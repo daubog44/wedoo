@@ -1,6 +1,7 @@
 export const portalRoutes = {
   candidateDashboard: "/portale/candidato",
   candidateJob: "/portale/candidato/annuncio/addetto-comunicazione",
+  companyCandidate: "/portale/azienda/candidati/azzurra-signorelli",
   companyDashboard: "/portale/azienda",
   companyJobDraftStep1: "/portale/azienda/annunci/nuovo",
   companyJobDraftStep2: "/portale/azienda/annunci/nuovo?step=2",
@@ -24,6 +25,16 @@ export const portalCopy = {
     requirements: "Non e richiesta esperienza pregressa",
     sector: "Settore: servizi di consulenza",
     title: "ADDETTO COMUNICAZIONE",
+  },
+  companyCandidate: {
+    availabilityLabel: "Disponibile per trasferte",
+    closeLabel: "Chiudi dettaglio candidato",
+    mobileDockLabel: "Navigazione rapida azienda",
+    primaryCta: "richiedi colloquio",
+    resumeCta: "visualizza CV",
+    saveDraftCta: "salva in bozza",
+    status: "Neolaureata",
+    title: "AZZURRA SIGNORELLI",
   },
   companyDashboard: {
     activeSection: "Bacheca annunci",
@@ -52,13 +63,13 @@ export const portalCopy = {
     contractLabel: "tipologia di contratto",
     hoursLabel: "orari di lavoro",
     heading: "Crea il tuo annuncio",
-    modeLabel: "modalit\u00E0 di lavoro",
+    modeLabel: "modalità di lavoro",
     previewCta: "anteprima",
     removeCta: "cancella",
     saveDraftCta: "bozza",
     sdgLabel: "SDGs di riferimento",
     submitCta: "invia",
     uploadLabel:
-      "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilit\u00E0",
+      "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilità",
   },
 } as const;

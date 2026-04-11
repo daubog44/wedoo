@@ -267,3 +267,21 @@
 - action: il prossimo gap residuo con frame esplicito e route attiva e `/portale/azienda/candidati/:candidateId`; Figma mostra gia pannello mint e CTA recruiter desktop/mobile, mentre il codice attuale resta sul detail generico legacy
 - tests: pending
 - note: il frame `Annuncio di Candidato/Anteprima annuncio` letto in discovery corrisponde meglio al profilo candidato visto da azienda che alla preview di un annuncio job
+
+- timestamp: 2026-04-11 20:01
+- task: audit detail candidato azienda contro Figma/VRT
+- node: desktop `181:608`, mobile `184:795`
+- viewport: desktop + mobile
+- files: src/pages/portal/company-candidate-page.tsx, src/data/candidate-profile-summary.ts, src/components/portal/candidate-job-detail-view.tsx, artifacts/loop-captures/2026-04-11/2000-company-candidate-detail-before
+- action: discovery Figma completata con metadata, screenshot e design context; confermato che il detail usa un canvas standalone menta senza `PortalNavbar`, con close interno, CTA recruiter dedicate e dock mobile a 5 icone. La route reale catturata in `artifacts/loop-captures/2026-04-11/2000-company-candidate-detail-before` resta invece un `DetailCard` legacy non allineato e alimentato da mock troppo poveri per esperienze/certificazioni
+- tests: `npm run loop:capture -- /portale/azienda/candidati/azzurra-signorelli company-candidate-detail-before`
+- note: serve un contratto dati dedicato al detail azienda, analogo al lavoro gia fatto su `/portale/candidato/annuncio/:jobId`
+
+- timestamp: 2026-04-11 20:11
+- task: audit detail candidato azienda contro Figma/VRT
+- node: desktop `181:608`, mobile `184:795`
+- viewport: desktop + mobile
+- files: src/data/company-candidate-detail.ts, src/data/types.ts, src/components/layout/portal-layout.tsx, src/components/portal/company-candidate-detail-view.tsx, src/pages/portal/company-candidate-page.tsx, tests/fixtures/portal-copy.ts, tests/integration/company-candidate-detail-response.test.ts, tests/e2e/portal/company-candidate-page.spec.ts, tests/e2e/parity/company-candidate-page.visual.spec.ts, __screenshots__/chromium-*/parity/company-candidate-page.visual.spec.ts/company-candidate-page.png, prd.md, .codexpotter/kb/company-candidate-detail.md
+- action: introdotto `CompanyCandidateDetailResponse` server-like con presentazione dedicata per le candidate, nascosta la `PortalNavbar` sulla route `/portale/azienda/candidati/*`, riscritta la pagina in shell standalone menta desktop/mobile con close interno, rich text box, CTA recruiter e dock mobile a 5 icone, poi aggiunte coperture integration/E2E/parity e baseline dedicate. Capture finale salvato in `artifacts/loop-captures/2026-04-11/2009-company-candidate-detail-after`
+- tests: `npm run lint`; `npm run typecheck`; `npx vitest run tests/integration/company-candidate-detail-response.test.ts`; `npx playwright test tests/e2e/portal/company-candidate-page.spec.ts tests/e2e/portal/company-dashboard-page.spec.ts`; `npx playwright test tests/e2e/parity/company-candidate-page.visual.spec.ts --update-snapshots`; `npm run loop:capture -- /portale/azienda/candidati/azzurra-signorelli company-candidate-detail-after`; `npm run test:all`
+- note: controllo GitHub eseguito su `daubog44/wedoo` con `search_pull_requests head:codex/ralph-loop-bootstrap state:open = 0`; dalla review router+Figma il prossimo gap promosso nel PRD e `/portale/azienda/annunci` contro il frame `185:1738`

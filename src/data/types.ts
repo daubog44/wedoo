@@ -172,6 +172,44 @@ export type CompanyDashboardResponse = {
   searchPlaceholder: string
 }
 
+export type CompanyCandidateDetailResponse = {
+  availabilityLabel: string
+  candidate: {
+    avatar: string
+    fullName: string
+    id: string
+    statusLabel: string
+  }
+  closePath: string
+  contactItems: readonly string[]
+  ctas: {
+    cancelLabel: string
+    certificationLabel: string
+    closeLabel: string
+    primaryLabel: string
+    resumeLabel: string
+    saveDraftLabel: string
+  }
+  editorToolbarLabel: string
+  footnote: string
+  id: string
+  mobileDockLabel: string
+  sections: {
+    certificationsItems: readonly string[]
+    certificationsTitle: string
+    descriptionBody: string
+    descriptionTitle: string
+    educationItems: readonly string[]
+    educationTitle: string
+    experienceItems: readonly string[]
+    experienceTitle: string
+    hardSkillItems: readonly string[]
+    hardSkillsTitle: string
+    softSkillItems: readonly string[]
+    softSkillsTitle: string
+  }
+}
+
 export type WizardField = {
   helper?: string
   key: string
