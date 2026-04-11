@@ -39,6 +39,7 @@ Regole:
 - il primo `- [ ]` e il task attivo
 - se scopri un prerequisito nuovo, inseriscilo prima del task che dipende da esso
 - se scopri un task successivo o opzionale, inseriscilo nella sezione corretta dopo i prerequisiti
+- sincronizza `docs/visual-backlog.md` per route attiva, route sospette e audit no-op con capture reali
 
 ## Base Tecnica Completata
 
@@ -128,6 +129,7 @@ Regole:
 
 ### Auth E Stati Errore
 
+- [x] [FRAME][node=657:658][route=/password-dimenticata][test=tests/e2e/public/password-recovery-flow.spec.ts] Implementare il flow pubblico `password dimenticata` contro i frame Figma desktop `657:658`, mobile `660:774/660:1217` e la schermata collegata `assistenza clienti` `660:725`, collegando la CTA del login oggi non navigabile.
 - [x] [FRAME][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Implementare il frame `campi mancanti` come stato login con error handling coerente con Figma.
 - [x] [COMP][node=658:688][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Checkbox` come base per consensi e toggle form.
 - [x] [COMP][node=658:684][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Text Link` come link testuale secondario per auth e form.

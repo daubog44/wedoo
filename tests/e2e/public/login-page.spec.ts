@@ -33,8 +33,8 @@ test.describe("login page", () => {
     await expect(loginLayout.getByText(publicCopy.login.emailError, { exact: true })).toBeVisible();
     await expect(loginLayout.getByText(publicCopy.login.passwordError, { exact: true })).toBeVisible();
     await expect(
-      loginLayout.getByRole("button", { name: publicCopy.login.forgotPassword }),
-    ).toBeVisible();
+      loginLayout.getByRole("link", { name: publicCopy.login.forgotPassword }),
+    ).toHaveAttribute("href", publicRoutes.passwordRecovery);
 
     const termsCheckbox = loginLayout.getByRole("checkbox", { name: publicCopy.login.termsLabel });
     await expect(termsCheckbox).toBeVisible();

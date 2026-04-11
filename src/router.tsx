@@ -37,6 +37,18 @@ export const router = createBrowserRouter([
             lazy: lazyRoute(() => import("./pages/public/login-page")),
           },
           {
+            path: "password-dimenticata",
+            lazy: lazyRoute(
+              () => import("./pages/public/password-recovery-page"),
+            ),
+          },
+          {
+            path: "assistenza-clienti",
+            lazy: lazyRoute(
+              () => import("./pages/public/customer-support-page"),
+            ),
+          },
+          {
             path: "registrati",
             lazy: lazyRoute(() => import("./pages/public/role-choice-page")),
           },

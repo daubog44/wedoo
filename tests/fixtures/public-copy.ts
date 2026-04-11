@@ -18,8 +18,10 @@ export const publicRoutes = {
   info: "/info",
   login: "/accedi",
   notFound: "/questa-route-non-esiste",
+  passwordRecovery: "/password-dimenticata",
   podcasts: "/podcast",
   register: "/registrati",
+  support: "/assistenza-clienti",
 } as const;
 
 export const publicCopy = {
@@ -86,6 +88,21 @@ export const publicCopy = {
     registerPrompt: "non hai un account?",
     registerPromptLink: "registrati",
     subtitle: "Accedi",
+    termsLabel: "accetto i termini e le condizioni",
+  },
+  passwordRecovery: {
+    assistanceLink: "assistenza clienti",
+    ctaLabel: "salva",
+    currentPasswordLabel: "inserisci vecchia password",
+    currentPasswordPlaceholder: "inserisci la vecchia password",
+    heading: "Password dimenticata",
+    newPasswordLabel: "inserisci nuova password",
+    newPasswordPlaceholder: "inserisci la nuova password",
+    note: "al salvataggio sarà necessario accedere nuovamente alla piattaforma",
+    promptIntro: "non riesci ad effettuare il cambio della password?",
+    promptOutro: ", saremo felici di aiutarti!",
+    repeatPasswordLabel: "conferma password",
+    repeatPasswordPlaceholder: "conferma la tua password",
     termsLabel: "accetto i termini e le condizioni",
   },
   candidateRegistration: {
@@ -266,5 +283,15 @@ export const publicCopy = {
     companyCta: "azienda",
     desktopHeading: "registrati come candidato/azienda",
     mobileHeading: "registrati o accedi come candidato/azienda",
+  },
+  support: {
+    candidateDescription:
+      "chiama il numero gratuito o invia una mail spiegando il tuo problema, saremo felici di aiutarti!",
+    candidatePhoneLabel: "supporto candidati",
+    companyDescription:
+      "chiama il numero gratuito dedicato alle aziende o invia una mail spiegando il tuo problema, saremo felici di aiutarti!",
+    companyPhoneLabel: "supporto aziende",
+    emailLabel: "invia una mail",
+    heading: "Assistenza clienti",
   },
 } as const;

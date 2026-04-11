@@ -239,9 +239,11 @@ function LoginDesktopView({
               value={values.password ?? ""}
             />
           </div>
-          <AuthTextLink className="mt-[10px]" type="button">
-            {loginAuthViewModel.forgotPasswordLabel}
-          </AuthTextLink>
+          {loginAuthViewModel.forgotPasswordLabel && loginAuthViewModel.forgotPasswordTo ? (
+            <AuthTextLink className="mt-[10px]" to={loginAuthViewModel.forgotPasswordTo}>
+              {loginAuthViewModel.forgotPasswordLabel}
+            </AuthTextLink>
+          ) : null}
           {loginTermsField ? (
             <div className="mt-[18px]">
               <LoginConsent
@@ -328,9 +330,15 @@ function LoginMobileView({
                   value={values.password ?? ""}
                 />
               </div>
-              <AuthTextLink className="mt-3" compact type="button">
-                {loginAuthViewModel.forgotPasswordLabel}
-              </AuthTextLink>
+              {loginAuthViewModel.forgotPasswordLabel && loginAuthViewModel.forgotPasswordTo ? (
+                <AuthTextLink
+                  className="mt-3"
+                  compact
+                  to={loginAuthViewModel.forgotPasswordTo}
+                >
+                  {loginAuthViewModel.forgotPasswordLabel}
+                </AuthTextLink>
+              ) : null}
               {loginTermsField ? (
                 <div className="mt-4">
                   <LoginConsent

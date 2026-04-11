@@ -21,6 +21,8 @@ export function AuthCheckbox({
   className,
   compact = false,
   label,
+  labelButtonClassName,
+  labelClassName,
   linkHref,
   linkLabel,
   onCheckedChange,
@@ -29,6 +31,8 @@ export function AuthCheckbox({
   className?: string;
   compact?: boolean;
   label: string;
+  labelButtonClassName?: string;
+  labelClassName?: string;
   linkHref?: string;
   linkLabel?: string;
   onCheckedChange: (nextValue: boolean) => void;
@@ -59,11 +63,15 @@ export function AuthCheckbox({
         className={cn(
           "font-wedoo-body text-[var(--wedoo-ink)]",
           compact ? "text-[18px] leading-none" : "text-[22px] leading-none",
+          labelClassName,
         )}
         id={labelId}
       >
         <button
-          className="text-left transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]"
+          className={cn(
+            "text-left transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]",
+            labelButtonClassName,
+          )}
           onClick={handleToggle}
           type="button"
         >
