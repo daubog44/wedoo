@@ -57,6 +57,7 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [TEST][node=n/a][route=*][test=tests/e2e/public/not-found-page.spec.ts] Coprire la route pubblica 404 finche non esiste un frame o export dedicato, verificando messaggio di fallback e CTA di ritorno alla home.
 - [x] [TECH][node=n/a][route=/articoli,/podcast][test=n/a] Mappare la source of truth delle route knowledge hub pubbliche `/articoli` e `/podcast`, verificando se esistono frame Figma o export dedicati oppure se la shared page va trattata come route legacy senza parity Figma esplicita.
 - [x] [TEST][node=n/a][route=/articoli,/podcast][test=tests/e2e/public/knowledge-hub-page.spec.ts] Coprire le route knowledge hub pubbliche finche non esistono frame Figma dedicati, verificando reachability, hero copy, CTA cross-link e assenza di regressioni shell.
 - [x] [FRAME][node=288:1266][route=/portale/candidato/cv][test=tests/e2e/portal/candidate-cv-page.spec.ts] Auditare e riallineare la preview CV candidato contro i frame Figma desktop `288:1266` e mobile `288:1325`, correggendo la `DetailCard` legacy, la shell portale e le CTA `modifica` `carica CV` `attivita`.

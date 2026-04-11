@@ -384,3 +384,21 @@
 - action: aggiunta copertura E2E dedicata alla shared page `KnowledgeHubPage`, verificando render corrente di `/articoli`, CTA verso `/podcast` e `/info`, e switch bidirezionale tra articoli e podcast senza introdurre una parity Figma inesistente
 - tests: `npx playwright test tests/e2e/public/knowledge-hub-page.spec.ts`; `npm run test:all`
 - note: nessuna PR aperta su `codex/ralph-loop-bootstrap`; la review finale conferma che queste route restano legacy controllate finche non esiste un frame pubblico dedicato
+
+- timestamp: 2026-04-11 22:12
+- task: copertura route pubblica 404
+- node: n/a
+- viewport: desktop + mobile
+- files: prd.md, src/pages/public/not-found-page.tsx, tests/e2e/public
+- action: backlog vuoto ma router ancora con fallback `*`: aperto task minimo di hardening per la 404 pubblica, limitato a messaggio e CTA home per non lasciare scoperta l'ultima route non mappata
+- tests: pending
+- note: nessun frame Figma dedicato noto; qui serve solo protezione funzionale
+
+- timestamp: 2026-04-11 22:16
+- task: copertura route pubblica 404
+- node: n/a
+- viewport: desktop + mobile
+- files: tests/fixtures/public-copy.ts, tests/e2e/public/not-found-page.spec.ts, prd.md, docs/worklogs/2026-04-11/1521-wedoo-loop.md
+- action: aggiunta copertura E2E dedicata alla route fallback `*`, verificando render del messaggio 404 pubblico e ritorno effettivo alla landing tramite CTA `torna alla home`
+- tests: `npx playwright test tests/e2e/public/not-found-page.spec.ts`; `npm run test:e2e`
+- note: `npm run test:all` ha avuto un singolo fallimento VRT flakey fuori task sulla parity `company-published-jobs` mobile (diff 11 pixel), subito verificato con rerun dedicato verde; la successiva `npm run test:e2e` completa e passata

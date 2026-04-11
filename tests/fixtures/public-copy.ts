@@ -15,6 +15,7 @@ export const publicRoutes = {
   home: "/",
   info: "/info",
   login: "/accedi",
+  notFound: "/questa-route-non-esiste",
   podcasts: "/podcast",
   register: "/registrati",
 } as const;
@@ -197,6 +198,11 @@ export const publicCopy = {
     firstQuestion:
       "come posso essere sicuro che un'opportunita sia davvero in linea con i miei valori?",
     goalsHeading: "17 obiettivi per il futuro",
+  },
+  notFound: {
+    cta: "torna alla home",
+    heading: "404",
+    message: "La pagina richiesta non e presente nel prototipo Wedoo.",
   },
   podcasts: {
     eyebrow: "Podcast Wedoo",
