@@ -5,6 +5,7 @@ export const jobListingsMock = [
     company: {
       logo: "logo-azienda2.png",
       name: "Agenzia Creativa S.r.l.",
+      sectorLabel: "servizi di consulenza",
     },
     employment: {
       contractLabel: "Stage di 6 mesi con possibilita di rinnovo",
@@ -25,6 +26,7 @@ export const jobListingsMock = [
     company: {
       logo: "logo-azienda1.png",
       name: "Stabilimenti Roma S.p.A.",
+      sectorLabel: "industria e employer branding",
     },
     employment: {
       contractLabel: "Tempo determinato di 12 mesi",
@@ -45,6 +47,7 @@ export const jobListingsMock = [
     company: {
       logo: "logo-azienda2.png",
       name: "Northway Consulting",
+      sectorLabel: "consulenza digitale e SEO",
     },
     employment: {
       contractLabel: "Apprendistato",
@@ -65,6 +68,7 @@ export const jobListingsMock = [
     company: {
       logo: "logo-azienda1.png",
       name: "Data River Labs",
+      sectorLabel: "analytics ESG",
     },
     employment: {
       contractLabel: "Stage extracurriculare",
@@ -85,6 +89,7 @@ export const jobListingsMock = [
     company: {
       logo: "logo-azienda2.png",
       name: "Studio Verde Comune",
+      sectorLabel: "comunicazione civica",
     },
     employment: {
       contractLabel: "Collaborazione iniziale di 9 mesi",

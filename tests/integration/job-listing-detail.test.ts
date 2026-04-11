@@ -14,6 +14,7 @@ describe("JobListing and JobDetail", () => {
     expect(jobListingsMock[0]).toMatchObject({
       company: {
         name: "Agenzia Creativa S.r.l.",
+        sectorLabel: "servizi di consulenza",
       },
       employment: {
         contractLabel: "Stage di 6 mesi con possibilita di rinnovo",

@@ -51,8 +51,7 @@ describe("AuthViewModel", () => {
       "vat",
       "company",
       "email",
-      "password",
-      "confirm-password",
+      "phone",
       "privacy",
     ]);
   });
@@ -64,6 +63,10 @@ describe("AuthViewModel", () => {
     ]);
     expect(companyForms[0]?.rows[0]?.fields).toEqual([
       ...companyRegistrationAuthViewModel.fields,
+    ]);
+    expect(companyRegistrationAuthViewModel.providerOptions?.map((provider) => provider.id)).toEqual([
+      "google",
+      "apple",
     ]);
     expect(authViewModels.login.footerPrompt?.linkTo).toBe("/registrati");
     expect(candidateRegistrationAuthViewModel.footerPrompt?.label).toBe("hai gi\u00E0 un account?");

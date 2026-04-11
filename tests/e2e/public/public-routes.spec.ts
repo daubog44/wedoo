@@ -53,6 +53,36 @@ test.describe("public routes", () => {
     ).toHaveAttribute("href", "/accedi");
   });
 
+  test("company registration step 1 remains reachable from the public flow", async ({
+    page,
+  }, testInfo) => {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    const stepOne = page.locator(
+      `[data-company-wizard-layout="${isMobile ? "mobile" : "desktop"}"][data-company-wizard-step="1"]`,
+    );
+
+    await page.goto(publicRoutes.register);
+    await waitForWedooPageReady(page);
+
+    await page.getByRole("link", { name: publicCopy.register.companyCta }).click();
+    await waitForWedooPageReady(page);
+
+    await expect(page).toHaveURL(publicRoutes.companyRegistration);
+    await expect(
+      stepOne.getByRole("heading", {
+        name: publicCopy.companyRegistration.firstTitle,
+      }),
+    ).toBeVisible();
+    await expect(
+      stepOne.getByText(publicCopy.companyRegistration.firstSubtitle, { exact: true }),
+    ).toBeVisible();
+    await expect(
+      stepOne.getByRole("link", {
+        name: publicCopy.companyRegistration.loginPromptLink,
+      }),
+    ).toHaveAttribute("href", "/accedi");
+  });
+
   test("info page exposes the main sections", async ({ page }) => {
     await page.goto(publicRoutes.info);
     await waitForWedooPageReady(page);

@@ -222,3 +222,48 @@
 - action: sostituita la dashboard azienda legacy con shell Figma-first su contratto `CompanyDashboardResponse`, introdotte 4 card candidati e rail identita azienda, riallineata la navbar company al top bar viola del design vivo e corretto globalmente `SiteIcon.filter` da glyph menu a funnel reale; estesi i test del wizard annunci che dipendevano ancora dal vecchio copy `bacheca candidati`
 - tests: `npm run lint`; `npm run typecheck`; `npx vitest run tests/integration/company-dashboard-response.test.ts tests/integration/mock-services.test.ts`; `npx playwright test tests/e2e/portal/company-dashboard-page.spec.ts`; `npx playwright test tests/e2e/parity/company-dashboard-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-dashboard-page.visual.spec.ts tests/e2e/parity/company-dashboard-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-dashboard-page.visual.spec.ts tests/e2e/parity/company-dashboard-page.visual.spec.ts`; `npx playwright test tests/e2e/portal/candidate-dashboard-page.spec.ts tests/e2e/portal/company-dashboard-page.spec.ts`; `npx playwright test tests/e2e/portal/company-job-draft-step-2.spec.ts`; `npm run test:all`
 - note: nessuna PR aperta sul branch `codex/ralph-loop-bootstrap` verso `daubog44/wedoo` (`search_pull_requests` = `0`); review visuale finale fatta su baseline parity desktop/mobile perche `loop:capture` resta instabile sulla route
+
+- timestamp: 2026-04-11 19:52
+- task: audit wizard azienda pubblico contro Figma/VRT
+- node: step 1 `337:701/253:474`, recruiter `153:793/256:458`, dettagli azienda `256:640/256:707`, offerta `258:847/258:956`, sostenibilita `259:1050/259:1162`
+- viewport: desktop + mobile
+- files: prd.md, src/pages/public/company-wizard-page.tsx, src/data/forms.ts, src/data/auth.ts, src/data/job-draft.ts, tests/e2e/wizards, tests/e2e/parity
+- action: review post-backlog completato ha individuato `/registrati/azienda/:stepIndex` come flow ancora fuori PRD ma tracciato in router; discovery Figma ha confermato tutti i frame desktop/mobile del wizard e ha mostrato che la route reale usa ancora `BackdropPageShell` legacy con footer, senza parity o E2E dedicati
+- tests: pending
+- note: il frame desktop `338:772` / mobile `338:796` `pagina "sei un'azienda?"` e stato trovato durante la discovery ma non e collegato a una route esplicita; da trattare come eventuale backlog separato solo se emerge un entry point reale
+
+- timestamp: 2026-04-11 19:34
+- task: audit wizard azienda pubblico contro Figma/VRT
+- node: step 1 `337:701/253:474`, recruiter `153:793/256:458`, dettagli azienda `256:640/256:707`, offerta `258:847/258:956`, sostenibilita `259:1050/259:1162`
+- viewport: desktop + mobile
+- files: src/pages/public/company-wizard-page.tsx, src/components/public/company-*.tsx, src/data/company-onboarding.ts, src/data/auth.ts, tests/e2e/wizards/company-registration-wizard.spec.ts, tests/e2e/parity/company-registration-wizard.visual.spec.ts, tests/e2e/public/public-routes.spec.ts, tests/integration/company-onboarding.test.ts, tests/integration/auth-view-model.test.ts, tests/fixtures/public-copy.ts, prd.md, .codexpotter/kb/company-registration-wizard.md
+- action: rimossa la shell auth legacy dal flow `/registrati/azienda/:stepIndex`, separati i cinque step su primitive dedicate e contratto tipizzato `CompanyRegistrationDraft`/`JobDraft`, allineati copy e campi del primo step al Figma vivo (`partita IVA`, `ragione sociale`, `e-mail`, `numero di telefono`, privacy) e aggiunte coperture E2E/parity dedicate piu il controllo di reachability dal role choice pubblico
+- tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/auth-view-model.test.ts tests/integration/company-onboarding.test.ts`; `npx playwright test tests/e2e/wizards/company-registration-wizard.spec.ts`; `npx playwright test tests/e2e/parity/company-registration-wizard.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/company-registration-wizard.visual.spec.ts`; `npx playwright test tests/e2e/public/public-routes.spec.ts`; `npm run test:all`
+- note: audit visuale finale confermato con capture `artifacts/loop-captures/2026-04-11/1923-company-registration-step-1-after` e `artifacts/loop-captures/2026-04-11/1923-company-registration-step-5-after`; nessuna PR aperta sul branch `codex/ralph-loop-bootstrap`
+
+- timestamp: 2026-04-11 19:35
+- task: audit detail annuncio candidato contro Figma/VRT
+- node: desktop `172:1273`, mobile `178:1640`
+- viewport: pending discovery
+- files: prd.md, src/pages/portal/candidate-job-page.tsx, src/data/jobs.ts, tests/e2e/portal, tests/e2e/parity
+- action: review globale delle route residue ha promosso `/portale/candidato/annuncio/:jobId` a prossimo audit: Figma espone frame desktop/mobile espliciti `Annuncio di Lavoro`, mentre la route reale usa ancora una `DetailCard` legacy senza task PRD o parity dedicata
+- tests: pending
+- note: i detail page portale rimanenti condividono pattern legacy, ma il candidato detail e il primo con match diretto sia nel router sia nel naming Figma
+
+- timestamp: 2026-04-11 19:58
+- task: audit detail annuncio candidato contro Figma/VRT
+- node: desktop `172:1273`, mobile `178:1640`
+- viewport: desktop + mobile
+- files: src/components/layout/portal-layout.tsx, src/data/types.ts, src/data/jobs.ts, src/data/candidate-job-detail.ts, src/components/portal/candidate-job-detail-view.tsx, src/pages/portal/candidate-job-page.tsx, tests/integration/job-listing-detail.test.ts, tests/integration/candidate-job-detail-response.test.ts, tests/e2e/portal/candidate-job-page.spec.ts, tests/e2e/parity/candidate-job-page.visual.spec.ts, tests/fixtures/portal-copy.ts, prd.md, .codexpotter/kb/candidate-job-detail.md
+- action: nascosta la `PortalNavbar` legacy sulla route detail, introdotta `CandidateJobDetailResponse` con meta presentazionale dedicata e riscritta la pagina su shell Figma-first desktop/mobile con pannello lilla, editor box, note sostenibilita, CTA finali e mobile dock dedicata
+- tests: `npx tsc -p tsconfig.test.json --noEmit`; `npx vitest run tests/integration/job-listing-detail.test.ts tests/integration/candidate-job-detail-response.test.ts`; `npx playwright test tests/e2e/portal/candidate-job-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-job-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-job-page.visual.spec.ts`
+- note: capture finale `artifacts/loop-captures/2026-04-11/1951-candidate-job-detail-after`; nessuna PR aperta sul branch `codex/ralph-loop-bootstrap`
+
+- timestamp: 2026-04-11 19:59
+- task: audit detail candidato azienda contro Figma/VRT
+- node: desktop `181:608`, mobile `184:795`
+- viewport: pending discovery
+- files: prd.md, src/pages/portal/company-candidate-page.tsx, src/data/candidates.ts, tests/e2e/portal, tests/e2e/parity
+- action: il prossimo gap residuo con frame esplicito e route attiva e `/portale/azienda/candidati/:candidateId`; Figma mostra gia pannello mint e CTA recruiter desktop/mobile, mentre il codice attuale resta sul detail generico legacy
+- tests: pending
+- note: il frame `Annuncio di Candidato/Anteprima annuncio` letto in discovery corrisponde meglio al profilo candidato visto da azienda che alla preview di un annuncio job

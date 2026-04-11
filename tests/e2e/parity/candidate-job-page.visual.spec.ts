@@ -1,0 +1,22 @@
+import { expect, test } from "@playwright/test";
+import { portalRoutes } from "../../fixtures/portal-copy";
+import { waitForWedooPageReady } from "../../fixtures/playwright-helpers";
+
+test.describe("candidate job page visual parity", () => {
+  test("matches the current candidate job detail baseline", async ({
+    page,
+  }, testInfo) => {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    if (!isMobile) {
+      await page.setViewportSize({ width: 1440, height: 1024 });
+    }
+
+    await page.goto(portalRoutes.candidateJob);
+    await waitForWedooPageReady(page);
+
+    await expect(page).toHaveScreenshot("candidate-job-page.png", {
+      animations: "disabled",
+      fullPage: true,
+    });
+  });
+});

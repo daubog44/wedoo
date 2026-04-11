@@ -35,6 +35,7 @@ export type JobListing = {
   company: {
     logo: string
     name: string
+    sectorLabel: string
   }
   employment: {
     contractLabel: string
@@ -68,6 +69,44 @@ export type JobDetail = {
     softSkills: string[]
   }
   summaryBullets: string[]
+}
+
+export type CandidateJobDetailResponse = {
+  closePath: string
+  company: {
+    logo: string
+    name: string
+    sectorLabel: string
+  }
+  contactLine: string
+  ctas: {
+    cancelLabel: string
+    certificationsLabel: string
+    contactLabel: string
+    primaryLabel: string
+    saveDraftLabel: string
+  }
+  editorToolbarLabel: string
+  footnotes: readonly string[]
+  id: string
+  requirementsLabel: string
+  sections: {
+    companyBody: string
+    companyTitle: string
+    descriptionBody: string
+    descriptionTitle: string
+    offerItems: readonly string[]
+    offerTitle: string
+    summaryItems: readonly string[]
+    summaryTitle: string
+  }
+  skills: {
+    hardItems: readonly string[]
+    hardTitle: string
+    softItems: readonly string[]
+    softTitle: string
+  }
+  title: string
 }
 
 export type CandidateEntry = {

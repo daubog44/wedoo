@@ -1,5 +1,6 @@
 export const portalRoutes = {
   candidateDashboard: "/portale/candidato",
+  candidateJob: "/portale/candidato/annuncio/addetto-comunicazione",
   companyDashboard: "/portale/azienda",
   companyJobDraftStep1: "/portale/azienda/annunci/nuovo",
   companyJobDraftStep2: "/portale/azienda/annunci/nuovo?step=2",
@@ -13,6 +14,16 @@ export const portalCopy = {
     cvSection: "Modifica CV",
     firstJobTitle: "ADDETTO COMUNICAZIONE",
     profileName: "Azzurra Signorelli",
+  },
+  candidateJob: {
+    certificationsCta: "visualizza certificazioni",
+    closeLabel: "Chiudi dettaglio annuncio",
+    contactCta: "contatta",
+    mobileDockLabel: "Navigazione rapida candidato",
+    primaryCta: "invia candidatura",
+    requirements: "Non e richiesta esperienza pregressa",
+    sector: "Settore: servizi di consulenza",
+    title: "ADDETTO COMUNICAZIONE",
   },
   companyDashboard: {
     activeSection: "Bacheca annunci",
