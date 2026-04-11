@@ -366,3 +366,21 @@
 - action: sostituita la preview CV legacy con una shell standalone Figma-first desktop/mobile, introdotto `CandidateCvResponse`, nascosta la `PortalNavbar` su `/portale/candidato/cv`, riallineate top bar/dock mobile e aggiunte coperture integration/E2E/parity dedicate
 - tests: `npm run typecheck`; `npm run lint`; `npx vitest run tests/integration/candidate-cv-response.test.ts`; `npx playwright test tests/e2e/portal/candidate-cv-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-cv-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/candidate-cv-page.visual.spec.ts`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-before`; `npm run loop:capture -- /portale/candidato/cv candidate-cv-after`; `npm run test:all`
 - note: capture finali disponibili in `artifacts/loop-captures/2026-04-11/2152-candidate-cv-before` e `2159-candidate-cv-after`; verifica GitHub su `codex/ralph-loop-bootstrap`: nessuna PR aperta
+
+- timestamp: 2026-04-11 22:05
+- task: mapping knowledge hub pubblico `/articoli` `/podcast`
+- node: n/a
+- viewport: n/a
+- files: prd.md, src/router.tsx, src/components/public/knowledge-hub-page.tsx
+- action: review del router a backlog vuoto: confermato che le route pubbliche `/articoli` e `/podcast` restano attive e linkate da header/portale, ma la discovery Figma precedente non aveva trovato frame pubblici dedicati. Promosso quindi un task tecnico esplicito gia risolto in PRD e aperta la copertura E2E minima per mettere in sicurezza la shared page senza inventare un redesign fuori source of truth
+- tests: pending
+- note: le uniche occorrenze Figma di `Articoli`/`Podcast` restano dentro i frame account candidato/azienda, quindi finche non compare un frame pubblico dedicato la route va trattata come legacy controllata
+
+- timestamp: 2026-04-11 22:09
+- task: copertura knowledge hub pubblico `/articoli` `/podcast`
+- node: n/a
+- viewport: desktop + mobile
+- files: tests/fixtures/public-copy.ts, tests/e2e/public/knowledge-hub-page.spec.ts, prd.md, .codexpotter/kb/knowledge-hub.md, .codexpotter/kb/README.md
+- action: aggiunta copertura E2E dedicata alla shared page `KnowledgeHubPage`, verificando render corrente di `/articoli`, CTA verso `/podcast` e `/info`, e switch bidirezionale tra articoli e podcast senza introdurre una parity Figma inesistente
+- tests: `npx playwright test tests/e2e/public/knowledge-hub-page.spec.ts`; `npm run test:all`
+- note: nessuna PR aperta su `codex/ralph-loop-bootstrap`; la review finale conferma che queste route restano legacy controllate finche non esiste un frame pubblico dedicato

@@ -1,4 +1,5 @@
 export const publicRoutes = {
+  articles: "/articoli",
   candidateRegistration: "/registrati/candidato/1",
   candidateContacts: "/registrati/candidato/2",
   candidateEducation: "/registrati/candidato/3",
@@ -14,10 +15,20 @@ export const publicRoutes = {
   home: "/",
   info: "/info",
   login: "/accedi",
+  podcasts: "/podcast",
   register: "/registrati",
 } as const;
 
 export const publicCopy = {
+  articles: {
+    eyebrow: "Articoli Wedoo",
+    firstCardTitle: "Employer branding ESG senza facciata",
+    infoCta: "Vai alla pagina info",
+    relatedHeading: "Passa anche da podcast",
+    switchCta: "Apri podcast",
+    title:
+      "Contenuti pratici per leggere lavoro, impatto e sostenibilita senza fuffa.",
+  },
   home: {
     heroTitle: "No hype. No frasi fatte. Solo realt\u00E0 sostenibili.",
     heroSubtitle:
@@ -186,6 +197,15 @@ export const publicCopy = {
     firstQuestion:
       "come posso essere sicuro che un'opportunita sia davvero in linea con i miei valori?",
     goalsHeading: "17 obiettivi per il futuro",
+  },
+  podcasts: {
+    eyebrow: "Podcast Wedoo",
+    firstCardTitle: "No hype: lavoro, impatto, realta",
+    infoCta: "Vai alla pagina info",
+    relatedHeading: "Passa anche da articoli",
+    switchCta: "Apri articoli",
+    title:
+      "Episodi brevi per capire come si costruisce un lavoro credibile gia dal primo contatto.",
   },
   register: {
     candidateCta: "candidato",
