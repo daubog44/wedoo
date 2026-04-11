@@ -70,6 +70,7 @@ Vincoli operativi:
 - mantieni React, TypeScript, Vite, React Router e i pattern gia presenti nel repo
 - non saltare task
 - lavora su un solo task principale alla volta
+- se `prd.md` risulta interamente chiuso ma esistono ancora UI, route, export o VRT da auditare rispetto al design reale, non deviare sul bootstrap: crea subito in cima al `prd.md` un task concreto di audit o riallineamento e continua da quello
 - non trattare il codice gia presente come fonte di verita visuale
 - se una pagina esiste gia ma e incoerente con Figma, correggila
 - non trattare `.codexpotter/**` come backlog di prodotto

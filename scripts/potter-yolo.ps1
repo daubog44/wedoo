@@ -214,9 +214,26 @@ function Reset-StalePotterTracker {
   $isBootstrapTracker = $mainContent -match 'short_title:\s*"Bootstrap Ralph loop"' -or $mainContent -match '#\s*Ralph Loop Prompt'
 
   if ($isClosedTracker -or $isBootstrapTracker) {
-    $projectDir = Split-Path $latestMain.FullName -Parent
-    Remove-Item -Recurse -Force $projectDir -ErrorAction SilentlyContinue
-    Write-Host "Removed stale Codex Potter tracker: $projectDir"
+    $sealedContent = $mainContent
+
+    if ($sealedContent -match 'status:\s*open') {
+      $sealedContent = [regex]::Replace($sealedContent, 'status:\s*open', 'status: skip', 1)
+    }
+
+    if ($sealedContent -match 'finite_incantatem:\s*false') {
+      $sealedContent = [regex]::Replace($sealedContent, 'finite_incantatem:\s*false', 'finite_incantatem: true', 1)
+    }
+
+    if ($sealedContent -notmatch 'status:\s*skip') {
+      $sealedContent = "status: skip`r`n$sealedContent"
+    }
+
+    if ($sealedContent -notmatch 'finite_incantatem:\s*true') {
+      $sealedContent = $sealedContent -replace "(---\s*)$", "---`r`nfinite_incantatem: true`r`n"
+    }
+
+    [System.IO.File]::WriteAllText($latestMain.FullName, $sealedContent, [System.Text.Encoding]::UTF8)
+    Write-Host "Sealed stale Codex Potter tracker: $($latestMain.FullName)"
   }
 }
 

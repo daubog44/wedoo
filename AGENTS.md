@@ -69,6 +69,7 @@ Regole:
 - esegui i task in ordine, dall'alto verso il basso
 - lavora su un solo task principale alla volta
 - considera il primo `- [ ]` come task attivo
+- se `prd.md` non contiene alcun `- [ ]` ma esistono ancora route, frame Figma, export aggiornati, VRT sospetti o UI non auditata di recente, non considerare concluso il lavoro di prodotto: crea subito in cima al `prd` un task concreto di audit o riallineamento e riparti da quello
 
 ## 1B. WORKLOG
 
@@ -311,6 +312,7 @@ Aggiorna `prd.md` se trovi:
 - contratti mock o modelli dati mancanti
 - task E2E mancanti per una feature implementata
 - differenze di design dovute a un aggiornamento di Figma o degli export di sezione rilevanti
+- backlog completamente chiuso ma UI o design ancora non verificati in modo affidabile contro Figma/export/VRT
 
 ## Come aggiornare `prd.md`
 
