@@ -31,6 +31,11 @@ describe("AuthViewModel", () => {
       "apple",
     ]);
     expect(loginAuthViewModel.showMissingFieldErrorsByDefault).toBe(true);
+    expect(loginAuthViewModel.footerPrompt).toEqual({
+      label: "non hai un account?",
+      linkLabel: "registrati",
+      linkTo: "/registrati",
+    });
   });
 
   it("centralizes the required fields for candidate and company registration", () => {
@@ -61,5 +66,7 @@ describe("AuthViewModel", () => {
       ...companyRegistrationAuthViewModel.fields,
     ]);
     expect(authViewModels.login.footerPrompt?.linkTo).toBe("/registrati");
+    expect(candidateRegistrationAuthViewModel.footerPrompt?.label).toBe("hai gi\u00E0 un account?");
+    expect(companyRegistrationAuthViewModel.footerPrompt?.label).toBe("hai gi\u00E0 un account?");
   });
 });

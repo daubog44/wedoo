@@ -103,7 +103,7 @@ export const loginAuthViewModel = {
     },
   ],
   footerPrompt: {
-    label: "non hai già un account?",
+    label: "non hai un account?",
     linkLabel: "registrati",
     linkTo: "/registrati",
   },
@@ -189,7 +189,7 @@ export const candidateRegistrationAuthViewModel = {
     privacyField,
   ],
   footerPrompt: {
-    label: "hai già un account?",
+    label: "hai gi\u00E0 un account?",
     linkLabel: "accedi",
     linkTo: "/accedi",
   },
@@ -206,7 +206,8 @@ export const companyRegistrationAuthViewModel = {
   ctaTo: "/registrati/azienda/2",
   errors: [
     {
-      description: "Compila dati azienda, credenziali e consenso privacy prima di creare il primo annuncio.",
+      description:
+        "Compila dati azienda, credenziali e consenso privacy prima di creare il primo annuncio.",
       fieldIds: ["vat", "company", "email", "password", "confirm-password", "privacy"],
       id: "missing-fields",
       title: "Registrazione incompleta",
@@ -256,7 +257,7 @@ export const companyRegistrationAuthViewModel = {
     privacyField,
   ],
   footerPrompt: {
-    label: "hai già un account?",
+    label: "hai gi\u00E0 un account?",
     linkLabel: "accedi",
     linkTo: "/accedi",
   },

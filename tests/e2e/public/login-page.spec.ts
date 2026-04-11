@@ -53,6 +53,7 @@ test.describe("login page", () => {
     await expect(
       loginLayout.getByRole("link", { name: publicCopy.login.registerPromptLink }),
     ).toHaveAttribute("href", "/registrati");
+    await expect(loginLayout.getByText(/non hai un account\?\s*registrati/i)).toBeVisible();
 
     await loginLayout
       .getByRole("button", { name: publicCopy.login.ctaLabel, exact: true })
