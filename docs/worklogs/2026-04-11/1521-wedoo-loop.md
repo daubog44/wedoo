@@ -123,3 +123,30 @@
 - action: sostituita la pagina info legacy con una composizione dedicata desktop/mobile aderente agli export attuali, rimosso il footer dal frame reale, introdotto il contratto `infoPageResponseMock`, riallineato il pattern FAQ e rigenerate le baseline parity desktop/mobile
 - tests: `npm run lint`; `npm run typecheck`; `npx playwright test tests/e2e/public/info-page.spec.ts tests/e2e/public/public-routes.spec.ts`; `npx playwright test tests/e2e/parity/info-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/parity/info-page.visual.spec.ts`; `npm run test:all`
 - note: nessuna PR aperta sul branch `codex/ralph-loop-bootstrap`; per l'audit visuale finale sono stati usati gli export PNG e le baseline rigenerate perche `loop:capture` resta instabile su `/info`
+
+- timestamp: 2026-04-11 18:06
+- task: audit showcase candidato contro export Figma/VRT
+- node: n/a (export `Sezione _candidato_*.png`)
+- viewport: pending discovery
+- files: src/pages/public/candidate-showcase-page.tsx, src/components/site/showcase-carousel.tsx, src/data/showcases.ts, tests/e2e/public/candidate-showcase-page.spec.ts, tests/e2e/parity/candidate-showcase-page.visual.spec.ts, prd.md
+- action: review successiva dopo il commit di `/info` ha identificato la route `/candidato` come prossimo gap pubblico con export Figma disponibili ma shell ancora legacy (`TopLogoBar` + `SiteFooter`) e senza parity/E2E dedicate
+- tests: pending
+- note: gli asset export `Sezione _candidato_*.png` indicano un carousel multi-slide con top bar minimale; va verificato se il codice attuale sta solo riusando uno showcase generico fuori parity
+
+- timestamp: 2026-04-11 18:25
+- task: audit showcase candidato contro export Figma/VRT
+- node: n/a (export `Sezione _candidato_*.png`)
+- viewport: desktop + mobile
+- files: src/components/site/showcase-carousel.tsx, src/pages/public/candidate-showcase-page.tsx, src/pages/public/company-showcase-page.tsx, tests/e2e/public/candidate-showcase-page.spec.ts, tests/e2e/parity/candidate-showcase-page.visual.spec.ts, tests/fixtures/public-copy.ts, __screenshots__/chromium-desktop/parity/candidate-showcase-page.visual.spec.ts/candidate-showcase-page.png, __screenshots__/chromium-mobile/parity/candidate-showcase-page.visual.spec.ts/candidate-showcase-page.png, prd.md, .codexpotter/kb/candidate-showcase.md
+- action: riallineata la route `/candidato` agli export desktop/mobile con shell minima interna al carousel, frecce e dots coerenti, CTA `registrati` confinata all'ultimo slide desktop e rimozione del footer legacy dal frame reale; aggiunte copertura E2E/parity dedicate e baseline VRT rigenerate dopo confronto con gli export e capture reali `artifacts/loop-captures/2026-04-11-candidate-showcase`
+- tests: `npm run lint`; `npm run typecheck`; `npx playwright test tests/e2e/public/candidate-showcase-page.spec.ts`; `npx playwright test tests/e2e/parity/candidate-showcase-page.visual.spec.ts`; `npx playwright test tests/e2e/parity/candidate-showcase-page.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/public/public-routes.spec.ts`; `npm run test:all`
+- note: `ShowcaseCarousel` resta condiviso con `/azienda`, quindi il prossimo audit deve verificare esplicitamente gli export `Sezione _azienda_*.png` e non assumere che la nuova shell candidata basti anche per il percorso azienda
+
+- timestamp: 2026-04-11 18:26
+- task: audit showcase azienda contro export Figma/VRT
+- node: n/a (export `Sezione _azienda_*.png`)
+- viewport: pending discovery
+- files: src/pages/public/company-showcase-page.tsx, src/components/site/showcase-carousel.tsx, tests/e2e/public/company-showcase-page.spec.ts, tests/e2e/parity
+- action: aperto il task successivo dopo la chiusura di `/candidato`; la route `/azienda` usa lo stesso carousel condiviso ma non ha ancora audit dedicato contro gli export desktop/mobile aggiornati
+- tests: pending
+- note: verificare prima la shell reale e l'eventuale drift specifico di copy, CTA finale e navigazione rispetto agli export `Sezione _azienda_*.png`

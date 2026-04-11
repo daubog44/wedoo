@@ -2,6 +2,7 @@ export const publicRoutes = {
   candidateRegistration: "/registrati/candidato/1",
   candidateContacts: "/registrati/candidato/2",
   candidateEducation: "/registrati/candidato/3",
+  candidateShowcase: "/candidato",
   candidateSkills: "/registrati/candidato/5",
   candidateWorkExperience: "/registrati/candidato/4",
   home: "/",
@@ -117,6 +118,12 @@ export const publicCopy = {
     countryLabel: "paese",
     heading: "esperienze lavorative",
     saveCta: "salva",
+  },
+  candidateShowcase: {
+    firstTitle: "Pensato per chi cerca. E fatica a trovare.",
+    lastTitle: "Niente washing, solo coerenza e certificazioni.",
+    registerCta: "registrati",
+    secondTitle: "Matching intelligente ma umano.",
   },
   candidateSkills: {
     closeLabel: "Chiudi competenze",
