@@ -13,9 +13,8 @@ test.describe("candidate work experience visual parity", () => {
       await page.goto(publicRoutes.candidateWorkExperience);
       await waitForWedooPageReady(page);
 
-      await expect(page).toHaveScreenshot("candidate-work-experience-step.png", {
+      await expect(page.getByTestId("candidate-work-experience-step")).toHaveScreenshot("candidate-work-experience-step.png", {
         animations: "disabled",
-        fullPage: true,
       });
     },
   );

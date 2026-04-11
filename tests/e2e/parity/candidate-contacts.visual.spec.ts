@@ -13,9 +13,8 @@ test.describe("candidate contacts visual parity", () => {
     await page.goto(publicRoutes.candidateContacts);
     await waitForWedooPageReady(page);
 
-    await expect(page).toHaveScreenshot("candidate-contacts-step.png", {
+    await expect(page.getByTestId("candidate-contacts-step")).toHaveScreenshot("candidate-contacts-step.png", {
       animations: "disabled",
-      fullPage: true,
     });
   });
 });

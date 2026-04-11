@@ -1,5 +1,5 @@
 import { type ReactNode, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type {
   CandidateEducationDraftEntry,
   CandidateProfileDraft,
@@ -22,6 +22,7 @@ import {
   CandidateWizardTextField,
   CandidateWizardYearSelectField,
 } from "./candidate-wizard-fields";
+import { CandidateWizardStepFrame } from "./candidate-wizard-step-frame";
 
 type CandidateEducationStepProps = {
   draft: CandidateProfileDraft;
@@ -61,12 +62,12 @@ const emptyEducationEntry: CandidateEducationDraftEntry = {
 
 function SummaryItem({ value }: { value: string }) {
   return (
-    <li className="flex items-start gap-2.5 font-wedoo-body text-[1.375rem] leading-tight text-black">
-      <SiteIcon className="mt-0.5 h-6 w-6 shrink-0 text-black" name="close" />
-      <span aria-hidden="true" className="pt-0.5 text-[1.2rem] leading-none">
+    <li className="flex min-w-0 items-start gap-2.5 font-wedoo-body text-[1.125rem] leading-tight text-black md:text-[1.375rem]">
+      <SiteIcon className="mt-0.5 h-5 w-5 shrink-0 text-black md:h-6 md:w-6" name="close" />
+      <span aria-hidden="true" className="pt-0.5 text-[1.1rem] leading-none md:text-[1.2rem]">
         &bull;
       </span>
-      <span>{value}</span>
+      <span className="min-w-0 break-words">{value}</span>
     </li>
   );
 }
@@ -91,7 +92,7 @@ function SectionTitle({
   return (
     <h2
       className={cn(
-        "font-wedoo-accent text-[1.5rem] leading-none text-black md:text-[1.75rem]",
+        "font-wedoo-accent text-[1.375rem] leading-none text-black md:text-[1.75rem]",
         emphasize ? "font-bold" : "font-normal",
       )}
     >
@@ -201,33 +202,21 @@ export function CandidateEducationStep({
   }
 
   return (
-    <main className="bg-brand-page px-4 py-8 sm:px-6 md:py-12">
-      <section
-        className="mx-auto max-w-[650px]"
-        data-node-id="280:1079"
-        data-testid="candidate-education-step"
+    <CandidateWizardStepFrame
+      closeHref="/registrati/candidato/2"
+      closeLabel="Chiudi formazione"
+      dataNodeId="280:1079"
+      panelClassName="md:pb-[58px]"
+      testId="candidate-education-step"
+      title="formazione"
+    >
+      <form
+        className="space-y-8"
+        onSubmit={(event) => {
+          event.preventDefault();
+          navigate(saveTo);
+        }}
       >
-        <div className="bg-brand-mint-50 px-6 py-8 md:px-10 md:py-10">
-          <div className="flex items-start justify-center gap-4">
-            <h1 className="flex-1 text-center font-wedoo-accent text-[2.25rem] font-normal leading-none text-black">
-              formazione
-            </h1>
-            <Link
-              aria-label="Chiudi formazione"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full text-brand-ink transition hover:bg-white/40"
-              to="/registrati/candidato/2"
-            >
-              <SiteIcon className="h-12 w-12" name="close" />
-            </Link>
-          </div>
-
-          <form
-            className="mt-8 space-y-8"
-            onSubmit={(event) => {
-              event.preventDefault();
-              navigate(saveTo);
-            }}
-          >
             <section className="space-y-4">
               <div className="grid gap-4 md:grid-cols-[1fr_16rem] md:items-start">
                 <div className="space-y-3">
@@ -422,9 +411,7 @@ export function CandidateEducationStep({
                 salva
               </button>
             </div>
-          </form>
-        </div>
-      </section>
-    </main>
+      </form>
+    </CandidateWizardStepFrame>
   );
 }

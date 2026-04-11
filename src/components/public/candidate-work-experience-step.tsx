@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type {
   CandidateProfileDraft,
   CandidateWorkExperienceDraftEntry,
@@ -12,12 +12,12 @@ import {
 } from "../../data/candidate-profile";
 import { AppIcon } from "../../lib/icons";
 import { cn } from "../../lib/site-utils";
-import { SiteIcon } from "../site";
 import {
   CandidateWizardFieldLabel,
   CandidateWizardSelectField,
   CandidateWizardYearSelectField,
 } from "./candidate-wizard-fields";
+import { CandidateWizardStepFrame } from "./candidate-wizard-step-frame";
 
 type CandidateWorkExperienceStepProps = {
   draft: CandidateProfileDraft;
@@ -137,34 +137,22 @@ export function CandidateWorkExperienceStep({
   }
 
   return (
-    <main className="bg-brand-page px-4 py-8 sm:px-6 md:py-12">
-      <section
-        className="mx-auto max-w-[650px]"
-        data-node-id="280:860"
-        data-testid="candidate-work-experience-step"
-      >
-        <div className="bg-brand-mint-50 px-6 py-8 md:px-10 md:py-10">
-          <div className="flex items-start justify-center gap-4">
-            <h1 className="flex-1 text-center font-wedoo-accent text-[2.25rem] font-normal leading-none text-black">
-              esperienze lavorative
-            </h1>
-            <Link
-              aria-label="Chiudi esperienze lavorative"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full text-brand-ink transition hover:bg-white/40"
-              to="/registrati/candidato/3"
-            >
-              <SiteIcon className="h-12 w-12" name="close" />
-            </Link>
-          </div>
-
-          <div className="mt-7 rounded-[20px] border border-brand-mint-deep px-5 py-5 md:px-9 md:py-6">
-            <form
-              className="space-y-6 md:space-y-8"
-              onSubmit={(event) => {
-                event.preventDefault();
-                navigate(saveTo);
-              }}
-            >
+    <CandidateWizardStepFrame
+      closeHref="/registrati/candidato/3"
+      closeLabel="Chiudi esperienze lavorative"
+      dataNodeId="280:860"
+      panelClassName="md:pb-[37px]"
+      testId="candidate-work-experience-step"
+      title="esperienze lavorative"
+    >
+      <div className="rounded-[20px] border border-brand-mint-deep px-5 py-5 md:px-[26px] md:py-6">
+        <form
+          className="space-y-6 md:space-y-8"
+          onSubmit={(event) => {
+            event.preventDefault();
+            navigate(saveTo);
+          }}
+        >
               <CandidateWizardSelectField
                 id="candidate-work-experience-country"
                 label="paese"
@@ -276,10 +264,8 @@ export function CandidateWorkExperienceStep({
                   salva
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
+        </form>
+      </div>
+    </CandidateWizardStepFrame>
   );
 }

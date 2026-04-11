@@ -69,3 +69,30 @@
 - action: sostituita la role choice legacy con una composizione dedicata aderente ai frame Figma desktop/mobile, corretto il VRT per fotografare solo il canvas del frame invece del full page legacy e riallineate le baseline desktop/mobile
 - tests: `npx playwright test tests/e2e/public/public-routes.spec.ts`; `npx playwright test tests/e2e/parity/register-page.visual.spec.ts`; `npx playwright test tests/e2e/parity/register-page.visual.spec.ts --update-snapshots`; `npm run test:all`
 - note: capture di audit `artifacts/loop-captures/2026-04-11/1554-register-audit-before` e `artifacts/loop-captures/2026-04-11/1600-register-audit-after`; nessuna PR aperta sul branch corrente
+
+- timestamp: 2026-04-11 17:10
+- task: audit wizard candidato contro Figma/export/VRT
+- node: `281:1207`, `280:1079`, `280:860`, `280:951`
+- viewport: pending discovery
+- files: src/pages/public/candidate-wizard-page.tsx, src/components/public/candidate-*.tsx, tests/e2e/wizards/*.spec.ts, tests/e2e/parity/candidate-*.visual.spec.ts
+- action: aperto il task successivo del PRD dopo commit dedicato alla register page; in corso rilettura del modulo wizard candidato e delle baseline parity prima della discovery Figma aggiornata
+- tests: pending
+- note: verificare se i VRT verdi attuali riflettono ancora i frame Figma dei modal step o stanno congelando drift piu recenti
+
+- timestamp: 2026-04-11 17:19
+- task: audit wizard candidato contro Figma/export/VRT
+- node: `281:1207`, `280:1079`, `280:860`, `280:951`
+- viewport: desktop + mobile
+- files: src/components/public/candidate-contacts-step.tsx, src/components/public/candidate-education-step.tsx, src/components/public/candidate-work-experience-step.tsx, src/components/public/candidate-skills-step.tsx, src/components/public/candidate-wizard-fields.tsx, src/components/public/candidate-wizard-step-frame.tsx, tests/e2e/parity/candidate-*.visual.spec.ts
+- action: discovery Figma confermata sui quattro modal `650px`; rilevato che i VRT precedenti congelavano il pannello menta/full page invece del frame reale e che su mobile il riepilogo contatti poteva tracimare. Estratto un wrapper condiviso `CandidateWizardStepFrame`, riallineati bordo grigio, canvas interno e tipografia responsive del wizard
+- tests: `npx playwright test tests/e2e/parity/candidate-contacts.visual.spec.ts tests/e2e/parity/candidate-education.visual.spec.ts tests/e2e/parity/candidate-work-experience.visual.spec.ts tests/e2e/parity/candidate-skills.visual.spec.ts --update-snapshots`; `npx playwright test tests/e2e/wizards/candidate-contacts.spec.ts tests/e2e/wizards/candidate-education.spec.ts tests/e2e/wizards/candidate-work-experience.spec.ts tests/e2e/wizards/candidate-skills.spec.ts`
+- note: capture finali `artifacts/loop-captures/2026-04-11/1625-candidate-contacts-audit-after`, `1625-candidate-education-audit-after`, `1626-candidate-work-experience-audit-after`, `1626-candidate-skills-audit-after`
+
+- timestamp: 2026-04-11 17:29
+- task: audit wizard candidato contro Figma/export/VRT
+- node: `281:1207`, `280:1079`, `280:860`, `280:951`
+- viewport: desktop + mobile
+- files: prd.md, docs/worklogs/2026-04-11/1521-wedoo-loop.md, .codexpotter/kb/candidate-wizard.md
+- action: audit chiuso con parity e flow dei quattro modal riallineati al frame Figma; confermata assenza di PR aperte sul branch `codex/ralph-loop-bootstrap` verso `daubog44/wedoo`
+- tests: `npm run test:all`
+- note: le baseline parity ora fotografano il frame modal candidato invece del full page legacy

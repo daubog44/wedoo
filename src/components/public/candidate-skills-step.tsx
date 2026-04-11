@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { CandidateProfileDraft } from "../../data/candidate-profile";
 import {
   candidateHardSkillOptions,
   candidateSoftSkillOptions,
 } from "../../data/candidate-profile";
-import { SiteIcon } from "../site";
 import { CandidateWizardSelectField } from "./candidate-wizard-fields";
+import { CandidateWizardStepFrame } from "./candidate-wizard-step-frame";
 
 type CandidateSkillsStepProps = {
   draft: CandidateProfileDraft;
@@ -24,7 +24,7 @@ function formatSkillItem(item: string, index: number, items: readonly string[]) 
 
 function SectionTitle({ children }: { children: string }) {
   return (
-    <h2 className="font-wedoo-accent text-[1.625rem] font-bold leading-none text-black md:text-[1.875rem]">
+    <h2 className="font-wedoo-accent text-[1.5rem] font-bold leading-none text-black md:text-[1.875rem]">
       {children}
     </h2>
   );
@@ -32,7 +32,7 @@ function SectionTitle({ children }: { children: string }) {
 
 function SkillList({ items }: { items: readonly string[] }) {
   return (
-    <ul className="list-disc space-y-1 pl-8 font-wedoo-body text-[1.375rem] leading-tight text-black">
+    <ul className="list-disc space-y-1 pl-6 font-wedoo-body text-[1.125rem] leading-tight text-black md:pl-8 md:text-[1.375rem]">
       {items.map((item, index) => (
         <li key={item}>{formatSkillItem(item, index, items)}</li>
       ))}
@@ -65,70 +65,55 @@ export function CandidateSkillsStep({
   }
 
   return (
-    <main className="bg-brand-page px-4 py-8 sm:px-6 md:py-12">
-      <section
-        className="mx-auto max-w-[650px]"
-        data-node-id="280:951"
-        data-testid="candidate-skills-step"
-      >
-        <div className="bg-brand-mint-50 px-6 py-8 md:px-10 md:py-10">
-          <div className="flex items-start justify-center gap-4">
-            <h1 className="flex-1 text-center font-wedoo-accent text-[2.25rem] font-normal leading-none text-black">
-              competenze
-            </h1>
-            <Link
-              aria-label="Chiudi competenze"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full text-brand-ink transition hover:bg-white/40"
-              to="/registrati/candidato/4"
+    <CandidateWizardStepFrame
+      closeHref="/registrati/candidato/4"
+      closeLabel="Chiudi competenze"
+      dataNodeId="280:951"
+      testId="candidate-skills-step"
+      title="competenze"
+    >
+      <div className="rounded-[20px] border border-brand-mint-deep px-5 py-5 md:px-[26px] md:py-[26px]">
+        <form
+          className="space-y-8"
+          onSubmit={(event) => {
+            event.preventDefault();
+            navigate(saveTo);
+          }}
+        >
+          <section className="space-y-5">
+            <SectionTitle>soft skills</SectionTitle>
+            <SkillList items={draft.skills.softSkills} />
+            <CandidateWizardSelectField
+              id="candidate-skills-soft"
+              label="soft skills"
+              onChange={(value) => updateField("softSkill", value)}
+              options={candidateSoftSkillOptions}
+              value={formState.softSkill}
+            />
+          </section>
+
+          <section className="space-y-5">
+            <SectionTitle>hard skills</SectionTitle>
+            <SkillList items={draft.skills.hardSkills} />
+            <CandidateWizardSelectField
+              id="candidate-skills-hard"
+              label="hard skills"
+              onChange={(value) => updateField("hardSkill", value)}
+              options={candidateHardSkillOptions}
+              value={formState.hardSkill}
+            />
+          </section>
+
+          <div className="flex justify-stretch pt-1 md:justify-end">
+            <button
+              className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[8px] bg-brand-mint-deep px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-brand-ink transition hover:bg-brand-mint md:w-[191px]"
+              type="submit"
             >
-              <SiteIcon className="h-12 w-12" name="close" />
-            </Link>
+              salva
+            </button>
           </div>
-
-          <div className="mt-7 rounded-[20px] border border-brand-mint-deep px-6 py-6 md:px-[26px] md:py-[26px]">
-            <form
-              className="space-y-8"
-              onSubmit={(event) => {
-                event.preventDefault();
-                navigate(saveTo);
-              }}
-            >
-              <section className="space-y-5">
-                <SectionTitle>soft skills</SectionTitle>
-                <SkillList items={draft.skills.softSkills} />
-                <CandidateWizardSelectField
-                  id="candidate-skills-soft"
-                  label="soft skills"
-                  onChange={(value) => updateField("softSkill", value)}
-                  options={candidateSoftSkillOptions}
-                  value={formState.softSkill}
-                />
-              </section>
-
-              <section className="space-y-5">
-                <SectionTitle>hard skills</SectionTitle>
-                <SkillList items={draft.skills.hardSkills} />
-                <CandidateWizardSelectField
-                  id="candidate-skills-hard"
-                  label="hard skills"
-                  onChange={(value) => updateField("hardSkill", value)}
-                  options={candidateHardSkillOptions}
-                  value={formState.hardSkill}
-                />
-              </section>
-
-              <div className="flex justify-stretch pt-1 md:justify-end">
-                <button
-                  className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[8px] bg-brand-mint-deep px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-brand-ink transition hover:bg-brand-mint md:w-[191px]"
-                  type="submit"
-                >
-                  salva
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
+        </form>
+      </div>
+    </CandidateWizardStepFrame>
   );
 }

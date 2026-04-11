@@ -13,9 +13,8 @@ test.describe("candidate education visual parity", () => {
     await page.goto(publicRoutes.candidateEducation);
     await waitForWedooPageReady(page);
 
-    await expect(page).toHaveScreenshot("candidate-education-step.png", {
+    await expect(page.getByTestId("candidate-education-step")).toHaveScreenshot("candidate-education-step.png", {
       animations: "disabled",
-      fullPage: true,
     });
   });
 });
