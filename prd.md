@@ -55,9 +55,11 @@ Regole:
 - [x] [TECH][node=n/a][route=n/a][test=scripts/prd-node-report.mjs] Creare un report automatico dei `node ID` tracciati nel PRD e integrarlo nel bootstrap del loop.
 - [x] [TECH][node=n/a][route=n/a][test=docs/vrt-policy.md] Definire una policy esplicita su dove salvare le baseline VRT e quando aggiornarle.
 - [x] [TECH][node=n/a][route=n/a][test=.github/workflows/ci.yml] Pubblicare in CI gli artifact di Playwright e dei diff visuali.
+- [x] [TECH][node=n/a][route=n/a][test=scripts/potter-yolo.ps1] Separare readiness e quality gate del Ralph bootstrap, registrando i failure di `npm run test:all` nel worklog senza bloccare l'avvio del loop.
 
 ## Audit Design Drift Attuale
 
+- [x] [TEST][node=n/a][route=/password-dimenticata,/assistenza-clienti][test=tests/e2e/parity/password-recovery-flow.visual.spec.ts] Investigare e riallineare i failure parity che oggi bloccano il quality gate del bootstrap, coprendo i frame `657:658`, `660:725` e `660:774` e correggendo UI o baseline solo dopo confronto con Figma, capture reali e diff Playwright.
 - [x] [FRAME][node=280:1000][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-preferences.spec.ts] Implementare `pop up preferenze di lavoro` come step candidato riusabile, introducendo un contratto strutturato per modalita, localita, tipologia di azienda, orari e contratto e rimuovendo gli hardcode corrispondenti dalla preview CV.
 - [x] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-onboarding.test.ts] Definire `CandidateOnboardingDraft` per il flow pubblico candidato, coprendo registrazione account, localita, SDG e mansioni prima dei modal profilo.
 - [x] [FRAME][node=273:1313][route=/registrati/candidato/1][test=tests/e2e/public/public-routes.spec.ts] Auditare e riallineare il primo step pubblico candidato contro i frame Figma desktop `273:1313` e mobile `234:590`, correggendo layout, campi, consensi e CTA `continua`.

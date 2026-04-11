@@ -11,8 +11,8 @@ Rules:
 
 ## Active
 
-| Status | Route | Node / Frames | Viewport | Visual Source | Capture Before | Capture After | Capture Target | Finding | Next Action |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Status | Route | Node / Frames | Viewport | Visual Source | Capture Before | Capture After | Capture Target | Finding | Evidence | Next Action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 ## Update Policy
 
