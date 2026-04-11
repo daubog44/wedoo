@@ -12,12 +12,29 @@ const showcaseTheme = {
     bubbleText: "text-brand-ink",
     button:
       "bg-brand-mint text-brand-ink shadow-[0_20px_45px_-24px_rgba(105,242,196,0.9)] hover:bg-brand-mint-deep hover:text-white",
+    mobileBubble: "bg-[#69f2c4]",
   },
   company: {
     background: "viola.png",
     bubbleText: "text-white",
     button:
       "bg-brand-violet text-white shadow-[0_20px_45px_-24px_rgba(116,71,225,0.9)] hover:bg-brand-violet-600",
+    mobileBubble: "bg-[linear-gradient(135deg,#6f45e6_0%,#7d54ea_100%)]",
+  },
+} as const;
+
+const showcaseLayout = {
+  candidate: {
+    desktopTitleText: "text-[52px] leading-[1.08]",
+    desktopTitleWidth: "max-w-[450px]",
+    mobileTitle: "max-w-[320px] text-[34px] leading-[1.1]",
+    mobileBubbleHeight: "h-[222px]",
+  },
+  company: {
+    desktopTitleText: "text-[46px] leading-[1.12]",
+    desktopTitleWidth: "max-w-[590px]",
+    mobileTitle: "max-w-[336px] text-[30px] leading-[1.12]",
+    mobileBubbleHeight: "h-[210px]",
   },
 } as const;
 
@@ -63,12 +80,20 @@ function ShowcaseBubble({
         className,
       )}
     >
-      <img
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-fill"
-        src={assetPath(showcaseTheme[role].background)}
-      />
+      {mobile ? (
+        <div
+          aria-hidden="true"
+          className={cn("absolute inset-0", showcaseTheme[role].mobileBubble)}
+          style={{ borderRadius: "36% 36% 42% 42% / 32% 32% 46% 46%" }}
+        />
+      ) : (
+        <img
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-fill"
+          src={assetPath(showcaseTheme[role].background)}
+        />
+      )}
       <p
         className={cn(
           "relative z-10 px-10 font-wedoo-heading leading-[1.22]",
@@ -153,8 +178,13 @@ function ShowcaseDesktopView({
         <ShowcaseTopBar />
 
         <div className="mx-auto mt-8 max-w-[1180px]">
-          <div className="ml-auto w-full max-w-[450px]">
-            <h1 className="text-right font-wedoo-heading text-[52px] leading-[1.08] text-brand-ink">
+          <div className={cn("ml-auto w-full", showcaseLayout[role].desktopTitleWidth)}>
+            <h1
+              className={cn(
+                "text-right font-wedoo-heading text-brand-ink",
+                showcaseLayout[role].desktopTitleText,
+              )}
+            >
               {activeSlide.title.split("\n").map((line) => (
                 <span className="block" key={line}>
                   {line}
@@ -247,7 +277,12 @@ function ShowcaseMobileView({
       <div className="mx-auto w-full max-w-[390px] px-2 pb-10 pt-6">
         <ShowcaseTopBar />
 
-        <h1 className="mt-8 text-center font-wedoo-heading text-[34px] leading-[1.1] text-brand-ink">
+        <h1
+          className={cn(
+            "mx-auto mt-8 text-center font-wedoo-heading text-brand-ink",
+            showcaseLayout[role].mobileTitle,
+          )}
+        >
           {activeSlide.title.split("\n").map((line) => (
             <span className="block" key={line}>
               {line}
@@ -256,7 +291,7 @@ function ShowcaseMobileView({
         </h1>
 
         <ShowcaseBubble
-          className="mt-7 h-[238px] w-full"
+          className={cn("mt-7 w-full", showcaseLayout[role].mobileBubbleHeight)}
           description={activeSlide.description}
           mobile
           role={role}

@@ -5,6 +5,8 @@ export const publicRoutes = {
   candidateShowcase: "/candidato",
   candidateSkills: "/registrati/candidato/5",
   candidateWorkExperience: "/registrati/candidato/4",
+  companyRegistration: "/registrati/azienda/1",
+  companyShowcase: "/azienda",
   home: "/",
   info: "/info",
   login: "/accedi",
@@ -124,6 +126,12 @@ export const publicCopy = {
     lastTitle: "Niente washing, solo coerenza e certificazioni.",
     registerCta: "registrati",
     secondTitle: "Matching intelligente ma umano.",
+  },
+  companyShowcase: {
+    firstTitle: "Target ultra preciso: Gen Z orientati alla sostenibilita",
+    lastTitle: "Contenuti gratuiti per la versione base",
+    registerCta: "registrati",
+    secondTitle: "Verifica degli annunci e trasparenza",
   },
   candidateSkills: {
     closeLabel: "Chiudi competenze",

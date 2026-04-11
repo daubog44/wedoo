@@ -150,3 +150,21 @@
 - action: aperto il task successivo dopo la chiusura di `/candidato`; la route `/azienda` usa lo stesso carousel condiviso ma non ha ancora audit dedicato contro gli export desktop/mobile aggiornati
 - tests: pending
 - note: verificare prima la shell reale e l'eventuale drift specifico di copy, CTA finale e navigazione rispetto agli export `Sezione _azienda_*.png`
+
+- timestamp: 2026-04-11 18:40
+- task: audit showcase azienda contro export Figma/VRT
+- node: n/a (export `Sezione _azienda_*.png`)
+- viewport: desktop + mobile
+- files: src/components/site/showcase-carousel.tsx, tests/fixtures/public-copy.ts, tests/e2e/public/company-showcase-page.spec.ts, tests/e2e/parity/company-showcase-page.visual.spec.ts, __screenshots__/chromium-desktop/parity/company-showcase-page.visual.spec.ts/company-showcase-page.png, __screenshots__/chromium-mobile/parity/company-showcase-page.visual.spec.ts/company-showcase-page.png, __screenshots__/chromium-mobile/parity/candidate-showcase-page.visual.spec.ts/candidate-showcase-page.png, prd.md, .codexpotter/kb/company-showcase.md
+- action: verificati export desktop `Sezione _azienda_-6/-11.png` e mobile `Sezione _azienda_.png`, riallineato il carousel condiviso con titolo responsive per il percorso azienda e bubble mobile piu vicina al design vivo, aggiunte copertura E2E/parity dedicate per `/azienda` e rigenerate le baseline VRT di `/azienda` piu la baseline mobile di `/candidato` resa piu fedele dopo l'update shared
+- tests: `npm run lint`; `npm run typecheck`; `npx playwright test tests/e2e/public/candidate-showcase-page.spec.ts tests/e2e/public/company-showcase-page.spec.ts tests/e2e/parity/candidate-showcase-page.visual.spec.ts tests/e2e/parity/company-showcase-page.visual.spec.ts`; `npx playwright test tests/e2e/parity/candidate-showcase-page.visual.spec.ts tests/e2e/parity/company-showcase-page.visual.spec.ts --update-snapshots`; `npm run test:all`
+- note: capture di review `artifacts/loop-captures/2026-04-11-company-showcase` e `artifacts/loop-captures/2026-04-11-candidate-showcase`; lo stato finale con CTA desktop e confermato contro l'export `Sezione _azienda_-11.png`
+
+- timestamp: 2026-04-11 18:41
+- task: audit knowledge hub pubblico contro design vivo
+- node: n/a
+- viewport: pending discovery
+- files: src/components/public/knowledge-hub-page.tsx, src/pages/public/articles-page.tsx, src/pages/public/podcasts-page.tsx, tests/e2e/public/knowledge-hub-page.spec.ts, tests/e2e/parity
+- action: aperto il task successivo dopo la chiusura di `/azienda`; la shared page `KnowledgeHubPage` alimenta sia `/articoli` sia `/podcast` ma non ha ancora audit Figma-first ne copertura E2E dedicata
+- tests: pending
+- note: verificare prima se esistono frame/export contenuti coerenti e se la route reale usa ancora una shell legacy non allineata al design vivo
