@@ -38,4 +38,19 @@ test.describe("password recovery visual parity", () => {
       animations: "disabled",
     });
   });
+
+  test("keeps the customer support desktop shell coherent on the default desktop viewport", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "chromium-desktop", "desktop-only responsive regression check");
+
+    await page.goto(publicRoutes.support);
+    await waitForWedooPageReady(page);
+
+    const supportLayout = page.locator('[data-customer-support-layout="desktop"]');
+
+    await expect(supportLayout).toHaveScreenshot("customer-support-page-default-desktop.png", {
+      animations: "disabled",
+    });
+  });
 });

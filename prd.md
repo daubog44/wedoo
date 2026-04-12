@@ -59,6 +59,7 @@ Regole:
 
 ## Audit Design Drift Attuale
 
+- [x] [FRAME][node=660:725][route=/assistenza-clienti][test=tests/e2e/parity/password-recovery-flow.visual.spec.ts] Riaprire e riallineare la route `assistenza clienti` contro il frame Figma desktop `660:725` e l'inferenza mobile `660:1217`, correggendo il canvas desktop oggi troppo basso che clipppa copy e CTA fuori shape nonostante la parity risulti verde.
 - [x] [TEST][node=n/a][route=/password-dimenticata,/assistenza-clienti][test=tests/e2e/parity/password-recovery-flow.visual.spec.ts] Investigare e riallineare i failure parity che oggi bloccano il quality gate del bootstrap, coprendo i frame `657:658`, `660:725` e `660:774` e correggendo UI o baseline solo dopo confronto con Figma, capture reali e diff Playwright.
 - [x] [FRAME][node=280:1000][route=/registrati/candidato/:stepIndex][test=tests/e2e/wizards/candidate-work-preferences.spec.ts] Implementare `pop up preferenze di lavoro` come step candidato riusabile, introducendo un contratto strutturato per modalita, localita, tipologia di azienda, orari e contratto e rimuovendo gli hardcode corrispondenti dalla preview CV.
 - [x] [DATA][node=n/a][route=/registrati/candidato/:stepIndex][test=tests/integration/candidate-onboarding.test.ts] Definire `CandidateOnboardingDraft` per il flow pubblico candidato, coprendo registrazione account, localita, SDG e mansioni prima dei modal profilo.
