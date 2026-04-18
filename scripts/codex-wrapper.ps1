@@ -41,6 +41,10 @@ sandbox_mode = "danger-full-access"
 command = "npx"
 args = ["@playwright/mcp@latest", "--headless", "--isolated"]
 
+[mcp_servers.reactbits]
+command = "npx"
+args = ["reactbits-dev-mcp-server"]
+
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
 

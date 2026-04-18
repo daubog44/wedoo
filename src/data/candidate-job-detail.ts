@@ -68,9 +68,11 @@ export function getCandidateJobDetailResponse(
     editorToolbarLabel: "formattazione",
     footnotes: presentation?.footnotes ?? buildFallbackFootnotes(),
     id: listing.id,
+    mobileDockLabel: "Navigazione rapida candidato",
     requirementsLabel: detail.qualifications.requirementsLabel,
     sections: {
-      companyBody: presentation?.companyBody ?? "",
+      companyBody:
+        presentation?.companyBody ?? detail.companyOverview.paragraphs.join(" "),
       companyTitle: "Dettagli azienda",
       descriptionBody: detail.description,
       descriptionTitle: "Job description:",

@@ -41,14 +41,22 @@ export function TopLogoBar({
   variant?: LogoVariant;
 }) {
   return (
-    <header className={cn("bg-white py-4 md:py-[1%]", className)}>
-      <div className="flex px-4 md:px-0 md:ml-[2%] items-center">
+    <header className={cn("section-shell pt-5", className)}>
+      <div className="flex items-center justify-between gap-4 rounded-[1.2rem] border border-black/6 bg-white/86 px-4 py-3 shadow-[0_16px_40px_-34px_rgba(16,25,36,0.18)]">
         <WedooLogo
           imageClassName={
-            variant === "wordmark" ? "h-10 md:h-[7vh]" : "h-12 md:h-[7vh]"
+            variant === "wordmark" ? "h-9 md:h-[46px]" : "h-10 md:h-[50px]"
           }
           variant={variant}
         />
+        <div className="hidden items-center gap-3 md:flex">
+          <p className="font-wedoo-accent text-[0.8rem] uppercase tracking-[0.16em] text-slate-500">
+            prototype Wedoo
+          </p>
+          <span className="rounded-full border border-brand-violet/16 bg-brand-violet/6 px-3 py-1 font-wedoo-accent text-[0.78rem] text-brand-violet-700">
+            lavoro + impatto
+          </span>
+        </div>
       </div>
     </header>
   );
@@ -57,39 +65,50 @@ export function TopLogoBar({
 export function SiteFooter({ className }: { className?: string }) {
   return (
     <footer
-      className={cn("mt-12 bg-brand-violet-deep px-4 py-6 text-white", className)}
+      className={cn("mt-10 px-4 pb-8 pt-5 text-white", className)}
     >
-      <div className="mx-auto max-w-7xl text-center">
-        <div className="mb-4 flex justify-center">
-          <img
-            alt="Wedoo"
-            className="h-[70px] w-auto object-contain"
-            src={assetPath("scritta-wedoo.png")}
-          />
-        </div>
-        <div className="space-y-1 text-sm">
-          <p>&copy; 2025 Wedoo - Tutti i diritti riservati</p>
-          <p>Wedoo è un progetto in fase di sviluppo.</p>
-          <p>Contatti: help@wedoo.com</p>
-          <p>
-            {documents.map((document, index) => (
-              <span key={document.file}>
-                <a
-                  className="transition hover:text-brand-lavender-300"
-                  href={documentPath(document.file)}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {document.label}
-                </a>
-                {index < documents.length - 1 ? " | " : ""}
-              </span>
-            ))}
-          </p>
-          <p>Alcune funzionalità e contenuti sono a scopo dimostrativo.</p>
-          <p>
-            Le aziende e le opportunità presenti sono a puro scopo dimostrativo.
-          </p>
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] border border-brand-violet-900/15 bg-brand-violet-deep px-5 py-5 shadow-[0_24px_62px_-42px_rgba(32,18,70,0.38)] md:px-6 md:py-6">
+        <div className="grid gap-5 md:grid-cols-[auto_1fr] md:items-start md:gap-8">
+          <div className="space-y-3 text-center md:text-left">
+            <img
+              alt="Wedoo"
+              className="mx-auto h-[42px] w-auto object-contain md:mx-0"
+              src={assetPath("scritta-wedoo.png")}
+            />
+            <p className="max-w-[18rem] font-wedoo-accent text-[0.84rem] leading-[1.45] text-white/70">
+              Prototipo editoriale per leggere meglio opportunita, impatto e matching.
+            </p>
+          </div>
+
+          <div className="grid gap-3 text-center md:text-left">
+            <div className="grid gap-2 text-[0.82rem] text-white/76 md:grid-cols-[1fr_auto] md:items-start">
+              <div className="space-y-1.5">
+                <p>&copy; 2025 Wedoo - Tutti i diritti riservati</p>
+                <p>Wedoo e un progetto in fase di sviluppo.</p>
+                <p>Contatti: help@wedoo.com</p>
+              </div>
+              <p className="text-[0.8rem]">
+                {documents.map((document, index) => (
+                  <span key={document.file}>
+                    <a
+                      className="transition hover:text-brand-lavender-300"
+                      href={documentPath(document.file)}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {document.label}
+                    </a>
+                    {index < documents.length - 1 ? " | " : ""}
+                  </span>
+                ))}
+              </p>
+            </div>
+
+            <div className="grid gap-1 text-[0.76rem] text-white/58 md:grid-cols-2">
+              <p>Alcune funzionalita e contenuti sono a scopo dimostrativo.</p>
+              <p>Le aziende e le opportunita presenti sono a puro scopo dimostrativo.</p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

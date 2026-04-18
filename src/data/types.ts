@@ -91,6 +91,7 @@ export type CandidateJobDetailResponse = {
   editorToolbarLabel: string
   footnotes: readonly string[]
   id: string
+  mobileDockLabel: string
   requirementsLabel: string
   sections: {
     companyBody: string

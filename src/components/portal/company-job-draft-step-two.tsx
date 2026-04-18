@@ -11,7 +11,6 @@ import {
   JobDraftFieldLabel,
   JobDraftHintText,
   JobDraftLanguageChip,
-  JobDraftMobileHero,
   JobDraftSelectField,
 } from "./company-job-draft-fields";
 
@@ -35,8 +34,6 @@ const draftStepTwoHints = {
     "specificare il tipo di certificazione, iniziative sostenibili particolari",
 } as const;
 
-const desktopPct = (value: number) => `${(value / 1440) * 100}%`;
-
 function createInitialFormState(draft: JobDraft): CompanyJobDraftStepTwoState {
   return {
     contractTypeId: draft.role.contractTypeId,
@@ -49,17 +46,20 @@ function createInitialFormState(draft: JobDraft): CompanyJobDraftStepTwoState {
 
 function JobDraftActionButton({
   children,
+  fullWidth = false,
   onClick,
   tone = "outline",
 }: {
   children: string;
+  fullWidth?: boolean;
   onClick?: () => void;
   tone?: "outline" | "primary";
 }) {
   return (
     <button
       className={cn(
-        "font-wedoo-accent inline-flex h-[40px] items-center justify-center rounded-[8px] border-2 px-3 text-[24px] leading-none transition",
+        "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border-2 text-[24px] leading-none transition",
+        fullWidth ? "h-[52px] w-full px-3" : "h-[40px] px-3",
         tone === "primary"
           ? "border-brand-violet bg-brand-violet text-[var(--wedoo-white-soft)] hover:bg-brand-violet-600"
           : "border-brand-violet bg-transparent text-brand-ink hover:bg-brand-violet/8",
@@ -74,12 +74,14 @@ function JobDraftActionButton({
 
 function JobDraftUploadButton({
   compact = false,
+  fullWidth = false,
   id,
   onFileChange,
   resetKey,
   selectedFileName,
 }: {
   compact?: boolean;
+  fullWidth?: boolean;
   id: string;
   onFileChange: (fileName: string) => void;
   resetKey: number;
@@ -90,7 +92,13 @@ function JobDraftUploadButton({
       <label
         className={cn(
           "inline-flex cursor-pointer items-center rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink/35 transition hover:border-brand-violet",
-          compact ? "h-[44px] w-[152px] gap-2 px-3 text-[18px]" : "h-[37px] w-[178px] gap-2 px-3 text-[22px]",
+          compact
+            ? fullWidth
+              ? "h-[44px] w-full gap-2 px-3 text-[18px]"
+              : "h-[44px] w-[152px] gap-2 px-3 text-[18px]"
+            : fullWidth
+              ? "h-[37px] w-full gap-2 px-3 text-[22px]"
+              : "h-[37px] w-[178px] gap-2 px-3 text-[22px]",
         )}
         htmlFor={id}
       >
@@ -268,24 +276,24 @@ function JobDraftDesktopStepTwoView({
   return (
     <section className="hidden min-[1024px]:block" data-job-draft-layout="desktop">
       <div
-        className="relative mx-auto h-[1024px] w-full max-w-[1440px]"
+        className="relative mx-auto min-h-[1024px] w-full max-w-[1440px]"
         data-node-id="259:1050"
         data-testid="company-job-draft-step-2"
       >
         <img
           alt=""
-          className="pointer-events-none absolute top-[15px] h-[995px] object-cover"
+          className="pointer-events-none absolute top-[15px] h-[995px] object-cover object-[54%_center]"
           src={assetPath("formaziende5.png")}
-          style={{ left: desktopPct(20), width: desktopPct(1400) }}
+          style={{ left: "clamp(18px,1.39vw,20px)", width: "clamp(1260px,97.22vw,1400px)" }}
         />
 
-        <div className="absolute top-[50px]" style={{ left: desktopPct(1314) }}>
+        <div className="absolute right-[69px] top-[50px]">
           <JobDraftLanguageChip />
         </div>
 
         <h1
-          className="font-wedoo-heading absolute text-[48px] leading-[1.04] text-brand-ink"
-          style={{ left: desktopPct(149), top: 162, width: desktopPct(432) }}
+          className="font-wedoo-heading absolute w-[clamp(420px,36vw,520px)] whitespace-nowrap text-[clamp(36px,2.8vw,48px)] leading-[0.98] text-brand-ink"
+          style={{ left: "clamp(104px,10.35vw,149px)", top: 162 }}
         >
           Crea il tuo annuncio
         </h1>
@@ -296,10 +304,10 @@ function JobDraftDesktopStepTwoView({
             event.preventDefault();
             onSubmit();
           }}
-          style={{ left: desktopPct(80), minHeight: 479, top: 273, width: desktopPct(571) }}
+          style={{ left: "clamp(62px,5.56vw,80px)", minHeight: 479, top: 273, width: "clamp(520px,39.65vw,571px)" }}
         >
           <div className="space-y-5">
-            <div className="grid grid-cols-[238px_238px] gap-12">
+            <div className="grid grid-cols-2 gap-8">
               <JobDraftSelectField
                 dataNodeId="259:1081"
                 id="desktop-company-job-draft-contract"
@@ -367,25 +375,25 @@ function JobDraftDesktopStepTwoView({
         </form>
 
         <div
-          className="absolute bg-[#d9d9d9] px-4 py-10"
-          style={{ height: 477, left: desktopPct(651), top: 223, width: desktopPct(451) }}
+          className="absolute bg-[#d9d9d9] px-4 py-10 shadow-[0_12px_32px_-22px_rgba(33,37,41,0.45)]"
+          style={{ height: 477, left: "clamp(560px,45.2vw,651px)", top: 223, width: "clamp(360px,31.32vw,451px)" }}
         >
           <div className="space-y-8">
             <div className="space-y-4">
-              <JobDraftHintText className="max-w-[315px]">
+              <JobDraftHintText className="max-w-[315px] text-[17px] leading-[1.08]">
                 {draftStepTwoHints.contractExamples}
               </JobDraftHintText>
-              <JobDraftHintText className="max-w-[413px]">
+              <JobDraftHintText className="max-w-[413px] text-[17px] leading-[1.08]">
                 {draftStepTwoHints.contractHours}
               </JobDraftHintText>
             </div>
-            <JobDraftHintText className="max-w-[357px]">
+            <JobDraftHintText className="max-w-[357px] text-[17px] leading-[1.08]">
               {draftStepTwoHints.modeExamples}
             </JobDraftHintText>
-            <JobDraftHintText className="max-w-[413px]">
+            <JobDraftHintText className="max-w-[413px] text-[17px] leading-[1.08]">
               {draftStepTwoHints.sdgGuide}
             </JobDraftHintText>
-            <JobDraftHintText className="max-w-[413px]">
+            <JobDraftHintText className="max-w-[413px] text-[17px] leading-[1.08]">
               {draftStepTwoHints.sustainabilityProof}
             </JobDraftHintText>
           </div>
@@ -428,27 +436,34 @@ function JobDraftMobileStepTwoView({
   return (
     <section className="min-[1024px]:hidden" data-job-draft-layout="mobile">
       <div
-        className="mx-auto max-w-[390px] px-4 pb-8 pt-4"
-        data-node-id="259:1050"
+        className="mx-auto min-h-[949px] w-full max-w-[360px] px-[18px] pb-7 pt-7"
+        data-node-id="259:1162"
         data-testid="company-job-draft-step-2"
       >
-        <JobDraftMobileHero
-          assetName="formaziende5.png"
-          heading="Crea il tuo annuncio"
-          mediaTestId="company-job-draft-step-2-mobile-hero-media"
-        />
+        <div className="relative min-h-[88px]">
+          <div className="absolute right-[6px] top-[1px]">
+            <JobDraftLanguageChip compact />
+          </div>
+          <img
+            alt="Wedoo"
+            className="absolute left-1/2 top-[1px] h-[49px] w-[184px] -translate-x-1/2 object-contain"
+            src={assetPath("Frame-2@2x.png")}
+          />
+          <h1 className="font-wedoo-heading absolute left-1/2 top-[50px] w-[342px] -translate-x-1/2 text-center text-[36px] leading-none text-brand-ink">
+            Crea il tuo annuncio
+          </h1>
+        </div>
 
         <form
-          className="-mt-4 rounded-[28px] border border-brand-violet-400 bg-[rgba(255,255,255,0.96)] px-5 pb-5 pt-6 shadow-[0_18px_48px_-28px_rgba(42,26,81,0.35)]"
+          className="mt-[29px] rounded-[10px] border border-brand-violet-400 bg-[rgba(255,255,255,0.98)] px-[12px] pb-5 pt-[18px]"
           onSubmit={(event) => {
             event.preventDefault();
             onSubmit();
           }}
         >
-          <div className="space-y-4">
-            <div className="grid gap-4">
+          <div className="space-y-[12px]">
+            <div className="grid gap-[10px]">
               <JobDraftSelectField
-                compact
                 dataNodeId="259:1081"
                 id="mobile-company-job-draft-contract"
                 label="tipologia di contratto"
@@ -457,7 +472,6 @@ function JobDraftMobileStepTwoView({
                 value={formState.contractTypeId}
               />
               <JobDraftSelectField
-                compact
                 dataNodeId="259:1127"
                 id="mobile-company-job-draft-hours"
                 label="orari di lavoro"
@@ -467,11 +481,7 @@ function JobDraftMobileStepTwoView({
               />
             </div>
 
-            <JobDraftHintText compact>{draftStepTwoHints.contractExamples}</JobDraftHintText>
-            <JobDraftHintText compact>{draftStepTwoHints.contractHours}</JobDraftHintText>
-
             <JobDraftSelectField
-              compact
               dataNodeId="259:1133"
               id="mobile-company-job-draft-mode"
               label={"modalit\u00E0 di lavoro"}
@@ -479,10 +489,8 @@ function JobDraftMobileStepTwoView({
               options={draft.catalogs.workModes}
               value={formState.workModeId}
             />
-            <JobDraftHintText compact>{draftStepTwoHints.modeExamples}</JobDraftHintText>
 
             <JobDraftSdgField
-              compact
               dataNodeId="259:1139"
               id="mobile-company-job-draft-sdg"
               label="SDGs di riferimento"
@@ -491,36 +499,33 @@ function JobDraftMobileStepTwoView({
               options={draft.catalogs.sdgs}
               selectedIds={formState.selectedSdgIds}
             />
-            <JobDraftHintText compact>{draftStepTwoHints.sdgGuide}</JobDraftHintText>
 
-            <div className="space-y-2">
+            <div className="space-y-[11px]">
               <JobDraftFieldLabel
-                compact
                 htmlFor={uploadId}
                 label={
                   "carica le tue certificazioni sostenibili o, in assenza, il report di sostenibilit\u00E0"
                 }
               />
               <JobDraftUploadButton
-                compact
+                fullWidth
                 id={uploadId}
                 onFileChange={onFileChange}
                 resetKey={uploadResetKey}
                 selectedFileName={formState.selectedFileName}
               />
             </div>
-            <JobDraftHintText compact>{draftStepTwoHints.sustainabilityProof}</JobDraftHintText>
 
-            <div className="grid grid-cols-2 gap-3 pt-1">
-              <JobDraftActionButton onClick={onReset}>cancella</JobDraftActionButton>
-              <JobDraftActionButton onClick={onSaveDraft}>bozza</JobDraftActionButton>
-              <JobDraftActionButton onClick={onPreview}>anteprima</JobDraftActionButton>
+            <div className="grid gap-[10px] pt-2">
               <button
-                className="font-wedoo-accent inline-flex h-[40px] items-center justify-center rounded-[8px] bg-brand-violet text-[22px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
+                className="font-wedoo-accent inline-flex h-[52px] w-full items-center justify-center rounded-[8px] bg-brand-violet text-[24px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
                 type="submit"
               >
                 invia
               </button>
+              <JobDraftActionButton fullWidth onClick={onPreview}>anteprima</JobDraftActionButton>
+              <JobDraftActionButton fullWidth onClick={onSaveDraft}>salva in bozza</JobDraftActionButton>
+              <JobDraftActionButton fullWidth onClick={onReset}>cancella</JobDraftActionButton>
             </div>
           </div>
         </form>

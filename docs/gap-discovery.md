@@ -20,6 +20,13 @@ If `prd.md` is empty:
 - inspect at most 3 plausible surfaces
 - if no hard evidence appears, stop
 
+If the user explicitly asks to continue across multiple routes:
+
+- you may keep the sweep open long enough to map one coherent route family
+- add at most 3 new evidence-backed route tasks from that family
+- then move straight into implementation of that batch
+- do not jump between unrelated public, portal candidate, and portal company surfaces in the same batch
+
 Good sweep candidates:
 
 - route already touched this round
@@ -69,3 +76,8 @@ After adding one new evidence-backed task to an empty backlog:
 - stop round
 
 Do not implement same round.
+
+Override:
+
+- if the user explicitly requested broader continuation or "do all routes", you may add and execute a batch of up to 3 related route tasks in the same surface family
+- once that batch is closed, stop and reassess before opening the next family

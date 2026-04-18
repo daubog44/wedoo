@@ -5,9 +5,13 @@ import { assetPath } from "../../lib/site-utils";
 import { AppImage } from "../media/app-image";
 import { SiteIcon } from "../site/site-icon";
 
-function CompanyDashboardSdgRow({ ids }: { ids: CompanyDashboardCandidate["sdgIds"] }) {
+function CompanyDashboardSdgRow({
+  ids,
+}: {
+  ids: CompanyDashboardCandidate["sdgIds"];
+}) {
   return (
-    <div className="mt-5 flex flex-wrap justify-center gap-3 md:gap-4">
+    <div className="mt-4 flex flex-wrap gap-2.5">
       {ids.map((id) => {
         const item = sdgs[id];
         if (!item) {
@@ -16,7 +20,7 @@ function CompanyDashboardSdgRow({ ids }: { ids: CompanyDashboardCandidate["sdgId
 
         return (
           <div
-            className="flex h-[58px] w-[58px] items-center justify-center bg-brand-page md:h-[78px] md:w-[78px]"
+            className="flex h-10 w-10 items-center justify-center rounded-[0.85rem] border border-black/6 bg-brand-page"
             key={id}
           >
             <AppImage
@@ -38,29 +42,38 @@ export function CompanyDashboardCandidateCard({
 }) {
   return (
     <article
-      className="rounded-[30px] border-2 border-brand-violet bg-brand-page px-5 py-5 text-center transition hover:-translate-y-1 hover:shadow-[0_22px_55px_-40px_rgba(16,25,36,0.75)] md:px-7 md:py-6"
+      className="wedoo-portal-card overflow-hidden rounded-[1.25rem] border border-brand-violet/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(249,246,255,0.96))] px-4 py-4 text-left shadow-[0_18px_42px_-32px_rgba(16,25,36,0.16)] sm:px-5 sm:py-5"
       data-company-dashboard-card=""
     >
-      <h2 className="font-wedoo-accent text-[2rem] leading-[0.96] uppercase text-black md:min-h-[4.5rem] md:text-[2.25rem]">
+      <div className="flex items-start justify-between gap-3">
+        <div className="inline-flex rounded-full border border-brand-violet/28 bg-brand-violet/8 px-3 py-1 font-wedoo-accent text-[0.66rem] uppercase tracking-[0.16em] text-brand-violet-700">
+          talento
+        </div>
+        <p className="font-wedoo-accent text-[0.72rem] uppercase tracking-[0.18em] text-slate-400">
+          recruiter view
+        </p>
+      </div>
+
+      <h2 className="mt-3 font-wedoo-heading text-[1.4rem] leading-[1.02] text-black sm:text-[1.55rem]">
         {candidate.name}
       </h2>
 
-      <div className="mt-5 flex items-center gap-4 text-left">
+      <div className="mt-4 flex items-center gap-3">
         <AppImage
           alt={candidate.name}
-          className="h-16 w-16 rounded-full bg-white object-cover md:h-20 md:w-20"
+          className="h-14 w-14 rounded-full border border-brand-violet/20 bg-white object-cover"
           src={assetPath(candidate.avatar)}
         />
-        <div className="min-w-0 font-wedoo-accent text-[1.125rem] leading-[1.15] text-black md:text-[1.5rem]">
-          <p>{candidate.statusLabel}</p>
-          <p>{candidate.locationLabel}</p>
+        <div className="min-w-0 font-wedoo-accent text-[0.96rem] leading-[1.2] text-black">
+          <p className="font-medium">{candidate.statusLabel}</p>
+          <p className="text-slate-600">{candidate.locationLabel}</p>
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap justify-center gap-3">
+      <div className="mt-4 flex flex-wrap gap-2">
         {candidate.tagLabels.map((tag) => (
           <span
-            className="inline-flex min-h-[43px] items-center justify-center rounded-[8px] border border-brand-violet px-4 py-2 font-wedoo-accent text-[1rem] leading-none text-black md:text-[1.5rem]"
+            className="inline-flex min-h-[30px] items-center justify-center rounded-full border border-brand-violet/28 bg-brand-violet/6 px-3 py-1 font-wedoo-accent text-[0.78rem] leading-none text-black"
             key={tag}
           >
             {tag}
@@ -68,12 +81,20 @@ export function CompanyDashboardCandidateCard({
         ))}
       </div>
 
-      <CompanyDashboardSdgRow ids={candidate.sdgIds} />
+      <div className="mt-4 rounded-[1rem] border border-black/6 bg-white/74 px-3 py-3">
+        <p className="font-wedoo-accent text-[0.72rem] uppercase tracking-[0.18em] text-slate-400">
+          segnali SDG
+        </p>
+        <CompanyDashboardSdgRow ids={candidate.sdgIds} />
+      </div>
 
-      <div className="mt-5 flex items-center gap-4">
-        <SiteIcon className="h-8 w-8 shrink-0 text-slate-400 transition hover:text-yellow-400" name="star" />
+      <div className="mt-5 flex items-center gap-3">
+        <SiteIcon
+          className="h-5 w-5 shrink-0 text-slate-400 transition hover:text-yellow-400"
+          name="star"
+        />
         <Link
-          className="inline-flex min-h-[50px] flex-1 items-center justify-center rounded-[8px] bg-brand-violet px-5 py-2 font-wedoo-accent text-[1.5rem] leading-none text-white transition hover:bg-brand-violet-deep"
+          className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-[10px] border border-brand-violet/28 bg-brand-violet px-4 py-2 font-wedoo-accent text-[0.94rem] leading-none text-white transition hover:bg-brand-violet-deep"
           to={`/portale/azienda/candidati/${candidate.id}`}
         >
           {candidate.ctaLabel}

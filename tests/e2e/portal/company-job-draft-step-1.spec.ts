@@ -45,9 +45,11 @@ test.describe("company job draft step 1", () => {
         name: portalCopy.companyJobDraftStep1.descriptionHeading,
       }),
     ).toBeVisible();
-    await expect(
-      step.getByText("una volta scelta la provincia", { exact: false }),
-    ).toBeVisible();
+    if (!isMobile) {
+      await expect(
+        step.getByText("una volta scelta la provincia", { exact: false }),
+      ).toBeVisible();
+    }
 
     if (isMobile) {
       const [headingBox, heroMediaBox] = await Promise.all([

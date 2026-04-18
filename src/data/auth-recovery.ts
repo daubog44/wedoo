@@ -60,7 +60,7 @@ export const passwordRecoveryViewModel = {
     },
   ],
   redirectTo: "/accedi",
-  reloginNote: "al salvataggio sarà necessario accedere nuovamente alla piattaforma",
+  reloginNote: "al salvataggio sara necessario accedere nuovamente alla piattaforma",
   supportPrompt: {
     intro: "non riesci ad effettuare il cambio della password?",
     linkLabel: "assistenza clienti",

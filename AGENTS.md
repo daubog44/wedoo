@@ -28,14 +28,15 @@ If a conflict appears between "process looks healthy" and "prototype is still vi
 Read these files in this order at every round:
 
 1. `AGENTS.md`
-2. `prd.md`
-3. `docs/visual-backlog.md`
-4. `docs/route-acceptance.md`
-5. `docs/gap-discovery.md`
-6. `docs/playwright-visual-audit.md`
-7. `docs/loop-subagents.md`
-8. `docs/ralph-loop-worklog.md`
-9. current session worklog in `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`
+2. `DESIGN.md`
+3. `prd.md`
+4. `docs/visual-backlog.md`
+5. `docs/route-acceptance.md`
+6. `docs/gap-discovery.md`
+7. `docs/playwright-visual-audit.md`
+8. `docs/loop-subagents.md`
+9. `docs/ralph-loop-worklog.md`
+10. current session worklog in `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`
 
 If one of the required docs is missing, treat it as setup debt and fix it before continuing.
 
@@ -68,11 +69,12 @@ Use sources in this order:
 
 1. Figma MCP
 2. coherent Figma section exports in `artifacts/figma-exports/**`
-3. `prd.md`
-4. real UI rendered in browser and saved captures
-5. Playwright E2E and VRT
-6. GitHub / CI state when available
-7. existing repo code only as architectural constraint, never as visual truth
+3. `DESIGN.md` for Wedoo-specific inference and modernization rules
+4. `prd.md`
+5. real UI rendered in browser and saved captures
+6. Playwright E2E and VRT
+7. GitHub / CI state when available
+8. existing repo code only as architectural constraint, never as visual truth
 
 Critical rules:
 
@@ -80,15 +82,23 @@ Critical rules:
 - green VRT does not prove current design if Figma moved
 - existing code does not justify preserving wrong layout
 - `.codexpotter/**` is bookkeeping only
+- React Bits or any external UI library can support acceleration, but never outranks Figma plus `DESIGN.md`
 
 ## Core Loop Rules
 
 - execute first open `- [ ]` task in `prd.md`
-- one product task per round, maximum
+- default mode is one product task per round
+- if user explicitly asks to continue across multiple routes or finish the whole app, batch mode is allowed for up to 3 tightly related route tasks in the same visual family
+- batch mode still requires one coherent surface group, not unrelated route hopping
 - one coherent commit per round, maximum
+- bootstrap quality gate failures must be recorded, not used as early bootstrap kill-switch
+- if bootstrap reaches worklog creation and then quality gate fails, loop still starts and inspects those failures first as technical evidence
+- if current session worklog records `bootstrap quality gate failed`, the first concrete action after required doc reads must be rerun of the failing spec files from the gate log or rerun command in worklog
+- when that bootstrap gate failure exists, do not spend time on broader repo discovery, KB updates or speculative drift review before the rerun
 - if `prd.md` has no open task, default action is stop
-- only exception: if same round already collected concrete evidence of a real gap, add one new task to `prd.md` and `docs/visual-backlog.md`, then stop
-- do not chain multiple closures in same round
+- if user explicitly asks to continue across multiple routes, you may reopen backlog with an evidence-backed batch and keep implementing until that batch is complete
+- outside explicit user override, only exception is: if same round already collected concrete evidence of a real gap, add one new task to `prd.md` and `docs/visual-backlog.md`, then stop
+- do not chain unrelated closures in same round
 - do not invent work because router still has pages
 
 ## Gap Discovery Rule
@@ -109,6 +119,12 @@ Forbidden triggers:
 - page feels suspicious but has no artifact or design comparison
 - backlog is empty and loop wants to keep moving
 - sidecar suggested work without route + proof
+
+Batch-mode exception:
+
+- if user explicitly requests continued implementation across many routes, you may map the router and open a small evidence-backed batch of adjacent routes
+- batch must stay within one coherent surface family such as public marketing routes or portal candidate routes
+- max 3 new route tasks added from one sweep
 
 Before adding a new task, you must have all of:
 
@@ -256,6 +272,7 @@ Rules:
 - never weaken test to get green if bug is real
 - if VRT and Figma disagree, investigate before updating baseline
 - if UI and VRT agree but Figma is newer, treat VRT as stale
+- bootstrap can record failing tests and continue the round; recorded failures become first investigation item, not silent debt
 
 ## Playwright Rule
 
@@ -379,7 +396,8 @@ Do not delegate full route implementation unless user explicitly wants that work
 14. check CI/GitHub if applicable
 15. update worklog and visual backlog
 16. mark task complete in `prd.md` only when all checks agree
-17. stop round
+17. if batch mode is active and next task is part of the same coherent surface family, continue
+18. otherwise stop round
 
 ## Route Definition Of Done
 

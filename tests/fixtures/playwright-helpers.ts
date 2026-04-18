@@ -14,18 +14,33 @@ export async function waitForWedooPageReady(page: Page) {
   for (let attempt = 0; attempt < 3; attempt += 1) {
     try {
       await page.evaluate(async () => {
+        const MAX_ASSET_WAIT_MS = 8_000;
+        const PER_ASSET_WAIT_MS = 4_000;
+
+        function withTimeout<T>(promise: Promise<T>, timeoutMs: number) {
+          return Promise.race([
+            promise,
+            new Promise<T | void>((resolve) => {
+              window.setTimeout(resolve, timeoutMs);
+            }),
+          ]);
+        }
+
         if ("fonts" in document) {
-          await document.fonts.ready;
+          await withTimeout(document.fonts.ready, PER_ASSET_WAIT_MS);
         }
 
         const waitForDomImages = Array.from(document.images)
           .filter((image) => !image.complete)
           .map(
             (image) =>
-              new Promise<void>((resolve) => {
-                image.addEventListener("load", () => resolve(), { once: true });
-                image.addEventListener("error", () => resolve(), { once: true });
-              }),
+              withTimeout(
+                new Promise<void>((resolve) => {
+                  image.addEventListener("load", () => resolve(), { once: true });
+                  image.addEventListener("error", () => resolve(), { once: true });
+                }),
+                PER_ASSET_WAIT_MS,
+              ),
           );
 
         const backgroundUrls = Array.from(document.querySelectorAll<HTMLElement>("*"))
@@ -38,18 +53,26 @@ export async function waitForWedooPageReady(page: Page) {
         const uniqueBackgroundUrls = Array.from(new Set(backgroundUrls));
         const waitForBackgroundImages = uniqueBackgroundUrls.map(
           (url) =>
-            new Promise<void>((resolve) => {
-              const image = new Image();
-              image.onload = () => resolve();
-              image.onerror = () => resolve();
-              image.src = url;
-              if (image.complete) {
-                resolve();
-              }
-            }),
+            withTimeout(
+              new Promise<void>((resolve) => {
+                const image = new Image();
+                image.onload = () => resolve();
+                image.onerror = () => resolve();
+                image.src = url;
+                if (image.complete) {
+                  resolve();
+                }
+              }),
+              PER_ASSET_WAIT_MS,
+            ),
         );
 
-        await Promise.all([...waitForDomImages, ...waitForBackgroundImages]);
+        await Promise.race([
+          Promise.all([...waitForDomImages, ...waitForBackgroundImages]),
+          new Promise<void>((resolve) => {
+            window.setTimeout(resolve, MAX_ASSET_WAIT_MS);
+          }),
+        ]);
       });
       return;
     } catch (error) {

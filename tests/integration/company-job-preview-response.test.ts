@@ -27,7 +27,7 @@ describe("CompanyJobPreviewResponse", () => {
       mobileDockLabel: "Navigazione rapida azienda",
       requirementsLabel: "Non e richiesta esperienza pregressa",
       sections: {
-        companyBody: "",
+        companyBody: expect.stringContaining("Agenzia Creativa"),
         offerItems: expect.arrayContaining([
           "Contratto: Stage di 6 mesi con possibilita di rinnovo",
           "Retribuzione: 700-900 euro al mese",

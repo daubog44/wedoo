@@ -46,6 +46,10 @@ async function openCompanyJobDraftStepTwo(
   const layout = page.locator(`[data-job-draft-layout="${layoutName}"]`);
   const step = layout.getByTestId("company-job-draft-step-2");
   await expect(page.locator("footer")).toHaveCount(0);
+  const saveDraftCta =
+    layoutName === "mobile"
+      ? "salva in bozza"
+      : portalCopy.companyJobDraftStep2.saveDraftCta;
 
   await expect(
     step.getByRole("heading", {
@@ -55,21 +59,17 @@ async function openCompanyJobDraftStepTwo(
   ).toBeVisible();
 
   if (layoutName === "mobile") {
-    const [headingBox, heroMediaBox] = await Promise.all([
-      step
-        .getByRole("heading", {
-          level: 1,
-          name: portalCopy.companyJobDraftStep2.heading,
-        })
-        .boundingBox(),
-      step.getByTestId("company-job-draft-step-2-mobile-hero-media").boundingBox(),
-    ]);
-    expect(headingBox).not.toBeNull();
-    expect(heroMediaBox).not.toBeNull();
-    expect(headingBox!.x + headingBox!.width).toBeLessThan(heroMediaBox!.x + 12);
+    await expect(step.getByAltText("Wedoo")).toBeVisible();
+    await expect(step.getByTestId("company-job-draft-step-2-mobile-hero-media")).toHaveCount(0);
+    await expect(
+      step.getByText("full time, part-time, turni, stage, ecc.", { exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      step.getByText("menu a tendina con tutti i 17 obiettivi", { exact: false }),
+    ).toHaveCount(0);
   }
 
-  return { layout, step };
+  return { layout, saveDraftCta, step };
 }
 
 test.describe("company job draft step 2", () => {
@@ -85,13 +85,9 @@ test.describe("company job draft step 2", () => {
       "documenti",
       "Informativa privacy per sito.pdf",
     );
-    const { step } = await openCompanyJobDraftStepTwo(page, layoutName, {
+    const { saveDraftCta, step } = await openCompanyJobDraftStepTwo(page, layoutName, {
       fillStepOne: true,
     });
-
-    await expect(
-      step.getByText("full time, part-time, turni, stage, ecc.", { exact: true }),
-    ).toBeVisible();
 
     const contractField = step.getByLabel(portalCopy.companyJobDraftStep2.contractLabel);
     const hoursField = step.getByLabel(portalCopy.companyJobDraftStep2.hoursLabel);
@@ -107,7 +103,13 @@ test.describe("company job draft step 2", () => {
 
     if (isMobile) {
       expect(hoursBox!.y).toBeGreaterThan(contractBox!.y + 30);
+      await expect(
+        step.getByText("full time, part-time, turni, stage, ecc.", { exact: true }),
+      ).toHaveCount(0);
     } else {
+      await expect(
+        step.getByText("full time, part-time, turni, stage, ecc.", { exact: true }),
+      ).toBeVisible();
       expect(Math.abs(contractBox!.y - hoursBox!.y)).toBeLessThan(14);
       expect(hoursBox!.x).toBeGreaterThan(contractBox!.x + 180);
     }
@@ -149,7 +151,7 @@ test.describe("company job draft step 2", () => {
     ).toBeVisible();
     await expect(
       step.getByRole("button", {
-        name: portalCopy.companyJobDraftStep2.saveDraftCta,
+        name: saveDraftCta,
       }),
     ).toBeVisible();
 
@@ -177,7 +179,7 @@ test.describe("company job draft step 2", () => {
 
     await step
       .getByRole("button", {
-        name: portalCopy.companyJobDraftStep2.saveDraftCta,
+        name: saveDraftCta,
       })
       .click();
 

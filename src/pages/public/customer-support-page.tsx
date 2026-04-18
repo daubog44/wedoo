@@ -1,274 +1,116 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  PublicBackdrop,
+  PublicPageHeader,
+  publicGlassPanelClassName,
+  publicMetaTextClassName,
+  publicPosterPanelClassName,
+} from "../../components/public";
 import { SiteIcon } from "../../components/site";
 import { customerSupportViewModel, type CustomerSupportAudience } from "../../data/auth-recovery";
-import { assetPath, cn } from "../../lib/site-utils";
-
-const SUPPORT_DESKTOP_FRAME = {
-  height: 1024,
-  width: 1440,
-} as const;
-
-function SupportLanguageChip({ className, compact = false }: { className?: string; compact?: boolean }) {
-  return (
-    <button
-      aria-label="Lingua italiana"
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-[8px] border border-[#767676] bg-[#e3e3e3] text-[#1e1e1e] opacity-50",
-        compact ? "h-[22px] w-[57px] px-2 text-[14px] leading-none" : "h-8 w-[57px] px-3 text-[16px] leading-none",
-        className,
-      )}
-      type="button"
-    >
-      <span>ita</span>
-      <SiteIcon className="h-4 w-4" name="chevron-down" />
-    </button>
-  );
-}
-
-function SupportLogo({ compact = false }: { compact?: boolean }) {
-  return (
-    <Link to="/">
-      <img
-        alt="Wedoo"
-        className={compact ? "h-[49px] w-[184px] object-contain" : "h-[92px] w-[197px] object-contain"}
-        src={assetPath("Frame-2@2x.png")}
-      />
-    </Link>
-  );
-}
+import { cn } from "../../lib/site-utils";
 
 function SupportChannelLink({
   audienceTone,
   channel,
-  className,
-  compact = false,
 }: {
   audienceTone: CustomerSupportAudience["tone"];
   channel: CustomerSupportAudience["channels"][number];
-  className?: string;
-  compact?: boolean;
 }) {
   const isViolet = audienceTone === "violet";
 
   return (
     <a
       className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center gap-2 rounded-[8px] border-2 px-3 transition hover:opacity-85",
+        "font-wedoo-accent inline-flex min-h-[56px] items-center justify-center gap-3 rounded-[14px] border px-5 text-[18px] leading-none shadow-[0_18px_36px_-30px_rgba(16,25,36,0.45)] transition hover:-translate-y-0.5 min-[1024px]:text-[20px]",
         isViolet
-          ? "border-[#cdbdf4] text-[var(--wedoo-white-soft)]"
-          : "border-[var(--wedoo-ink)] text-[var(--wedoo-ink)]",
-        compact ? "h-[43px] text-[18px] leading-none" : "h-[54px] text-[24px] leading-none",
-        className,
+          ? "border-brand-violet-300 bg-brand-violet text-[var(--wedoo-white-soft)]"
+          : "border-brand-mint-300 bg-brand-mint-200 text-brand-ink",
       )}
       href={channel.href}
-      style={{ color: isViolet ? "var(--wedoo-white-soft)" : "var(--wedoo-ink)" }}
     >
-      <SiteIcon className={compact ? "h-5 w-5" : "h-[30px] w-[30px]"} name={channel.icon} />
+      <SiteIcon className="h-5 w-5 min-[1024px]:h-6 min-[1024px]:w-6" name={channel.icon} />
       <span>{channel.label}</span>
     </a>
   );
 }
 
-function MobileAudienceSection({
+function SupportAudienceCard({
   audience,
-  className,
-  titleClassName,
+  compact = false,
 }: {
   audience: CustomerSupportAudience;
-  className?: string;
-  titleClassName?: string;
+  compact?: boolean;
 }) {
   return (
-    <section className={className}>
-      <h2 className={cn("font-wedoo-heading text-[36px] leading-none", titleClassName)}>
+    <div
+      className={cn(
+        audience.tone === "violet"
+          ? "bg-[linear-gradient(180deg,#6D47D9_0%,#5935BC_100%)] text-[var(--wedoo-white-soft)]"
+          : "bg-[linear-gradient(180deg,#C7F6E7_0%,#ABF0DA_100%)] text-brand-ink",
+        "rounded-[30px] border border-white/55 p-5 shadow-[0_30px_80px_-52px_rgba(16,25,36,0.72)] min-[1024px]:p-8",
+      )}
+    >
+      <p className="font-wedoo-body text-[11px] uppercase tracking-[0.18em] opacity-70 min-[1024px]:text-[13px]">
+        {audience.id === "company" ? "supporto aziende" : "supporto candidati"}
+      </p>
+      <h2 className="font-wedoo-heading mt-4 text-[34px] leading-[0.92] min-[1024px]:text-[46px]">
         {audience.title}
       </h2>
       <p
         className={cn(
-          "font-wedoo-accent mt-6 max-w-[299px] text-[18px] leading-[1.15]",
-          audience.tone === "violet" ? "text-[var(--wedoo-white-soft)]" : "text-[var(--wedoo-ink)]",
+          "mt-5 text-[16px] leading-[1.3] min-[1024px]:text-[19px]",
+          compact ? "" : "max-w-[30ch]",
+          audience.tone === "violet" ? "text-white/86" : "text-[rgba(33,37,41,0.78)]",
         )}
       >
         {audience.description}
       </p>
-      <div className="mt-5 flex flex-col items-start gap-[10px]">
+      <div className="mt-6 grid gap-3">
         {audience.channels.map((channel) => (
           <SupportChannelLink
             audienceTone={audience.tone}
             channel={channel}
-            compact
             key={`${audience.id}-${channel.id}`}
           />
         ))}
-      </div>
-    </section>
-  );
-}
-
-function SupportDesktopCard({
-  audienceTone,
-  className,
-  transformClassName,
-}: {
-  audienceTone: CustomerSupportAudience["tone"];
-  className?: string;
-  transformClassName?: string;
-}) {
-  return (
-    <div aria-hidden="true" className={cn("absolute flex items-center justify-center", className)}>
-      <div className={transformClassName}>
-        <img
-          alt=""
-          className="block h-[532.3px] w-[721.23px] max-w-none"
-          src={assetPath(
-            audienceTone === "violet"
-              ? "customer-support-violet-card.svg"
-              : "customer-support-mint-card.svg",
-          )}
-        />
       </div>
     </div>
   );
 }
 
-function getInitialDesktopScale() {
-  if (typeof window === "undefined") {
-    return 1;
-  }
-
-  return Math.min(window.innerWidth / SUPPORT_DESKTOP_FRAME.width, 1);
-}
-
-function useSupportDesktopScale() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(getInitialDesktopScale);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) {
-      return;
-    }
-
-    const updateScale = (width: number) => {
-      const nextScale = Math.min(width / SUPPORT_DESKTOP_FRAME.width, 1);
-      setScale((currentScale) =>
-        Math.abs(currentScale - nextScale) < 0.001 ? currentScale : nextScale,
-      );
-    };
-
-    updateScale(container.getBoundingClientRect().width);
-
-    if (typeof ResizeObserver === "undefined") {
-      return;
-    }
-
-    const observer = new ResizeObserver((entries) => {
-      const observedWidth = entries[0]?.contentRect.width ?? container.getBoundingClientRect().width;
-      updateScale(observedWidth);
-    });
-
-    observer.observe(container);
-
-    return () => observer.disconnect();
-  }, []);
-
-  return {
-    containerRef,
-    scale,
-  };
-}
-
 function DesktopSupportView() {
   const companyAudience = customerSupportViewModel.audiences[0];
   const candidateAudience = customerSupportViewModel.audiences[1];
-  const [companyPhoneChannel, companyMailChannel] = companyAudience.channels;
-  const [candidatePhoneChannel, candidateMailChannel] = candidateAudience.channels;
-  const { containerRef, scale } = useSupportDesktopScale();
-  const canvasHeight = SUPPORT_DESKTOP_FRAME.height * scale;
-  const canvasTransform =
-    scale === 1 ? "translateX(-50%)" : `translateX(-50%) scale(${scale})`;
 
   return (
-    <section className="hidden min-[1024px]:block" data-customer-support-layout="desktop" data-node-id="660:725">
-      <div
-        className="relative mx-auto w-full max-w-[1440px] overflow-hidden"
-        ref={containerRef}
-        style={{ height: canvasHeight }}
-      >
-        <div
-          className="absolute left-1/2 top-0 h-[1024px] w-[1440px]"
-          style={{ transform: canvasTransform, transformOrigin: "top center" }}
-        >
-          <SupportDesktopCard
-            audienceTone={companyAudience.tone}
-            className="left-[62px] top-[235px] h-[551.39px] w-[743.67px]"
-            transformClassName="-scale-y-100 rotate-[1.56deg] skew-x-[-0.89deg]"
-          />
-          <SupportDesktopCard
-            audienceTone={candidateAudience.tone}
-            className="left-[646px] top-[235px] h-[551.39px] w-[743.67px]"
-            transformClassName="-scale-y-100 rotate-[-178.44deg] skew-x-[-0.89deg]"
-          />
+    <section
+      className="hidden min-[1024px]:block"
+      data-customer-support-layout="desktop"
+      data-node-id="660:725"
+    >
+      <div className="relative overflow-hidden rounded-[44px] bg-[linear-gradient(180deg,#f7f4ff_0%,#eefaf6_100%)]">
+        <PublicBackdrop />
+        <div className="relative mx-auto min-h-[1024px] max-w-[1320px] px-10 py-8">
+          <PublicPageHeader />
 
-          <div className="absolute left-[40px] top-[20px]">
-            <SupportLogo />
-          </div>
+          <div className="mt-10 grid gap-8">
+            <div className={cn(publicGlassPanelClassName, "p-8")}>
+              <p className="font-wedoo-body text-[13px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+                assistenza clienti
+              </p>
+              <h1 className="font-wedoo-heading mt-4 text-[56px] leading-[0.92] text-brand-ink">
+                {customerSupportViewModel.title}
+              </h1>
+              <p className={cn(publicMetaTextClassName, "mt-5 max-w-[560px]")}>
+                Due canali chiari, stessa grammatica visiva. Niente incastri forzati, niente shell che cambia tono a caso.
+              </p>
+            </div>
 
-          <div className="absolute top-[50px] right-[69px]">
-            <SupportLanguageChip />
-          </div>
-
-          <h1 className="font-wedoo-heading absolute left-1/2 top-[66px] w-[622px] -translate-x-1/2 text-center text-[48px] leading-none text-[var(--wedoo-ink)]">
-            {customerSupportViewModel.title}
-          </h1>
-
-          <h2 className="font-wedoo-heading absolute left-[115px] top-[337px] text-[48px] leading-none text-[var(--wedoo-white-soft)]">
-            {companyAudience.title}
-          </h2>
-          <p className="font-wedoo-accent absolute left-[115px] top-[418px] w-[538px] text-[36px] leading-[1.06] text-[var(--wedoo-white-soft)]">
-            {companyAudience.description}
-          </p>
-
-          <h2 className="font-wedoo-heading absolute left-[783px] top-[337px] text-[48px] leading-none text-[var(--wedoo-ink)]">
-            {candidateAudience.title}
-          </h2>
-          <p className="font-wedoo-accent absolute left-[783px] top-[436px] w-[571px] text-[36px] leading-[1.06] text-[var(--wedoo-ink)]">
-            {candidateAudience.description}
-          </p>
-
-          <div className="absolute left-[178px] top-[662px]">
-            <SupportChannelLink
-              audienceTone={companyAudience.tone}
-              channel={companyPhoneChannel}
-              className="w-[257px]"
-            />
-          </div>
-          <div className="absolute left-[455px] top-[662px]">
-            <SupportChannelLink
-              audienceTone={companyAudience.tone}
-              channel={companyMailChannel}
-              className="w-[220px]"
-            />
-          </div>
-          <div className="absolute left-[826px] top-[662px]">
-            <SupportChannelLink
-              audienceTone={candidateAudience.tone}
-              channel={candidatePhoneChannel}
-              className="w-[272px]"
-            />
-          </div>
-          <div className="absolute left-[1118px] top-[662px]">
-            <SupportChannelLink
-              audienceTone={candidateAudience.tone}
-              channel={candidateMailChannel}
-              className="w-[224px]"
-            />
-          </div>
-
-          <div className="absolute inset-x-0 bottom-0 h-[153px] bg-[var(--wedoo-violet-800)]">
-            <div className="absolute left-[40px] top-[-4px]">
-              <SupportLogo />
+            <div className={cn(publicPosterPanelClassName, "p-6")}>
+              <div className="grid grid-cols-2 gap-6">
+                <SupportAudienceCard audience={companyAudience} />
+                <SupportAudienceCard audience={candidateAudience} />
+              </div>
             </div>
           </div>
         </div>
@@ -282,37 +124,32 @@ function MobileSupportView() {
   const candidateAudience = customerSupportViewModel.audiences[1];
 
   return (
-    <section className="min-[1024px]:hidden" data-customer-support-layout="mobile" data-node-id="660:1217">
-      <div className="mx-auto min-h-[800px] w-full max-w-[360px] overflow-hidden">
-        <div className="relative h-[800px]">
-          <div
-            className="absolute inset-x-0 top-[123px] h-[356px] bg-[var(--wedoo-violet)]"
-            style={{ clipPath: "polygon(0 0, 94% 0, 100% 3%, 100% 83%, 0 100%)" }}
-          />
-          <div
-            className="absolute inset-x-0 top-[430px] h-[277px] bg-[var(--wedoo-mint)]"
-            style={{ clipPath: "polygon(0 16%, 100% 0, 100% 100%, 0 100%)" }}
-          />
-          <div className="absolute inset-x-0 bottom-0 h-[94px] bg-[var(--wedoo-violet-800)]" />
+    <section
+      className="min-[1024px]:hidden"
+      data-customer-support-layout="mobile"
+      data-node-id="660:1217"
+    >
+      <div className="relative overflow-hidden rounded-[34px] bg-[linear-gradient(180deg,#f7f4ff_0%,#eefaf6_100%)] px-4 py-4">
+        <PublicBackdrop compact />
+        <div className="relative mx-auto max-w-[360px]">
+          <PublicPageHeader compact />
 
-          <div className="absolute left-[89px] top-[23px]">
-            <SupportLogo compact />
+          <div className={cn(publicGlassPanelClassName, "mt-4 p-5")}>
+            <p className="font-wedoo-body text-[11px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+              assistenza clienti
+            </p>
+            <h1 className="font-wedoo-heading mt-3 text-[34px] leading-[0.92] text-brand-ink">
+              {customerSupportViewModel.title}
+            </h1>
+            <p className={cn(publicMetaTextClassName, "mt-4")}>
+              Contatti separati per azienda e candidato, con CTA leggibili e allineate.
+            </p>
           </div>
 
-          <div className="absolute right-[24px] top-[23px]">
-            <SupportLanguageChip compact />
+          <div className="mt-4 grid gap-4">
+            <SupportAudienceCard audience={companyAudience} compact />
+            <SupportAudienceCard audience={candidateAudience} compact />
           </div>
-
-          <h1 className="font-wedoo-accent absolute left-1/2 top-[77px] w-[320px] -translate-x-1/2 text-center text-[30px] leading-none text-[var(--wedoo-ink)]">
-            {customerSupportViewModel.title}
-          </h1>
-
-          <MobileAudienceSection audience={companyAudience} className="absolute left-[16px] top-[188px]" />
-          <MobileAudienceSection
-            audience={candidateAudience}
-            className="absolute right-[15px] top-[468px] text-right"
-            titleClassName="text-right"
-          />
         </div>
       </div>
     </section>
@@ -321,7 +158,7 @@ function MobileSupportView() {
 
 export default function CustomerSupportPage() {
   return (
-    <main className="min-h-screen bg-[var(--wedoo-page-bg)] pt-2">
+    <main className="min-h-screen bg-[var(--wedoo-page-bg)] px-2 py-2 min-[1024px]:px-4 min-[1024px]:py-4">
       <MobileSupportView />
       <DesktopSupportView />
     </main>

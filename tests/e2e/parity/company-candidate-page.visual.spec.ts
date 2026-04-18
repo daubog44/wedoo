@@ -6,16 +6,20 @@ test.describe("company candidate page visual parity", () => {
   test("matches the current company candidate detail baseline", async ({
     page,
   }, testInfo) => {
-    if (testInfo.project.name !== "chromium-mobile") {
+    const isMobile = testInfo.project.name === "chromium-mobile";
+    const layout = page.locator(
+      `[data-company-candidate-detail-layout="${isMobile ? "mobile" : "desktop"}"]`,
+    );
+
+    if (!isMobile) {
       await page.setViewportSize({ width: 1440, height: 1024 });
     }
 
     await page.goto(portalRoutes.companyCandidate);
     await waitForWedooPageReady(page);
 
-    await expect(page).toHaveScreenshot("company-candidate-page.png", {
+    await expect(layout).toHaveScreenshot("company-candidate-page.png", {
       animations: "disabled",
-      fullPage: true,
     });
   });
 });

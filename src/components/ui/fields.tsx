@@ -23,13 +23,13 @@ export function SearchField({
   return (
     <label
       className={cn(
-        'flex w-full items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 shadow-[0_20px_45px_-35px_rgba(16,25,36,0.55)]',
+        'flex w-full items-center gap-3 rounded-[0.9rem] border border-black/8 bg-white/92 px-3.5 py-2.5 shadow-[0_12px_24px_-22px_rgba(16,25,36,0.14)]',
         className,
       )}
     >
-      <AppIcon className="text-xl text-slate-400" name="search-line" />
+      <AppIcon className="text-lg text-slate-400" name="search-line" />
       <input
-        className="w-full border-none bg-transparent text-sm text-brand-ink outline-none placeholder:text-slate-400"
+        className="w-full border-none bg-transparent text-[0.88rem] text-brand-ink outline-none placeholder:text-slate-400"
         onChange={onChange}
         placeholder={placeholder}
         type="search"
@@ -48,7 +48,7 @@ type FieldShellProps = {
 export function FieldShell({ children, helper, label }: FieldShellProps) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-semibold text-brand-ink">{label}</span>
+      <span className="font-wedoo-accent text-[0.84rem] font-semibold uppercase tracking-[0.16em] text-brand-ink/82">{label}</span>
       {children}
       {helper ? <span className="text-xs text-slate-500">{helper}</span> : null}
     </label>
@@ -67,7 +67,7 @@ export function TextField(
     <FieldShell helper={helper} label={label}>
       <input
         className={cn(
-          'rounded-[1.25rem] border border-slate-200 bg-white px-4 py-3 text-sm text-brand-ink outline-none ring-0 transition placeholder:text-slate-400 focus:border-brand-violet',
+          'rounded-[0.9rem] border border-black/8 bg-white/92 px-3.5 py-2.5 text-[0.9rem] text-brand-ink outline-none ring-0 transition placeholder:text-slate-400 focus:border-brand-violet',
           className,
         )}
         {...inputProps}
@@ -88,7 +88,7 @@ export function TextAreaField(
     <FieldShell helper={helper} label={label}>
       <textarea
         className={cn(
-          'min-h-32 rounded-[1.25rem] border border-slate-200 bg-white px-4 py-3 text-sm text-brand-ink outline-none ring-0 transition placeholder:text-slate-400 focus:border-brand-violet',
+          'min-h-28 rounded-[0.9rem] border border-black/8 bg-white/92 px-3.5 py-2.5 text-[0.9rem] text-brand-ink outline-none ring-0 transition placeholder:text-slate-400 focus:border-brand-violet',
           className,
         )}
         {...inputProps}

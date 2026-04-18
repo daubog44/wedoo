@@ -1,7 +1,20 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthCheckbox, AuthTextLink } from "../../components/public";
-import { SiteFooter, SiteIcon } from "../../components/site";
+import {
+  AuthCheckbox,
+  AuthTextLink,
+  PublicActionButton,
+  PublicBackdrop,
+  PublicPageHeader,
+  PublicProviderButton,
+  publicFieldErrorClassName,
+  publicGlassPanelClassName,
+  publicInputClassName,
+  publicInputLabelClassName,
+  publicMetaTextClassName,
+  publicPosterMediaClassName,
+  publicPosterPanelClassName,
+} from "../../components/public";
 import { loginAuthViewModel } from "../../data/auth";
 import { assetPath, cn } from "../../lib/site-utils";
 
@@ -13,33 +26,13 @@ const loginTermsField = loginAuthViewModel.fields[2];
 type LoginInputField = (typeof loginInputFields)[number];
 type LoginCheckboxField = typeof loginTermsField;
 
-const desktopPct = (value: number) => `${(value / 1440) * 100}%`;
-
-function LoginLanguageChip({ className }: { className?: string }) {
-  return (
-    <button
-      aria-label="Lingua italiana"
-      className={cn(
-        "inline-flex h-8 w-[57px] items-center justify-center gap-2 rounded-[8px] border border-[#767676] bg-[#e3e3e3] px-3 text-[16px] leading-none text-[#1e1e1e] opacity-50",
-        className,
-      )}
-      type="button"
-    >
-      <span>ita</span>
-      <SiteIcon className="h-4 w-4" name="chevron-down" />
-    </button>
-  );
-}
-
 function LoginInput({
-  compact = false,
   field,
   idPrefix,
   onChange,
   showError,
   value,
 }: {
-  compact?: boolean;
   field: LoginInputField;
   idPrefix: string;
   onChange: (value: string) => void;
@@ -51,22 +44,15 @@ function LoginInput({
 
   return (
     <div className="w-full">
-      <label
-        className={cn(
-          "font-wedoo-accent block text-[var(--wedoo-ink)]",
-          compact ? "mb-2 text-[20px] leading-none" : "mb-2 text-[24px] leading-none",
-        )}
-        htmlFor={inputId}
-      >
+      <label className={publicInputLabelClassName} htmlFor={inputId}>
         {field.label}
       </label>
       <input
         aria-describedby={errorId}
         aria-invalid={showError}
         className={cn(
-          "font-wedoo-body w-full rounded-[8px] bg-[var(--wedoo-white-soft)] px-4 text-[var(--wedoo-ink)] placeholder:text-[rgba(33,37,41,0.5)] focus:outline-none",
-          compact ? "h-[46px] text-[18px]" : "h-[50px] text-[22px]",
-          showError ? "border border-[#b40000]" : "border border-[#cdbdf4]",
+          publicInputClassName,
+          showError ? "border-[#b40000]" : "",
         )}
         id={inputId}
         onChange={(event) => onChange(event.target.value)}
@@ -75,11 +61,7 @@ function LoginInput({
         value={value}
       />
       <p
-        className={cn(
-          "font-wedoo-body mt-1 min-h-[1em] text-[#b40000]",
-          compact ? "text-[18px] leading-none" : "text-[22px] leading-none",
-          showError ? "opacity-100" : "opacity-0",
-        )}
+        className={cn(publicFieldErrorClassName, showError ? "opacity-100" : "opacity-0")}
         id={errorId}
       >
         {field.errorText ?? ""}
@@ -109,69 +91,22 @@ function LoginConsent({
   );
 }
 
-function LoginSubmitButton({ compact = false, label }: { compact?: boolean; label: string }) {
-  return (
-    <button
-      className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border border-[#7447e1] bg-[#7447e1] text-[var(--wedoo-white-soft)] transition hover:bg-[#613cbd]",
-        compact ? "h-[48px] w-full text-[22px]" : "h-[52px] w-full text-[24px]",
-      )}
-      type="submit"
-    >
-      {label}
-    </button>
-  );
-}
-
-function LoginSecondaryActions({ compact = false }: { compact?: boolean }) {
+function LoginProviderButtons({ compact = false }: { compact?: boolean }) {
   const providerOptions = loginAuthViewModel.providerOptions ?? [];
 
   return (
-    <>
-      <div
-        className={cn(
-          "flex items-center text-[var(--wedoo-ink)]",
-          compact ? "mt-5 gap-3 text-[18px]" : "mt-[13px] gap-5 text-[20px]",
-        )}
-      >
-        <span className="h-px flex-1 bg-[var(--wedoo-ink)]" />
-        <span className="font-wedoo-body leading-none">{loginAuthViewModel.dividerLabel}</span>
-        <span className="h-px flex-1 bg-[var(--wedoo-ink)]" />
-      </div>
-
-      <div className={cn("flex gap-5", compact ? "mt-5" : "mt-[26px]")}>
-        {providerOptions.map((provider) => (
-          <button
-            className={cn(
-              "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border-2 border-[#cdbdf4] bg-[var(--wedoo-white-soft)] text-[var(--wedoo-ink)] transition hover:border-[#7447e1]",
-              compact ? "h-[48px] flex-1 text-[18px]" : "h-[54px] w-[218px] text-[24px]",
-            )}
-            key={provider.id}
-            type="button"
-          >
-            {provider.label}
-          </button>
-        ))}
-      </div>
-
-      {loginAuthViewModel.footerPrompt ? (
-        <p
-          className={cn(
-            "font-wedoo-body text-center text-[var(--wedoo-ink)]",
-            compact ? "mt-5 text-[18px]" : "mt-[22px] text-[22px]",
-          )}
-        >
-          {loginAuthViewModel.footerPrompt.label}{" "}
-          <Link className="underline" to={loginAuthViewModel.footerPrompt.linkTo}>
-            {loginAuthViewModel.footerPrompt.linkLabel}
-          </Link>
-        </p>
-      ) : null}
-    </>
+    <div className={cn("grid gap-3", compact ? "grid-cols-1" : "grid-cols-2")}>
+      {providerOptions.map((provider) => (
+        <PublicProviderButton compact={compact} key={provider.id}>
+          {provider.label}
+        </PublicProviderButton>
+      ))}
+    </div>
   );
 }
 
-function LoginDesktopView({
+function LoginFormBlock({
+  idPrefix,
   onInputChange,
   onSubmit,
   onToggleTerms,
@@ -179,6 +114,103 @@ function LoginDesktopView({
   termsAccepted,
   values,
 }: {
+  idPrefix: string;
+  onInputChange: (fieldId: string, value: string) => void;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onToggleTerms: () => void;
+  showFieldError: (field: LoginInputField) => boolean;
+  termsAccepted: boolean;
+  values: Record<string, string>;
+}) {
+  return (
+    <form className="mt-6 space-y-4 min-[1024px]:mt-8 min-[1024px]:space-y-5" noValidate onSubmit={onSubmit}>
+      <LoginInput
+        field={emailField}
+        idPrefix={idPrefix}
+        onChange={(value) => onInputChange("email", value)}
+        showError={showFieldError(emailField)}
+        value={values.email ?? ""}
+      />
+      <LoginInput
+        field={passwordField}
+        idPrefix={idPrefix}
+        onChange={(value) => onInputChange("password", value)}
+        showError={showFieldError(passwordField)}
+        value={values.password ?? ""}
+      />
+      {loginAuthViewModel.forgotPasswordLabel && loginAuthViewModel.forgotPasswordTo ? (
+        <AuthTextLink to={loginAuthViewModel.forgotPasswordTo}>
+          {loginAuthViewModel.forgotPasswordLabel}
+        </AuthTextLink>
+      ) : null}
+      {loginTermsField ? (
+        <LoginConsent
+          checked={termsAccepted}
+          field={loginTermsField}
+          onToggle={onToggleTerms}
+        />
+      ) : null}
+      <div className="pt-2">
+        <PublicActionButton fullWidth type="submit">
+          {loginAuthViewModel.ctaLabel}
+        </PublicActionButton>
+      </div>
+    </form>
+  );
+}
+
+function LoginSupportColumn() {
+  return (
+    <div className={cn(publicPosterPanelClassName, "grid min-h-[520px] grid-rows-[minmax(0,1fr)_auto] p-4 min-[1024px]:p-5")}>
+      <div className={publicPosterMediaClassName}>
+        <img
+          alt=""
+          className="h-full min-h-[300px] w-full object-cover"
+          src={assetPath(loginAuthViewModel.background)}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,19,30,0.08)_0%,rgba(17,19,30,0.48)_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 p-4 min-[1024px]:p-5">
+          <p className="font-wedoo-body text-[12px] uppercase tracking-[0.22em] text-white/82">
+            accesso wedoo
+          </p>
+          <h3 className="font-wedoo-heading mt-3 max-w-[390px] text-[26px] leading-[0.95] text-white min-[1024px]:text-[34px]">
+            filtra il rumore. entra dove l&apos;impatto regge.
+          </h3>
+          <p className="font-wedoo-body mt-3 max-w-[340px] text-[14px] leading-[1.34] text-white/84 min-[1024px]:text-[15px]">
+            Una porta chiara per annunci, criteri ESG e flussi candidati coerenti.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 rounded-[16px] border border-white/60 bg-white/82 p-4 shadow-[0_16px_34px_-28px_rgba(16,25,36,0.14)]">
+        <div className="grid gap-4 min-[1024px]:grid-cols-[minmax(0,1fr)_auto] min-[1024px]:items-center">
+          <div>
+            <p className="font-wedoo-body text-[12px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+              accesso rapido
+            </p>
+            <p className="font-wedoo-accent mt-2 text-[17px] leading-[1.08] text-brand-ink min-[1024px]:text-[18px]">
+              entra con il provider che usi gia.
+            </p>
+          </div>
+          <div className="min-[1024px]:w-[320px]">
+            <LoginProviderButtons />
+          </div>
+        </div>
+
+        {loginAuthViewModel.footerPrompt ? (
+          <p className={cn(publicMetaTextClassName, "mt-5 text-center min-[1024px]:text-left")}>
+            {loginAuthViewModel.footerPrompt.label}{" "}
+            <Link className="font-wedoo-accent text-brand-violet underline" to={loginAuthViewModel.footerPrompt.linkTo}>
+              {loginAuthViewModel.footerPrompt.linkLabel}
+            </Link>
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function LoginDesktopView(props: {
   onInputChange: (fieldId: string, value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onToggleTerms: () => void;
@@ -188,92 +220,37 @@ function LoginDesktopView({
 }) {
   return (
     <section className="hidden min-[1024px]:block" data-login-layout="desktop">
-      <div className="relative mx-auto h-[1024px] w-full max-w-[1440px]">
-        <img
-          alt=""
-          className="pointer-events-none absolute top-[15px] h-[995px] object-cover"
-          src={assetPath(loginAuthViewModel.background)}
-          style={{ left: desktopPct(20), width: desktopPct(1400) }}
-        />
+      <div className="relative overflow-hidden rounded-[32px] bg-[linear-gradient(180deg,#f7f4ff_0%,#eefaf6_100%)]">
+        <PublicBackdrop />
+        <div className="relative mx-auto min-h-[900px] max-w-[1380px] px-10 py-8">
+          <PublicPageHeader />
+          <div className="mt-8 grid grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-6">
+            <div className={cn(publicGlassPanelClassName, "p-6")}>
+              <p className="font-wedoo-body text-[12px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+                accesso candidato
+              </p>
+              <h1 className="font-wedoo-heading mt-4 text-[38px] leading-[0.94] text-brand-ink">
+                {loginAuthViewModel.title}
+              </h1>
+              <h2 className="font-wedoo-accent mt-3 text-[18px] leading-none text-brand-ink">
+                {loginAuthViewModel.subtitle}
+              </h2>
+              <p className={cn(publicMetaTextClassName, "mt-4 max-w-[290px]")}>
+                Accedi, riprendi i draft e filtra opportunita che reggono anche oltre la cover.
+              </p>
 
-        <div className="absolute top-[50px]" style={{ left: desktopPct(1314) }}>
-          <LoginLanguageChip />
-        </div>
-
-        <Link className="absolute top-[111px]" style={{ left: desktopPct(167) }} to="/">
-          <img alt="Wedoo" className="h-[91px] w-[340px] object-contain" src={assetPath("Frame-2@2x.png")} />
-        </Link>
-
-        <h1
-          className="font-wedoo-accent absolute text-center text-[36px] leading-none text-[var(--wedoo-ink)]"
-          style={{ left: desktopPct(197), top: 212, width: desktopPct(259) }}
-        >
-          {loginAuthViewModel.title}
-        </h1>
-        <h2
-          className="font-wedoo-accent absolute text-center text-[24px] leading-none text-[var(--wedoo-ink)]"
-          style={{ left: desktopPct(284), top: 264, width: desktopPct(86) }}
-        >
-          {loginAuthViewModel.subtitle}
-        </h2>
-
-        <form
-          className="absolute rounded-[20px] border border-[#cdbdf4] bg-[var(--wedoo-white-soft)] px-6 pb-5 pt-6"
-          noValidate
-          onSubmit={onSubmit}
-          style={{ left: desktopPct(149), top: 308, width: desktopPct(368) }}
-        >
-          <LoginInput
-            field={emailField}
-            idPrefix="desktop-login"
-            onChange={(value) => onInputChange("email", value)}
-            showError={showFieldError(emailField)}
-            value={values.email ?? ""}
-          />
-          <div className="mt-[14px]">
-            <LoginInput
-              field={passwordField}
-              idPrefix="desktop-login"
-              onChange={(value) => onInputChange("password", value)}
-              showError={showFieldError(passwordField)}
-              value={values.password ?? ""}
-            />
-          </div>
-          {loginAuthViewModel.forgotPasswordLabel && loginAuthViewModel.forgotPasswordTo ? (
-            <AuthTextLink className="mt-[10px]" to={loginAuthViewModel.forgotPasswordTo}>
-              {loginAuthViewModel.forgotPasswordLabel}
-            </AuthTextLink>
-          ) : null}
-          {loginTermsField ? (
-            <div className="mt-[18px]">
-              <LoginConsent
-                checked={termsAccepted}
-                field={loginTermsField}
-                onToggle={onToggleTerms}
-              />
+              <LoginFormBlock idPrefix="desktop-login" {...props} />
             </div>
-          ) : null}
-          <div className="mt-[25px]">
-            <LoginSubmitButton label={loginAuthViewModel.ctaLabel} />
-          </div>
-        </form>
 
-        <div className="absolute top-[787px]" style={{ left: desktopPct(62), width: desktopPct(542) }}>
-          <LoginSecondaryActions />
+            <LoginSupportColumn />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function LoginMobileView({
-  onInputChange,
-  onSubmit,
-  onToggleTerms,
-  showFieldError,
-  termsAccepted,
-  values,
-}: {
+function LoginMobileView(props: {
   onInputChange: (fieldId: string, value: string) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onToggleTerms: () => void;
@@ -283,79 +260,61 @@ function LoginMobileView({
 }) {
   return (
     <section className="min-[1024px]:hidden" data-login-layout="mobile">
-      <div className="mx-auto w-full max-w-[360px] px-4 pt-4">
-        <div className="relative h-[660px]">
-          <img
-            alt=""
-            className="pointer-events-none absolute inset-x-0 top-0 h-[430px] w-full rounded-[28px] object-cover"
-            src={assetPath(loginAuthViewModel.background)}
-          />
+      <div className="relative overflow-hidden rounded-[28px] bg-[linear-gradient(180deg,#f7f4ff_0%,#eefaf6_100%)] px-4 py-4">
+        <PublicBackdrop compact />
+        <div className="relative mx-auto max-w-[360px]">
+          <PublicPageHeader compact />
 
-          <div className="absolute right-4 top-4">
-            <LoginLanguageChip className="h-[28px] w-[54px] gap-1.5 px-2 text-[14px]" />
+          <div className={cn(publicPosterPanelClassName, "mt-4 overflow-hidden p-3")}>
+            <div className={publicPosterMediaClassName}>
+              <img
+                alt=""
+                className="h-[204px] w-full object-cover"
+                src={assetPath(loginAuthViewModel.background)}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,19,30,0.08)_0%,rgba(17,19,30,0.56)_100%)]" />
+              <div className="absolute inset-x-0 bottom-0 p-4">
+                <p className="font-wedoo-body text-[11px] uppercase tracking-[0.18em] text-white/80">
+                  accesso wedoo
+                </p>
+                <p className="font-wedoo-heading mt-2 text-[22px] leading-[0.94] text-white">
+                  filtra il rumore.
+                </p>
+                <p className="font-wedoo-body mt-2 text-[14px] leading-[1.22] text-white/84">
+                  Entra nel tuo portale con una shell coerente.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <Link className="absolute left-6 top-6" to="/">
-            <img alt="Wedoo" className="h-[62px] w-[232px] object-contain" src={assetPath("Frame-2@2x.png")} />
-          </Link>
+          <div className={cn(publicGlassPanelClassName, "relative mt-4 p-5")}>
+            <p className="font-wedoo-body text-[11px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+              accesso candidato
+            </p>
+            <h1 className="font-wedoo-heading mt-3 text-[31px] leading-[0.92] text-brand-ink">
+              {loginAuthViewModel.title}
+            </h1>
+            <h2 className="font-wedoo-accent mt-2 text-[19px] leading-none text-brand-ink">
+              {loginAuthViewModel.subtitle}
+            </h2>
 
-          <h1 className="font-wedoo-accent absolute left-8 top-[118px] text-[28px] leading-none text-[var(--wedoo-ink)]">
-            {loginAuthViewModel.title}
-          </h1>
-          <h2 className="font-wedoo-accent absolute left-[118px] top-[158px] text-[22px] leading-none text-[var(--wedoo-ink)]">
-            {loginAuthViewModel.subtitle}
-          </h2>
+            <LoginFormBlock idPrefix="mobile-login" {...props} />
 
-          <div className="absolute left-5 top-[188px] w-[280px]">
-            <form
-              className="rounded-[20px] border border-[#cdbdf4] bg-[rgba(247,247,247,0.96)] px-4 pb-4 pt-4 backdrop-blur-[2px]"
-              noValidate
-              onSubmit={onSubmit}
-            >
-              <LoginInput
-                compact
-                field={emailField}
-                idPrefix="mobile-login"
-                onChange={(value) => onInputChange("email", value)}
-                showError={showFieldError(emailField)}
-                value={values.email ?? ""}
-              />
-              <div className="mt-3">
-                <LoginInput
-                  compact
-                  field={passwordField}
-                  idPrefix="mobile-login"
-                  onChange={(value) => onInputChange("password", value)}
-                  showError={showFieldError(passwordField)}
-                  value={values.password ?? ""}
-                />
-              </div>
-              {loginAuthViewModel.forgotPasswordLabel && loginAuthViewModel.forgotPasswordTo ? (
-                <AuthTextLink
-                  className="mt-3"
-                  compact
-                  to={loginAuthViewModel.forgotPasswordTo}
-                >
-                  {loginAuthViewModel.forgotPasswordLabel}
-                </AuthTextLink>
-              ) : null}
-              {loginTermsField ? (
-                <div className="mt-4">
-                  <LoginConsent
-                    checked={termsAccepted}
-                    compact
-                    field={loginTermsField}
-                    onToggle={onToggleTerms}
-                  />
-                </div>
-              ) : null}
+            <div className="mt-6 border-t border-brand-violet-100 pt-4">
+              <p className="font-wedoo-body text-center text-[14px] uppercase tracking-[0.18em] text-[rgba(33,37,41,0.45)]">
+                accesso rapido
+              </p>
               <div className="mt-4">
-                <LoginSubmitButton compact label={loginAuthViewModel.ctaLabel} />
+                <LoginProviderButtons compact />
               </div>
-            </form>
-
-            <div className="mt-4">
-              <LoginSecondaryActions compact />
+              {loginAuthViewModel.footerPrompt ? (
+                <p className={cn(publicMetaTextClassName, "mt-4 text-center")}>
+                  {loginAuthViewModel.footerPrompt.label}{" "}
+                  <Link className="font-wedoo-accent text-brand-violet underline" to={loginAuthViewModel.footerPrompt.linkTo}>
+                    {loginAuthViewModel.footerPrompt.linkLabel}
+                  </Link>
+                </p>
+              ) : null}
             </div>
           </div>
         </div>
@@ -409,27 +368,19 @@ export default function LoginPage() {
     setTermsAccepted((currentValue) => !currentValue);
   }
 
+  const viewProps = {
+    onInputChange: handleInputChange,
+    onSubmit: handleSubmit,
+    onToggleTerms: toggleTerms,
+    showFieldError,
+    termsAccepted,
+    values,
+  };
+
   return (
-    <>
-      <main className="bg-[var(--wedoo-page-bg)] pb-12 pt-2">
-        <LoginMobileView
-          onInputChange={handleInputChange}
-          onSubmit={handleSubmit}
-          onToggleTerms={toggleTerms}
-          showFieldError={showFieldError}
-          termsAccepted={termsAccepted}
-          values={values}
-        />
-        <LoginDesktopView
-          onInputChange={handleInputChange}
-          onSubmit={handleSubmit}
-          onToggleTerms={toggleTerms}
-          showFieldError={showFieldError}
-          termsAccepted={termsAccepted}
-          values={values}
-        />
-      </main>
-      <SiteFooter className="mt-0" />
-    </>
+    <main className="bg-[var(--wedoo-page-bg)] px-2 py-2 min-[1024px]:px-4 min-[1024px]:py-4">
+      <LoginMobileView {...viewProps} />
+      <LoginDesktopView {...viewProps} />
+    </main>
   );
 }

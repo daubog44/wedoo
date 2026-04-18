@@ -3,7 +3,7 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "echo 'CAVEMAN MODE ACTIVE. Rules: Drop articles/filler/pleasantries/hedging. Fragments OK. Short synonyms. Pattern: [thing] [action] [reason]. [next step]. Code/commits/security: write normal. Read AGENTS.md, prd.md, docs/visual-backlog.md, docs/route-acceptance.md. One product task per round. Tests/VRT green != done. If PRD empty, stop unless one evidence-backed new task. If Figma incomplete or inconsistent: implement smallest coherent continuation, log inference, update PRD only with evidence. Worklog: short, clear, include action/finding/error/next. User says stop caveman or normal mode to deactivate.'"
+        "command": "echo 'CAVEMAN MODE ACTIVE. Rules: Drop articles/filler/pleasantries/hedging. Fragments OK. Short synonyms. Pattern: [thing] [action] [reason]. [next step]. Code/commits/security: write normal. Main goal: ship coherent React prototype from Figma. Read AGENTS.md, prd.md, docs/visual-backlog.md, docs/route-acceptance.md, docs/gap-discovery.md, docs/playwright-visual-audit.md, docs/loop-subagents.md. One product task per round. Tests/VRT green != done. Bootstrap gate may fail without aborting loop; if worklog records gate failure, rerun those failing specs first, then inspect route. If PRD empty, stop unless one evidence-backed new task. If Figma incomplete or inconsistent: implement smallest coherent continuation, log inference, update PRD only with evidence. If route visibly broken in current task area: fix now. Worklog: short, clear, include action/finding/error/next. User says stop caveman or normal mode to deactivate.'"
       }
     ]
   }

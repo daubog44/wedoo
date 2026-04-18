@@ -21,21 +21,23 @@ function CandidatePortalNavbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-brand-mint-deep px-4 md:px-8">
+    <header className="border-b border-black/8 bg-[linear-gradient(180deg,rgba(88,203,165,0.9),rgba(88,203,165,0.84))] px-4 md:px-6">
       <div className="mx-auto max-w-[1440px]">
-        <div className="flex min-h-[87px] items-center gap-4">
-          <WedooLogo className="lg:hidden" imageClassName="h-9" variant="candidate" />
+        <div className="flex min-h-[68px] items-center gap-4 py-3">
+          <WedooLogo className="lg:hidden" imageClassName="h-8" variant="candidate" />
 
           <nav
             aria-label="Navigazione portale candidato"
-            className="hidden lg:flex lg:items-center lg:gap-10"
+            className="hidden lg:flex lg:items-center lg:gap-2"
           >
             {portalNavigation.candidate.map((item) => (
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "font-wedoo-accent text-[1.125rem] leading-none transition hover:text-brand-violet-deep lg:text-[1.5rem]",
-                    isActive ? "text-brand-violet-deep" : "text-black",
+                    "rounded-full px-3 py-2 font-wedoo-accent text-[0.94rem] leading-none transition",
+                    isActive
+                      ? "bg-white/72 text-brand-violet-deep shadow-[0_14px_32px_-26px_rgba(16,25,36,0.24)]"
+                      : "text-black/76 hover:bg-white/44 hover:text-brand-violet-deep",
                   )
                 }
                 end={item.to === "/portale/candidato"}
@@ -47,29 +49,29 @@ function CandidatePortalNavbar() {
             ))}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-4 lg:flex lg:gap-7">
+          <div className="ml-auto hidden items-center gap-4 lg:flex">
             <button
               aria-label="Cerca opportunita"
-              className="inline-flex items-center gap-3 text-black transition hover:text-brand-violet-deep"
+              className="inline-flex min-h-[38px] items-center gap-2.5 rounded-full border border-black/8 bg-white/62 px-4 text-black transition hover:bg-white/78 hover:text-brand-violet-deep"
               type="button"
             >
-              <SiteIcon className="h-7 w-7 lg:h-8 lg:w-8" name="search" />
-              <span className="font-wedoo-body text-[1rem] italic leading-none lg:text-[1.375rem]">
+              <SiteIcon className="h-4.5 w-4.5" name="search" />
+              <span className="font-wedoo-body text-[0.9rem] italic leading-none">
                 {candidateDashboardResponseMock.searchPlaceholder}
               </span>
             </button>
 
             <button
               aria-label="Filtra opportunita"
-              className="inline-flex items-center justify-center text-black transition hover:text-brand-violet-deep"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/8 bg-white/62 text-black transition hover:bg-white/78 hover:text-brand-violet-deep"
               type="button"
             >
-              <SiteIcon className="h-8 w-8 lg:h-10 lg:w-10" name="filter" />
+              <SiteIcon className="h-4.5 w-4.5" name="filter" />
             </button>
 
             <img
               alt={candidateProfile.fullName}
-              className="h-12 w-12 rounded-full object-cover lg:h-[72px] lg:w-[72px]"
+              className="h-10 w-10 rounded-full border border-white/60 object-cover lg:h-12 lg:w-12"
               src={assetPath(candidateProfile.avatar)}
             />
           </div>
@@ -77,13 +79,13 @@ function CandidatePortalNavbar() {
           <div className="ml-auto flex items-center gap-3 lg:hidden">
             <img
               alt={candidateProfile.fullName}
-              className="h-10 w-10 rounded-full object-cover"
+              className="h-9 w-9 rounded-full border border-white/60 object-cover"
               src={assetPath(candidateProfile.avatar)}
             />
             <button
               aria-expanded={isOpen}
               aria-label={isOpen ? "Chiudi navigazione portale" : "Apri navigazione portale"}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/20 bg-brand-page text-black"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-black/12 bg-white/66 text-black"
               onClick={() => setIsOpen((value) => !value)}
               type="button"
             >
@@ -95,7 +97,7 @@ function CandidatePortalNavbar() {
         <div className="flex items-center justify-between gap-3 border-t border-black/10 py-3 lg:hidden">
           <button
             aria-label="Cerca opportunita"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-[8px] border border-black/15 bg-brand-page px-3 py-2 text-black"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white/66 px-3 py-2 text-black"
             type="button"
           >
             <SiteIcon className="h-5 w-5" name="search" />
@@ -105,7 +107,7 @@ function CandidatePortalNavbar() {
           </button>
           <button
             aria-label="Filtra opportunita"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[8px] border border-black/15 bg-brand-page text-black"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] border border-black/10 bg-white/66 text-black"
             type="button"
           >
             <SiteIcon className="h-5 w-5" name="filter" />
@@ -113,16 +115,13 @@ function CandidatePortalNavbar() {
         </div>
 
         <div className={cn("border-t border-black/10 pb-4 lg:hidden", isOpen ? "block" : "hidden")}>
-          <nav
-            aria-label="Navigazione portale candidato mobile"
-            className="grid gap-2 pt-4"
-          >
+          <nav aria-label="Navigazione portale candidato mobile" className="grid gap-2 pt-4">
             {portalNavigation.candidate.map((item) => (
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "rounded-[8px] px-3 py-2 font-wedoo-accent text-[1.125rem] transition",
-                    isActive ? "bg-brand-page text-brand-violet-deep" : "text-black",
+                    "rounded-[10px] px-3 py-2 font-wedoo-accent text-[0.98rem] transition",
+                    isActive ? "bg-white/82 text-brand-violet-deep" : "text-black",
                   )
                 }
                 end={item.to === "/portale/candidato"}
@@ -144,19 +143,21 @@ function CompanyPortalNavbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-brand-violet px-4 md:px-8">
+    <header className="border-b border-white/12 bg-[linear-gradient(180deg,rgba(116,71,225,0.92),rgba(116,71,225,0.86))] px-4 md:px-6">
       <div className="mx-auto max-w-[1440px]">
-        <div className="flex min-h-[87px] items-center gap-4">
+        <div className="flex min-h-[68px] items-center gap-4 py-3">
           <nav
             aria-label="Navigazione portale azienda"
-            className="hidden lg:flex lg:items-center lg:gap-8"
+            className="hidden lg:flex lg:items-center lg:gap-2"
           >
             {companyPrimaryNavigation.map((item) => (
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "font-wedoo-accent text-[1.5rem] leading-none transition",
-                    isActive ? "text-black" : "text-white hover:text-black/85",
+                    "rounded-full px-3 py-2 font-wedoo-accent text-[0.94rem] leading-none transition",
+                    isActive
+                      ? "bg-white/88 text-brand-violet shadow-[0_14px_32px_-24px_rgba(16,25,36,0.34)]"
+                      : "text-white/90 hover:bg-white/10 hover:text-white",
                   )
                 }
                 end={item.to === "/portale/azienda"}
@@ -171,10 +172,10 @@ function CompanyPortalNavbar() {
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "inline-flex min-h-[40px] items-center justify-center rounded-[8px] border px-4 py-2 font-wedoo-accent text-[1.125rem] leading-none transition",
+                    "inline-flex min-h-[38px] items-center justify-center rounded-full border px-4 py-2 font-wedoo-accent text-[0.9rem] leading-none transition",
                     isActive
                       ? "border-white bg-white text-brand-violet"
-                      : "border-white/65 text-white hover:border-white",
+                      : "border-white/28 bg-white/10 text-white hover:border-white/50",
                   )
                 }
                 to={companySecondaryNavigation.to}
@@ -184,52 +185,56 @@ function CompanyPortalNavbar() {
             ) : null}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-4 lg:flex lg:gap-6">
+          <div className="ml-auto hidden items-center gap-4 lg:flex">
             <button
               aria-label="Cerca opportunità"
-              className="inline-flex items-center gap-3 text-white transition hover:text-black/85"
+              className="inline-flex min-h-[38px] items-center gap-2.5 rounded-full border border-white/18 bg-white/12 px-4 text-white transition hover:bg-white/18"
               type="button"
             >
-              <SiteIcon className="h-7 w-7 lg:h-8 lg:w-8" name="search" />
-              <span className="font-wedoo-body text-[1rem] italic leading-none lg:text-[1.375rem]">
+              <SiteIcon className="h-4.5 w-4.5" name="search" />
+              <span className="font-wedoo-body text-[0.9rem] italic leading-none">
                 {companyDashboardResponseMock.searchPlaceholder}
               </span>
             </button>
 
             <button
               aria-label="Filtra candidati"
-              className="inline-flex items-center justify-center text-white transition hover:text-black/85"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/18 bg-white/12 text-white transition hover:bg-white/18"
               type="button"
             >
-              <SiteIcon className="h-8 w-8 lg:h-10 lg:w-10" name="filter" />
+              <SiteIcon className="h-4.5 w-4.5" name="filter" />
             </button>
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white lg:h-[72px] lg:w-[72px]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white lg:h-12 lg:w-12">
               <img
                 alt={companyProfile.companyName}
-                className="h-8 w-8 object-contain lg:h-12 lg:w-12"
+                className="h-6 w-6 object-contain lg:h-8 lg:w-8"
                 src={assetPath(companyProfile.companyLogo)}
               />
             </div>
           </div>
 
           <div className="flex min-w-0 items-center gap-3 lg:hidden">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white">
               <img
                 alt={companyProfile.companyName}
-                className="h-8 w-8 object-contain"
+                className="h-7 w-7 object-contain"
                 src={assetPath(companyProfile.companyLogo)}
               />
             </div>
-            <p className="line-clamp-2 font-wedoo-accent text-[1rem] leading-none text-white">
+            <p className="line-clamp-2 font-wedoo-accent text-[0.96rem] leading-none text-white">
               {companyProfile.companyName}
             </p>
           </div>
 
           <button
             aria-expanded={isOpen}
-            aria-label={isOpen ? "Chiudi navigazione portale azienda" : "Apri navigazione portale azienda"}
-            className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-white/10 text-white lg:hidden"
+            aria-label={
+              isOpen
+                ? "Chiudi navigazione portale azienda"
+                : "Apri navigazione portale azienda"
+            }
+            className="ml-auto inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/28 bg-white/12 text-white lg:hidden"
             onClick={() => setIsOpen((value) => !value)}
             type="button"
           >
@@ -240,7 +245,7 @@ function CompanyPortalNavbar() {
         <div className="flex items-center justify-between gap-3 border-t border-white/20 py-3 lg:hidden">
           <button
             aria-label="Cerca opportunità"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-[8px] border border-white/25 bg-white/10 px-3 py-2 text-white"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-[12px] border border-white/18 bg-white/12 px-3 py-2 text-white"
             type="button"
           >
             <SiteIcon className="h-5 w-5" name="search" />
@@ -250,7 +255,7 @@ function CompanyPortalNavbar() {
           </button>
           <button
             aria-label="Filtra candidati"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-[8px] border border-white/25 bg-white/10 text-white"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[12px] border border-white/18 bg-white/12 text-white"
             type="button"
           >
             <SiteIcon className="h-5 w-5" name="filter" />
@@ -258,15 +263,12 @@ function CompanyPortalNavbar() {
         </div>
 
         <div className={cn("border-t border-white/20 pb-4 lg:hidden", isOpen ? "block" : "hidden")}>
-          <nav
-            aria-label="Navigazione portale azienda mobile"
-            className="grid gap-2 pt-4"
-          >
+          <nav aria-label="Navigazione portale azienda mobile" className="grid gap-2 pt-4">
             {portalNavigation.company.map((item) => (
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "rounded-[8px] px-3 py-2 font-wedoo-accent text-[1.125rem] transition",
+                    "rounded-[10px] px-3 py-2 font-wedoo-accent text-[0.98rem] transition",
                     isActive ? "bg-white text-brand-violet" : "text-white",
                   )
                 }

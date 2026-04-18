@@ -255,9 +255,14 @@ function JobDraftDesktopView({
       >
         <img
           alt=""
-          className="pointer-events-none absolute top-[15px] h-[995px] object-cover"
+          className="pointer-events-none absolute top-[15px] h-[995px] object-cover object-[84%_center]"
           src={assetPath("formaziende4.png")}
           style={{ left: desktopPct(20), width: desktopPct(1400) }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute rounded-[32px] bg-[linear-gradient(90deg,rgba(247,247,247,0.96)_0%,rgba(247,247,247,0.92)_44%,rgba(247,247,247,0.0)_100%)]"
+          style={{ left: desktopPct(640), top: 160, width: desktopPct(338), height: 620 }}
         />
 
         <div className="absolute top-[50px]" style={{ left: desktopPct(1314) }}>
@@ -371,18 +376,20 @@ function JobDraftDesktopView({
 
         <div
           className="absolute space-y-8"
-          style={{ left: desktopPct(644), top: 242, width: desktopPct(543) }}
+          style={{ left: desktopPct(668), top: 232, width: desktopPct(252) }}
         >
-          <JobDraftHintText className="max-w-[413px]">
+          <JobDraftHintText className="max-w-[244px] text-[15px] leading-[1.08]">
             {draftStepOneHints.geography}
           </JobDraftHintText>
-          <JobDraftHintText className="max-w-[335px]">
+          <JobDraftHintText className="max-w-[212px] text-[15px] leading-[1.08]">
             {draftStepOneHints.sectorExamples}
           </JobDraftHintText>
-          <JobDraftHintText>
+          <JobDraftHintText className="max-w-[244px] text-[15px] leading-[1.08]">
             {draftStepOneHints.skills}
           </JobDraftHintText>
-          <JobDraftExperienceHints />
+          <div className="max-w-[244px]">
+            <JobDraftExperienceHints />
+          </div>
         </div>
       </div>
     </section>
@@ -498,8 +505,6 @@ function JobDraftMobileView({
               />
             </div>
 
-            <JobDraftHintText compact>{draftStepOneHints.geography}</JobDraftHintText>
-
             <JobDraftSectionHeading compact>descrizione offerta</JobDraftSectionHeading>
             <JobDraftDescriptionEditor
               compact
@@ -518,21 +523,17 @@ function JobDraftMobileView({
                 options={sectorOptions}
                 value={formState.sectorId}
               />
-              <JobDraftHintText compact>{draftStepOneHints.sectorExamples}</JobDraftHintText>
             </div>
 
-            <div className="space-y-3">
-              <JobDraftSelectField
-                compact
-                dataNodeId="258:945"
-                id="mobile-company-job-draft-skills"
-                label="competenze richieste"
-                onChange={onSkillChange}
-                options={skillOptions}
-                value={formState.skillId}
-              />
-              <JobDraftHintText compact>{draftStepOneHints.skills}</JobDraftHintText>
-            </div>
+            <JobDraftSelectField
+              compact
+              dataNodeId="258:945"
+              id="mobile-company-job-draft-skills"
+              label="competenze richieste"
+              onChange={onSkillChange}
+              options={skillOptions}
+              value={formState.skillId}
+            />
 
             <JobDraftSelectField
               compact
@@ -543,8 +544,6 @@ function JobDraftMobileView({
               options={experienceOptions}
               value={formState.experienceLevelId}
             />
-
-            <JobDraftExperienceHints compact />
 
             <button
               className="font-wedoo-accent inline-flex h-[50px] w-full items-center justify-center rounded-[8px] bg-brand-violet text-[22px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"

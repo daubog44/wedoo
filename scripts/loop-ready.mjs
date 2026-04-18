@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 
 const requiredFiles = [
   "AGENTS.md",
+  "DESIGN.md",
   "prd.md",
   "package.json",
   "playwright.config.ts",

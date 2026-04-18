@@ -5,16 +5,19 @@ import { SiteIcon } from "./site-icon";
 
 const toneMap = {
   gold: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-300",
+    accent: "text-brand-violet",
+    pill: "bg-brand-gold/28 text-brand-ink",
+    shell: "bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(248,244,255,0.88))]",
   },
   mint: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-200",
+    accent: "text-brand-mint-deep",
+    pill: "bg-brand-mint/28 text-brand-mint-deep",
+    shell: "bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(238,253,247,0.88))]",
   },
   violet: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-300",
+    accent: "text-brand-violet",
+    pill: "bg-brand-violet/10 text-brand-violet",
+    shell: "bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,245,251,0.92))]",
   },
 } as const;
 
@@ -22,62 +25,64 @@ export function FaqBoard({ groups }: { groups: readonly FaqGroup[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-brand-lavender-200/80">
+    <div className="grid gap-4">
       {groups.map((group) => {
         const tone = toneMap[group.tone];
 
         return (
           <section
-            className="border-b border-brand-lavender-100 last:border-b-0"
+            className={cn(
+              "rounded-[1.4rem] border border-black/6 p-3 shadow-[0_18px_42px_-34px_rgba(16,25,36,0.18)] sm:p-4",
+              tone.shell,
+            )}
             key={group.id}
           >
-            <div className="grid md:grid-cols-[270px_minmax(0,1fr)]">
-              <div
-                className={cn(
-                  "flex items-center px-6 py-8 text-[26px] leading-none text-brand-ink md:justify-center md:px-8 md:text-[34px]",
-                  "font-wedoo-accent font-bold",
-                  tone.shell,
-                )}
-              >
-                {group.label}
+            <div className="grid gap-3 lg:grid-cols-[180px_minmax(0,1fr)] lg:items-start">
+              <div className="px-2 py-2 lg:px-3 lg:py-3">
+                <span
+                  className={cn(
+                    "inline-flex rounded-full px-3 py-1.5 font-wedoo-accent text-[0.78rem] uppercase tracking-[0.16em]",
+                    tone.pill,
+                  )}
+                >
+                  {group.label}
+                </span>
               </div>
-              <div className={cn("grid", tone.shell)}>
+
+              <div className="grid gap-2">
                 {group.items.map((item, index) => {
                   const itemId = `${group.id}-${index}`;
                   const isOpen = openId === itemId;
 
                   return (
                     <div
-                      className="border-t border-brand-lavender-100 first:border-t-0"
+                      className="rounded-[1rem] border border-black/6 bg-white/82 overflow-hidden"
                       key={itemId}
                     >
                       <button
                         aria-expanded={isOpen}
-                        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-7"
+                        className="flex w-full items-start justify-between gap-4 px-4 py-4 text-left sm:px-5"
                         onClick={() =>
                           setOpenId((current) => (current === itemId ? null : itemId))
                         }
                         type="button"
                       >
-                        <span className="font-wedoo-heading text-[24px] leading-[1.12] text-brand-ink md:text-[33px]">
+                        <span className="max-w-[42rem] text-[1rem] leading-[1.3] text-brand-ink sm:text-[1.18rem]">
                           {item.question}
                         </span>
                         <SiteIcon
                           className={cn(
-                            "h-7 w-7 shrink-0 text-brand-ink transition-transform md:h-9 md:w-9",
+                            "mt-0.5 h-5 w-5 shrink-0 transition-transform sm:h-6 sm:w-6",
+                            tone.accent,
                             isOpen && "rotate-180",
                           )}
                           name="chevron-down"
                         />
                       </button>
+
                       {isOpen ? (
-                        <div
-                          className={cn(
-                            "px-6 pb-6 pt-0 md:px-8 md:pb-8",
-                            tone.answer,
-                          )}
-                        >
-                          <p className="max-w-[820px] text-base leading-7 text-slate-700 md:text-lg md:leading-8">
+                        <div className="border-t border-black/6 px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
+                          <p className="max-w-[52rem] text-[0.92rem] leading-6 text-slate-600 sm:text-[0.98rem]">
                             {item.answer}
                           </p>
                         </div>

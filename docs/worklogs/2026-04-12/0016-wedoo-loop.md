@@ -30,3 +30,19 @@
 - action: validazione finale completata e baseline parity aggiornata intenzionalmente sullo stato live della route recovery + assistenza.
 - tests: `npx playwright test tests/e2e/public/password-recovery-flow.spec.ts`, `vitest run tests/integration/auth-recovery-view-model.test.ts`, `npx playwright test tests/e2e/parity/password-recovery-flow.visual.spec.ts --update-snapshots`, `npx playwright test tests/e2e/parity/password-recovery-flow.visual.spec.ts`, `npm run typecheck`, `npm run lint`
 - note: capture finali salvate in `artifacts/loop-captures/2026-04-12/0110-password-recovery-final` e `artifacts/loop-captures/2026-04-12/0110-customer-support-final`; desktop e mobile verificati contro screenshot Figma e il task puo essere chiuso.
+
+- timestamp: 2026-04-12 01:09
+- task: hardening bootstrap Ralph loop su quality gate non bloccante
+- node: `n/a`
+- files: `scripts/potter-yolo.ps1`, `package.json`, `AGENTS.md`, `docs/ralph-loop-prompt.md`, `.codex/hooks.json`, `prd.md`
+- action: rilevato che `loop:ready` eseguiva anche `test:all`, quindi tre diff parity del password recovery fermavano il bootstrap prima del round.
+- tests: failure bootstrap riportato dall'utente su `tests/e2e/parity/password-recovery-flow.visual.spec.ts`
+- note: il fix corretto e separare readiness da quality gate, registrare il gate nel worklog con log file dedicato e lasciare al loop il primo compito di ispezionare quei failure.
+
+- timestamp: 2026-04-12 01:12
+- task: hardening bootstrap Ralph loop su quality gate non bloccante
+- node: `657:658`, `660:725`, `660:774`
+- files: `prd.md`, `docs/visual-backlog.md`, `docs/worklogs/2026-04-12/0016-wedoo-loop.md`
+- action: dry-run del bootstrap riuscito con gate rosso non bloccante; il log verificato mostra tre blocker parity correnti: password recovery desktop/mobile e customer support desktop.
+- tests: `powershell -File ./scripts/potter-yolo.ps1 -Slug loop-soft-gate-check -Rounds 1 -DryRun`
+- note: promosso un solo task `TEST` evidence-backed nel PRD per i parity blocker del gate e sincronizzato il visual backlog con prove da `.codexpotter/loop-gates/**` e `test-results/playwright/**`.

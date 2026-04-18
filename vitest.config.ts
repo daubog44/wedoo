@@ -1,14 +1,17 @@
-import { defineConfig, mergeConfig } from "vitest/config";
+import type { UserConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import viteConfig from "./vite.config";
 
-export default mergeConfig(
-  viteConfig,
-  defineConfig({
-    test: {
-      environment: "jsdom",
-      globals: true,
-      include: ["tests/integration/**/*.test.ts"],
-      setupFiles: "./vitest.setup.ts",
-    },
-  }),
-);
+const baseConfig = viteConfig as UserConfig;
+
+export default defineConfig({
+  ...baseConfig,
+  test: {
+    environment: "jsdom",
+    globals: true,
+    include: ["tests/integration/**/*.test.ts"],
+    maxWorkers: 4,
+    pool: "threads",
+    setupFiles: "./vitest.setup.ts",
+  },
+});

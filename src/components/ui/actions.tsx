@@ -13,15 +13,15 @@ export type SupportButtonVariant = 'filled' | 'outline'
 
 const toneClasses: Record<Tone, string> = {
   violet:
-    'bg-brand-violet text-white shadow-[0_20px_40px_-20px_rgba(91,63,209,0.85)] hover:bg-brand-violet-deep',
-  mint: 'bg-brand-mint text-brand-ink shadow-[0_20px_40px_-20px_rgba(105,242,196,0.85)] hover:bg-brand-mint-deep hover:text-white',
-  gold: 'bg-brand-gold text-brand-ink shadow-[0_20px_40px_-20px_rgba(245,221,97,0.8)] hover:bg-brand-gold-600',
-  ghost: 'bg-white/85 text-brand-ink ring-1 ring-black/8 hover:bg-white',
+    'border border-brand-violet bg-brand-violet text-white shadow-[0_14px_28px_-22px_rgba(91,63,209,0.34)] hover:bg-brand-violet-deep',
+  mint: 'border border-brand-mint-300 bg-brand-mint text-brand-ink shadow-[0_14px_28px_-22px_rgba(105,242,196,0.32)] hover:bg-brand-mint-deep hover:text-white',
+  gold: 'border border-brand-gold-300 bg-brand-gold text-brand-ink shadow-[0_14px_28px_-22px_rgba(245,221,97,0.34)] hover:bg-brand-gold-600',
+  ghost: 'border border-black/8 bg-white/92 text-brand-ink shadow-[0_12px_26px_-24px_rgba(16,25,36,0.18)] hover:bg-white',
   ink: 'bg-brand-ink text-white hover:bg-brand-violet',
 }
 
 const figmaButtonBaseClassName =
-  'inline-flex items-center justify-center rounded-[8px] transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50'
+  'inline-flex items-center justify-center rounded-[12px] transition duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50'
 
 const roleButtonClasses: Record<RoleButtonTone, Record<FigmaButtonSurface, string>> = {
   candidate: {
@@ -92,7 +92,7 @@ export function ButtonLink({
   tone = 'violet',
 }: ButtonLinkProps) {
   const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
+    'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[12px] px-4.5 py-2.5 text-[0.88rem] font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
     toneClasses[tone],
     className,
   )
@@ -135,7 +135,7 @@ export function Button({
   return (
     <button
       className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
+        'inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[12px] px-4.5 py-2.5 text-[0.88rem] font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
         toneClasses[tone],
         className,
       )}
@@ -166,7 +166,7 @@ export function RoleButton({
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[60px] min-w-[189px] px-6 py-3 font-wedoo-accent text-[24px] leading-none font-normal',
+        'min-h-[50px] min-w-[172px] px-5 py-3 font-wedoo-accent text-[19px] leading-none font-normal',
         roleButtonClasses[tone][surface],
         className,
       )}
@@ -198,7 +198,7 @@ export function DiscoverButton({
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[57px] min-w-[181px] gap-3 px-6 py-3 font-wedoo-accent text-[24px] leading-none font-normal',
+        'min-h-[48px] min-w-[168px] gap-2.5 px-5 py-3 font-wedoo-accent text-[18px] leading-none font-normal',
         discoverButtonClasses[tone][surface],
         className,
       )}
@@ -206,7 +206,7 @@ export function DiscoverButton({
       {...props}
     >
       <span>{children}</span>
-      <AppIcon className="shrink-0" height={24} name={icon} width={24} />
+      <AppIcon className="shrink-0" height={20} name={icon} width={20} />
     </button>
   )
 }
@@ -231,14 +231,14 @@ export function SupportButton({
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[54px] min-w-[300px] gap-2.5 border-2 px-5 py-3 font-wedoo-accent text-[24px] leading-none font-bold',
+        'min-h-[48px] min-w-[240px] gap-2 border-2 px-4 py-3 font-wedoo-accent text-[18px] leading-none font-bold',
         supportButtonClasses[tone][variant],
         className,
       )}
       type={type}
       {...props}
     >
-      <AppIcon className="shrink-0" height={30} name={icon} width={30} />
+      <AppIcon className="shrink-0" height={22} name={icon} width={22} />
       <span>{children}</span>
     </button>
   )

@@ -7,6 +7,9 @@ test.describe("candidate job page visual parity", () => {
     page,
   }, testInfo) => {
     const isMobile = testInfo.project.name === "chromium-mobile";
+    const layout = page.locator(
+      `[data-candidate-job-detail-layout="${isMobile ? "mobile" : "desktop"}"]`,
+    );
     if (!isMobile) {
       await page.setViewportSize({ width: 1440, height: 1024 });
     }
@@ -14,9 +17,8 @@ test.describe("candidate job page visual parity", () => {
     await page.goto(portalRoutes.candidateJob);
     await waitForWedooPageReady(page);
 
-    await expect(page).toHaveScreenshot("candidate-job-page.png", {
+    await expect(layout).toHaveScreenshot("candidate-job-page.png", {
       animations: "disabled",
-      fullPage: true,
     });
   });
 });

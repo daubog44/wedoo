@@ -171,7 +171,7 @@ export function getCompanyJobPreviewResponse(
     mobileDockLabel: "Navigazione rapida azienda",
     requirementsLabel: detail.qualifications.requirementsLabel,
     sections: {
-      companyBody: "",
+      companyBody: detail.companyOverview.paragraphs.join(" "),
       companyTitle: "Dettagli azienda",
       descriptionBody: storedDraft?.role.description || detail.description,
       descriptionTitle: "Job description:",

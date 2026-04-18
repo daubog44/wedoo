@@ -62,6 +62,10 @@ sandbox_mode = "danger-full-access"
 command = "npx"
 args = ["@playwright/mcp@latest", "--headless", "--isolated"]
 
+[mcp_servers.reactbits]
+command = "npx"
+args = ["reactbits-dev-mcp-server"]
+
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
 
@@ -328,6 +332,65 @@ function Append-WorklogNote {
 "@
 }
 
+function Invoke-SoftQualityGate {
+  param(
+    [string]$WorklogPath
+  )
+
+  $gateDir = Join-Path $RepoRoot ".codexpotter\loop-gates"
+  $timestamp = Get-Date -Format "yyyy-MM-dd-HHmmss"
+  $safeSlug = if ([string]::IsNullOrWhiteSpace($Slug)) { "session" } else { $Slug }
+  $gateLogPath = Join-Path $gateDir "$timestamp-$safeSlug-quality-gate.log"
+
+  New-Item -ItemType Directory -Force -Path $gateDir | Out-Null
+
+  Write-Host "Running soft quality gate..."
+  $gateOutput = & npm run loop:gate 2>&1 | Tee-Object -FilePath $gateLogPath
+  $gateExitCode = $LASTEXITCODE
+
+  if ($gateExitCode -eq 0) {
+    Append-WorklogNote -WorklogPath $WorklogPath -Action "bootstrap quality gate ok" -Note "Quality gate passed before loop start. Log: $gateLogPath"
+    Write-Host "Soft quality gate passed."
+    return
+  }
+
+  $outputLines = @($gateOutput | ForEach-Object { "$_" }) | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+  $failureCountLine = $outputLines | Where-Object { $_ -match '^\s*\d+\s+failed' } | Select-Object -Last 1
+  $failedSpecLines = $outputLines | Where-Object { $_ -match '^\s*\[chromium-(desktop|mobile)\]' } | Select-Object -Last 8
+  $failedSpecPaths = $failedSpecLines |
+    ForEach-Object {
+      if ($_ -match '(tests\\[^\s:]+\.spec\.ts)') {
+        $matches[1]
+      }
+    } |
+    Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+    Select-Object -Unique
+  $summaryParts = @()
+
+  if ($failureCountLine) {
+    $summaryParts += ($failureCountLine -replace '\s+', ' ').Trim()
+  }
+
+  if ($failedSpecLines) {
+    $summaryParts += ($failedSpecLines | ForEach-Object { ($_ -replace '\s+', ' ').Trim() })
+  }
+
+  $summary = $summaryParts -join " | "
+
+  if ([string]::IsNullOrWhiteSpace($summary)) {
+    $summary = "Quality gate failed without captured summary."
+  }
+
+  $rerunNote = ""
+  if ($failedSpecPaths) {
+    $rerunCommand = "npx playwright test " + (($failedSpecPaths | ForEach-Object { '"' + $_ + '"' }) -join " ")
+    $rerunNote = " Rerun first: $rerunCommand"
+  }
+
+  Append-WorklogNote -WorklogPath $WorklogPath -Action "bootstrap quality gate failed" -Note "Loop must inspect failing checks before closing product work. First concrete action after required docs: rerun the failing specs from this gate log before broader discovery. Exit: $gateExitCode. Log: $gateLogPath. Summary: $summary.$rerunNote"
+  Write-Warning "Soft quality gate failed with exit code $gateExitCode. Loop will still start. Log: $gateLogPath"
+}
+
 if ($UseGlobalHome) {
   $env:CODEX_HOME = $GlobalCodexHome
   Write-Host "Using global CODEX_HOME without local wrapper: $GlobalCodexHome"
@@ -363,6 +426,7 @@ if ($LASTEXITCODE -ne 0) {
 Write-Host "Worklog: $worklogPath"
 $absoluteWorklogPath = Join-Path $RepoRoot $worklogPath
 Reset-StalePotterTracker
+Invoke-SoftQualityGate -WorklogPath $absoluteWorklogPath
 
 if ($WithPreflight -or $PreflightOnly) {
   Test-GitHubToken
