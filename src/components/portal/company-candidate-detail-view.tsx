@@ -1,445 +1,173 @@
 import { NavLink } from "react-router-dom";
 import type { CompanyCandidateDetailResponse } from "../../data/types";
 import { AppIcon } from "../../lib/icons";
-import { assetPath, cn } from "../../lib/site-utils";
+import { assetPath } from "../../lib/site-utils";
 import { AppImage } from "../media/app-image";
-import { SiteIcon } from "../site/site-icon";
+import { Button } from "../ui/actions";
+import { Surface } from "../ui/surfaces";
 
-const outlineButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[49px] items-center justify-center rounded-[8px] border border-brand-mint-deep bg-transparent px-4 py-2 text-[1.125rem] leading-none text-brand-ink transition hover:bg-brand-mint/35 md:min-h-[58px] md:text-[1.5rem]";
-const softFillButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[49px] items-center justify-center rounded-[8px] border border-brand-mint-deep bg-brand-mint-400 px-4 py-2 text-[1.125rem] leading-none text-brand-ink transition hover:bg-brand-mint md:min-h-[58px] md:text-[1.5rem]";
-const primaryButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[49px] items-center justify-center rounded-[8px] bg-brand-mint-deep px-5 py-2 text-[1.125rem] leading-none text-brand-ink transition hover:bg-brand-mint md:min-h-[58px] md:text-[1.5rem]";
+function CandidateDetailList({
+  items,
+}: {
+  items: readonly string[];
+}) {
+  return (
+    <ul className="space-y-3 text-sm leading-7 text-[var(--wedoo-ink-muted)] sm:text-[0.98rem]">
+      {items.map((item) => (
+        <li className="flex gap-3" key={item}>
+          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--wedoo-mint-700)]" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-function CompanyCandidateRichTextBox({
+function CandidateDetailEditor({
   body,
-  minHeightClassName,
   toolbarLabel,
 }: {
   body: string;
-  minHeightClassName: string;
   toolbarLabel: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-[20px] border border-black/65 bg-transparent">
-      <div className="flex items-center gap-4 border-b border-black/65 px-4 py-3 font-wedoo-body text-[1rem] leading-none text-black md:px-8 md:text-[1.375rem]">
-        <span className="font-bold">G</span>
-        <span className="italic">C</span>
-        <span className="underline">S</span>
+    <div className="overflow-hidden rounded-[1.6rem] border border-[var(--wedoo-line)] bg-[rgba(248,250,252,0.92)]">
+      <div className="flex items-center gap-4 border-b border-[var(--wedoo-line)] px-4 py-3 text-sm text-[var(--wedoo-ink-muted)]">
+        <span className="font-semibold text-[var(--wedoo-ink-strong)]">G</span>
+        <span className="italic text-[var(--wedoo-ink-strong)]">C</span>
+        <span className="underline text-[var(--wedoo-ink-strong)]">S</span>
         <span>{toolbarLabel}</span>
-        <SiteIcon className="ml-auto h-4 w-4 md:h-5 md:w-5" name="menu" />
+        <AppIcon className="ml-auto h-4 w-4" name="list-box-line" />
       </div>
-      <div
-        className={cn(
-          "font-wedoo-body px-4 py-4 text-[1rem] leading-[1.2] text-black md:px-8 md:py-7 md:text-[1.375rem]",
-          minHeightClassName,
-        )}
-      >
+      <div className="px-4 py-5 text-sm leading-7 text-[var(--wedoo-ink-muted)] sm:px-6 sm:text-[0.98rem]">
         <p>{body}</p>
       </div>
     </div>
   );
 }
 
-function CompanyCandidateBulletList({
-  items,
-  textClassName,
-}: {
-  items: readonly string[];
-  textClassName: string;
-}) {
-  return (
-    <ul className={cn("list-disc space-y-1 pl-6 text-black", textClassName)}>
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  );
-}
-
-function CompanyCandidateDesktopShell({
-  detail,
-  onCancel,
-  onClose,
-  onSaveDraft,
-}: {
-  detail: CompanyCandidateDetailResponse;
-  onCancel: () => void;
-  onClose: () => void;
-  onSaveDraft: () => void;
-}) {
-  return (
-    <section
-      className="mx-auto w-full max-w-[1296px] bg-brand-mint-50 px-[60px] pb-[98px] pt-[52px]"
-      data-company-candidate-detail-layout="desktop"
-    >
-      <div className="relative">
-        <button
-          aria-label={detail.ctas.closeLabel}
-          className="absolute right-[2px] top-[2px] inline-flex h-12 w-12 items-center justify-center text-black transition hover:text-brand-mint-deep"
-          onClick={onClose}
-          type="button"
-        >
-          <SiteIcon className="h-8 w-8" name="close" />
-        </button>
-
-        <div className="grid gap-10 pt-4 md:grid-cols-[182px_minmax(0,1fr)] md:items-start">
-          <div className="overflow-hidden rounded-full">
-            <AppImage
-              alt={detail.candidate.fullName}
-              className="h-[182px] w-[182px] object-cover"
-              priority
-              src={assetPath(detail.candidate.avatar)}
-            />
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <h1 className="font-wedoo-heading text-[48px] uppercase leading-none text-black">
-                {detail.candidate.fullName}
-              </h1>
-              <p className="font-wedoo-accent pt-2 text-[36px] leading-none text-black">
-                {detail.candidate.statusLabel}
-              </p>
-            </div>
-
-            <CompanyCandidateBulletList
-              items={detail.contactItems}
-              textClassName="font-wedoo-accent text-[1.5rem] leading-[1.15]"
-            />
-
-            <p className="font-wedoo-accent pt-2 text-[1.5rem] leading-none text-black">
-              {detail.availabilityLabel}
-            </p>
-          </div>
-        </div>
-
-        <div className="pt-10">
-          <section>
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.descriptionTitle}
-            </h2>
-            <div className="mt-6">
-              <CompanyCandidateRichTextBox
-                body={detail.sections.descriptionBody}
-                minHeightClassName="min-h-[330px]"
-                toolbarLabel={detail.editorToolbarLabel}
-              />
-            </div>
-          </section>
-
-          <section className="pt-8">
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.educationTitle}
-            </h2>
-            <div className="mt-5">
-              <CompanyCandidateBulletList
-                items={detail.sections.educationItems}
-                textClassName="font-wedoo-body text-[1.375rem] leading-[1.12]"
-              />
-            </div>
-          </section>
-
-          <section className="pt-8">
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.certificationsTitle}
-            </h2>
-            <div className="mt-5">
-              <CompanyCandidateBulletList
-                items={detail.sections.certificationsItems}
-                textClassName="font-wedoo-body text-[1.375rem] leading-[1.12]"
-              />
-            </div>
-          </section>
-
-          <section className="pt-8">
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.experienceTitle}
-            </h2>
-            <div className="mt-5">
-              <CompanyCandidateBulletList
-                items={detail.sections.experienceItems}
-                textClassName="font-wedoo-body text-[1.375rem] leading-[1.12]"
-              />
-            </div>
-          </section>
-
-          <section className="pt-8">
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.softSkillsTitle}
-            </h2>
-            <div className="mt-5">
-              <CompanyCandidateBulletList
-                items={detail.sections.softSkillItems}
-                textClassName="font-wedoo-body text-[1.375rem] leading-[1.12]"
-              />
-            </div>
-          </section>
-
-          <section className="pt-8">
-            <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-              {detail.sections.hardSkillsTitle}
-            </h2>
-            <div className="mt-5">
-              <CompanyCandidateBulletList
-                items={detail.sections.hardSkillItems}
-                textClassName="font-wedoo-body text-[1.375rem] leading-[1.12]"
-              />
-            </div>
-          </section>
-
-          <p className="pt-8 font-wedoo-body text-[1.375rem] italic leading-[1.12] text-black">
-            {detail.footnote}
-          </p>
-
-          <div className="flex justify-end pt-10">
-            <div className="flex flex-col items-end gap-6">
-              <div className="flex items-center gap-6">
-                <SiteIcon className="h-[44px] w-[44px] text-brand-lavender-300" name="star" />
-                <button className={cn(primaryButtonClassName, "min-w-[254px]")} type="button">
-                  {detail.ctas.primaryLabel}
-                </button>
-              </div>
-              <button className={cn(softFillButtonClassName, "min-w-[168px]")} type="button">
-                {detail.ctas.resumeLabel}
-              </button>
-              <div className="flex gap-5">
-                <button
-                  className={cn(outlineButtonClassName, "min-w-[150px]")}
-                  onClick={onCancel}
-                  type="button"
-                >
-                  {detail.ctas.cancelLabel}
-                </button>
-                <button
-                  className={cn(outlineButtonClassName, "min-w-[189px]")}
-                  onClick={onSaveDraft}
-                  type="button"
-                >
-                  {detail.ctas.saveDraftLabel}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CompanyCandidateMobileDock({
-  label,
-}: {
-  label: string;
-}) {
+function CompanyCandidateDock({ label }: { label: string }) {
   return (
     <nav
       aria-label={label}
-      className="mt-10 flex items-center justify-between bg-brand-mint-deep px-[18px] py-[11px]"
+      className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-white/12 bg-[rgba(9,14,24,0.96)] px-4 py-3"
     >
       <NavLink
         aria-label="Apri dashboard azienda"
-        className="inline-flex h-8 w-8 items-center justify-center text-black"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         to="/portale/azienda"
       >
-        <AppIcon className="h-7 w-7" name="home-line" />
+        <AppIcon className="h-5 w-5" name="home-line" />
       </NavLink>
       <button
         aria-label="Candidati salvati in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-black"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="star-line" />
+        <AppIcon className="h-5 w-5" name="star-line" />
       </button>
       <button
         aria-label="Chat recruiter in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-black"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="chats-line" />
+        <AppIcon className="h-5 w-5" name="chats-line" />
       </button>
       <button
         aria-label="Messaggi recruiter in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-black"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="mail-line" />
+        <AppIcon className="h-5 w-5" name="mail-line" />
       </button>
       <button
         aria-label="Profilo azienda in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-black"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="user-line" />
+        <AppIcon className="h-5 w-5" name="user-line" />
       </button>
     </nav>
   );
 }
 
-function CompanyCandidateMobileShell({
-  detail,
-  onCancel,
-  onClose,
-  onSaveDraft,
-}: {
-  detail: CompanyCandidateDetailResponse;
-  onCancel: () => void;
-  onClose: () => void;
-  onSaveDraft: () => void;
-}) {
+function CompanyCandidateHero({ detail }: { detail: CompanyCandidateDetailResponse }) {
   return (
-    <section
-      className="mx-auto w-full max-w-[360px] bg-brand-mint-50 px-[21px] pb-0 pt-[38px]"
-      data-company-candidate-detail-layout="mobile"
-    >
-      <div className="relative">
-        <button
-          aria-label={detail.ctas.closeLabel}
-          className="absolute right-0 top-0 inline-flex h-[29px] w-[29px] items-center justify-center text-black transition hover:text-brand-mint-deep"
-          onClick={onClose}
-          type="button"
-        >
-          <SiteIcon className="h-5 w-5" name="close" />
-        </button>
-
-        <div className="flex flex-col items-center pt-2 text-center">
-          <div className="overflow-hidden rounded-full">
-            <AppImage
-              alt={detail.candidate.fullName}
-              className="h-[130px] w-[130px] object-cover"
-              priority
-              src={assetPath(detail.candidate.avatar)}
-            />
-          </div>
-          <h1 className="font-wedoo-heading pt-4 text-[28px] uppercase leading-none text-black">
-            {detail.candidate.fullName}
-          </h1>
-          <p className="font-wedoo-accent pt-2 text-[24px] leading-none text-black">
-            {detail.candidate.statusLabel}
-          </p>
-        </div>
-
-        <div className="pt-4">
-          <CompanyCandidateBulletList
-            items={detail.contactItems}
-            textClassName="font-wedoo-body text-[1rem] leading-[1.15]"
+    <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-[linear-gradient(145deg,rgba(13,18,30,0.98),rgba(26,34,52,0.94))] p-6 text-white shadow-[0_34px_90px_-58px_rgba(0,0,0,0.72)]">
+      <div className="grid gap-6 lg:grid-cols-[8rem_minmax(0,1fr)] lg:items-start">
+        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/95">
+          <AppImage
+            alt={detail.candidate.fullName}
+            className="h-32 w-32 object-cover"
+            priority
+            src={assetPath(detail.candidate.avatar)}
           />
         </div>
-
-        <p className="font-wedoo-accent pt-3 text-[24px] leading-none text-black">
-          {detail.availabilityLabel}
-        </p>
-
-        <section className="pt-4">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.descriptionTitle}
-          </h2>
-          <div className="mt-3">
-            <CompanyCandidateRichTextBox
-              body={detail.sections.descriptionBody}
-              minHeightClassName="min-h-[347px]"
-              toolbarLabel={detail.editorToolbarLabel}
-            />
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/46">candidate review</p>
+            <h1 className="font-wedoo-heading text-[2.4rem] leading-[0.88] text-white sm:text-[3.2rem]">
+              {detail.candidate.fullName}
+            </h1>
+            <p className="font-wedoo-accent text-[1.15rem] text-white/74">{detail.candidate.statusLabel}</p>
           </div>
-        </section>
 
-        <section className="pt-5">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.educationTitle}
-          </h2>
-          <div className="mt-4">
-            <CompanyCandidateBulletList
-              items={detail.sections.educationItems}
-              textClassName="font-wedoo-body text-[1rem] leading-[1.12]"
-            />
+          <div className="space-y-3 text-sm leading-7 text-white/68 sm:text-[0.98rem]">
+            {detail.contactItems.map((item) => (
+              <p key={item}>{item}</p>
+            ))}
           </div>
-        </section>
-
-        <section className="pt-5">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.certificationsTitle}
-          </h2>
-          <div className="mt-4">
-            <CompanyCandidateBulletList
-              items={detail.sections.certificationsItems}
-              textClassName="font-wedoo-body text-[1rem] leading-[1.12]"
-            />
-          </div>
-          <button className={cn(primaryButtonClassName, "mt-4 min-w-[277px]")} type="button">
-            {detail.ctas.certificationLabel}
-          </button>
-        </section>
-
-        <section className="pt-5">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.experienceTitle}
-          </h2>
-          <div className="mt-4">
-            <CompanyCandidateBulletList
-              items={detail.sections.experienceItems}
-              textClassName="font-wedoo-body text-[1rem] leading-[1.12]"
-            />
-          </div>
-        </section>
-
-        <section className="pt-5">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.softSkillsTitle}
-          </h2>
-          <div className="mt-4">
-            <CompanyCandidateBulletList
-              items={detail.sections.softSkillItems}
-              textClassName="font-wedoo-body text-[1rem] leading-[1.12]"
-            />
-          </div>
-        </section>
-
-        <section className="pt-5">
-          <h2 className="font-wedoo-accent text-[24px] font-bold leading-none text-black">
-            {detail.sections.hardSkillsTitle}
-          </h2>
-          <div className="mt-4">
-            <CompanyCandidateBulletList
-              items={detail.sections.hardSkillItems}
-              textClassName="font-wedoo-body text-[1rem] leading-[1.12]"
-            />
-          </div>
-        </section>
-
-        <p className="pt-5 font-wedoo-body text-[1rem] italic leading-[1.12] text-black">
-          {detail.footnote}
-        </p>
-
-        <div className="flex flex-col items-end gap-4 pt-6">
-          <div className="flex w-full items-center justify-end gap-4">
-            <SiteIcon className="h-8 w-8 text-brand-lavender-300" name="star" />
-            <button className={cn(primaryButtonClassName, "min-w-[215px]")} type="button">
-              {detail.ctas.primaryLabel}
-            </button>
-          </div>
-          <button className={cn(softFillButtonClassName, "min-w-[168px]")} type="button">
-            {detail.ctas.resumeLabel}
-          </button>
-          <button
-            className={cn(outlineButtonClassName, "min-w-[189px]")}
-            onClick={onSaveDraft}
-            type="button"
-          >
-            {detail.ctas.saveDraftLabel}
-          </button>
-          <button
-            className={cn(outlineButtonClassName, "min-w-[150px]")}
-            onClick={onCancel}
-            type="button"
-          >
-            {detail.ctas.cancelLabel}
-          </button>
         </div>
-
-        <CompanyCandidateMobileDock label={detail.mobileDockLabel} />
       </div>
-    </section>
+    </div>
+  );
+}
+
+function CompanyCandidateSections({ detail }: { detail: CompanyCandidateDetailResponse }) {
+  return (
+    <div className="grid gap-5 lg:grid-cols-2">
+      <Surface>
+        <p className="wedoo-kicker">{detail.sections.descriptionTitle}</p>
+        <h2 className="mt-4 text-2xl leading-tight text-[var(--wedoo-ink-strong)]">Profilo personale</h2>
+        <div className="mt-5">
+          <CandidateDetailEditor body={detail.sections.descriptionBody} toolbarLabel={detail.editorToolbarLabel} />
+        </div>
+      </Surface>
+
+      <Surface className="bg-[linear-gradient(180deg,rgba(238,255,249,0.9),rgba(255,255,255,0.95))]">
+        <p className="wedoo-kicker">availability</p>
+        <h2 className="mt-4 text-2xl leading-tight text-[var(--wedoo-ink-strong)]">{detail.availabilityLabel}</h2>
+        <p className="mt-4 text-sm font-semibold uppercase tracking-[0.22em] text-[var(--wedoo-ink-muted)]">
+          {detail.sections.certificationsTitle}
+        </p>
+        <div className="mt-5 space-y-5">
+          <CandidateDetailList items={detail.sections.certificationsItems} />
+          <Button className="min-h-[3.2rem] min-w-[13rem]" tone="mint">
+            {detail.ctas.certificationLabel}
+          </Button>
+        </div>
+      </Surface>
+
+      <Surface>
+        <p className="wedoo-kicker">{detail.sections.educationTitle}</p>
+        <CandidateDetailList items={detail.sections.educationItems} />
+      </Surface>
+
+      <Surface>
+        <p className="wedoo-kicker">{detail.sections.experienceTitle}</p>
+        <CandidateDetailList items={detail.sections.experienceItems} />
+      </Surface>
+
+      <Surface>
+        <p className="wedoo-kicker">{detail.sections.softSkillsTitle}</p>
+        <CandidateDetailList items={detail.sections.softSkillItems} />
+      </Surface>
+
+      <Surface>
+        <p className="wedoo-kicker">{detail.sections.hardSkillsTitle}</p>
+        <CandidateDetailList items={detail.sections.hardSkillItems} />
+      </Surface>
+    </div>
   );
 }
 
@@ -456,22 +184,106 @@ export function CompanyCandidateDetailView({
 }) {
   return (
     <>
-      <div className="hidden lg:block">
-        <CompanyCandidateDesktopShell
-          detail={detail}
-          onCancel={onCancel}
-          onClose={onClose}
-          onSaveDraft={onSaveDraft}
-        />
-      </div>
-      <div className="lg:hidden">
-        <CompanyCandidateMobileShell
-          detail={detail}
-          onCancel={onCancel}
-          onClose={onClose}
-          onSaveDraft={onSaveDraft}
-        />
-      </div>
+      <section className="hidden lg:block" data-company-candidate-detail-layout="desktop">
+        <div className="mx-auto max-w-[1400px] rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-8 pb-8 pt-7 shadow-[0_48px_120px_-72px_rgba(0,0,0,0.85)]">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/42">Wedoo recruiter review</p>
+            <button
+              aria-label={detail.ctas.closeLabel}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72 transition hover:bg-white/10"
+              onClick={onClose}
+              type="button"
+            >
+              <AppIcon className="h-5 w-5" name="close-line" />
+            </button>
+          </div>
+
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,1.08fr)_22rem]">
+            <div className="space-y-5">
+              <CompanyCandidateHero detail={detail} />
+              <CompanyCandidateSections detail={detail} />
+              <Surface>
+                <p className="text-sm leading-7 text-[var(--wedoo-ink-muted)]">{detail.footnote}</p>
+              </Surface>
+            </div>
+
+            <div className="space-y-5">
+              <Surface className="bg-[linear-gradient(180deg,rgba(247,248,252,0.96),rgba(255,255,255,0.96))]">
+                <p className="wedoo-kicker">availability</p>
+                <h2 className="mt-4 text-2xl leading-tight text-[var(--wedoo-ink-strong)]">Profilo pronto al contatto</h2>
+                <p className="mt-4 text-sm leading-7 text-[var(--wedoo-ink-muted)]">
+                  {detail.availabilityLabel}. Profilo pronto per un primo colloquio, con informazioni essenziali leggibili in pochi secondi.
+                </p>
+              </Surface>
+
+              <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-[linear-gradient(180deg,rgba(9,14,24,0.96),rgba(19,27,42,0.94))] p-6 text-white shadow-[0_34px_90px_-64px_rgba(0,0,0,0.54)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/45">actions</p>
+                <h2 className="mt-4 text-2xl leading-tight text-white">Gestisci il contatto</h2>
+                <div className="mt-6 grid gap-3">
+                  <Button className="min-h-[3.4rem] w-full" tone="mint">
+                    {detail.ctas.primaryLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" tone="ghost">
+                    {detail.ctas.resumeLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" onClick={onSaveDraft} tone="ghost">
+                    {detail.ctas.saveDraftLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" onClick={onCancel} tone="ghost">
+                    {detail.ctas.cancelLabel}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="lg:hidden" data-company-candidate-detail-layout="mobile">
+        <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4">
+          <div className="rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-4 pb-4 pt-4 shadow-[0_40px_100px_-70px_rgba(0,0,0,0.8)]">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/42">Wedoo recruiter review</p>
+              <button
+                aria-label={detail.ctas.closeLabel}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
+                onClick={onClose}
+                type="button"
+              >
+                <AppIcon className="h-5 w-5" name="close-line" />
+              </button>
+            </div>
+
+            <div className="space-y-5">
+              <CompanyCandidateHero detail={detail} />
+              <CompanyCandidateSections detail={detail} />
+              <Surface>
+                <p className="text-sm leading-7 text-[var(--wedoo-ink-muted)]">{detail.footnote}</p>
+              </Surface>
+              <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-[linear-gradient(180deg,rgba(9,14,24,0.96),rgba(19,27,42,0.94))] p-6 text-white shadow-[0_34px_90px_-64px_rgba(0,0,0,0.54)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/45">actions</p>
+                <h2 className="mt-4 text-2xl leading-tight text-white">Gestisci il contatto</h2>
+                <div className="mt-6 grid gap-3">
+                  <Button className="min-h-[3.4rem] w-full" tone="mint">
+                    {detail.ctas.primaryLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" tone="ghost">
+                    {detail.ctas.resumeLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" onClick={onSaveDraft} tone="ghost">
+                    {detail.ctas.saveDraftLabel}
+                  </Button>
+                  <Button className="min-h-[3.25rem] w-full" onClick={onCancel} tone="ghost">
+                    {detail.ctas.cancelLabel}
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <CompanyCandidateDock label={detail.mobileDockLabel} />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

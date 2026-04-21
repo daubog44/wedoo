@@ -59,11 +59,14 @@ export function CompanySustainabilityStep({
       <CompanyWizardDesktopShell
         aside={(
           <div
-            className="absolute bg-[#d9d9d9] px-4 py-10"
-            style={{ height: 340, left: companyWizardDesktopPct(651), top: 159, width: companyWizardDesktopPct(451) }}
+            className="wedoo-theme-shell absolute z-10 px-5 py-6"
+            style={{ left: companyWizardDesktopPct(706), top: 214, width: companyWizardDesktopPct(402) }}
           >
-            <div className="space-y-8">
-              <div className="space-y-4">
+            <div className="space-y-5">
+              <p className="font-wedoo-accent text-[0.76rem] uppercase tracking-[0.22em] text-[var(--wedoo-ink-muted)]">
+                guidance
+              </p>
+              <div className="space-y-3">
                 <CompanyWizardStepHint className="max-w-[315px]">
                   {stepHints.contractExamples}
                 </CompanyWizardStepHint>
@@ -85,12 +88,12 @@ export function CompanySustainabilityStep({
         )}
         backgroundAsset="formaziende5.png"
         formClassName="px-[22px] pb-[26px] pt-[18px]"
-        formStyle={{ left: companyWizardDesktopPct(80), top: 195, width: companyWizardDesktopPct(571) }}
+        formStyle={{ left: companyWizardDesktopPct(80), top: 246, width: companyWizardDesktopPct(571) }}
         step={5}
         testId="company-registration-step-5"
         title="Crea il tuo annuncio"
-        titleClassName="text-left font-wedoo-heading text-[58px] leading-[0.95]"
-        titleStyle={{ left: companyWizardDesktopPct(108), top: 124, width: companyWizardDesktopPct(432) }}
+        titleClassName="text-left font-wedoo-heading text-[60px] leading-[0.94]"
+        titleStyle={{ left: companyWizardDesktopPct(80), top: 94, width: companyWizardDesktopPct(520) }}
       >
         <div className="space-y-5">
           <div className="grid grid-cols-[238px_238px] gap-12">

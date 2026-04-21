@@ -1,48 +1,36 @@
 import { startTransition, useState } from "react";
 import { Link } from "react-router-dom";
-import { routeMap } from "../../data/core";
 import { roleShowcases } from "../../data/showcases";
 import type { PortalRole } from "../../data/types";
 import { assetPath, cn } from "../../lib/site-utils";
 import { SiteIcon } from "./site-icon";
+import { WedooLogo } from "./branding";
 
 const showcaseTheme = {
   candidate: {
-    background: "verde.png",
-    bubbleText: "text-brand-ink",
-    button:
-      "bg-brand-mint text-brand-ink shadow-[0_20px_45px_-24px_rgba(105,242,196,0.9)] hover:bg-brand-mint-deep hover:text-white",
-    mobileBubble: "bg-[#69f2c4]",
+    accentButton:
+      "bg-[var(--wedoo-mint)] text-[var(--wedoo-ink)] shadow-[0_22px_48px_-34px_rgba(87,215,180,0.5)] hover:bg-[var(--wedoo-support-hover)] hover:text-[var(--wedoo-white-soft)]",
+    accentChip: "text-[var(--wedoo-mint)]",
+    accentDot: "bg-[var(--wedoo-mint)]",
+    accentLine: "border-[rgba(87,215,180,0.22)]",
   },
   company: {
-    background: "viola.png",
-    bubbleText: "text-white",
-    button:
-      "bg-brand-violet text-white shadow-[0_20px_45px_-24px_rgba(116,71,225,0.9)] hover:bg-brand-violet-600",
-    mobileBubble: "bg-[linear-gradient(135deg,#6f45e6_0%,#7d54ea_100%)]",
+    accentButton:
+      "bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[0_22px_48px_-34px_rgba(112,72,232,0.48)] hover:bg-[var(--wedoo-violet-hover)]",
+    accentChip: "text-[var(--wedoo-violet-300)]",
+    accentDot: "bg-[var(--wedoo-violet)]",
+    accentLine: "border-[rgba(112,72,232,0.24)]",
   },
 } as const;
 
-const showcaseLayout = {
-  candidate: {
-    desktopTitleText: "text-[52px] leading-[1.08]",
-    desktopTitleWidth: "max-w-[450px]",
-    mobileTitle: "max-w-[320px] text-[34px] leading-[1.1]",
-    mobileBubbleHeight: "h-[222px]",
-  },
-  company: {
-    desktopTitleText: "text-[46px] leading-[1.12]",
-    desktopTitleWidth: "max-w-[590px]",
-    mobileTitle: "max-w-[336px] text-[30px] leading-[1.12]",
-    mobileBubbleHeight: "h-[210px]",
-  },
-} as const;
-
-function ShowcaseLanguageChip() {
+function ShowcaseLanguageChip({ compact = false }: { compact?: boolean }) {
   return (
     <button
       aria-label="Lingua italiana"
-      className="inline-flex h-8 w-[57px] items-center justify-center gap-2 rounded-[8px] border border-[#767676] bg-[#e3e3e3] px-3 text-[16px] leading-none text-[#1e1e1e] opacity-50"
+      className={cn(
+        "inline-flex items-center justify-center gap-2 rounded-full border border-[var(--wedoo-line)] bg-white/88 text-[var(--wedoo-ink-muted)] shadow-[0_12px_30px_-24px_rgba(15,23,40,0.34)]",
+        compact ? "h-[2rem] min-w-[3.6rem] px-2.5 text-[0.76rem]" : "h-[2.35rem] min-w-[4.2rem] px-3 text-[0.82rem]",
+      )}
       type="button"
     >
       <span>ita</span>
@@ -51,86 +39,21 @@ function ShowcaseLanguageChip() {
   );
 }
 
-function ShowcaseTopBar() {
+function ShowcaseTopBar({ compact = false }: { compact?: boolean }) {
   return (
-    <header className="flex items-start justify-between gap-8">
-      <Link className="inline-flex" to="/">
-        <img alt="Wedoo" className="h-[41px] w-[151px] object-contain" src={assetPath("scritta-wedoo.png")} />
-      </Link>
-      <ShowcaseLanguageChip />
-    </header>
-  );
-}
-
-function ShowcaseBubble({
-  className,
-  description,
-  mobile = false,
-  role,
-}: {
-  className?: string;
-  description: string;
-  mobile?: boolean;
-  role: PortalRole;
-}) {
-  return (
-    <div
-      className={cn(
-        "relative flex items-center justify-center overflow-hidden text-center",
-        className,
-      )}
-    >
-      {mobile ? (
-        <div
-          aria-hidden="true"
-          className={cn("absolute inset-0", showcaseTheme[role].mobileBubble)}
-          style={{ borderRadius: "36% 36% 42% 42% / 32% 32% 46% 46%" }}
-        />
-      ) : (
-        <img
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-fill"
-          src={assetPath(showcaseTheme[role].background)}
-        />
-      )}
-      <p
-        className={cn(
-          "relative z-10 px-10 font-wedoo-heading leading-[1.22]",
-          showcaseTheme[role].bubbleText,
-          mobile ? "text-[24px]" : "text-[32px]",
-        )}
-      >
-        {description}
-      </p>
-    </div>
-  );
-}
-
-function ShowcaseImage({
-  className,
-  image,
-  title,
-}: {
-  className?: string;
-  image: string;
-  title: string;
-}) {
-  return (
-    <div className={cn("flex items-center justify-center", className)}>
-      <img alt={title} className="h-full w-full object-contain" draggable={false} src={assetPath(image)} />
+    <div className="glass-panel flex items-center justify-between gap-4 px-4 py-3 md:px-6">
+      <WedooLogo imageClassName={compact ? "h-8" : "h-9 md:h-10"} />
+      <ShowcaseLanguageChip compact={compact} />
     </div>
   );
 }
 
 function ShowcaseArrow({
-  className,
   direction,
   disabled = false,
   label,
   onClick,
 }: {
-  className?: string;
   direction: "left" | "right";
   disabled?: boolean;
   label: string;
@@ -139,28 +62,34 @@ function ShowcaseArrow({
   return (
     <button
       aria-label={label}
-      className={cn(
-        "inline-flex h-14 w-14 items-center justify-center text-brand-ink transition hover:scale-110 disabled:pointer-events-none disabled:opacity-0",
-        className,
-      )}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/4 text-[var(--wedoo-workspace-text)] transition hover:-translate-y-0.5 hover:border-white/24 hover:bg-white/10 disabled:pointer-events-none disabled:opacity-35"
       disabled={disabled}
       onClick={onClick}
       type="button"
     >
-      <SiteIcon
-        className={cn("h-8 w-8", direction === "left" && "rotate-180")}
-        name="arrow-right"
-      />
+      <SiteIcon className={cn("h-5 w-5", direction === "left" && "rotate-180")} name="arrow-right" />
     </button>
+  );
+}
+
+function ShowcaseSlideTitle({ title }: { title: string }) {
+  return (
+    <>
+      {title.split("\n").map((line) => (
+        <span className="block" key={line}>
+          {line}
+        </span>
+      ))}
+    </>
   );
 }
 
 function ShowcaseDesktopView({
   activeIndex,
-  role,
   onNext,
   onPrevious,
   onSelect,
+  role,
 }: {
   activeIndex: number;
   onNext: () => void;
@@ -171,85 +100,136 @@ function ShowcaseDesktopView({
   const showcase = roleShowcases[role];
   const activeSlide = showcase.slides[activeIndex] ?? showcase.slides[0];
   const isLastSlide = activeIndex === showcase.slides.length - 1;
+  const theme = showcaseTheme[role];
 
   return (
     <section className="hidden min-[1024px]:block" data-showcase-layout="desktop">
-      <div className="mx-auto w-full max-w-[1440px] px-12 pb-16 pt-8">
+      <div className="mx-auto max-w-[1360px] px-8 pb-12 pt-6">
         <ShowcaseTopBar />
 
-        <div className="mx-auto mt-8 max-w-[1180px]">
-          <div className={cn("ml-auto w-full", showcaseLayout[role].desktopTitleWidth)}>
-            <h1
-              className={cn(
-                "text-right font-wedoo-heading text-brand-ink",
-                showcaseLayout[role].desktopTitleText,
-              )}
-            >
-              {activeSlide.title.split("\n").map((line) => (
-                <span className="block" key={line}>
-                  {line}
-                </span>
-              ))}
-            </h1>
-          </div>
+        <div className="mt-6 overflow-hidden rounded-[2rem] shadow-[0_40px_120px_-74px_rgba(4,10,20,0.92)]">
+          <div className="grid lg:grid-cols-[0.44fr_0.56fr]">
+            <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.86))] px-8 py-9 md:px-10 md:py-10 xl:px-12 xl:py-12">
+              <div className="flex h-full flex-col justify-between gap-8">
+                <div className="space-y-6">
+                  <span className={cn("wedoo-kicker", theme.accentChip)}>{showcase.badge}</span>
+                  <h1 className="text-[4.4rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
+                    <ShowcaseSlideTitle title={activeSlide.title} />
+                  </h1>
+                  <p className="max-w-[28rem] text-lg leading-8 text-[var(--wedoo-ink-muted)]">
+                    {activeSlide.description}
+                  </p>
+                </div>
 
-          <div className="relative mt-6">
-            <div className="grid grid-cols-[452px_430px] items-end justify-center gap-4">
-              <ShowcaseBubble
-                className="h-[458px] w-full"
-                description={activeSlide.description}
-                role={role}
+                <div className="space-y-6">
+                  <div className="grid gap-4">
+                    {showcase.metrics.map((metric) => (
+                      <div className="border-t border-[var(--wedoo-line)] pt-4" key={metric.label}>
+                        <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-ink-muted)]">
+                          {metric.label}
+                        </p>
+                        <p className="mt-2 text-[1.5rem] leading-[1.05] text-[var(--wedoo-ink-strong)]">
+                          {metric.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex gap-3" data-showcase-dots="desktop">
+                      {showcase.slides.map((slide, index) => (
+                        <button
+                          aria-label={`Vai alla slide ${index + 1}`}
+                          className={cn(
+                            "h-3.5 w-3.5 rounded-full transition-all",
+                            index === activeIndex
+                              ? theme.accentDot
+                              : "bg-[rgba(18,24,38,0.16)] hover:bg-[rgba(18,24,38,0.28)]",
+                          )}
+                          key={slide.title}
+                          onClick={() => onSelect(index)}
+                          type="button"
+                        />
+                      ))}
+                    </div>
+
+                    {isLastSlide ? (
+                      <Link
+                        className={cn(
+                          "inline-flex min-h-[54px] min-w-[216px] items-center justify-center rounded-[16px] px-6 font-wedoo-accent text-[1.1rem] transition hover:-translate-y-0.5",
+                          theme.accentButton,
+                        )}
+                        to={showcase.cta}
+                      >
+                        registrati
+                      </Link>
+                    ) : (
+                      <div className="h-[54px] w-[216px]" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="wedoo-workspace relative min-h-[42rem] overflow-hidden px-8 py-9">
+              <img
+                alt={activeSlide.title}
+                className="absolute inset-0 h-full w-full object-cover opacity-[0.18]"
+                draggable={false}
+                src={assetPath(activeSlide.image)}
               />
-              <ShowcaseImage className="h-[458px] w-full" image={activeSlide.image} title={activeSlide.title} />
-            </div>
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,13,24,0.24),rgba(7,13,24,0.9))]" />
 
-            <ShowcaseArrow
-              className="absolute left-[10px] top-[46%] -translate-y-1/2"
-              direction="left"
-              disabled={activeIndex === 0}
-              label="Slide precedente"
-              onClick={onPrevious}
-            />
-            <ShowcaseArrow
-              className="absolute right-[18px] top-[46%] -translate-y-1/2"
-              direction="right"
-              disabled={activeIndex === showcase.slides.length - 1}
-              label="Slide successiva"
-              onClick={onNext}
-            />
-          </div>
+              <div className="relative z-10 flex h-full flex-col justify-between gap-8">
+                <div className="flex items-start justify-between gap-5">
+                  <div className="space-y-3">
+                    <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
+                      slide {activeIndex + 1}
+                    </p>
+                    <p className="max-w-[24rem] text-lg leading-8 text-[var(--wedoo-workspace-muted)]">
+                      {showcase.description}
+                    </p>
+                  </div>
 
-          <div className="mt-8 grid grid-cols-[1fr_auto_1fr] items-center">
-            <div />
-            <div className="flex justify-center gap-3" data-showcase-dots="desktop">
-              {showcase.slides.map((slide, index) => (
-                <button
-                  aria-label={`Vai alla slide ${index + 1}`}
-                  className={cn(
-                    "h-4 w-4 rounded-full transition-all",
-                    index === activeIndex ? "bg-slate-500" : "bg-slate-300 hover:bg-slate-400",
-                  )}
-                  key={slide.title}
-                  onClick={() => onSelect(index)}
-                  type="button"
-                />
-              ))}
-            </div>
+                  <div className="flex gap-3">
+                    <ShowcaseArrow
+                      direction="left"
+                      disabled={activeIndex === 0}
+                      label="Slide precedente"
+                      onClick={onPrevious}
+                    />
+                    <ShowcaseArrow
+                      direction="right"
+                      disabled={activeIndex === showcase.slides.length - 1}
+                      label="Slide successiva"
+                      onClick={onNext}
+                    />
+                  </div>
+                </div>
 
-            <div className="flex justify-end">
-              {isLastSlide ? (
-                <Link
-                  className={cn(
-                    "inline-flex min-w-[216px] items-center justify-center rounded-[10px] px-6 py-3 text-[24px] font-medium transition",
-                    showcaseTheme[role].button,
-                  )}
-                  to={routeMap[role].register}
-                >
-                  registrati
-                </Link>
-              ) : (
-                <div className="h-[54px] w-[216px] opacity-0" />
-              )}
+                <div className="grid gap-4 lg:grid-cols-[0.64fr_0.36fr]">
+                  <div className="overflow-hidden rounded-[1.7rem] border border-white/10 bg-[rgba(255,255,255,0.04)]">
+                    <img
+                      alt={activeSlide.title}
+                      className="aspect-[4/3] w-full object-contain p-6"
+                      draggable={false}
+                      src={assetPath(activeSlide.image)}
+                    />
+                  </div>
+                  <div className={cn("rounded-[1.45rem] border bg-white/4 p-5", theme.accentLine)}>
+                    <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
+                      why it matters
+                    </p>
+                    <p className="mt-4 text-[1.9rem] leading-[0.96] text-[var(--wedoo-workspace-text)]">
+                      Un solo asse narrativo per tutta la presentazione.
+                    </p>
+                    <p className="mt-4 text-sm leading-7 text-[var(--wedoo-workspace-muted)]">
+                      Le slide non sono piu un carosello di box. Testo, immagine e CTA lavorano come una singola
+                      superficie editoriale.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -271,50 +251,63 @@ function ShowcaseMobileView({
 }) {
   const showcase = roleShowcases[role];
   const activeSlide = showcase.slides[activeIndex] ?? showcase.slides[0];
+  const theme = showcaseTheme[role];
 
   return (
     <section className="min-[1024px]:hidden" data-showcase-layout="mobile">
-      <div className="mx-auto w-full max-w-[390px] px-2 pb-10 pt-6">
-        <ShowcaseTopBar />
+      <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
+        <ShowcaseTopBar compact />
 
-        <h1
-          className={cn(
-            "mx-auto mt-8 text-center font-wedoo-heading text-brand-ink",
-            showcaseLayout[role].mobileTitle,
-          )}
-        >
-          {activeSlide.title.split("\n").map((line) => (
-            <span className="block" key={line}>
-              {line}
-            </span>
-          ))}
-        </h1>
+        <div className="mt-5 space-y-5">
+          <div className="rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.88))] px-5 py-6 shadow-[0_24px_70px_-54px_rgba(15,23,40,0.32)]">
+            <span className={cn("wedoo-kicker", theme.accentChip)}>{showcase.badge}</span>
+            <h1 className="mt-5 text-[2.7rem] leading-[0.92] text-[var(--wedoo-ink-strong)]">
+              <ShowcaseSlideTitle title={activeSlide.title} />
+            </h1>
+            <p className="mt-4 text-base leading-7 text-[var(--wedoo-ink-muted)]">{activeSlide.description}</p>
+          </div>
 
-        <ShowcaseBubble
-          className={cn("mt-7 w-full", showcaseLayout[role].mobileBubbleHeight)}
-          description={activeSlide.description}
-          mobile
-          role={role}
-        />
+          <div className="wedoo-workspace overflow-hidden rounded-[1.6rem] px-5 py-5 shadow-[0_34px_96px_-68px_rgba(4,10,20,0.92)]">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
+                slide {activeIndex + 1}
+              </p>
+              <div className="flex gap-2">
+                <ShowcaseArrow direction="left" label="Slide precedente" onClick={onPrevious} />
+                <ShowcaseArrow direction="right" label="Slide successiva" onClick={onNext} />
+              </div>
+            </div>
 
-        <div className="relative mt-6">
-          <ShowcaseArrow
-            className="absolute left-0 top-[8%] z-10"
-            direction="left"
-            label="Slide precedente"
-            onClick={onPrevious}
-          />
-          <ShowcaseImage
-            className="mx-auto mt-10 h-[332px] w-full"
-            image={activeSlide.image}
-            title={activeSlide.title}
-          />
-          <ShowcaseArrow
-            className="absolute right-0 top-[8%] z-10"
-            direction="right"
-            label="Slide successiva"
-            onClick={onNext}
-          />
+            <div className="mt-4 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[rgba(255,255,255,0.04)]">
+              <img
+                alt={activeSlide.title}
+                className="aspect-[4/3] w-full object-contain p-5"
+                draggable={false}
+                src={assetPath(activeSlide.image)}
+              />
+            </div>
+
+            <div className="mt-4 grid gap-3">
+              {showcase.metrics.map((metric) => (
+                <div className="border-t border-white/10 pt-3" key={metric.label}>
+                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--wedoo-workspace-muted)]">
+                    {metric.label}
+                  </p>
+                  <p className="mt-2 text-lg leading-[1.08] text-[var(--wedoo-workspace-text)]">{metric.value}</p>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              className={cn(
+                "mt-5 inline-flex min-h-[54px] w-full items-center justify-center rounded-[16px] px-5 font-wedoo-accent text-[1.1rem] transition hover:-translate-y-0.5",
+                theme.accentButton,
+              )}
+              to={showcase.cta}
+            >
+              registrati
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -345,7 +338,7 @@ export function ShowcaseCarousel({ role }: { role: PortalRole }) {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--wedoo-page-bg)] pb-10 pt-2">
+    <main className="min-h-screen bg-[var(--wedoo-page-bg)] pb-8">
       <ShowcaseMobileView
         activeIndex={activeIndex}
         onNext={() => selectRelative(1, true)}

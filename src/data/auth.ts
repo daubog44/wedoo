@@ -41,6 +41,7 @@ export type AuthViewModel = {
     linkTo: string;
   };
   forgotPasswordLabel?: string;
+  forgotPasswordTo?: string;
   id: "login" | "register-candidate" | "register-company";
   providerOptions?: readonly {
     id: "apple" | "google";
@@ -108,6 +109,7 @@ export const loginAuthViewModel = {
     linkTo: "/registrati",
   },
   forgotPasswordLabel: "password dimenticata",
+  forgotPasswordTo: "/password-dimenticata",
   id: "login",
   providerButtons: true,
   providerOptions: [

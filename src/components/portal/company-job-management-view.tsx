@@ -40,13 +40,13 @@ type CompanyJobManagementViewProps = {
 };
 
 const desktopPrimaryButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[40px] items-center justify-center rounded-[5px] bg-brand-violet px-5 py-2 text-[24px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600";
+  "font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[16px] border border-transparent bg-[var(--wedoo-violet)] px-5 py-2 text-[20px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]";
 const desktopOutlineButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[40px] items-center justify-center rounded-[5px] border border-brand-violet bg-transparent px-5 py-2 text-[24px] leading-none text-brand-ink transition hover:bg-brand-violet/10";
+  "font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[16px] border border-[var(--wedoo-line-strong)] bg-white/86 px-5 py-2 text-[18px] leading-none text-brand-ink transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]";
 const mobilePrimaryButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[50px] items-center justify-center rounded-[8px] bg-brand-violet px-5 py-2 text-[22px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600";
+  "font-wedoo-accent inline-flex min-h-[52px] items-center justify-center rounded-[18px] border border-transparent bg-[var(--wedoo-violet)] px-5 py-2 text-[19px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)]";
 const mobileOutlineButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[50px] items-center justify-center rounded-[8px] border border-brand-violet bg-transparent px-5 py-2 text-[22px] leading-none text-brand-ink transition hover:bg-brand-violet/10";
+  "font-wedoo-accent inline-flex min-h-[50px] items-center justify-center rounded-[18px] border border-[var(--wedoo-line-strong)] bg-white/86 px-5 py-2 text-[17px] leading-none text-brand-ink transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]";
 
 function SidebarGhostSelect({
   ariaLabel,
@@ -65,7 +65,7 @@ function SidebarGhostSelect({
     <div className="relative">
       <select
         aria-label={ariaLabel}
-        className="font-wedoo-accent w-full appearance-none bg-transparent py-1 pl-0 pr-8 text-center text-[24px] leading-none text-brand-ink outline-none"
+        className="font-wedoo-accent h-[3.3rem] w-full appearance-none rounded-[16px] border border-[var(--wedoo-line)] bg-white/84 px-4 pr-10 text-left text-[18px] leading-none text-brand-ink outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]"
         onChange={(event) => onChange(event.target.value)}
         value={value}
       >
@@ -77,7 +77,7 @@ function SidebarGhostSelect({
         ))}
       </select>
       <AppIcon
-        className="pointer-events-none absolute right-0 top-1/2 h-6 w-6 -translate-y-1/2 text-brand-ink"
+        className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-ink"
         name="chevron-down-line"
       />
     </div>
@@ -328,28 +328,32 @@ function CompanyJobManagementDesktopRail({
   section: CompanyJobManagementSectionId;
 }) {
   return (
-    <aside className="flex min-h-[1024px] flex-col items-center rounded-[218px] border-[5px] border-brand-violet bg-brand-page px-[54px] pb-[74px] pt-[67px]">
-      <div className="flex h-[180px] w-[180px] items-center justify-center rounded-full bg-white">
-        <AppImage
-          alt={response.company.legalName}
-          className="h-[84px] w-[84px] object-contain"
-          priority
-          src={assetPath(response.company.logo)}
-        />
+    <aside className="flex min-h-[920px] flex-col rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-8 pb-8 pt-8 text-white shadow-[0_40px_100px_-72px_rgba(0,0,0,0.82)]">
+      <div className="flex items-center gap-4">
+        <div className="flex h-[88px] w-[88px] items-center justify-center rounded-[1.6rem] border border-white/10 bg-white/95">
+          <AppImage
+            alt={response.company.legalName}
+            className="h-[42px] w-[42px] object-contain"
+            priority
+            src={assetPath(response.company.logo)}
+          />
+        </div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/42">company workspace</p>
+          <h2 className="mt-2 font-wedoo-heading text-[2rem] leading-[0.9] text-white">
+            {response.company.legalName}
+          </h2>
+        </div>
       </div>
 
-      <h2 className="font-wedoo-accent pt-[11px] text-center text-[36px] leading-none text-brand-ink">
-        {response.company.legalName}
-      </h2>
-
-      <div className="flex w-full justify-between px-[18px] pt-[21px]">
+      <div className="mt-6 flex w-full justify-between gap-3">
         {response.company.certificationLabels.map((label) => (
           <div
-            className="flex w-[110px] flex-col items-center gap-1.5 text-center"
+            className="flex min-w-0 flex-1 flex-col items-center gap-2 rounded-[1.2rem] border border-white/10 bg-white/5 px-2 py-3 text-center"
             key={label}
           >
-            <span className="inline-flex h-[45px] w-[45px] rounded-full border border-brand-ink bg-transparent" />
-            <span className="font-wedoo-body text-[22px] leading-[1.05] text-brand-ink">
+            <span className="inline-flex h-10 w-10 rounded-full border border-white/16 bg-white/5" />
+            <span className="font-wedoo-body text-[14px] leading-[1.2] text-white/74">
               {label}
             </span>
           </div>
@@ -357,14 +361,14 @@ function CompanyJobManagementDesktopRail({
       </div>
 
       <button
-        className="font-wedoo-accent mt-[18px] inline-flex items-center gap-2 text-[24px] leading-none text-brand-ink transition hover:text-brand-violet"
+        className="font-wedoo-accent mt-5 inline-flex items-center gap-2 text-[16px] leading-none text-white/76 transition hover:text-white"
         type="button"
       >
         <AppIcon className="h-5 w-5" name="arrow-up-line" />
         {response.company.uploadCertificationsLabel}
       </button>
 
-      <div className="mt-[24px] w-full max-w-[265px]">
+      <div className="mt-6 grid gap-4">
         <SidebarGhostSelect
           ariaLabel="Attivita azienda"
           onChange={onActivityChange}
@@ -372,13 +376,9 @@ function CompanyJobManagementDesktopRail({
           placeholder={response.company.activityLabel}
           value={activityValue}
         />
-      </div>
-
-      <p className="font-wedoo-accent pt-[22px] text-center text-[24px] leading-none text-brand-ink">
-        {response.company.candidateInterestLabel}
-      </p>
-
-      <div className="w-full max-w-[255px] pt-[12px]">
+        <p className="font-wedoo-accent pt-1 text-[18px] leading-none text-white/76">
+          {response.company.candidateInterestLabel}
+        </p>
         <SidebarGhostSelect
           ariaLabel="Annunci pubblicati"
           onChange={onPublishedJobChange}
@@ -386,25 +386,22 @@ function CompanyJobManagementDesktopRail({
           placeholder={response.company.publishedJobsLabel}
           value={publishedJobValue}
         />
-      </div>
+        <button
+          className="font-wedoo-accent text-left text-[16px] leading-none text-white/72 transition hover:text-white"
+          onClick={onViewPublished}
+          type="button"
+        >
+          {response.company.viewJobsLabel}
+        </button>
 
-      <button
-        className="font-wedoo-accent pt-[10px] text-[24px] leading-none text-brand-ink transition hover:text-brand-violet"
-        onClick={onViewPublished}
-        type="button"
-      >
-        {response.company.viewJobsLabel}
-      </button>
+        <button
+          className="font-wedoo-accent text-left text-[16px] leading-none text-white/72 transition hover:text-white"
+          onClick={onViewApplications}
+          type="button"
+        >
+          {response.company.viewApplicationsLabel}
+        </button>
 
-      <button
-        className="font-wedoo-accent pt-[10px] text-[24px] leading-none text-brand-ink transition hover:text-brand-violet"
-        onClick={onViewApplications}
-        type="button"
-      >
-        {response.company.viewApplicationsLabel}
-      </button>
-
-      <div className="w-full max-w-[255px] pt-[10px]">
         <SidebarGhostSelect
           ariaLabel="Modifica annuncio"
           onChange={(value) => {
@@ -419,7 +416,7 @@ function CompanyJobManagementDesktopRail({
       </div>
 
       <button
-        className="mt-auto inline-flex min-h-[62px] w-full items-center justify-center rounded-[8px] bg-brand-violet px-5 py-2 font-wedoo-accent text-[24px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
+        className="mt-auto inline-flex min-h-[56px] w-full items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
         onClick={onCreateNew}
         type="button"
       >
@@ -433,42 +430,42 @@ function CompanyJobsMobileDock({ label }: { label: string }) {
   return (
     <nav
       aria-label={label}
-      className="mt-4 flex items-center justify-between bg-brand-violet-300 px-[18px] py-[11px]"
+      className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-white/12 bg-[rgba(9,14,24,0.96)] px-4 py-3"
     >
       <NavLink
         aria-label="Apri dashboard azienda"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         to="/portale/azienda"
       >
-        <AppIcon className="h-7 w-7" name="home-line" />
+        <AppIcon className="h-5 w-5" name="home-line" />
       </NavLink>
       <button
         aria-label="Preferiti azienda in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="star-line" />
+        <AppIcon className="h-5 w-5" name="star-line" />
       </button>
       <button
         aria-label="Chat recruiter in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="chats-line" />
+        <AppIcon className="h-5 w-5" name="chats-line" />
       </button>
       <button
         aria-label="Annunci azienda in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="briefcase-line" />
+        <AppIcon className="h-5 w-5" name="briefcase-line" />
       </button>
       <button
         aria-label="Profilo azienda in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="user-line" />
+        <AppIcon className="h-5 w-5" name="user-line" />
       </button>
     </nav>
   );
@@ -484,8 +481,8 @@ function SectionCard({
   return (
     <div
       className={cn(
-        "border border-brand-violet-400 bg-brand-page",
-        compact ? "rounded-[12px] px-3 pb-5 pt-5" : "rounded-[5px] px-5 pb-5 pt-[18px]",
+        "border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(246,248,252,0.94))]",
+        compact ? "rounded-[1.35rem] px-3 pb-5 pt-5" : "rounded-[1.8rem] px-6 pb-6 pt-6 shadow-[0_28px_70px_-58px_rgba(15,23,40,0.32)]",
       )}
     >
       {children}
@@ -1435,11 +1432,11 @@ export function CompanyJobManagementView({
         data-company-jobs-layout="desktop"
         data-company-jobs-section={section}
       >
-        <div className="mx-auto max-w-[1440px] px-[40px] pb-10 pt-[25px]">
+        <div className="mx-auto max-w-[1440px] px-[28px] pb-10 pt-[18px]">
           <div className="relative flex min-h-[63px] items-start justify-center">
             <button
               aria-label="Torna al portale azienda"
-              className="absolute left-0 top-[6px] inline-flex h-12 w-12 items-center justify-center text-brand-ink transition hover:text-brand-violet"
+              className="absolute left-0 top-[6px] inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--wedoo-line)] bg-white/86 text-brand-ink transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]"
               onClick={onBack}
               type="button"
             >
@@ -1451,7 +1448,7 @@ export function CompanyJobManagementView({
             </h1>
           </div>
 
-          <div className="grid grid-cols-[476px_minmax(0,1fr)] gap-11 pt-[6px]">
+          <div className="grid grid-cols-[24rem_minmax(0,1fr)] gap-8 pt-4">
             <CompanyJobManagementDesktopRail
               activityValue={activityValue}
               draft={draft}
@@ -1466,33 +1463,42 @@ export function CompanyJobManagementView({
               section={section}
             />
 
-            <div className="pt-[65px]">
+            <div className="rounded-[2rem] border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,244,250,0.92))] px-7 pb-7 pt-7 shadow-[0_34px_92px_-68px_rgba(15,23,40,0.34)]">
+              <div className="mb-6 flex items-start justify-between gap-6">
+                <div>
+                  <p className="wedoo-kicker">company annuncio builder</p>
+                  <h2 className="mt-3 text-3xl leading-tight text-[var(--wedoo-ink-strong)]">
+                    Step corrente
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--wedoo-ink-muted)]">
+                    {response.sectionOptions.find((option) => option.id === section)?.label ?? response.sectionOptions[0]?.label}. Una sola superficie di lavoro, meno rumore da form legacy e una sequenza piu leggibile tra recruiter, azienda, offerta e publishing.
+                  </p>
+                </div>
               <button
-                className="inline-flex min-h-[61px] min-w-[292px] items-center justify-center rounded-[8px] bg-brand-violet px-5 py-2 font-wedoo-accent text-[24px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
+                  className="inline-flex min-h-[54px] min-w-[240px] items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
                 onClick={onPreview}
                 type="button"
               >
                 {response.ctas.previewLabel}
               </button>
-
-              <div className="pt-[14px]">
-                <SectionCard>
-                  <CompanyJobManagementSection
-                    draft={draft}
-                    nextLabel={response.ctas.nextLabel}
-                    onDraftChange={onDraftChange}
-                    onNext={() => onSectionChange(nextSection)}
-                    onPreview={onPreview}
-                    onReset={onReset}
-                    onSaveDraft={onSaveDraft}
-                    onSubmit={onSubmit}
-                    removeLabel={response.ctas.removeLabel}
-                    saveDraftLabel={response.ctas.saveDraftLabel}
-                    section={section}
-                    submitLabel={response.ctas.submitLabel}
-                  />
-                </SectionCard>
               </div>
+
+              <SectionCard>
+                <CompanyJobManagementSection
+                  draft={draft}
+                  nextLabel={response.ctas.nextLabel}
+                  onDraftChange={onDraftChange}
+                  onNext={() => onSectionChange(nextSection)}
+                  onPreview={onPreview}
+                  onReset={onReset}
+                  onSaveDraft={onSaveDraft}
+                  onSubmit={onSubmit}
+                  removeLabel={response.ctas.removeLabel}
+                  saveDraftLabel={response.ctas.saveDraftLabel}
+                  section={section}
+                  submitLabel={response.ctas.submitLabel}
+                />
+              </SectionCard>
             </div>
           </div>
         </div>
@@ -1503,11 +1509,12 @@ export function CompanyJobManagementView({
         data-company-jobs-layout="mobile"
         data-company-jobs-section={section}
       >
-        <div className="mx-auto max-w-[360px] bg-brand-page px-[15px] pb-0 pt-[17px]">
-          <div className="relative flex min-h-[92px] items-start justify-center">
+        <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4">
+          <div className="rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-4 pb-4 pt-4 shadow-[0_40px_100px_-70px_rgba(0,0,0,0.8)]">
+            <div className="relative flex min-h-[92px] items-start justify-center">
             <button
               aria-label="Torna al portale azienda"
-              className="absolute left-0 top-[2px] inline-flex h-8 w-8 items-center justify-center text-brand-ink transition hover:text-brand-violet"
+              className="absolute left-0 top-[2px] inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
               onClick={onBack}
               type="button"
             >
@@ -1516,13 +1523,13 @@ export function CompanyJobManagementView({
             <div className="absolute right-0 top-0">
               <JobDraftLanguageChip compact />
             </div>
-            <h1 className="max-w-[278px] text-center font-wedoo-heading text-[57px] leading-[0.92] text-brand-ink">
+            <h1 className="max-w-[278px] text-center font-wedoo-heading text-[57px] leading-[0.92] text-white">
               Crea/modifica annuncio
             </h1>
           </div>
 
           <button
-            className="mx-auto mt-[4px] flex min-h-[47px] min-w-[245px] items-center justify-center rounded-[8px] bg-brand-violet px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
+            className="mx-auto mt-[4px] flex min-h-[49px] min-w-[245px] items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)]"
             onClick={onPreview}
             type="button"
           >
@@ -1550,6 +1557,7 @@ export function CompanyJobManagementView({
           </div>
 
           <CompanyJobsMobileDock label={response.mobileDockLabel} />
+          </div>
         </div>
       </section>
     </>

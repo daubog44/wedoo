@@ -44,16 +44,17 @@ export function AuthCheckbox({
       <button
         aria-checked={checked}
         aria-labelledby={labelId}
-        className="grid h-[23px] w-[23px] shrink-0 place-items-center rounded-[4px] bg-[var(--brand-mint)] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]"
+        className={cn(
+          "grid h-[23px] w-[23px] shrink-0 place-items-center rounded-[4px] border transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wedoo-violet)]",
+          checked
+            ? "border-[var(--wedoo-violet)] bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)]"
+            : "border-[var(--wedoo-line-strong)] bg-[var(--wedoo-input-bg)] text-transparent",
+        )}
         onClick={handleToggle}
         role="checkbox"
         type="button"
       >
-        {checked ? (
-          <span className="grid h-[23px] w-[23px] place-items-center rounded-[4px] bg-[var(--brand-violet)] text-[var(--wedoo-white-soft)]">
-            <AuthCheckIcon />
-          </span>
-        ) : null}
+        <AuthCheckIcon />
       </button>
       <span
         className={cn(
@@ -63,7 +64,7 @@ export function AuthCheckbox({
         id={labelId}
       >
         <button
-          className="text-left transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]"
+          className="text-left transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wedoo-violet)]"
           onClick={handleToggle}
           type="button"
         >
@@ -73,7 +74,7 @@ export function AuthCheckbox({
           <>
             {" "}
             <a
-              className="underline transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]"
+              className="underline transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wedoo-violet)]"
               href={linkHref}
               rel="noreferrer"
               target="_blank"

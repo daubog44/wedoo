@@ -1,85 +1,92 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
-import { AppIcon } from '../../lib/icons'
-import type { MajesticonName } from '../../lib/majesticons-map'
-import { cn } from '../../lib/site-utils'
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { AppIcon } from "../../lib/icons";
+import type { MajesticonName } from "../../lib/majesticons-map";
+import { cn } from "../../lib/site-utils";
 
-export type Tone = 'violet' | 'mint' | 'gold' | 'ghost' | 'ink'
-export type FigmaButtonSurface = 'flat' | 'raised'
-export type RoleButtonTone = 'candidate' | 'company'
-export type DiscoverButtonTone = 'gold' | 'rose' | 'lavender'
-export type SupportButtonTone = 'violet' | 'ink'
-export type SupportButtonVariant = 'filled' | 'outline'
+export type Tone = "violet" | "mint" | "gold" | "ghost" | "ink";
+export type FigmaButtonSurface = "flat" | "raised";
+export type RoleButtonTone = "candidate" | "company";
+export type DiscoverButtonTone = "gold" | "rose" | "lavender";
+export type SupportButtonTone = "violet" | "ink";
+export type SupportButtonVariant = "filled" | "outline";
+
+const buttonBaseClassName =
+  "inline-flex items-center justify-center gap-2 rounded-[16px] border px-4 py-3 font-wedoo-accent text-[0.95rem] font-medium tracking-[-0.02em] transition duration-200 ease-out hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50";
 
 const toneClasses: Record<Tone, string> = {
   violet:
-    'bg-brand-violet text-white shadow-[0_20px_40px_-20px_rgba(91,63,209,0.85)] hover:bg-brand-violet-deep',
-  mint: 'bg-brand-mint text-brand-ink shadow-[0_20px_40px_-20px_rgba(105,242,196,0.85)] hover:bg-brand-mint-deep hover:text-white',
-  gold: 'bg-brand-gold text-brand-ink shadow-[0_20px_40px_-20px_rgba(245,221,97,0.8)] hover:bg-brand-gold-600',
-  ghost: 'bg-white/85 text-brand-ink ring-1 ring-black/8 hover:bg-white',
-  ink: 'bg-brand-ink text-white hover:bg-brand-violet',
-}
+    "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(112,72,232,0.48)] hover:bg-[var(--wedoo-violet-hover)]",
+  mint:
+    "border-transparent bg-[var(--wedoo-mint)] text-[var(--wedoo-ink)] shadow-[0_20px_48px_-34px_rgba(87,215,180,0.46)] hover:bg-[var(--wedoo-support-hover)] hover:text-[var(--wedoo-white-soft)]",
+  gold:
+    "border-transparent bg-[var(--wedoo-gold)] text-[var(--wedoo-ink)] shadow-[0_20px_48px_-34px_rgba(223,174,68,0.42)] hover:bg-[var(--wedoo-gold-700)] hover:text-[var(--wedoo-white-soft)]",
+  ghost:
+    "border-[var(--wedoo-ghost-border)] bg-[var(--wedoo-ghost-bg)] text-[var(--wedoo-ghost-text)] hover:border-[var(--wedoo-violet)] hover:bg-[var(--wedoo-ghost-bg-hover)] hover:text-[var(--wedoo-violet)]",
+  ink:
+    "border-transparent bg-[var(--wedoo-ink)] text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(18,24,38,0.54)] hover:bg-[var(--wedoo-violet)]",
+};
 
-const figmaButtonBaseClassName =
-  'inline-flex items-center justify-center rounded-[8px] transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50'
+const figmaButtonBaseClassName = cn(buttonBaseClassName, "rounded-[14px] text-[1rem] leading-none");
 
 const roleButtonClasses: Record<RoleButtonTone, Record<FigmaButtonSurface, string>> = {
   candidate: {
-    flat: 'bg-brand-mint text-brand-ink',
+    flat:
+      "border-[var(--wedoo-ghost-border)] bg-[var(--wedoo-ghost-bg)] text-[var(--wedoo-ghost-text)] hover:border-[var(--wedoo-mint)] hover:bg-[var(--wedoo-ghost-bg-hover)] hover:text-[var(--wedoo-mint-700)]",
     raised:
-      'bg-[var(--wedoo-button-role-candidate-raised)] text-brand-ink shadow-[var(--wedoo-button-elevated-shadow)]',
+      "border-transparent bg-[var(--wedoo-mint)] text-[var(--wedoo-ink)] shadow-[var(--wedoo-button-elevated-shadow)] hover:bg-[var(--wedoo-support-hover)] hover:text-[var(--wedoo-white-soft)]",
   },
   company: {
-    flat: 'bg-brand-violet text-white',
+    flat:
+      "border-[var(--wedoo-ghost-border)] bg-[var(--wedoo-ghost-bg)] text-[var(--wedoo-ghost-text)] hover:border-[var(--wedoo-violet)] hover:bg-[var(--wedoo-ghost-bg-hover)] hover:text-[var(--wedoo-violet)]",
     raised:
-      'bg-[var(--wedoo-button-role-company-raised)] text-white shadow-[var(--wedoo-button-elevated-shadow)]',
+      "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[var(--wedoo-button-elevated-shadow)] hover:bg-[var(--wedoo-violet-hover)]",
   },
-}
+};
 
 const discoverButtonClasses: Record<DiscoverButtonTone, Record<FigmaButtonSurface, string>> = {
   gold: {
-    flat: 'bg-[var(--wedoo-gold-soft)] text-brand-ink',
+    flat: "border-transparent bg-[var(--wedoo-gold-soft)] text-[var(--wedoo-ink)] hover:bg-[var(--wedoo-gold-100)]",
     raised:
-      'bg-[var(--wedoo-button-discover-gold-raised)] text-brand-ink shadow-[var(--wedoo-button-elevated-shadow)]',
+      "border-transparent bg-[var(--wedoo-gold)] text-[var(--wedoo-ink)] shadow-[0_22px_48px_-34px_rgba(223,174,68,0.46)] hover:bg-[var(--wedoo-gold-700)] hover:text-[var(--wedoo-white-soft)]",
   },
   rose: {
-    flat: 'bg-[var(--wedoo-rose-soft)] text-brand-ink',
+    flat: "border-transparent bg-[var(--wedoo-rose-soft)] text-[var(--wedoo-ink)] hover:bg-[var(--wedoo-rose-100)]",
     raised:
-      'bg-[var(--wedoo-button-discover-rose-raised)] text-brand-ink shadow-[var(--wedoo-button-elevated-shadow)]',
+      "border-transparent bg-[var(--wedoo-rose)] text-[var(--wedoo-ink)] shadow-[0_22px_48px_-34px_rgba(243,131,157,0.4)] hover:bg-[var(--wedoo-rose-700)] hover:text-[var(--wedoo-white-soft)]",
   },
   lavender: {
-    flat: 'bg-brand-violet-soft text-brand-ink',
+    flat: "border-transparent bg-[var(--wedoo-surface-violet)] text-[var(--wedoo-violet)] hover:bg-[var(--wedoo-violet-50)]",
     raised:
-      'bg-[var(--wedoo-button-discover-lavender-raised)] text-brand-ink shadow-[var(--wedoo-button-elevated-shadow)]',
+      "border-transparent bg-[var(--wedoo-violet-100)] text-[var(--wedoo-violet-800)] shadow-[0_22px_48px_-34px_rgba(170,136,255,0.34)] hover:bg-[var(--wedoo-violet-300)] hover:text-[var(--wedoo-white-soft)]",
   },
-}
+};
 
-const supportButtonClasses: Record<
-  SupportButtonTone,
-  Record<SupportButtonVariant, string>
-> = {
+const supportButtonClasses: Record<SupportButtonTone, Record<SupportButtonVariant, string>> = {
   violet: {
     filled:
-      'border-brand-violet-100 bg-brand-violet text-white shadow-[inset_0_0_0_1px_var(--wedoo-violet-100)]',
+      "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[0_22px_48px_-34px_rgba(112,72,232,0.48)] hover:bg-[var(--wedoo-violet-hover)]",
     outline:
-      'border-brand-violet-100 bg-white text-brand-violet-soft',
+      "border-[rgba(255,255,255,0.32)] bg-transparent text-[var(--wedoo-white-soft)] hover:border-white/70 hover:bg-white/8",
   },
   ink: {
-    filled: 'border-black bg-black text-white',
-    outline: 'border-black bg-white text-brand-ink',
+    filled:
+      "border-transparent bg-[var(--wedoo-ink)] text-[var(--wedoo-white-soft)] shadow-[0_22px_48px_-34px_rgba(18,24,38,0.56)] hover:bg-[var(--wedoo-violet)]",
+    outline:
+      "border-[var(--wedoo-ghost-border)] bg-[var(--wedoo-ghost-bg)] text-[var(--wedoo-ghost-text)] hover:border-[var(--wedoo-ink)] hover:bg-[var(--wedoo-ghost-bg-hover)]",
   },
-}
+};
 
 type ButtonLinkProps = {
-  children: ReactNode
-  className?: string
-  external?: boolean
-  icon?: MajesticonName
-  rel?: string
-  target?: string
-  to: string
-  tone?: Tone
-}
+  children: ReactNode;
+  className?: string;
+  external?: boolean;
+  icon?: MajesticonName;
+  rel?: string;
+  target?: string;
+  to: string;
+  tone?: Tone;
+};
 
 export function ButtonLink({
   children,
@@ -89,84 +96,72 @@ export function ButtonLink({
   rel,
   target,
   to,
-  tone = 'violet',
+  tone = "violet",
 }: ButtonLinkProps) {
-  const classes = cn(
-    'inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
-    toneClasses[tone],
-    className,
-  )
+  const classes = cn(buttonBaseClassName, toneClasses[tone], className);
 
   const content = (
     <>
       {icon ? <AppIcon className="text-lg" name={icon} /> : null}
       <span>{children}</span>
     </>
-  )
+  );
 
   if (external) {
     return (
       <a className={classes} href={to} rel={rel} target={target}>
         {content}
       </a>
-    )
+    );
   }
 
   return (
     <Link className={classes} to={to}>
       {content}
     </Link>
-  )
+  );
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  icon?: MajesticonName
-  tone?: Tone
-}
+  icon?: MajesticonName;
+  tone?: Tone;
+};
 
 export function Button({
   children,
   className,
   icon,
-  tone = 'violet',
-  type = 'button',
+  tone = "violet",
+  type = "button",
   ...props
 }: ButtonProps) {
   return (
-    <button
-      className={cn(
-        'inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold tracking-tight transition-transform duration-200 hover:-translate-y-0.5',
-        toneClasses[tone],
-        className,
-      )}
-      type={type}
-      {...props}
-    >
+    <button className={cn(buttonBaseClassName, toneClasses[tone], className)} type={type} {...props}>
       {icon ? <AppIcon className="text-lg" name={icon} /> : null}
       <span>{children}</span>
     </button>
-  )
+  );
 }
 
 type RoleButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode
-  surface?: FigmaButtonSurface
-  tone: RoleButtonTone
-}
+  children: ReactNode;
+  surface?: FigmaButtonSurface;
+  tone: RoleButtonTone;
+};
 
 export function RoleButton({
   children,
   className,
-  surface = 'flat',
+  surface = "flat",
   tone,
-  type = 'button',
+  type = "button",
   ...props
 }: RoleButtonProps) {
   return (
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[60px] min-w-[189px] px-6 py-3 font-wedoo-accent text-[24px] leading-none font-normal',
+        "min-h-[3.75rem] min-w-[11rem] px-6 py-3 font-wedoo-accent text-[1.25rem]",
         roleButtonClasses[tone][surface],
         className,
       )}
@@ -175,30 +170,30 @@ export function RoleButton({
     >
       <span>{children}</span>
     </button>
-  )
+  );
 }
 
 type DiscoverButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode
-  icon?: MajesticonName
-  surface?: FigmaButtonSurface
-  tone: DiscoverButtonTone
-}
+  children: ReactNode;
+  icon?: MajesticonName;
+  surface?: FigmaButtonSurface;
+  tone: DiscoverButtonTone;
+};
 
 export function DiscoverButton({
   children,
   className,
-  icon = 'chevron-right',
-  surface = 'flat',
+  icon = "chevron-right",
+  surface = "flat",
   tone,
-  type = 'button',
+  type = "button",
   ...props
 }: DiscoverButtonProps) {
   return (
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[57px] min-w-[181px] gap-3 px-6 py-3 font-wedoo-accent text-[24px] leading-none font-normal',
+        "min-h-[3.5rem] min-w-[10.75rem] gap-3 px-5 py-3 font-wedoo-accent text-[1.16rem]",
         discoverButtonClasses[tone][surface],
         className,
       )}
@@ -206,83 +201,79 @@ export function DiscoverButton({
       {...props}
     >
       <span>{children}</span>
-      <AppIcon className="shrink-0" height={24} name={icon} width={24} />
+      <AppIcon className="shrink-0" height={20} name={icon} width={20} />
     </button>
-  )
+  );
 }
 
 type SupportButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode
-  icon?: MajesticonName
-  tone: SupportButtonTone
-  variant?: SupportButtonVariant
-}
+  children: ReactNode;
+  icon?: MajesticonName;
+  tone: SupportButtonTone;
+  variant?: SupportButtonVariant;
+};
 
 export function SupportButton({
   children,
   className,
-  icon = 'phone',
+  icon = "phone",
   tone,
-  type = 'button',
-  variant = 'filled',
+  type = "button",
+  variant = "filled",
   ...props
 }: SupportButtonProps) {
   return (
     <button
       className={cn(
         figmaButtonBaseClassName,
-        'min-h-[54px] min-w-[300px] gap-2.5 border-2 px-5 py-3 font-wedoo-accent text-[24px] leading-none font-bold',
+        "min-h-[3.5rem] min-w-[13rem] gap-2.5 border px-5 py-3 font-wedoo-accent text-[1rem] font-medium",
         supportButtonClasses[tone][variant],
         className,
       )}
       type={type}
       {...props}
     >
-      <AppIcon className="shrink-0" height={30} name={icon} width={30} />
+      <AppIcon className="shrink-0" height={20} name={icon} width={20} />
       <span>{children}</span>
     </button>
-  )
+  );
 }
 
 type PillButtonProps = {
-  active?: boolean
-  children: ReactNode
-  className?: string
-  onClick?: () => void
-  tone?: 'slate' | 'violet' | 'mint'
-}
+  active?: boolean;
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+  tone?: "slate" | "violet" | "mint";
+};
 
 export function PillButton({
   active = false,
   children,
   className,
   onClick,
-  tone = 'slate',
+  tone = "slate",
 }: PillButtonProps) {
   const palette =
-    tone === 'violet'
+    tone === "violet"
       ? active
-        ? 'bg-brand-violet text-white'
-        : 'bg-brand-violet/10 text-brand-violet hover:bg-brand-violet/20'
-      : tone === 'mint'
+        ? "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)]"
+        : "border-[var(--wedoo-violet-100)] bg-[var(--wedoo-surface-violet)] text-[var(--wedoo-violet)] hover:bg-[var(--wedoo-violet-50)]"
+      : tone === "mint"
         ? active
-          ? 'bg-brand-mint text-brand-ink'
-          : 'bg-brand-mint/20 text-brand-mint-deep hover:bg-brand-mint/30'
+          ? "border-transparent bg-[var(--wedoo-mint)] text-[var(--wedoo-ink)]"
+          : "border-[rgba(87,215,180,0.28)] bg-[var(--wedoo-surface-mint)] text-[var(--wedoo-mint-700)] hover:bg-[var(--wedoo-mint-100)]"
         : active
-          ? 'bg-brand-ink text-white'
-          : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          ? "border-transparent bg-[var(--wedoo-ink)] text-[var(--wedoo-white-soft)]"
+          : "border-[var(--wedoo-line)] bg-white/86 text-[var(--wedoo-ink-muted)] hover:bg-white";
 
   return (
     <button
-      className={cn(
-        'inline-flex items-center rounded-xl px-4 py-2 text-sm font-medium transition',
-        palette,
-        className,
-      )}
+      className={cn("inline-flex items-center rounded-full border px-4 py-2 text-sm font-medium transition", palette, className)}
       onClick={onClick}
       type="button"
     >
       {children}
     </button>
-  )
+  );
 }

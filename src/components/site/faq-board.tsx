@@ -5,16 +5,16 @@ import { SiteIcon } from "./site-icon";
 
 const toneMap = {
   gold: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-300",
+    accent: "text-[var(--wedoo-gold-700)]",
+    shell: "bg-[var(--wedoo-gold-soft)]",
   },
   mint: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-200",
+    accent: "text-[var(--wedoo-mint-700)]",
+    shell: "bg-[var(--wedoo-surface-mint)]",
   },
   violet: {
-    answer: "bg-brand-lavender-100",
-    shell: "bg-brand-lavender-300",
+    accent: "text-[var(--wedoo-violet)]",
+    shell: "bg-[var(--wedoo-surface-violet)]",
   },
 } as const;
 
@@ -22,62 +22,40 @@ export function FaqBoard({ groups }: { groups: readonly FaqGroup[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-brand-lavender-200/80">
-      {groups.map((group) => {
+    <div className="overflow-hidden rounded-[1.75rem] border border-[var(--wedoo-line)] bg-white/86 shadow-[0_26px_70px_-58px_rgba(15,23,40,0.28)]">
+      {groups.map((group, groupIndex) => {
         const tone = toneMap[group.tone];
 
         return (
-          <section
-            className="border-b border-brand-lavender-100 last:border-b-0"
-            key={group.id}
-          >
-            <div className="grid md:grid-cols-[270px_minmax(0,1fr)]">
-              <div
-                className={cn(
-                  "flex items-center px-6 py-8 text-[26px] leading-none text-brand-ink md:justify-center md:px-8 md:text-[34px]",
-                  "font-wedoo-accent font-bold",
-                  tone.shell,
-                )}
-              >
+          <section className={cn(groupIndex > 0 && "border-t border-[var(--wedoo-line)]")} key={group.id}>
+            <div className="grid md:grid-cols-[15rem_minmax(0,1fr)]">
+              <div className={cn("flex items-center px-5 py-5 text-[1.85rem] leading-none md:px-7 md:text-[2.2rem]", "font-wedoo-accent font-bold", tone.shell, tone.accent)}>
                 {group.label}
               </div>
-              <div className={cn("grid", tone.shell)}>
+              <div className="grid">
                 {group.items.map((item, index) => {
                   const itemId = `${group.id}-${index}`;
                   const isOpen = openId === itemId;
 
                   return (
-                    <div
-                      className="border-t border-brand-lavender-100 first:border-t-0"
-                      key={itemId}
-                    >
+                    <div className={cn(index > 0 && "border-t border-[var(--wedoo-line)]")} key={itemId}>
                       <button
                         aria-expanded={isOpen}
-                        className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-7"
-                        onClick={() =>
-                          setOpenId((current) => (current === itemId ? null : itemId))
-                        }
+                        className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left transition hover:bg-[var(--wedoo-surface-2)] md:px-7 md:py-6"
+                        onClick={() => setOpenId((current) => (current === itemId ? null : itemId))}
                         type="button"
                       >
-                        <span className="font-wedoo-heading text-[24px] leading-[1.12] text-brand-ink md:text-[33px]">
+                        <span className="font-wedoo-heading text-[1.55rem] leading-[1.06] text-[var(--wedoo-ink-strong)] md:text-[2rem]">
                           {item.question}
                         </span>
                         <SiteIcon
-                          className={cn(
-                            "h-7 w-7 shrink-0 text-brand-ink transition-transform md:h-9 md:w-9",
-                            isOpen && "rotate-180",
-                          )}
+                          className={cn("h-6 w-6 shrink-0 text-[var(--wedoo-ink-muted)] transition-transform md:h-8 md:w-8", isOpen && "rotate-180")}
                           name="chevron-down"
                         />
                       </button>
                       {isOpen ? (
-                        <div
-                          className={cn(
-                            "px-6 pb-6 pt-0 md:px-8 md:pb-8",
-                            tone.answer,
-                          )}
-                        >
-                          <p className="max-w-[820px] text-base leading-7 text-slate-700 md:text-lg md:leading-8">
+                        <div className="border-t border-[var(--wedoo-line)] px-5 py-5 md:px-7 md:py-6">
+                          <p className="max-w-[52rem] text-base leading-7 text-[var(--wedoo-ink-muted)] md:text-lg md:leading-8">
                             {item.answer}
                           </p>
                         </div>

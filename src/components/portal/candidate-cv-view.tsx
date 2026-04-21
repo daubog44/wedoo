@@ -1,232 +1,76 @@
-import type { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
 import type { CandidateCvResponse } from "../../data/types";
 import { AppIcon } from "../../lib/icons";
 import { assetPath } from "../../lib/site-utils";
 import { AppImage } from "../media/app-image";
-import { WedooLogo } from "../site/branding";
+import { Button } from "../ui/actions";
+import { Surface } from "../ui/surfaces";
 
-const desktopLeftPanelStyle = {
-  clipPath: "polygon(12% 0, 80% 0, 100% 90%, 91% 100%, 0 100%, 0 11%)",
-} satisfies CSSProperties;
-
-const desktopRightPanelStyle = {
-  clipPath: "polygon(21% 0, 100% 0, 100% 100%, 9% 100%, 0 11%, 10% 0)",
-} satisfies CSSProperties;
-
-const outlinedButtonClassName =
-  "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border-2 border-brand-mint-deep bg-brand-page text-brand-ink transition hover:bg-brand-mint-deep/10";
-const filledButtonClassName =
-  "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] bg-brand-mint-deep text-brand-ink";
-
-function CandidateCvSectionList({
+function CandidateCvSection({
   items,
   title,
-  titleClassName,
-  listClassName,
 }: {
   items: readonly string[];
-  listClassName: string;
   title: string;
-  titleClassName: string;
 }) {
   return (
-    <section>
-      <h2 className={titleClassName}>{title}</h2>
-      <ul className={listClassName}>
+    <Surface>
+      <h2 className="text-2xl leading-tight text-[var(--wedoo-ink-strong)]">{title}</h2>
+      <ul className="mt-5 space-y-3 text-sm leading-7 text-[var(--wedoo-ink-muted)] sm:text-[0.98rem]">
         {items.map((item) => (
-          <li key={item}>{item}</li>
+          <li className="flex gap-3" key={item}>
+            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--wedoo-mint-700)]" />
+            <span>{item}</span>
+          </li>
         ))}
       </ul>
-    </section>
+    </Surface>
   );
 }
 
-function CandidateCvMobileDock({ label }: { label: string }) {
+function CandidateCvDock({ label }: { label: string }) {
   return (
     <nav
       aria-label={label}
-      className="mt-8 flex items-center justify-between bg-brand-mint-deep px-[35px] py-[11px]"
+      className="mt-6 flex items-center justify-between rounded-[1.5rem] border border-white/12 bg-[rgba(9,14,24,0.96)] px-4 py-3"
     >
       <NavLink
         aria-label="Apri dashboard candidato"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         to="/portale/candidato"
       >
-        <AppIcon className="h-7 w-7" name="home-line" />
+        <AppIcon className="h-5 w-5" name="home-line" />
       </NavLink>
       <button
         aria-label="Salvataggi candidati in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="star-line" />
+        <AppIcon className="h-5 w-5" name="star-line" />
       </button>
       <button
         aria-label="Annunci candidati in arrivo"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         type="button"
       >
-        <AppIcon className="h-7 w-7" name="briefcase-line" />
+        <AppIcon className="h-5 w-5" name="briefcase-line" />
       </button>
       <NavLink
         aria-label="Apri profilo candidato"
-        className="inline-flex h-8 w-8 items-center justify-center text-brand-ink"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/76"
         to="/portale/candidato/cv"
       >
-        <AppIcon className="h-7 w-7" name="user-line" />
+        <AppIcon className="h-5 w-5" name="user-line" />
       </NavLink>
     </nav>
   );
 }
 
-function CandidateCvDesktopShell({ response }: { response: CandidateCvResponse }) {
+function CandidateCvHero({ response }: { response: CandidateCvResponse }) {
   return (
-    <section className="hidden min-[1280px]:block" data-candidate-cv-layout="desktop">
-      <div className="mx-auto max-w-[1440px] bg-brand-page px-[18px] pb-[28px] pt-[25px]">
-        <div className="relative min-h-[971px] overflow-hidden">
-          <NavLink
-            aria-label="Torna alla dashboard candidato"
-            className="absolute left-[9px] top-[4px] inline-flex h-12 w-12 items-center justify-center text-brand-ink transition hover:text-brand-mint-deep"
-            to={response.backPath}
-          >
-            <AppIcon className="h-10 w-10" name="arrow-left-line" />
-          </NavLink>
-
-          <p className="absolute left-[362px] top-[10px] max-w-[430px] text-center font-wedoo-body text-[24px] leading-[1.02] text-brand-ink">
-            {response.photoHint}
-          </p>
-
-          <div
-            className="absolute left-[8px] top-[0px] h-[960px] w-[770px] overflow-hidden border-[5px] border-brand-mint-deep bg-brand-page"
-            style={desktopLeftPanelStyle}
-          >
-            <div className="flex flex-col items-center px-[74px] pb-[64px] pt-[54px] text-center">
-              <div className="flex h-[200px] w-[200px] items-center justify-center overflow-hidden rounded-full bg-brand-page">
-                <AppImage
-                  alt={response.candidate.fullName}
-                  className="h-full w-full object-cover"
-                  priority
-                  src={assetPath(response.candidate.avatar)}
-                />
-              </div>
-
-              <h1 className="pt-[21px] font-wedoo-heading text-[48px] leading-none text-brand-ink">
-                {response.candidate.fullName}
-              </h1>
-
-              <button
-                className={`${filledButtonClassName} mt-[34px] min-h-[67px] w-[388px] px-6 text-[24px] leading-none`}
-                type="button"
-              >
-                {response.candidate.goalLabel}
-              </button>
-
-              <p className="pt-[8px] font-wedoo-body text-[18px] leading-none text-brand-ink">
-                {response.sidebar.backHelperLabel}
-              </p>
-
-              <button
-                className={`${outlinedButtonClassName} mt-[11px] min-h-[75px] w-[388px] gap-6 px-6 text-[24px] leading-none`}
-                type="button"
-              >
-                <span>{response.sidebar.editLabel}</span>
-                <AppIcon className="h-6 w-6" name="chevron-down-line" />
-              </button>
-
-              <p className="pt-[13px] font-wedoo-accent text-[24px] leading-none text-brand-ink">
-                {response.sidebar.editTitleLabel}
-              </p>
-
-              <button
-                className="mt-[10px] inline-flex items-center gap-2 text-[24px] leading-none text-brand-ink transition hover:text-brand-mint-deep"
-                type="button"
-              >
-                <AppIcon className="h-6 w-6" name="cloud-upload-line" />
-                <span className="font-wedoo-accent">{response.sidebar.uploadCvLabel}</span>
-              </button>
-
-              <p className="pt-[10px] font-wedoo-accent text-[24px] leading-none text-brand-ink">
-                {response.sidebar.editSecondaryLabel}
-              </p>
-
-              <button
-                className={`${outlinedButtonClassName} mt-[21px] min-h-[74px] w-[399px] gap-6 px-6 text-[24px] leading-none`}
-                type="button"
-              >
-                <span>{response.sidebar.activityLabel}</span>
-                <AppIcon className="h-6 w-6" name="chevron-down-line" />
-              </button>
-
-              <div className="grid gap-[8px] pt-[16px] font-wedoo-accent text-[24px] leading-none text-brand-ink">
-                {response.sidebar.activityItems.map((item) => (
-                  <p key={item}>{item}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="absolute left-[609px] top-[6px] h-[960px] w-[795px] overflow-hidden border-[5px] border-brand-mint-deep bg-brand-page"
-            style={desktopRightPanelStyle}
-          >
-            <div className="px-[174px] pb-[92px] pt-[92px]">
-              <CandidateCvSectionList
-                items={response.sections.personalDataItems}
-                listClassName="mt-[18px] list-disc space-y-[6px] pl-[30px] font-wedoo-body text-[22px] leading-[1.08] text-brand-ink"
-                title={response.sections.personalDataTitle}
-                titleClassName="font-wedoo-accent text-[36px] leading-none text-brand-ink"
-              />
-
-              <CandidateCvSectionList
-                items={response.sections.workPreferenceItems}
-                listClassName="mt-[26px] list-disc space-y-[6px] pl-[30px] font-wedoo-body text-[22px] leading-[1.08] text-brand-ink"
-                title={response.sections.workPreferenceTitle}
-                titleClassName="pt-[92px] font-wedoo-accent text-[36px] leading-none text-brand-ink"
-              />
-
-              <CandidateCvSectionList
-                items={response.sections.agendaItems}
-                listClassName="mt-[24px] list-disc space-y-[12px] pl-[30px] font-wedoo-body text-[22px] leading-[1.08] text-brand-ink"
-                title={response.sections.agendaTitle}
-                titleClassName="pt-[70px] font-wedoo-accent text-[36px] leading-none text-brand-ink"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CandidateCvMobileShell({ response }: { response: CandidateCvResponse }) {
-  return (
-    <section
-      className="mx-auto max-w-[360px] bg-brand-page px-[20px] pb-0 pt-[27px] min-[1280px]:hidden"
-      data-candidate-cv-layout="mobile"
-    >
-      <header className="flex items-center justify-between">
-        <WedooLogo imageClassName="h-[18px]" to={response.backPath} variant="wordmark" />
-        <div className="flex items-center gap-[20px] text-brand-ink">
-          <button
-            aria-label="Notifiche candidato in arrivo"
-            className="inline-flex h-8 w-8 items-center justify-center"
-            type="button"
-          >
-            <AppIcon className="h-7 w-7" name="bell-line" />
-          </button>
-          <button
-            aria-label="Altro menu candidato in arrivo"
-            className="inline-flex h-8 w-8 items-center justify-center"
-            type="button"
-          >
-            <AppIcon className="h-7 w-7" name="more-menu-line" />
-          </button>
-        </div>
-      </header>
-
-      <div className="flex flex-col items-center pt-[19px] text-center">
-        <div className="flex h-[137px] w-[137px] items-center justify-center overflow-hidden rounded-full bg-brand-page">
+    <div className="overflow-hidden rounded-[1.75rem] border border-white/8 bg-[linear-gradient(145deg,rgba(13,18,30,0.98),rgba(26,34,52,0.94))] p-6 text-white shadow-[0_34px_90px_-58px_rgba(0,0,0,0.72)]">
+      <div className="grid gap-6 lg:grid-cols-[8.5rem_minmax(0,1fr)] lg:items-start">
+        <div className="flex h-[8.5rem] w-[8.5rem] items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-white/95">
           <AppImage
             alt={response.candidate.fullName}
             className="h-full w-full object-cover"
@@ -235,91 +79,124 @@ function CandidateCvMobileShell({ response }: { response: CandidateCvResponse })
           />
         </div>
 
-        <h1 className="pt-[12px] font-wedoo-heading text-[34px] leading-none text-brand-ink">
-          {response.candidate.fullName}
-        </h1>
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/46">candidate workspace</p>
+            <h1 className="font-wedoo-heading text-[2.9rem] leading-[0.88] text-white sm:text-[3.6rem]">
+              {response.candidate.fullName}
+            </h1>
+            <p className="max-w-2xl text-sm leading-7 text-white/66 sm:text-[0.98rem]">{response.photoHint}</p>
+          </div>
 
-        <button
-          className={`${filledButtonClassName} mt-[16px] min-h-[49px] w-full max-w-[318px] px-4 text-[20px] leading-none`}
-          type="button"
-        >
-          {response.candidate.goalLabel}
-        </button>
-
-        <button
-          className={`${outlinedButtonClassName} mt-[16px] min-h-[47px] w-[248px] gap-4 px-6 text-[20px] leading-none`}
-          type="button"
-        >
-          <span>{response.sidebar.editLabel}</span>
-          <AppIcon className="h-5 w-5" name="chevron-down-line" />
-        </button>
-
-        <p className="pt-[10px] font-wedoo-accent text-[20px] leading-none text-brand-ink">
-          {response.sidebar.editTitleLabel}
-        </p>
-
-        <button
-          className="mt-[8px] inline-flex items-center gap-2 text-brand-ink transition hover:text-brand-mint-deep"
-          type="button"
-        >
-          <AppIcon className="h-5 w-5" name="cloud-upload-line" />
-          <span className="font-wedoo-accent text-[20px] leading-none">
-            {response.sidebar.uploadCvLabel}
-          </span>
-        </button>
-
-        <p className="pt-[9px] font-wedoo-accent text-[20px] leading-none text-brand-ink">
-          {response.sidebar.editSecondaryLabel}
-        </p>
-
-        <button
-          className={`${outlinedButtonClassName} mt-[12px] min-h-[46px] w-[248px] gap-4 px-6 text-[20px] leading-none`}
-          type="button"
-        >
-          <span>{response.sidebar.activityLabel}</span>
-          <AppIcon className="h-5 w-5" name="chevron-down-line" />
-        </button>
-
-        <div className="grid gap-[5px] pt-[12px] font-wedoo-accent text-[20px] leading-none text-brand-ink">
-          {response.sidebar.activityItems.map((item) => (
-            <p key={item}>{item}</p>
-          ))}
+          <div className="flex flex-wrap gap-3">
+            <Button className="min-h-[3.35rem] min-w-[15rem]" tone="mint">
+              {response.candidate.goalLabel}
+            </Button>
+            <Button className="min-h-[3.25rem] min-w-[10rem]" tone="ghost">
+              {response.sidebar.editLabel}
+            </Button>
+          </div>
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="pt-[31px]">
-        <CandidateCvSectionList
-          items={response.sections.personalDataItems}
-          listClassName="mt-[11px] list-disc space-y-[5px] pl-[18px] font-wedoo-body text-[16px] leading-[1.12] text-brand-ink"
-          title={response.sections.personalDataTitle}
-          titleClassName="font-wedoo-accent text-[24px] leading-none text-brand-ink"
-        />
+function CandidateCvSidebar({ response }: { response: CandidateCvResponse }) {
+  return (
+    <div className="space-y-5">
+      <Surface>
+        <p className="wedoo-kicker">{response.sidebar.editTitleLabel}</p>
+        <p className="mt-4 text-sm leading-7 text-[var(--wedoo-ink-muted)]">{response.sidebar.backHelperLabel}</p>
+        <div className="mt-5 grid gap-3">
+          <Button className="min-h-[3.25rem] w-full" tone="ghost">
+            {response.sidebar.uploadCvLabel}
+          </Button>
+          <p className="text-sm leading-7 text-[var(--wedoo-ink-muted)]">{response.sidebar.editSecondaryLabel}</p>
+        </div>
+      </Surface>
 
-        <CandidateCvSectionList
-          items={response.sections.workPreferenceItems}
-          listClassName="mt-[11px] list-disc space-y-[5px] pl-[18px] font-wedoo-body text-[16px] leading-[1.12] text-brand-ink"
-          title={response.sections.workPreferenceTitle}
-          titleClassName="pt-[28px] font-wedoo-accent text-[24px] leading-none text-brand-ink"
-        />
-
-        <CandidateCvSectionList
-          items={response.sections.agendaItems}
-          listClassName="mt-[11px] list-disc space-y-[6px] pl-[18px] font-wedoo-body text-[16px] leading-[1.12] text-brand-ink"
-          title={response.sections.agendaTitle}
-          titleClassName="pt-[30px] font-wedoo-accent text-[24px] leading-none text-brand-ink"
-        />
-      </div>
-
-      <CandidateCvMobileDock label={response.mobileDockLabel} />
-    </section>
+      <Surface className="bg-[linear-gradient(180deg,rgba(238,255,249,0.9),rgba(255,255,255,0.95))]">
+        <p className="wedoo-kicker">{response.sidebar.activityLabel}</p>
+        <div className="mt-5 space-y-3 text-sm leading-7 text-[var(--wedoo-ink-muted)]">
+          {response.sidebar.activityItems.map((item) => (
+            <div className="flex gap-3" key={item}>
+              <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--wedoo-mint-700)]" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </Surface>
+    </div>
   );
 }
 
 export function CandidateCvView({ response }: { response: CandidateCvResponse }) {
   return (
     <>
-      <CandidateCvDesktopShell response={response} />
-      <CandidateCvMobileShell response={response} />
+      <section className="hidden xl:block" data-candidate-cv-layout="desktop">
+        <div className="mx-auto max-w-[1400px] rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-8 pb-8 pt-7 shadow-[0_48px_120px_-72px_rgba(0,0,0,0.85)]">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <NavLink
+              aria-label="Torna alla dashboard candidato"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72 transition hover:bg-white/10"
+              to={response.backPath}
+            >
+              <AppIcon className="h-5 w-5" name="arrow-left-line" />
+            </NavLink>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/42">Wedoo profile</p>
+          </div>
+
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,1.08fr)_22rem]">
+            <div className="space-y-5">
+              <CandidateCvHero response={response} />
+              <div className="grid gap-5 lg:grid-cols-3">
+                <CandidateCvSection items={response.sections.personalDataItems} title={response.sections.personalDataTitle} />
+                <CandidateCvSection items={response.sections.workPreferenceItems} title={response.sections.workPreferenceTitle} />
+                <CandidateCvSection items={response.sections.agendaItems} title={response.sections.agendaTitle} />
+              </div>
+            </div>
+
+            <CandidateCvSidebar response={response} />
+          </div>
+        </div>
+      </section>
+
+      <section className="xl:hidden" data-candidate-cv-layout="mobile">
+        <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4">
+          <div className="rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-4 pb-4 pt-4 shadow-[0_40px_100px_-70px_rgba(0,0,0,0.8)]">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/42">Wedoo profile</p>
+              <div className="flex items-center gap-2">
+                <button
+                  aria-label="Notifiche candidato in arrivo"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
+                  type="button"
+                >
+                  <AppIcon className="h-5 w-5" name="bell-line" />
+                </button>
+                <button
+                  aria-label="Altro menu candidato in arrivo"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
+                  type="button"
+                >
+                  <AppIcon className="h-5 w-5" name="more-menu-line" />
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <CandidateCvHero response={response} />
+              <CandidateCvSection items={response.sections.personalDataItems} title={response.sections.personalDataTitle} />
+              <CandidateCvSection items={response.sections.workPreferenceItems} title={response.sections.workPreferenceTitle} />
+              <CandidateCvSection items={response.sections.agendaItems} title={response.sections.agendaTitle} />
+              <CandidateCvSidebar response={response} />
+            </div>
+
+            <CandidateCvDock label={response.mobileDockLabel} />
+          </div>
+        </div>
+      </section>
     </>
   );
 }

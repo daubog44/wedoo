@@ -156,6 +156,7 @@ test.describe("landing page", () => {
       name: publicCopy.home.authButtonGroupLabel,
     });
     await expect(authButtonGroup).toBeVisible();
+    await expect(page.locator("[data-testid='wedoo-theme-toggle']")).toBeVisible();
     await expect(
       authButtonGroup.getByRole("button", {
         name: publicCopy.home.signInCta,
@@ -222,6 +223,7 @@ test.describe("landing page", () => {
     await expect(
       dialog.getByRole("link", { name: publicCopy.home.signUpCta }),
     ).toBeVisible();
+    await expect(page.getByTestId("home-hero-preview-copy")).toBeVisible();
 
     await dialog.getByRole("button", { name: publicCopy.home.authDialogCloseLabel }).click();
     await expect(dialog).toBeHidden();

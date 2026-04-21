@@ -18,24 +18,11 @@ export function SectionIntro({
   title,
 }: SectionIntroProps) {
   return (
-    <div
-      className={cn(
-        "space-y-3",
-        align === "center" && "mx-auto max-w-3xl text-center",
-      )}
-    >
-      {eyebrow ? (
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-brand-violet">
-          {eyebrow}
-        </p>
-      ) : null}
-      <h2 className="whitespace-pre-line text-3xl leading-tight sm:text-4xl">
-        {title}
-      </h2>
+    <div className={cn("space-y-4", align === "center" && "mx-auto max-w-3xl text-center")}>
+      {eyebrow ? <p className="wedoo-kicker">{eyebrow}</p> : null}
+      <h2 className="text-3xl leading-[0.95] text-[var(--wedoo-ink-strong)] sm:text-4xl lg:text-5xl">{title}</h2>
       {description ? (
-        <p className="text-base leading-7 text-slate-600 sm:text-lg">
-          {description}
-        </p>
+        <p className="max-w-3xl text-base leading-7 text-[var(--wedoo-ink-muted)] sm:text-lg">{description}</p>
       ) : null}
     </div>
   );
@@ -49,14 +36,12 @@ type StatCardProps = {
 
 export function StatCard({ icon, label, value }: StatCardProps) {
   return (
-    <div className="rounded-3xl border border-white/70 bg-white/75 p-4 shadow-[0_24px_55px_-35px_rgba(16,25,36,0.55)] backdrop-blur">
-      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-violet/12 text-brand-violet">
-        <AppIcon className="text-2xl" name={icon} />
+    <div className="wedoo-theme-shell rounded-[1.35rem] p-4 shadow-[0_20px_50px_-42px_rgba(15,23,40,0.26)]">
+      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-[0.95rem] bg-[var(--wedoo-surface-violet)] text-[var(--wedoo-violet)]">
+        <AppIcon className="text-xl" name={icon} />
       </div>
-      <p className="text-2xl font-bold tracking-tight text-brand-ink">
-        {value}
-      </p>
-      <p className="mt-1 text-sm leading-6 text-slate-500">{label}</p>
+      <p className="text-2xl font-bold tracking-tight text-[var(--wedoo-ink-strong)]">{value}</p>
+      <p className="mt-1 text-sm leading-6 text-[var(--wedoo-ink-muted)]">{label}</p>
     </div>
   );
 }
@@ -79,16 +64,11 @@ export function PreviewFrame({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-4xl border border-white/70 bg-white/85 shadow-[0_35px_90px_-55px_rgba(16,25,36,0.65)]",
+        "wedoo-theme-shell overflow-hidden rounded-[1.6rem] shadow-[0_28px_72px_-56px_rgba(15,23,40,0.34)]",
         className,
       )}
     >
-      <AppImage
-        alt={alt}
-        className={cn("h-full w-full object-cover", imgClassName)}
-        priority={priority}
-        src={src}
-      />
+      <AppImage alt={alt} className={cn("h-full w-full object-cover", imgClassName)} priority={priority} src={src} />
     </div>
   );
 }
@@ -101,17 +81,12 @@ type EmptyStateProps = {
 
 export function EmptyState({ className, description, title }: EmptyStateProps) {
   return (
-    <div
-      className={cn(
-        "rounded-4xl border border-dashed border-slate-200 bg-white/70 p-8 text-center",
-        className,
-      )}
-    >
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-violet/10 text-brand-violet">
+    <div className={cn("wedoo-theme-shell rounded-[1.6rem] border-dashed p-8 text-center", className)}>
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-[1rem] bg-[var(--wedoo-surface-violet)] text-[var(--wedoo-violet)]">
         <AppIcon className="text-3xl" name="search-text-line" />
       </div>
-      <h3 className="text-xl">{title}</h3>
-      <p className="mt-2 text-sm leading-7 text-slate-500">{description}</p>
+      <h3 className="text-xl text-[var(--wedoo-ink-strong)]">{title}</h3>
+      <p className="mt-2 text-sm leading-7 text-[var(--wedoo-ink-muted)]">{description}</p>
     </div>
   );
 }

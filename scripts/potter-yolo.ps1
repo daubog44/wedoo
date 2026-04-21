@@ -13,6 +13,7 @@ $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $CodexHome = Join-Path $RepoRoot ".codex-potter-home"
 $ConfigPath = Join-Path $CodexHome "config.toml"
 $GlobalCodexHome = Join-Path ([Environment]::GetFolderPath("UserProfile")) ".codex"
+$RepoLocalSkills = Join-Path $RepoRoot ".codex\skills"
 $LocalAppPort = if ($env:WEDOO_DEV_PORT) { [int]$env:WEDOO_DEV_PORT } else { 4600 }
 $LocalAppUrl = "http://127.0.0.1:$LocalAppPort"
 $ViteLog = Join-Path $RepoRoot "vite-potter.log"
@@ -37,6 +38,10 @@ function Initialize-IsolatedCodexHome {
   }
 
   New-Item -ItemType Directory -Force -Path $CodexHome | Out-Null
+
+  if (Test-Path $RepoLocalSkills -PathType Container) {
+    Copy-Item -Recurse -Force $RepoLocalSkills (Join-Path $CodexHome "skills")
+  }
 
   foreach ($fileName in @("auth.json", "cap_sid")) {
     $source = Join-Path $GlobalCodexHome $fileName

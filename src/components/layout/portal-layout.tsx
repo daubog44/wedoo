@@ -14,7 +14,7 @@ export function PortalLayout({ role }: { role: PortalRole }) {
         pathname.startsWith("/portale/azienda/annunci/")));
 
   return (
-    <div className="min-h-screen bg-brand-page">
+    <div className="min-h-screen bg-[var(--wedoo-page-bg)] text-[var(--wedoo-workspace-text)]">
       {hideNavbar ? null : <PortalNavbar role={role} />}
       <Outlet />
     </div>

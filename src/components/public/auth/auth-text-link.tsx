@@ -27,7 +27,7 @@ type AuthTextRouterLinkProps = AuthTextLinkBaseProps &
 
 function getAuthTextLinkClassName(compact: boolean, className?: string) {
   return cn(
-    "font-wedoo-body inline-flex items-center italic leading-none text-[var(--wedoo-ink)] transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--brand-violet)]",
+    "font-wedoo-body inline-flex items-center italic leading-none text-[var(--wedoo-ink)] transition hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--wedoo-violet)]",
     compact ? "text-[18px]" : "text-[22px]",
     className,
   );

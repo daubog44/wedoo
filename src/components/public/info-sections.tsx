@@ -1,20 +1,7 @@
-import { Link } from "react-router-dom";
+import { AuthLanguageChip } from "./auth";
 import { assetPath, cn } from "../../lib/site-utils";
 import type { InfoNarrativeBlock, InfoPageResponse, InfoTextParagraph } from "../../data/info-page";
-import { FaqBoard, SiteIcon } from "../site";
-
-function InfoLanguageChip({ label }: { label: string }) {
-  return (
-    <button
-      aria-label="Lingua italiana"
-      className="inline-flex h-8 w-[57px] items-center justify-center gap-2 rounded-[8px] border border-[#767676] bg-[#e3e3e3] px-3 text-[16px] leading-none text-[#1e1e1e] opacity-50"
-      type="button"
-    >
-      <span>{label}</span>
-      <SiteIcon className="h-4 w-4" name="chevron-down" />
-    </button>
-  );
-}
+import { FaqBoard, WedooLogo } from "../site";
 
 function InfoParagraphs({
   className,
@@ -39,49 +26,31 @@ function InfoParagraphs({
 function StoryBlock({
   block,
   className,
-  compact = false,
 }: {
   block: InfoNarrativeBlock;
   className?: string;
-  compact?: boolean;
 }) {
   const toneClass =
     block.tone === "outline"
-      ? "border-[4px] border-brand-gold bg-white"
+      ? "border border-[var(--wedoo-gold-500)] bg-white"
       : block.tone === "filled"
-        ? "bg-brand-gold/65"
-        : "";
+        ? "bg-[var(--wedoo-gold-soft)]"
+        : "bg-transparent";
 
   return (
-    <div
-      className={cn(
-        block.tone === "plain"
-          ? "text-center"
-          : "rounded-[56px]",
-        toneClass,
-        compact
-          ? block.tone === "plain"
-            ? "px-2"
-            : "px-6 py-7"
-          : block.tone === "plain"
-            ? ""
-            : "px-12 py-12",
-        className,
-      )}
-    >
-      <InfoParagraphs
-        className={cn(
-          "font-wedoo-body text-brand-ink",
-          compact ? "text-[22px] leading-[1.18]" : "text-[22px] leading-[1.28] md:text-[24px]",
-        )}
-        paragraphs={block.paragraphs}
-      />
+    <div className={cn("rounded-[1.5rem] px-5 py-5 md:px-7 md:py-6", toneClass, className)}>
+      <InfoParagraphs className="font-wedoo-body text-lg leading-8 text-[var(--wedoo-ink)]" paragraphs={block.paragraphs} />
     </div>
   );
 }
 
-function CheckerCircle({ className }: { className?: string }) {
-  return <div className={cn("wedoo-checker-placeholder rounded-full", className)} />;
+function InfoTopBar() {
+  return (
+    <div className="glass-panel flex items-center justify-between gap-4 px-4 py-3 md:px-6">
+      <WedooLogo imageClassName="h-9 md:h-10" />
+      <AuthLanguageChip />
+    </div>
+  );
 }
 
 function InfoDesktopView({ content }: { content: InfoPageResponse }) {
@@ -89,60 +58,58 @@ function InfoDesktopView({ content }: { content: InfoPageResponse }) {
 
   return (
     <section className="hidden min-[1024px]:block" data-info-layout="desktop">
-      <div className="mx-auto w-full max-w-[1440px] px-12 pb-16 pt-8">
-        <header className="flex items-start justify-between gap-8">
-          <Link className="inline-flex" to="/">
-            <img alt="Wedoo" className="h-[41px] w-[151px] object-contain" src={assetPath("scritta-wedoo.png")} />
-          </Link>
-          <InfoLanguageChip label={content.topBar.languageLabel} />
-        </header>
+      <div className="mx-auto max-w-[1360px] px-8 pb-16 pt-6">
+        <InfoTopBar />
 
-        <section className="pt-3" id="noixnoi">
-          <h1 className="text-center font-wedoo-heading text-[62px] font-bold leading-none text-brand-ink">
-            {content.story.heading}
-          </h1>
-          <div className="mt-10 flex items-start justify-between gap-10">
-            <StoryBlock block={outlineBlock} className="w-full max-w-[930px] -rotate-[1.4deg]" />
-            <CheckerCircle className="mt-[-14px] h-[252px] w-[252px]" />
+        <section className="mt-8 grid gap-8 lg:grid-cols-[0.54fr_0.46fr]" id="noixnoi">
+          <div className="space-y-6">
+            <h1 className="text-[5rem] leading-[0.88] text-[var(--wedoo-ink-strong)]">{content.story.heading}</h1>
+            <StoryBlock block={outlineBlock} />
+            <div className="border-t border-[var(--wedoo-line)] pt-6">
+              <InfoParagraphs
+                className="font-wedoo-body text-[1.45rem] leading-[1.4] text-[var(--wedoo-ink)]"
+                paragraphs={plainBlock.paragraphs}
+              />
+            </div>
+            <StoryBlock block={filledBlock} />
           </div>
-          <div className="mt-12 max-w-[860px] px-24">
-            <StoryBlock block={plainBlock} />
-          </div>
-          <div className="mt-12 flex items-end justify-between gap-10">
-            <CheckerCircle className="h-[252px] w-[252px]" />
-            <StoryBlock block={filledBlock} className="w-full max-w-[920px] rounded-[72px]" />
+
+          <div className="grid gap-6">
+            <div className="overflow-hidden rounded-[1.75rem] border border-[var(--wedoo-line)] bg-white">
+              <img alt="Noi per noi" className="aspect-[4/5] w-full object-cover" src={assetPath("image_noixnoi2.jpg")} />
+            </div>
+            <div className="overflow-hidden rounded-[1.75rem] border border-[var(--wedoo-line)] bg-white">
+              <img alt="Team Wedoo" className="aspect-[4/3] w-full object-cover" src={assetPath("image_noixnoi1.jpg")} />
+            </div>
           </div>
         </section>
 
-        <section className="pt-28" id="obiettivi">
-          <div className="flex justify-end">
-            <h2 className="w-full max-w-[610px] text-center font-wedoo-heading text-[62px] font-bold leading-none text-brand-ink">
-              {content.goals.heading}
-            </h2>
-          </div>
-          <div className="mt-12 grid grid-cols-[580px_minmax(0,1fr)] items-start gap-14">
-            <div className="rounded-[28px] border-[4px] border-brand-rose-400 bg-white px-6 py-8">
+        <section className="mt-20 border-t border-[var(--wedoo-line)] pt-12" id="obiettivi">
+          <div className="grid gap-10 lg:grid-cols-[0.5fr_0.5fr] lg:items-start">
+            <div className="space-y-5">
+              <h2 className="text-[4.6rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">{content.goals.heading}</h2>
               <InfoParagraphs
-                className="font-wedoo-body text-[21px] leading-[1.2] text-brand-ink"
+                className="rounded-[1.5rem] border border-[var(--wedoo-line)] bg-white px-6 py-6 font-wedoo-body text-lg leading-8 text-[var(--wedoo-ink)]"
                 paragraphs={content.goals.paragraphs}
               />
             </div>
-            <div className="pt-8">
-              <img
-                alt={content.goals.diagramAlt}
-                className="w-full max-w-[620px] object-contain"
-                src={assetPath("diagramma.png")}
-              />
+
+            <div className="space-y-6">
+              <div className="overflow-hidden rounded-[1.75rem] border border-[var(--wedoo-line)] bg-white px-6 py-6 shadow-[0_26px_70px_-58px_rgba(15,23,40,0.28)]">
+                <img alt={content.goals.diagramAlt} className="w-full object-contain" src={assetPath("diagramma.png")} />
+              </div>
+              <div className="wedoo-info-strip h-6 rounded-full" />
             </div>
           </div>
-          <div className="wedoo-info-strip mt-14 h-9" />
         </section>
 
-        <section className="pt-24" id="dubbi">
-          <h2 className="text-center font-wedoo-heading text-[62px] leading-none text-brand-ink">
-            {content.faq.heading}
-          </h2>
-          <div className="mt-10">
+        <section className="mt-20 border-t border-[var(--wedoo-line)] pt-12" id="dubbi">
+          <div className="space-y-6">
+            <h2 className="text-[4.4rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">{content.faq.heading}</h2>
+            <p className="max-w-[40rem] text-lg leading-8 text-[var(--wedoo-ink-muted)]">
+              Le FAQ restano editoriali, leggibili e coerenti con il resto del sistema invece di sembrare una
+              tavola presa dal frame vecchio.
+            </p>
             <FaqBoard groups={content.faq.groups} />
           </div>
         </section>
@@ -156,59 +123,40 @@ function InfoMobileView({ content }: { content: InfoPageResponse }) {
 
   return (
     <section className="min-[1024px]:hidden" data-info-layout="mobile">
-      <div className="w-full px-4 pb-12 pt-6">
-        <header className="flex items-start justify-between gap-4">
-          <Link className="inline-flex" to="/">
-            <img alt="Wedoo" className="h-[34px] w-[125px] object-contain" src={assetPath("scritta-wedoo.png")} />
-          </Link>
-          <button
-            aria-label="Lingua italiana"
-            className="inline-flex h-[28px] w-[57px] items-center justify-center gap-1 rounded-[8px] border border-[#767676] bg-[#e3e3e3] px-2 text-[14px] leading-none text-[#1e1e1e] opacity-50"
-            type="button"
-          >
-            <span>{content.topBar.languageLabel}</span>
-            <SiteIcon className="h-4 w-4" name="chevron-down" />
-          </button>
-        </header>
+      <div className="mx-auto max-w-[390px] px-4 pb-12 pt-5">
+        <div className="glass-panel flex items-center justify-between gap-4 px-4 py-3">
+          <WedooLogo imageClassName="h-8" />
+          <AuthLanguageChip compact />
+        </div>
 
-        <section className="pt-8" id="noixnoi">
-          <h1 className="text-center font-wedoo-heading text-[60px] font-bold leading-none text-brand-ink">
-            {content.story.heading}
-          </h1>
-          <div className="mt-8">
-            <StoryBlock block={outlineBlock} className="-rotate-[1.2deg]" compact />
-          </div>
-          <div className="mt-10">
-            <StoryBlock block={plainBlock} compact />
-          </div>
-          <div className="mt-10">
-            <StoryBlock block={filledBlock} className="rounded-[58px]" compact />
-          </div>
-        </section>
-
-        <section className="pt-16" id="obiettivi">
-          <h2 className="text-center font-wedoo-heading text-[54px] font-bold leading-none text-brand-ink">
-            {content.goals.heading}
-          </h2>
-          <div className="mt-8 rounded-[28px] border-[4px] border-brand-rose-400 bg-white px-5 py-6">
-            <InfoParagraphs
-              className="font-wedoo-body text-[22px] leading-[1.18] text-brand-ink"
-              paragraphs={content.goals.paragraphs}
-            />
-          </div>
-          <img
-            alt={content.goals.diagramAlt}
-            className="mt-8 w-full object-contain"
-            src={assetPath("diagramma.png")}
+        <section className="mt-6 space-y-5" id="noixnoi">
+          <h1 className="text-[3.35rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">{content.story.heading}</h1>
+          <StoryBlock block={outlineBlock} />
+          <InfoParagraphs
+            className="font-wedoo-body text-[1.1rem] leading-8 text-[var(--wedoo-ink)]"
+            paragraphs={plainBlock.paragraphs}
           />
-          <div className="wedoo-info-strip mt-8 h-5" />
+          <div className="overflow-hidden rounded-[1.5rem] border border-[var(--wedoo-line)] bg-white">
+            <img alt="Team Wedoo" className="aspect-[4/5] w-full object-cover" src={assetPath("image_noixnoi1.jpg")} />
+          </div>
+          <StoryBlock block={filledBlock} />
         </section>
 
-        <section className="pt-16" id="dubbi">
-          <h2 className="font-wedoo-heading text-[52px] leading-none text-brand-ink">
-            {content.faq.heading}
-          </h2>
-          <div className="mt-6">
+        <section className="mt-16 border-t border-[var(--wedoo-line)] pt-8" id="obiettivi">
+          <h2 className="text-[3.15rem] leading-[0.92] text-[var(--wedoo-ink-strong)]">{content.goals.heading}</h2>
+          <InfoParagraphs
+            className="mt-5 rounded-[1.4rem] border border-[var(--wedoo-line)] bg-white px-5 py-5 font-wedoo-body text-[1.05rem] leading-8 text-[var(--wedoo-ink)]"
+            paragraphs={content.goals.paragraphs}
+          />
+          <div className="mt-5 overflow-hidden rounded-[1.4rem] border border-[var(--wedoo-line)] bg-white px-4 py-4">
+            <img alt={content.goals.diagramAlt} className="w-full object-contain" src={assetPath("diagramma.png")} />
+          </div>
+          <div className="wedoo-info-strip mt-5 h-5 rounded-full" />
+        </section>
+
+        <section className="mt-16 border-t border-[var(--wedoo-line)] pt-8" id="dubbi">
+          <h2 className="text-[3.05rem] leading-[0.92] text-[var(--wedoo-ink-strong)]">{content.faq.heading}</h2>
+          <div className="mt-5">
             <FaqBoard groups={content.faq.groups} />
           </div>
         </section>

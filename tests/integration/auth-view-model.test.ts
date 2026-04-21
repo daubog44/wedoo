@@ -36,6 +36,7 @@ describe("AuthViewModel", () => {
       linkLabel: "registrati",
       linkTo: "/registrati",
     });
+    expect(loginAuthViewModel.forgotPasswordTo).toBe("/password-dimenticata");
   });
 
   it("centralizes the required fields for candidate and company registration", () => {

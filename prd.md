@@ -39,6 +39,7 @@ Regole:
 - il primo `- [ ]` e il task attivo
 - se scopri un prerequisito nuovo, inseriscilo prima del task che dipende da esso
 - se scopri un task successivo o opzionale, inseriscilo nella sezione corretta dopo i prerequisiti
+- sincronizza `docs/visual-backlog.md` per route attiva, route sospette e audit no-op con capture reali
 
 ## Base Tecnica Completata
 
@@ -128,9 +129,17 @@ Regole:
 
 ### Auth E Stati Errore
 
+- [x] [FRAME][node=657:658][route=/password-dimenticata][test=tests/e2e/public/password-recovery-flow.spec.ts] Implementare il flow pubblico `password dimenticata` contro i frame Figma desktop `657:658`, mobile `660:774/660:1217` e la schermata collegata `assistenza clienti` `660:725`, collegando la CTA del login oggi non navigabile.
 - [x] [FRAME][node=658:667][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Implementare il frame `campi mancanti` come stato login con error handling coerente con Figma.
 - [x] [COMP][node=658:688][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Checkbox` come base per consensi e toggle form.
 - [x] [COMP][node=658:684][route=/accedi][test=tests/e2e/public/login-page.spec.ts] Estrarre `Text Link` come link testuale secondario per auth e form.
+
+### Reset Visuale Prodotto
+
+- [x] [TECH][node=n/a][route=/,/accedi,/registrati,/password-dimenticata,/assistenza-clienti,/candidato,/azienda,/info,/portale/*][test=n/a] Aprire la macro-spec `wedoo-visual-reset` per definire una sola direzione visuale `Linear/Vercel/Stripe` adattata a Wedoo e scomporre il reset di tokens, button system, spacing/radius, dark palette, home hero, onboarding, showcase e portal surfaces prima di toccare route secondarie.
+- [x] [TECH][node=n/a][route=/articoli,/podcast,/registrati/azienda/:stepIndex,/portale/candidato/cv,/portale/candidato/annuncio/:jobId,/portale/azienda/annunci,/portale/azienda/annunci/:jobId,/portale/azienda/candidati/:candidateId][test=n/a] Aprire la macro-spec `wedoo-deep-routes-reset` per estendere il linguaggio `Linear/Vercel/Stripe` alle route residue non coperte dal primo reset, partendo dalle evidenze reali raccolte su knowledge hub, wizard azienda e superfici deep del portale prima di qualsiasi nuovo polish locale.
+- [x] [TECH][node=n/a][route=/accedi,/registrati,/registrati/azienda/:stepIndex,/password-dimenticata,/assistenza-clienti,/portale/*][test=n/a] Aprire la macro-spec `wedoo-theme-governance-reset` per eliminare il mixed light/dark non governato, introdurre un toggle esplicito tra tema chiaro e tema scuro con token unici condivisi, correggere contrasto CTA e sistemare drift tipografico, overflow e testo shifted sulle shell auth e onboarding prima di nuovi restyling locali.
+- [x] [FRAME][node=143:1822][route=/][test=tests/e2e/parity/landing-page.visual.spec.ts] Riaprire la landing pubblica per correggere il drift post-theme reset: esporre il toggle light/dark nella top bar della home, eliminare la hero card ibrida con contrasto rotto e riallineare header, CTA e superfici hero a un canvas coerente con il tema attivo su desktop e mobile.
 
 ### Wizard Candidato
 

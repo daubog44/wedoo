@@ -8,19 +8,35 @@ export function CompanyDashboardProfileRail({
   profile: CompanyDashboardProfile;
 }) {
   return (
-    <aside className="mx-auto w-full max-w-[18rem] xl:sticky xl:top-[7.5rem] xl:max-w-[17.5rem]">
-      <div className="flex flex-col items-center text-center xl:items-start xl:text-left">
-        <div className="flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-[0_22px_55px_-42px_rgba(16,25,36,0.65)] md:h-40 md:w-40 xl:h-[200px] xl:w-[200px]">
-          <AppImage
-            alt={profile.companyName}
-            className="h-20 w-20 object-contain md:h-24 md:w-24 xl:h-28 xl:w-28"
-            priority
-            src={assetPath(profile.companyLogo)}
-          />
+    <aside className="mx-auto w-full max-w-[20rem] xl:sticky xl:top-[7rem] xl:max-w-[20rem]">
+      <div className="wedoo-workspace-panel rounded-[1.5rem] p-5">
+        <div className="flex h-28 w-28 items-center justify-center rounded-full border border-white/12 bg-white md:h-32 md:w-32">
+          <AppImage alt={profile.companyName} className="h-16 w-16 object-contain md:h-20 md:w-20" priority src={assetPath(profile.companyLogo)} />
         </div>
-        <h1 className="mt-6 max-w-[12rem] font-wedoo-heading text-[2.75rem] leading-[0.94] text-black md:text-[3.4rem] xl:text-[4rem]">
+        <span className="mt-5 inline-flex rounded-full border border-[rgba(112,72,232,0.28)] bg-[rgba(112,72,232,0.14)] px-3 py-2 text-[0.68rem] font-wedoo-accent uppercase tracking-[0.18em] text-[var(--wedoo-violet-300)]">
+          company profile
+        </span>
+        <h1 className="mt-5 max-w-[14rem] font-wedoo-heading text-[2.8rem] leading-[0.92] text-[var(--wedoo-workspace-text)]">
           {profile.companyName}
         </h1>
+        <p className="mt-4 text-sm leading-7 text-[var(--wedoo-workspace-muted)]">
+          Il lato azienda adotta la stessa disciplina del portale candidato: meno pannelli, piu lettura.
+        </p>
+
+        <div className="mt-6 grid gap-3">
+          <div className="border-t border-white/10 pt-3">
+            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--wedoo-workspace-muted)]">
+              pipeline
+            </p>
+            <p className="mt-2 text-lg text-[var(--wedoo-workspace-text)]">Candidati piu leggibili, meno rumore</p>
+          </div>
+          <div className="border-t border-white/10 pt-3">
+            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--wedoo-workspace-muted)]">
+              next action
+            </p>
+            <p className="mt-2 text-lg text-[var(--wedoo-workspace-text)]">Apri un profilo e verifica il matching</p>
+          </div>
+        </div>
       </div>
     </aside>
   );

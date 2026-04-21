@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { JobDraftOption } from "../../data/job-draft";
 import { AppIcon } from "../../lib/icons";
 import { assetPath, cn } from "../../lib/site-utils";
+import { WedooThemeToggle } from "../common/wedoo-theme-toggle";
 import { SiteIcon } from "../site";
 import { companyWizardDesktopPct } from "./company-wizard-utils";
 
@@ -23,8 +24,8 @@ export function CompanyWizardLanguageChip({ compact = false }: { compact?: boole
     <button
       aria-label="Lingua italiana"
       className={cn(
-        "inline-flex items-center justify-center rounded-[8px] border border-[#767676] bg-[#e3e3e3] text-[#1e1e1e] opacity-50",
-        compact ? "h-[28px] w-[54px] gap-1.5 px-2 text-[14px]" : "h-8 w-[57px] gap-2 px-3 text-[16px]",
+        "inline-flex items-center justify-center rounded-[14px] border border-[var(--wedoo-toggle-border)] bg-[var(--wedoo-toggle-bg)] text-[var(--wedoo-toggle-text)] shadow-[var(--wedoo-toggle-shadow)] backdrop-blur transition hover:border-[var(--wedoo-toggle-border-strong)] hover:bg-[var(--wedoo-toggle-bg-hover)]",
+        compact ? "h-[30px] w-[62px] gap-1.5 px-2 text-[13px]" : "h-10 w-[68px] gap-2 px-3 text-[14px]",
       )}
       type="button"
     >
@@ -72,15 +73,19 @@ export function CompanyWizardDesktopShell({
       data-company-wizard-step={step}
       data-testid={testId}
     >
-      <div className="relative mx-auto h-[1024px] w-full max-w-[1440px]">
+      <div className="relative mx-auto h-[1024px] w-full max-w-[1440px] overflow-hidden rounded-[2.75rem] border border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,var(--wedoo-workspace-top),var(--wedoo-workspace-bg))] shadow-[0_52px_140px_-86px_rgba(0,0,0,0.86)]">
         <img
           alt=""
-          className="pointer-events-none absolute top-[15px] h-[995px] object-cover"
+          className="pointer-events-none absolute top-[15px] h-[995px] object-cover opacity-85 saturate-[0.88]"
           src={assetPath(backgroundAsset)}
           style={{ left: companyWizardDesktopPct(20), width: companyWizardDesktopPct(1400) }}
         />
 
-        <div className="absolute top-[50px]" style={{ left: companyWizardDesktopPct(1314) }}>
+        <div className="pointer-events-none absolute inset-0" style={{ background: "var(--wedoo-hero-scrim)" }} />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-[44%]" style={{ background: "var(--wedoo-hero-orb)" }} />
+
+        <div className="absolute top-[42px] z-20 flex items-center gap-2" style={{ left: companyWizardDesktopPct(1206) }}>
+          <WedooThemeToggle />
           <CompanyWizardLanguageChip />
         </div>
 
@@ -92,7 +97,7 @@ export function CompanyWizardDesktopShell({
 
         <h1
           className={cn(
-            "font-wedoo-accent absolute text-center text-[36px] leading-none text-brand-ink",
+            "font-wedoo-accent absolute z-10 text-center text-[36px] leading-none text-[var(--wedoo-workspace-text)]",
             titleClassName,
           )}
           style={titleStyle}
@@ -103,7 +108,7 @@ export function CompanyWizardDesktopShell({
         {subtitle ? (
           <p
             className={cn(
-              "font-wedoo-accent absolute text-center text-[24px] leading-none text-brand-ink",
+              "font-wedoo-accent absolute z-10 text-center text-[24px] leading-none text-[var(--wedoo-workspace-muted)]",
               subtitleClassName,
             )}
             style={subtitleStyle}
@@ -114,7 +119,7 @@ export function CompanyWizardDesktopShell({
 
         <div
           className={cn(
-            "absolute rounded-[10px] border border-brand-violet-400 bg-[rgba(255,255,255,0.96)]",
+            "wedoo-theme-shell absolute rounded-[1.9rem] backdrop-blur",
             formClassName,
           )}
           style={formStyle}
@@ -152,25 +157,28 @@ export function CompanyWizardMobileShell({
       data-company-wizard-step={step}
       data-testid={testId}
     >
-      <div className="mx-auto max-w-[360px] px-4 pb-8 pt-6">
-        <header className="relative">
+      <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
+        <header className="relative overflow-hidden rounded-[2rem] border border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,var(--wedoo-workspace-top),var(--wedoo-workspace-bg))] px-5 py-6 shadow-[0_38px_96px_-72px_rgba(0,0,0,0.8)]">
+          <div className="pointer-events-none absolute inset-0" style={{ background: "var(--wedoo-hero-orb)" }} />
           <CompanyWizardLogo compact />
-          <div className="absolute right-0 top-0">
+          <div className="absolute right-0 top-0 flex items-center gap-2">
+            <WedooThemeToggle compact />
             <CompanyWizardLanguageChip compact />
           </div>
-          <div className="mt-6 space-y-3 px-2 text-center">
-            <h1 className={cn("font-wedoo-heading text-brand-ink", titleClassName ?? "text-[58px] leading-[0.9]")}>
+          <div className="relative mt-6 space-y-3 px-2 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--wedoo-workspace-muted)]">company onboarding</span>
+            <h1 className={cn("font-wedoo-heading text-[var(--wedoo-workspace-text)]", titleClassName ?? "text-[52px] leading-[0.9]")}>
               {title}
             </h1>
             {subtitle ? (
-              <p className={cn("font-wedoo-accent text-brand-ink", subtitleClassName ?? "text-[24px] leading-[1.05]")}>
+              <p className={cn("font-wedoo-accent text-[var(--wedoo-workspace-muted)]", subtitleClassName ?? "text-[22px] leading-[1.08]")}>
                 {subtitle}
               </p>
             ) : null}
           </div>
         </header>
 
-        <div className="mt-4 rounded-[20px] border border-brand-violet-400 bg-brand-page px-4 pb-5 pt-6">
+        <div className="wedoo-theme-shell mt-4 rounded-[1.8rem] px-4 pb-5 pt-6 backdrop-blur">
           {children}
         </div>
       </div>
@@ -191,7 +199,7 @@ export function CompanyWizardFieldLabel({
     <label
       className={cn(
         "font-wedoo-accent block text-brand-ink",
-        compact ? "mb-2 text-[20px] leading-none" : "mb-2 text-[24px] leading-none",
+        compact ? "mb-2 text-[18px] leading-none" : "mb-2 text-[18px] leading-none",
       )}
       htmlFor={htmlFor}
     >
@@ -224,8 +232,8 @@ export function CompanyWizardTextField({
       </CompanyWizardFieldLabel>
       <input
         className={cn(
-          "font-wedoo-body w-full rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink outline-none transition placeholder:text-brand-ink/35 focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
-          compact ? "h-[42px] px-3 text-[18px]" : "h-[42px] px-[9px] text-[22px]",
+          "wedoo-theme-field font-wedoo-body w-full rounded-[16px] outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]",
+          compact ? "h-[48px] px-4 text-[17px]" : "h-[50px] px-4 text-[18px]",
         )}
         id={id}
         onChange={(event) => onChange(event.target.value)}
@@ -263,9 +271,11 @@ export function CompanyWizardCheckbox({
         aria-label={accessibleLabel}
         aria-checked={checked}
         className={cn(
-          "mt-1 inline-flex items-center justify-center rounded-[4px] border border-brand-violet-400 transition",
-          compact ? "h-[23px] w-[23px]" : "h-[24px] w-[24px]",
-          checked ? "bg-brand-violet text-white" : "bg-brand-page text-transparent",
+          "mt-1 inline-flex items-center justify-center rounded-[8px] border transition",
+          compact ? "h-[24px] w-[24px]" : "h-[24px] w-[24px]",
+          checked
+            ? "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)]"
+            : "border-[var(--wedoo-line-strong)] bg-[var(--wedoo-input-bg)] text-transparent",
         )}
         id={id}
         onClick={() => onCheckedChange(!checked)}
@@ -286,7 +296,7 @@ export function CompanyWizardCheckbox({
       <span
         className={cn(
           "font-wedoo-body text-brand-ink",
-          compact ? "text-[18px] leading-[1.05]" : "text-[22px] leading-[1.05]",
+          compact ? "text-[16px] leading-[1.25]" : "text-[17px] leading-[1.3]",
         )}
         id={labelId}
       >
@@ -332,8 +342,8 @@ export function CompanyWizardSelectField({
       <div className="relative">
         <select
           className={cn(
-            "font-wedoo-body w-full appearance-none rounded-[8px] border border-brand-violet-400 bg-brand-page pr-10 text-brand-ink outline-none transition focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
-            compact ? "h-[42px] px-3 text-[18px]" : "h-[42px] px-[9px] text-[22px]",
+            "wedoo-theme-field font-wedoo-body w-full appearance-none rounded-[16px] pr-10 outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]",
+            compact ? "h-[48px] px-4 text-[17px]" : "h-[50px] px-4 text-[18px]",
             value ? "text-brand-ink" : "text-brand-ink/75",
           )}
           id={id}
@@ -375,8 +385,8 @@ export function CompanyWizardCapField({
       </CompanyWizardFieldLabel>
       <input
         className={cn(
-          "font-wedoo-body w-full rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink outline-none transition placeholder:text-brand-ink/35 focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
-          compact ? "h-[42px] px-3 text-[18px]" : "h-[42px] px-[9px] text-[22px]",
+          "wedoo-theme-field font-wedoo-body w-full rounded-[16px] outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]",
+          compact ? "h-[48px] px-4 text-[17px]" : "h-[50px] px-4 text-[18px]",
         )}
         id={id}
         list={datalistId}
@@ -411,11 +421,11 @@ export function CompanyWizardEditor({
       <CompanyWizardFieldLabel compact={compact} htmlFor={id}>
         {label}
       </CompanyWizardFieldLabel>
-      <div className="overflow-hidden rounded-[20px] border border-brand-violet-400">
+      <div className="overflow-hidden rounded-[20px] border border-[var(--wedoo-input-border)] bg-[var(--wedoo-input-bg)]">
         <div
           className={cn(
-            "flex items-center gap-4 border-b border-brand-violet-400 font-wedoo-body text-brand-ink",
-            compact ? "px-3 py-2 text-[18px]" : "px-4 py-2 text-[22px]",
+            "flex items-center gap-4 border-b border-[var(--wedoo-line)] font-wedoo-body text-brand-ink",
+            compact ? "px-4 py-3 text-[17px]" : "px-4 py-3 text-[18px]",
           )}
         >
           <button className="font-sans font-bold" type="button">
@@ -433,7 +443,7 @@ export function CompanyWizardEditor({
         <textarea
           className={cn(
             "font-wedoo-body w-full resize-none border-none bg-transparent text-brand-ink outline-none",
-            compact ? "min-h-[120px] px-3 py-3 text-[18px]" : "min-h-[106px] px-4 py-3 text-[22px]",
+            compact ? "min-h-[120px] px-4 py-4 text-[17px]" : "min-h-[120px] px-4 py-4 text-[18px]",
           )}
           id={id}
           onChange={(event) => onChange(event.target.value)}
@@ -464,8 +474,8 @@ export function CompanyWizardUploadField({
       </CompanyWizardFieldLabel>
       <label
         className={cn(
-          "inline-flex cursor-pointer items-center rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink/35 transition hover:border-brand-violet",
-          compact ? "h-[42px] w-full gap-2 px-3 text-[18px]" : "h-[37px] w-[178px] gap-2 px-3 text-[22px]",
+          "wedoo-theme-ghost-button inline-flex cursor-pointer items-center rounded-[16px] text-[var(--wedoo-input-placeholder)] transition hover:border-[var(--wedoo-violet)]",
+          compact ? "h-[48px] w-full gap-2 px-4 text-[17px]" : "h-[48px] w-[178px] gap-2 px-4 text-[18px]",
         )}
         htmlFor={id}
       >
@@ -503,8 +513,8 @@ export function CompanyWizardPrimaryButton({
   return (
     <button
       className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] bg-brand-violet text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600",
-        compact ? "h-[52px] text-[22px] leading-none" : "h-[48px] text-[24px] leading-none",
+        "font-wedoo-accent inline-flex items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]",
+        compact ? "h-[52px] text-[19px] leading-none" : "h-[54px] text-[19px] leading-none",
         compact ? "w-full" : "w-full",
         className,
       )}
@@ -530,8 +540,8 @@ export function CompanyWizardOutlineButton({
   return (
     <button
       className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border-2 border-brand-violet bg-brand-page text-brand-ink transition hover:bg-brand-violet/8",
-        compact ? "h-[52px] w-full text-[22px] leading-none" : "h-[40px] px-3 text-[24px] leading-none",
+        "wedoo-theme-ghost-button font-wedoo-accent inline-flex items-center justify-center rounded-[18px] transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]",
+        compact ? "h-[52px] w-full text-[17px] leading-none" : "h-[48px] px-4 text-[18px] leading-none",
       )}
       onClick={onClick}
       type={type}
@@ -551,8 +561,8 @@ export function CompanyWizardSocialButton({
   return (
     <button
       className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center rounded-[8px] border-2 border-brand-violet-100 bg-brand-page text-brand-ink transition hover:border-brand-violet",
-        compact ? "h-[46px] flex-1 text-[18px] leading-none" : "h-[46px] w-[204px] text-[24px] leading-none",
+        "wedoo-theme-ghost-button font-wedoo-accent inline-flex items-center justify-center rounded-[18px] transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]",
+        compact ? "h-[46px] flex-1 text-[15px] leading-none" : "h-[48px] w-[204px] text-[17px] leading-none",
       )}
       type="button"
     >
@@ -572,7 +582,7 @@ export function CompanyWizardSectionHeading({
     <h2
       className={cn(
         "font-wedoo-accent font-bold text-brand-ink",
-        compact ? "text-[22px] leading-none" : "text-[24px] leading-none",
+        compact ? "text-[20px] leading-none" : "text-[20px] leading-none",
       )}
     >
       {children}
@@ -593,7 +603,7 @@ export function CompanyWizardStepHint({
     <p
       className={cn(
         "font-wedoo-body text-brand-ink",
-        compact ? "text-[15px] leading-[1.2]" : "text-[18px] leading-[1.05]",
+        compact ? "text-[14px] leading-[1.5]" : "text-[15px] leading-[1.6]",
         className,
       )}
     >
@@ -613,7 +623,7 @@ export function CompanyWizardSummaryList({
     <ul
       className={cn(
         "font-wedoo-body list-disc text-brand-ink",
-        compact ? "space-y-1 pl-5 text-[15px] leading-[1.2]" : "space-y-1 pl-6 text-[18px] leading-[1.05]",
+        compact ? "space-y-1 pl-5 text-[14px] leading-[1.45]" : "space-y-1 pl-6 text-[15px] leading-[1.55]",
       )}
     >
       {items.map((item) => (
@@ -628,12 +638,12 @@ export function CompanyWizardOrDivider({ compact = false }: { compact?: boolean 
     <div
       className={cn(
         "flex items-center text-brand-ink",
-        compact ? "gap-3 text-[18px]" : "gap-4 text-[22px]",
+        compact ? "gap-3 text-[14px]" : "gap-4 text-[16px]",
       )}
     >
-      <span className="h-px flex-1 bg-brand-ink" />
-      <span className="font-wedoo-body leading-none">oppure</span>
-      <span className="h-px flex-1 bg-brand-ink" />
+      <span className="h-px flex-1 bg-[var(--wedoo-line)]" />
+      <span className="font-wedoo-body leading-none text-[var(--wedoo-ink-muted)]">oppure</span>
+      <span className="h-px flex-1 bg-[var(--wedoo-line)]" />
     </div>
   );
 }
@@ -679,8 +689,8 @@ export function CompanyWizardSdgField({
               <button
                 aria-label={`Rimuovi SDG ${option.label}`}
                 className={cn(
-                  "font-wedoo-body inline-flex items-center gap-2 rounded-full border border-brand-violet-400 bg-brand-page text-brand-ink transition hover:bg-brand-violet/8",
-                  compact ? "px-3 py-1 text-[15px]" : "px-3 py-1.5 text-[16px]",
+                  "wedoo-theme-ghost-button font-wedoo-body inline-flex items-center gap-2 rounded-full transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]",
+                  compact ? "px-3 py-1 text-[14px]" : "px-3 py-1.5 text-[14px]",
                 )}
                 onClick={() => onRemove(option.id)}
                 type="button"

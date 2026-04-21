@@ -1,109 +1,227 @@
-/* Wedoo brand palette and typography tokens from Figma node 197:536. */
+/* Wedoo visual reset: one system, fewer effects, stronger composition. */
 :root {
   --wedoo-font-body: "Roboto", sans-serif;
   --wedoo-font-heading: "Oxygen", sans-serif;
   --wedoo-font-accent: "Ubuntu", sans-serif;
 
-  --wedoo-page-bg: #f7f7f7;
-  --wedoo-surface: #ffffff;
-  --wedoo-ink: #212529;
-  --wedoo-ink-strong: #212529;
-  --wedoo-border-strong: #212529;
-  --wedoo-muted-border: #767676;
-  --wedoo-muted-fill: #e3e3e3;
-  --wedoo-muted-ink: #1e1e1e;
+  --wedoo-violet-50: #f3efff;
+  --wedoo-violet-100: #e5dcff;
+  --wedoo-violet-200: #ccbaff;
+  --wedoo-violet-300: #aa87ff;
+  --wedoo-violet-400: #8e63f3;
+  --wedoo-violet-500: #7048e8;
+  --wedoo-violet-600: #5b36c3;
+  --wedoo-violet-700: #472c93;
+  --wedoo-violet-800: #231a49;
+  --wedoo-violet-900: #161130;
 
-  --wedoo-violet-50: #d8cbf7;
-  --wedoo-violet-100: #cdbdf4;
-  --wedoo-violet-200: #b79fef;
-  --wedoo-violet-300: #a082eb;
-  --wedoo-violet-400: #8a64e6;
-  --wedoo-violet-500: #7447e1;
-  --wedoo-violet-600: #613cbd;
-  --wedoo-violet-700: #4f3099;
-  --wedoo-violet-800: #3c2575;
-  --wedoo-violet-900: #2a1a51;
+  --wedoo-mint-50: #ebfff8;
+  --wedoo-mint-100: #d3fff0;
+  --wedoo-mint-200: #b0f5df;
+  --wedoo-mint-300: #84e6cc;
+  --wedoo-mint-400: #57d7b4;
+  --wedoo-mint-500: #32bf98;
+  --wedoo-mint-600: #20856c;
+  --wedoo-mint-700: #165847;
+  --wedoo-mint-800: #0d382d;
+  --wedoo-mint-900: #061f19;
 
-  --wedoo-lavender-50: #ede9f9;
-  --wedoo-lavender-100: #e7e3f7;
-  --wedoo-lavender-200: #ddd7f3;
-  --wedoo-lavender-300: #d2cbef;
-  --wedoo-lavender-400: #c8beec;
-  --wedoo-lavender-500: #bdb2e8;
-  --wedoo-lavender-600: #9f96c3;
-  --wedoo-lavender-700: #81799e;
-  --wedoo-lavender-800: #625d79;
-  --wedoo-lavender-900: #444054;
+  --wedoo-gold-100: #fff0c3;
+  --wedoo-gold-500: #dfae44;
+  --wedoo-gold-700: #9c6c13;
 
-  --wedoo-mint-50: #d5fbee;
-  --wedoo-mint-100: #c9faea;
-  --wedoo-mint-200: #b1f8e0;
-  --wedoo-mint-300: #99f6d7;
-  --wedoo-mint-400: #81f4cd;
-  --wedoo-mint-500: #69f2c4;
-  --wedoo-mint-600: #58cba5;
-  --wedoo-mint-700: #47a585;
-  --wedoo-mint-800: #377e66;
-  --wedoo-mint-900: #265747;
+  --wedoo-rose-100: #ffd8df;
+  --wedoo-rose-500: #f3839d;
+  --wedoo-rose-700: #a84d61;
+}
 
-  --wedoo-rose-50: #ffdede;
-  --wedoo-rose-100: #ffd5d5;
-  --wedoo-rose-200: #ffc2c2;
-  --wedoo-rose-300: #ffafaf;
-  --wedoo-rose-400: #ff9d9d;
-  --wedoo-rose-500: #ff8a8a;
-  --wedoo-rose-600: #d67474;
-  --wedoo-rose-700: #ad5e5e;
-  --wedoo-rose-800: #854848;
-  --wedoo-rose-900: #5c3232;
+:root,
+:root[data-wedoo-theme="dark"] {
+  --wedoo-bg: #07101d;
+  --wedoo-bg-soft: #0b1525;
+  --wedoo-surface-0: rgba(11, 21, 37, 0.84);
+  --wedoo-surface-1: rgba(12, 20, 34, 0.94);
+  --wedoo-surface-2: rgba(18, 28, 46, 0.94);
+  --wedoo-ink: #eef2ff;
+  --wedoo-ink-strong: #fbfcff;
+  --wedoo-ink-muted: #93a0bb;
+  --wedoo-line: rgba(229, 233, 242, 0.12);
+  --wedoo-line-strong: rgba(229, 233, 242, 0.22);
 
-  --wedoo-gold-50: #fcf5d3;
-  --wedoo-gold-100: #fbf3c6;
-  --wedoo-gold-200: #faedad;
-  --wedoo-gold-300: #f8e894;
-  --wedoo-gold-400: #f7e27a;
-  --wedoo-gold-500: #f5dd61;
-  --wedoo-gold-600: #ceba51;
-  --wedoo-gold-700: #a79642;
-  --wedoo-gold-800: #7f7332;
-  --wedoo-gold-900: #585023;
-
+  --wedoo-accent: var(--wedoo-violet-500);
+  --wedoo-accent-hover: var(--wedoo-violet-600);
+  --wedoo-support: var(--wedoo-mint-400);
+  --wedoo-support-hover: var(--wedoo-mint-500);
+  --wedoo-white-soft: #fbfcff;
+  --wedoo-page-bg: var(--wedoo-bg);
+  --wedoo-surface: var(--wedoo-surface-1);
   --wedoo-violet: var(--wedoo-violet-500);
   --wedoo-violet-hover: var(--wedoo-violet-600);
   --wedoo-violet-deep: var(--wedoo-violet-800);
-  --wedoo-violet-panel: var(--wedoo-violet-700);
-  --wedoo-violet-soft: var(--wedoo-lavender-500);
-  --wedoo-mint: var(--wedoo-mint-500);
+  --wedoo-violet-panel: rgba(112, 72, 232, 0.1);
+  --wedoo-violet-soft: var(--wedoo-violet-100);
+  --wedoo-lavender-50: #f5f1ff;
+  --wedoo-lavender-100: #ece4ff;
+  --wedoo-lavender-200: #ddd0ff;
+  --wedoo-lavender-300: #c8b4ff;
+  --wedoo-lavender-400: #aa88ff;
+  --wedoo-lavender-500: #8e63f3;
+  --wedoo-lavender-600: #6f49cb;
+  --wedoo-lavender-700: #52369c;
+  --wedoo-lavender-800: #34245f;
+  --wedoo-lavender-900: #1d1537;
+  --wedoo-mint: var(--wedoo-mint-400);
   --wedoo-mint-deep: var(--wedoo-mint-600);
   --wedoo-gold: var(--wedoo-gold-500);
-  --wedoo-gold-soft: rgba(245, 221, 97, 0.5);
+  --wedoo-gold-soft: rgba(223, 174, 68, 0.15);
   --wedoo-rose: var(--wedoo-rose-500);
-  --wedoo-rose-soft: rgba(255, 138, 138, 0.5);
-  --wedoo-button-elevated-shadow: 1px 4px 15.8px rgba(0, 0, 0, 0.25);
-  --wedoo-button-role-candidate-raised: var(--wedoo-mint-200);
-  --wedoo-button-role-company-raised: var(--wedoo-violet-400);
-  --wedoo-button-discover-gold-raised: #ffe352;
-  --wedoo-button-discover-rose-raised: #ff9797;
-  --wedoo-button-discover-lavender-raised: #9888d9;
-  --wedoo-feedback-success-bg: var(--wedoo-mint-200);
-  --wedoo-feedback-error-bg: var(--wedoo-rose-500);
-  --wedoo-feedback-info-bg: rgba(189, 178, 232, 0.39);
-  --wedoo-white-soft: var(--wedoo-page-bg);
-  --wedoo-overlay-strong: rgba(255, 255, 255, 0.92);
-  --wedoo-surface-violet: var(--wedoo-lavender-50);
-  --wedoo-surface-mint: var(--wedoo-mint-50);
-  --wedoo-border-dark: #111827;
-  --wedoo-shadow-soft: 0 28px 64px -56px rgba(16, 25, 36, 0.8);
-  --wedoo-shadow-hero: 0 40px 100px -58px rgba(16, 25, 36, 0.82);
-  --wedoo-shadow-mobile-video: 0 26px 72px -48px rgba(16, 25, 36, 0.82);
+  --wedoo-rose-soft: rgba(243, 131, 157, 0.16);
+  --wedoo-feedback-success-bg: rgba(87, 215, 180, 0.16);
+  --wedoo-feedback-error-bg: rgba(243, 131, 157, 0.16);
+  --wedoo-feedback-info-bg: rgba(112, 72, 232, 0.1);
+  --wedoo-overlay-strong: rgba(255, 255, 255, 0.88);
+  --wedoo-surface-violet: rgba(112, 72, 232, 0.08);
+  --wedoo-surface-mint: rgba(87, 215, 180, 0.1);
+  --wedoo-border-dark: rgba(18, 24, 38, 0.22);
+  --wedoo-shadow-soft: 0 26px 80px -64px rgba(15, 23, 40, 0.36);
+  --wedoo-shadow-hero: 0 44px 120px -78px rgba(9, 17, 31, 0.78);
+  --wedoo-shadow-mobile-video: 0 30px 90px -62px rgba(9, 17, 31, 0.58);
+  --wedoo-button-elevated-shadow: 0 22px 54px -36px rgba(91, 54, 195, 0.34);
+  --wedoo-page-bg: var(--wedoo-bg);
+  --wedoo-surface: var(--wedoo-surface-1);
+  --wedoo-page-gradient:
+    radial-gradient(circle at top left, rgba(87, 215, 180, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(112, 72, 232, 0.16), transparent 32%),
+    linear-gradient(180deg, #09111f 0%, #07101d 100%);
+  --wedoo-page-card-bg: linear-gradient(180deg, rgba(11, 21, 37, 0.88), rgba(8, 16, 29, 0.96));
+  --wedoo-page-card-border: rgba(229, 233, 242, 0.12);
+  --wedoo-glass-bg: rgba(12, 20, 34, 0.86);
+  --wedoo-glass-border: rgba(229, 233, 242, 0.12);
+  --wedoo-panel-bg: linear-gradient(180deg, rgba(12, 20, 34, 0.94), rgba(9, 16, 28, 0.98));
+  --wedoo-panel-border: rgba(229, 233, 242, 0.12);
+  --wedoo-panel-shadow: 0 34px 96px -68px rgba(0, 0, 0, 0.92);
+  --wedoo-input-bg: rgba(18, 28, 46, 0.92);
+  --wedoo-input-border: rgba(229, 233, 242, 0.14);
+  --wedoo-input-text: var(--wedoo-ink);
+  --wedoo-input-placeholder: rgba(147, 160, 187, 0.78);
+  --wedoo-ghost-bg: rgba(255, 255, 255, 0.04);
+  --wedoo-ghost-bg-hover: rgba(255, 255, 255, 0.08);
+  --wedoo-ghost-border: rgba(229, 233, 242, 0.16);
+  --wedoo-ghost-border-strong: rgba(229, 233, 242, 0.28);
+  --wedoo-ghost-text: var(--wedoo-ink);
+  --wedoo-toggle-bg: rgba(255, 255, 255, 0.05);
+  --wedoo-toggle-bg-hover: rgba(255, 255, 255, 0.09);
+  --wedoo-toggle-border: rgba(229, 233, 242, 0.16);
+  --wedoo-toggle-border-strong: rgba(229, 233, 242, 0.3);
+  --wedoo-toggle-text: var(--wedoo-ink);
+  --wedoo-toggle-shadow: 0 18px 44px -36px rgba(0, 0, 0, 0.8);
+  --wedoo-footer-shell-bg:
+    radial-gradient(circle at top left, rgba(87, 215, 180, 0.08), transparent 22%),
+    radial-gradient(circle at top right, rgba(112, 72, 232, 0.08), transparent 20%),
+    linear-gradient(180deg, #101827 0%, #070d18 100%);
+  --wedoo-footer-border: rgba(229, 233, 242, 0.1);
+  --wedoo-footer-muted: #93a0bb;
+  --wedoo-footer-text: #eef2ff;
+
+  --wedoo-workspace-bg: #070d18;
+  --wedoo-workspace-top: #0d1527;
+  --wedoo-workspace-surface: rgba(16, 25, 44, 0.86);
+  --wedoo-workspace-surface-2: #101a2d;
+  --wedoo-workspace-line: rgba(229, 233, 242, 0.11);
+  --wedoo-workspace-text: #eef2ff;
+  --wedoo-workspace-muted: #93a0bb;
+  --wedoo-workspace-card-shadow: 0 40px 96px -66px rgba(4, 10, 20, 0.92);
+  --wedoo-workspace-panel-bg: linear-gradient(180deg, rgba(17, 27, 46, 0.82), rgba(10, 18, 31, 0.86));
+  --wedoo-workspace-chip-border: rgba(229, 233, 242, 0.12);
+  --wedoo-workspace-chip-bg: rgba(255, 255, 255, 0.05);
+  --wedoo-workspace-chip-text: var(--wedoo-workspace-muted);
+  --wedoo-hero-scrim: linear-gradient(90deg, rgba(5, 9, 19, 0.98) 0%, rgba(5, 9, 19, 0.94) 34%, rgba(12, 18, 31, 0.72) 56%, rgba(12, 18, 31, 0.18) 76%, rgba(12, 18, 31, 0) 100%);
+  --wedoo-hero-orb: radial-gradient(circle at top left, rgba(116, 80, 230, 0.28), transparent 58%);
+  --wedoo-media-overlay: linear-gradient(180deg, rgba(7, 13, 24, 0.18), rgba(7, 13, 24, 0.88));
+  --wedoo-home-hero-shell-bg: linear-gradient(180deg, rgba(11, 21, 37, 0.92), rgba(8, 16, 29, 0.98));
+  --wedoo-home-hero-shell-border: rgba(229, 233, 242, 0.12);
+  --wedoo-home-hero-copy-bg: linear-gradient(180deg, rgba(18, 28, 46, 0.96), rgba(10, 18, 31, 0.98));
+  --wedoo-home-hero-preview-bg: linear-gradient(180deg, rgba(10, 18, 31, 0.96), rgba(7, 13, 24, 0.98));
+  --wedoo-home-hero-preview-copy-bg: rgba(8, 14, 24, 0.72);
+  --wedoo-home-hero-preview-copy-border: rgba(229, 233, 242, 0.12);
+  --wedoo-home-hero-dot: rgba(255, 255, 255, 0.22);
+}
+
+:root[data-wedoo-theme="light"] {
+  --wedoo-bg: #f4f6fb;
+  --wedoo-bg-soft: #edf1f7;
+  --wedoo-surface-0: rgba(255, 255, 255, 0.72);
+  --wedoo-surface-1: #ffffff;
+  --wedoo-surface-2: #eef2f8;
+  --wedoo-ink: #121826;
+  --wedoo-ink-strong: #09111f;
+  --wedoo-ink-muted: #57657d;
+  --wedoo-line: rgba(18, 24, 38, 0.09);
+  --wedoo-line-strong: rgba(18, 24, 38, 0.16);
+  --wedoo-page-bg: var(--wedoo-bg);
+  --wedoo-surface: var(--wedoo-surface-1);
+  --wedoo-page-gradient:
+    radial-gradient(circle at top left, rgba(87, 215, 180, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(112, 72, 232, 0.11), transparent 32%),
+    linear-gradient(180deg, #f8f9fc 0%, #eef2f8 100%);
+  --wedoo-page-card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.86));
+  --wedoo-page-card-border: rgba(255, 255, 255, 0.72);
+  --wedoo-glass-bg: rgba(255, 255, 255, 0.86);
+  --wedoo-glass-border: rgba(255, 255, 255, 0.82);
+  --wedoo-panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.9));
+  --wedoo-panel-border: rgba(18, 24, 38, 0.09);
+  --wedoo-panel-shadow: 0 24px 64px -50px rgba(15, 23, 40, 0.34);
+  --wedoo-input-bg: rgba(255, 255, 255, 0.96);
+  --wedoo-input-border: rgba(18, 24, 38, 0.12);
+  --wedoo-input-text: var(--wedoo-ink);
+  --wedoo-input-placeholder: rgba(18, 24, 38, 0.48);
+  --wedoo-ghost-bg: rgba(255, 255, 255, 0.88);
+  --wedoo-ghost-bg-hover: #ffffff;
+  --wedoo-ghost-border: rgba(18, 24, 38, 0.12);
+  --wedoo-ghost-border-strong: rgba(18, 24, 38, 0.2);
+  --wedoo-ghost-text: var(--wedoo-ink);
+  --wedoo-toggle-bg: rgba(255, 255, 255, 0.9);
+  --wedoo-toggle-bg-hover: #ffffff;
+  --wedoo-toggle-border: rgba(18, 24, 38, 0.12);
+  --wedoo-toggle-border-strong: rgba(18, 24, 38, 0.18);
+  --wedoo-toggle-text: var(--wedoo-ink);
+  --wedoo-toggle-shadow: 0 18px 44px -36px rgba(15, 23, 40, 0.4);
+  --wedoo-footer-shell-bg:
+    radial-gradient(circle at top left, rgba(87, 215, 180, 0.08), transparent 22%),
+    radial-gradient(circle at top right, rgba(112, 72, 232, 0.08), transparent 20%),
+    linear-gradient(180deg, #f0f3f8 0%, #e8edf5 100%);
+  --wedoo-footer-border: rgba(18, 24, 38, 0.08);
+  --wedoo-footer-muted: #56657d;
+  --wedoo-footer-text: #121826;
+  --wedoo-workspace-bg: #f4f6fb;
+  --wedoo-workspace-top: #ffffff;
+  --wedoo-workspace-surface: rgba(255, 255, 255, 0.9);
+  --wedoo-workspace-surface-2: #eef2f8;
+  --wedoo-workspace-line: rgba(18, 24, 38, 0.08);
+  --wedoo-workspace-text: #121826;
+  --wedoo-workspace-muted: #4f5d74;
+  --wedoo-workspace-card-shadow: 0 26px 80px -64px rgba(15, 23, 40, 0.22);
+  --wedoo-workspace-panel-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 246, 251, 0.92));
+  --wedoo-workspace-chip-border: rgba(18, 24, 38, 0.1);
+  --wedoo-workspace-chip-bg: rgba(112, 72, 232, 0.08);
+  --wedoo-workspace-chip-text: #4f5d74;
+  --wedoo-hero-scrim: linear-gradient(90deg, rgba(244, 246, 251, 0.96) 0%, rgba(244, 246, 251, 0.92) 34%, rgba(244, 246, 251, 0.8) 56%, rgba(244, 246, 251, 0.24) 76%, rgba(244, 246, 251, 0) 100%);
+  --wedoo-hero-orb: radial-gradient(circle at top left, rgba(112, 72, 232, 0.12), transparent 58%);
+  --wedoo-media-overlay: linear-gradient(180deg, rgba(244, 246, 251, 0.18), rgba(244, 246, 251, 0.78));
+  --wedoo-home-hero-shell-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(244, 246, 251, 0.92));
+  --wedoo-home-hero-shell-border: rgba(18, 24, 38, 0.08);
+  --wedoo-home-hero-copy-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 249, 253, 0.94));
+  --wedoo-home-hero-preview-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(239, 243, 249, 0.96));
+  --wedoo-home-hero-preview-copy-bg: rgba(255, 255, 255, 0.84);
+  --wedoo-home-hero-preview-copy-border: rgba(18, 24, 38, 0.1);
+  --wedoo-home-hero-dot: rgba(18, 24, 38, 0.16);
 }
 
 @theme {
   --color-brand-page: var(--wedoo-page-bg);
   --color-brand-surface: var(--wedoo-surface);
   --color-brand-ink: var(--wedoo-ink);
-  --color-brand-border: var(--wedoo-border-strong);
-
+  --color-brand-border: var(--wedoo-line-strong);
   --color-brand-violet-50: var(--wedoo-violet-50);
   --color-brand-violet-100: var(--wedoo-violet-100);
   --color-brand-violet-200: var(--wedoo-violet-200);
@@ -114,7 +232,6 @@
   --color-brand-violet-700: var(--wedoo-violet-700);
   --color-brand-violet-800: var(--wedoo-violet-800);
   --color-brand-violet-900: var(--wedoo-violet-900);
-
   --color-brand-lavender-50: var(--wedoo-lavender-50);
   --color-brand-lavender-100: var(--wedoo-lavender-100);
   --color-brand-lavender-200: var(--wedoo-lavender-200);
@@ -125,7 +242,6 @@
   --color-brand-lavender-700: var(--wedoo-lavender-700);
   --color-brand-lavender-800: var(--wedoo-lavender-800);
   --color-brand-lavender-900: var(--wedoo-lavender-900);
-
   --color-brand-mint-50: var(--wedoo-mint-50);
   --color-brand-mint-100: var(--wedoo-mint-100);
   --color-brand-mint-200: var(--wedoo-mint-200);
@@ -136,29 +252,12 @@
   --color-brand-mint-700: var(--wedoo-mint-700);
   --color-brand-mint-800: var(--wedoo-mint-800);
   --color-brand-mint-900: var(--wedoo-mint-900);
-
-  --color-brand-rose-50: var(--wedoo-rose-50);
   --color-brand-rose-100: var(--wedoo-rose-100);
-  --color-brand-rose-200: var(--wedoo-rose-200);
-  --color-brand-rose-300: var(--wedoo-rose-300);
-  --color-brand-rose-400: var(--wedoo-rose-400);
   --color-brand-rose-500: var(--wedoo-rose-500);
-  --color-brand-rose-600: var(--wedoo-rose-600);
   --color-brand-rose-700: var(--wedoo-rose-700);
-  --color-brand-rose-800: var(--wedoo-rose-800);
-  --color-brand-rose-900: var(--wedoo-rose-900);
-
-  --color-brand-gold-50: var(--wedoo-gold-50);
   --color-brand-gold-100: var(--wedoo-gold-100);
-  --color-brand-gold-200: var(--wedoo-gold-200);
-  --color-brand-gold-300: var(--wedoo-gold-300);
-  --color-brand-gold-400: var(--wedoo-gold-400);
   --color-brand-gold-500: var(--wedoo-gold-500);
-  --color-brand-gold-600: var(--wedoo-gold-600);
   --color-brand-gold-700: var(--wedoo-gold-700);
-  --color-brand-gold-800: var(--wedoo-gold-800);
-  --color-brand-gold-900: var(--wedoo-gold-900);
-
   --color-brand-violet: var(--wedoo-violet);
   --color-brand-violet-deep: var(--wedoo-violet-deep);
   --color-brand-violet-soft: var(--wedoo-violet-soft);
@@ -166,7 +265,6 @@
   --color-brand-mint-deep: var(--wedoo-mint-deep);
   --color-brand-gold: var(--wedoo-gold);
   --color-brand-rose: var(--wedoo-rose);
-  --color-brand-ink: var(--wedoo-ink-strong);
 }
 
 *,
@@ -184,9 +282,12 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background: var(--wedoo-page-bg);
+  background: var(--wedoo-page-gradient);
   color: var(--wedoo-ink);
   font-family: var(--wedoo-font-body);
+  transition:
+    background 0.28s ease,
+    color 0.28s ease;
 }
 
 #root {
@@ -201,14 +302,21 @@ img {
 h1,
 h2,
 h3 {
+  margin: 0;
   font-family: var(--wedoo-font-heading);
+  letter-spacing: -0.05em;
 }
 
 h4,
 h5,
 h6,
 summary {
+  margin: 0;
   font-family: var(--wedoo-font-accent);
+}
+
+p {
+  margin: 0;
 }
 
 .font-wedoo-body {
@@ -229,136 +337,228 @@ a {
 }
 
 ::selection {
-  background: rgba(116, 71, 225, 0.2);
+  background: rgba(112, 72, 232, 0.18);
 }
 
 .section-shell {
-  width: min(100%, 86rem);
+  width: min(100%, 88rem);
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
 }
 
 .section-card {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 38px 120px -72px rgba(16, 25, 36, 0.55);
-  backdrop-filter: blur(18px);
+  border: 1px solid var(--wedoo-page-card-border);
+  border-radius: 1.75rem;
+  background: var(--wedoo-page-card-bg);
+  box-shadow: var(--wedoo-shadow-soft);
   padding: 1.5rem;
+}
+
+.glass-panel {
+  border: 1px solid var(--wedoo-glass-border);
+  border-radius: 1.25rem;
+  background: var(--wedoo-glass-bg);
+  box-shadow: 0 24px 60px -52px rgba(15, 23, 40, 0.34);
 }
 
 .spot-orb {
   position: absolute;
   border-radius: 999px;
-  filter: blur(12px);
+  filter: blur(24px);
   pointer-events: none;
 }
 
 .pattern-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 1.1rem 1.1rem;
+    linear-gradient(rgba(229, 233, 242, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(229, 233, 242, 0.07) 1px, transparent 1px);
+  background-size: 1.25rem 1.25rem;
 }
 
-.wedoo-home-hero {
-  position: relative;
-  min-height: 92vh;
-  overflow: hidden;
-  background-image: url("/assets/sfondo.png");
-  background-repeat: repeat-x;
-  background-position: 0 50%;
-  background-size: cover;
-  animation: wedoo-hero-move 200s linear infinite;
+.wedoo-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--wedoo-violet) 24%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--wedoo-surface-1) 76%, transparent);
+  padding: 0.48rem 0.82rem;
+  font-family: var(--wedoo-font-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--wedoo-violet);
 }
 
-.wedoo-home-hero::before {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.58);
-  content: "";
+.wedoo-display {
+  font-family: var(--wedoo-font-heading);
+  font-size: clamp(3.4rem, 7vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  color: var(--wedoo-ink-strong);
 }
 
-.wedoo-patrons-strip {
-  position: relative;
-  min-height: 35vh;
-  overflow: hidden;
-  border-top: 4px solid var(--wedoo-violet);
-  border-bottom: 4px solid var(--wedoo-violet);
+.wedoo-lead {
+  max-width: 42rem;
+  font-size: clamp(1.04rem, 1.7vw, 1.24rem);
+  line-height: 1.65;
+  color: var(--wedoo-ink-muted);
 }
 
-.wedoo-patrons-track {
-  position: absolute;
-  inset: 0;
-  width: 200%;
-  background-image: url("/assets/patrocinio.png");
-  background-repeat: repeat-x;
-  background-size: contain;
-  animation: wedoo-patrons-scroll 20s linear infinite;
+.wedoo-caption {
+  color: var(--wedoo-ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
-.wedoo-click-shadow {
-  box-shadow: 65px -85px 0 0 var(--wedoo-violet-panel);
+.wedoo-soft-rule {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--wedoo-line-strong), transparent);
 }
 
-.wedoo-hover-panel {
-  transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s ease;
-  will-change: transform;
+.wedoo-reveal {
+  animation: wedoo-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.wedoo-hover-panel:hover,
-.wedoo-hover-panel:focus-visible {
-  transform: scale(1.06);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  z-index: 2;
+.wedoo-reveal-delay-1 {
+  animation-delay: 0.08s;
 }
 
-.wedoo-form-illustration {
-  position: absolute;
-  inset: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+.wedoo-reveal-delay-2 {
+  animation-delay: 0.16s;
 }
 
-.wedoo-fade-edge {
+.wedoo-reveal-delay-3 {
+  animation-delay: 0.24s;
+}
+
+.wedoo-footer-shell {
+  background: var(--wedoo-footer-shell-bg);
+  color: var(--wedoo-footer-text);
+}
+
+.wedoo-workspace {
   background:
-    linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 18%),
-    linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 18%);
+    radial-gradient(circle at top right, rgba(112, 72, 232, 0.18), transparent 30%),
+    radial-gradient(circle at left top, rgba(87, 215, 180, 0.1), transparent 24%),
+    linear-gradient(180deg, var(--wedoo-workspace-top) 0%, var(--wedoo-workspace-bg) 100%);
+}
+
+.wedoo-workspace-panel {
+  border: 1px solid var(--wedoo-workspace-line);
+  border-radius: 1.35rem;
+  background: var(--wedoo-workspace-panel-bg);
+  box-shadow: var(--wedoo-workspace-card-shadow);
+}
+
+.wedoo-workspace-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--wedoo-workspace-chip-border);
+  border-radius: 999px;
+  background: var(--wedoo-workspace-chip-bg);
+  padding: 0.42rem 0.72rem;
+  font-size: 0.78rem;
+  color: var(--wedoo-workspace-chip-text);
+}
+
+.wedoo-home-hero-shell {
+  border: 1px solid var(--wedoo-home-hero-shell-border);
+  border-radius: 2rem;
+  background: var(--wedoo-home-hero-shell-bg);
+  box-shadow: var(--wedoo-panel-shadow);
+  padding: 0.5rem;
+}
+
+.wedoo-home-hero-copy {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--wedoo-home-hero-shell-border);
+  border-radius: 1.75rem;
+  background: var(--wedoo-home-hero-copy-bg);
+}
+
+.wedoo-home-hero-preview {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--wedoo-home-hero-shell-border);
+  border-radius: 1.75rem;
+  background: var(--wedoo-home-hero-preview-bg);
+}
+
+.wedoo-home-hero-media-overlay {
+  background: var(--wedoo-media-overlay);
+}
+
+.wedoo-home-hero-preview-copy {
+  border: 1px solid var(--wedoo-home-hero-preview-copy-border);
+  border-radius: 1.4rem;
+  background: var(--wedoo-home-hero-preview-copy-bg);
+  box-shadow: 0 24px 60px -48px rgba(15, 23, 40, 0.42);
+  backdrop-filter: blur(18px);
+}
+
+.wedoo-home-hero-dot {
+  background: var(--wedoo-home-hero-dot);
+}
+
+.wedoo-theme-shell {
+  border: 1px solid var(--wedoo-panel-border);
+  border-radius: 1.6rem;
+  background: var(--wedoo-panel-bg);
+  box-shadow: var(--wedoo-panel-shadow);
+  color: var(--wedoo-ink);
+}
+
+.wedoo-theme-field {
+  border: 1px solid var(--wedoo-input-border);
+  background: var(--wedoo-input-bg);
+  color: var(--wedoo-input-text);
+}
+
+.wedoo-theme-field::placeholder {
+  color: var(--wedoo-input-placeholder);
+}
+
+.wedoo-theme-ghost-button {
+  border: 1px solid var(--wedoo-ghost-border);
+  background: var(--wedoo-ghost-bg);
+  color: var(--wedoo-ghost-text);
+}
+
+.wedoo-theme-ghost-button:hover,
+.wedoo-theme-ghost-button:focus-visible {
+  border-color: var(--wedoo-ghost-border-strong);
+  background: var(--wedoo-ghost-bg-hover);
 }
 
 .wedoo-portal-card {
   transition:
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.3s ease;
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.24s ease,
+    background 0.24s ease;
   will-change: transform;
 }
 
 .wedoo-portal-card:hover,
 .wedoo-portal-card:focus-visible {
-  transform: scale(1.03);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
-
-.wedoo-dropdown-summary {
-  list-style: none;
-}
-
-.wedoo-dropdown-summary::-webkit-details-marker {
-  display: none;
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, rgba(18, 28, 48, 0.9), rgba(10, 18, 31, 0.92));
 }
 
 .wedoo-checker-placeholder {
   background-color: rgba(255, 255, 255, 0.72);
   background-image:
-    linear-gradient(45deg, rgba(17, 24, 39, 0.08) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(17, 24, 39, 0.08) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(17, 24, 39, 0.08) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(17, 24, 39, 0.08) 75%);
+    linear-gradient(45deg, rgba(18, 24, 38, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(18, 24, 38, 0.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(18, 24, 38, 0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(18, 24, 38, 0.05) 75%);
   background-position:
     0 0,
     0 12px,
@@ -371,59 +571,47 @@ a {
   background:
     linear-gradient(
       90deg,
-      #294b8d 0 7%,
-      #1e6aa1 7% 14%,
-      #3cb54a 14% 21%,
-      #1a8abf 21% 28%,
-      #4b8240 28% 35%,
-      #dc9827 35% 42%,
-      #ffa42a 42% 49%,
-      #e11d87 49% 56%,
-      #ff6b22 56% 63%,
-      #a11844 63% 70%,
-      #ffb800 70% 77%,
-      #1ea4cf 77% 84%,
-      #ff402d 84% 91%,
-      #d11f3b 91% 100%
+      #22438b 0 7%,
+      #2776ad 7% 14%,
+      #3bb957 14% 21%,
+      #2d9bcb 21% 28%,
+      #4e9f58 28% 35%,
+      #d99b34 35% 42%,
+      #ffac32 42% 49%,
+      #df277f 49% 56%,
+      #ff6b27 56% 63%,
+      #ae2147 63% 70%,
+      #ffbf26 70% 77%,
+      #22b0d8 77% 84%,
+      #ff4533 84% 91%,
+      #d61f3d 91% 100%
     );
 }
 
-@keyframes wedoo-hero-move {
+@keyframes wedoo-fade-up {
   from {
-    background-position: 0 50%;
+    opacity: 0;
+    transform: translateY(18px);
   }
 
   to {
-    background-position: 10000px 50%;
-  }
-}
-
-@keyframes wedoo-patrons-scroll {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(-50%);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @media (max-width: 767px) {
   .section-card {
-    border-radius: 1.5rem;
-    padding: 1.15rem;
+    border-radius: 1.35rem;
+    padding: 1.2rem;
   }
 
-  .wedoo-home-hero {
-    min-height: 78vh;
+  .glass-panel {
+    border-radius: 1rem;
   }
 
-  .wedoo-click-shadow {
-    box-shadow: none;
-  }
-
-  .wedoo-patrons-strip {
-    min-height: 22vh;
+  .wedoo-display {
+    font-size: clamp(2.75rem, 12vw, 4.1rem);
   }
 }
 
@@ -433,6 +621,6 @@ a {
   }
 
   .section-card {
-    padding: 2rem;
+    padding: 1.9rem;
   }
 }

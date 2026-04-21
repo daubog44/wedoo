@@ -1,63 +1,42 @@
 # Ralph Loop Worklog Policy
 
-Non usare un unico file infinito o un unico file per tutta la giornata.
+Worklog is short operational diary, not transcript.
 
-Il diario operativo del loop deve vivere in file di sessione:
+Real files live in:
 
 - `docs/worklogs/YYYY-MM-DD/HHMM-task-slug.md`
 
-Esempi:
+## Target Size
 
-- `docs/worklogs/2026-04-04/0915-landing-page.md`
-- `docs/worklogs/2026-04-04/1430-company-wizard-step-1.md`
+For normal task:
 
-## Perche questa struttura
+- 3-6 meaningful updates
 
-- evita file giornalieri troppo lunghi
-- separa bene le sessioni o i macro-task
-- rende piu facile riprendere il contesto
-- mantiene il log leggibile e versionabile
+If file becomes minute-by-minute reasoning log, it is too long.
 
-## Regole
-
-- usa un file per sessione o macro-task, non un unico file giornaliero
-- se il task continua in un secondo momento, puoi riaprire lo stesso file o crearne uno nuovo con un nuovo orario
-- mantieni ogni file corto e leggibile
-- se una sessione supera circa 150-200 righe, apri un nuovo file
-- `prd.md` resta il backlog; il worklog non lo sostituisce
-
-## Cosa registrare
+## Each Entry Must Say
 
 - timestamp
-- task attivo
-- `Node ID` se esiste
-- file o area toccata
-- discovery Figma importanti
-- test eseguiti
-- problemi trovati
-- come sono stati risolti
-- decisioni tecniche non banali
-- nuovi task aggiunti a `prd.md`
-- stato finale della sessione
+- active task
+- node id when relevant
+- area touched
+- test or command run
+- finding or error
+- next step or final decision
 
-## Cosa non fare
+Good shape:
 
-- non usare il worklog come backlog
-- non copiare interi diff
-- non annotare ogni minima modifica cosmetica
-- non creare file inutili per micro-eventi irrilevanti
+- `22:10 - task /accedi - node 658:667 - parity diff only in prompt text - updating auth copy and rerunning VRT`
 
-## Formato consigliato
+## Do Not Log
 
-```md
-# 2026-04-04 09:15 - landing-page
+- every tiny edit
+- full diff copies
+- long self-congratulation
+- repeated "now I am checking" lines with no new finding
 
-- task: implement landing page
-- node: 143:1822
-- files: src/pages/public/home-page.tsx, tests/e2e/parity/landing-page.visual.spec.ts
-- action: analizzato frame e aggiornati hero, card e VRT
-- tests: npm run test:all
-- issue: immagini non caricate in tempo nei VRT
-- resolution: attesa esplicita del route loader e riallineamento baseline
-- note: aggiunto task secondario in prd per sezione FAQ mobile
-```
+## Mandatory When Closing Visual Task
+
+- final tests
+- real capture path in `artifacts/loop-captures/**` or equivalent artifact
+- note if VRT was confirmed or intentionally updated
