@@ -398,7 +398,7 @@ a {
 .wedoo-display {
   font-family: var(--wedoo-font-heading);
   font-size: clamp(3.4rem, 7vw, 6.5rem);
-  line-height: 0.94;
+  line-height: 0.99;
   letter-spacing: 0;
   color: var(--wedoo-ink-strong);
 }
@@ -406,7 +406,7 @@ a {
 .wedoo-lead {
   max-width: 42rem;
   font-size: clamp(1.04rem, 1.7vw, 1.24rem);
-  line-height: 1.78;
+  line-height: 1.88;
   color: var(--wedoo-ink-muted);
 }
 
@@ -414,6 +414,53 @@ a {
   color: var(--wedoo-ink-muted);
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+.wedoo-section-stack {
+  display: grid;
+  gap: 1.9rem;
+}
+
+.wedoo-reading-copy {
+  font-size: clamp(1.02rem, 1.15vw, 1.22rem);
+  line-height: 2;
+  color: var(--wedoo-ink-muted);
+}
+
+.wedoo-reading-copy strong {
+  color: var(--wedoo-ink-strong);
+}
+
+.wedoo-reading-copy-compact {
+  font-size: 1rem;
+  line-height: 1.92;
+  color: var(--wedoo-ink-muted);
+}
+
+.wedoo-editorial-title {
+  font-family: var(--wedoo-font-heading);
+  font-size: clamp(2.9rem, 6vw, 4.85rem);
+  line-height: 1.09;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--wedoo-ink-strong);
+}
+
+.wedoo-section-title {
+  font-family: var(--wedoo-font-heading);
+  font-size: clamp(2.45rem, 4.8vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--wedoo-ink-strong);
+}
+
+.wedoo-workspace-title {
+  font-family: var(--wedoo-font-heading);
+  font-size: clamp(2.25rem, 4.2vw, 3.35rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .wedoo-soft-rule {
@@ -455,6 +502,17 @@ a {
   border-radius: 1.35rem;
   background: var(--wedoo-workspace-panel-bg);
   box-shadow: var(--wedoo-workspace-card-shadow);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.26s ease,
+    box-shadow 0.26s ease,
+    background 0.26s ease;
+}
+
+.wedoo-workspace-panel:hover,
+.wedoo-workspace-panel:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 70px -52px rgba(3, 10, 21, 0.5);
 }
 
 .wedoo-workspace-chip {
@@ -580,6 +638,40 @@ a {
   box-shadow: 0 42px 100px -70px rgba(0, 0, 0, 0.58);
 }
 
+.wedoo-faq-item {
+  transition:
+    background 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease;
+  transform-origin: center top;
+}
+
+.wedoo-faq-item:hover,
+.wedoo-faq-item:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 70px -56px rgba(0, 0, 0, 0.52);
+}
+
+.wedoo-faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease;
+}
+
+.wedoo-faq-answer-wrap[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.wedoo-faq-answer-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
 .wedoo-theme-field {
   border: 1px solid var(--wedoo-input-border);
   background: var(--wedoo-input-bg);
@@ -672,6 +764,36 @@ a {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .wedoo-reveal,
+  .wedoo-reveal-delay-1,
+  .wedoo-reveal-delay-2,
+  .wedoo-reveal-delay-3 {
+    animation: none;
+  }
+
+  .wedoo-depth-card,
+  .wedoo-faq-item,
+  .wedoo-workspace-panel,
+  .wedoo-portal-card {
+    transition: none;
+  }
+
+  .wedoo-depth-card:hover,
+  .wedoo-depth-card:focus-within,
+  .wedoo-faq-item:hover,
+  .wedoo-faq-item:focus-within,
+  .wedoo-workspace-panel:hover,
+  .wedoo-workspace-panel:focus-within {
+    transform: none;
+    box-shadow: var(--wedoo-panel-shadow);
+  }
+
+  .wedoo-faq-answer-wrap {
+    transition: none;
+  }
+}
+
 @media (max-width: 767px) {
   .section-card {
     border-radius: 1.35rem;
@@ -684,6 +806,25 @@ a {
 
   .wedoo-display {
     font-size: clamp(2.75rem, 12vw, 4.1rem);
+  }
+
+  .wedoo-editorial-title {
+    font-size: clamp(2.35rem, 12vw, 3.6rem);
+    line-height: 1.08;
+  }
+
+  .wedoo-section-title {
+    font-size: clamp(2.1rem, 10.5vw, 3rem);
+    line-height: 1.08;
+  }
+
+  .wedoo-reading-copy {
+    font-size: 1rem;
+    line-height: 1.92;
+  }
+
+  .wedoo-section-stack {
+    gap: 1.45rem;
   }
 }
 

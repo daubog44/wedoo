@@ -47,6 +47,7 @@ export function FaqBoard({ groups }: { groups: readonly FaqGroup[] }) {
                   return (
                     <div
                       className={cn(
+                        "wedoo-faq-item",
                         index > 0 && "border-t border-[var(--wedoo-line)]",
                         isOpen && "bg-[var(--wedoo-surface-2)]",
                       )}
@@ -67,10 +68,14 @@ export function FaqBoard({ groups }: { groups: readonly FaqGroup[] }) {
                         />
                       </button>
                       {isOpen ? (
-                        <div className="border-t border-[var(--wedoo-line)] px-5 py-5 md:px-7 md:py-6">
-                          <p className="max-w-[52rem] text-base leading-8 text-[var(--wedoo-ink-muted)] md:text-lg md:leading-9">
-                            {item.answer}
-                          </p>
+                        <div className="wedoo-faq-answer-wrap wedoo-reveal" data-open="true">
+                          <div className="wedoo-faq-answer-inner">
+                            <div className="border-t border-[var(--wedoo-line)] px-5 py-5 md:px-7 md:py-6">
+                              <p className="wedoo-reading-copy max-w-[52rem] text-[var(--wedoo-ink-muted)] md:text-lg">
+                                {item.answer}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       ) : null}
                     </div>

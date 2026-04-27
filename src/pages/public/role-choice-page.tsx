@@ -57,10 +57,10 @@ function RegisterDesktopView() {
           <div className="grid lg:grid-cols-[0.52fr_0.48fr]">
             <div className="wedoo-theme-shell rounded-none rounded-l-[2rem] border-0 px-8 py-9 md:px-10 md:py-10 xl:px-12 xl:py-12">
               <span className="wedoo-kicker">choose your path</span>
-              <h1 className="mt-6 text-[3.25rem] leading-[0.95] text-[var(--wedoo-ink-strong)] xl:text-[4.1rem]">
+              <h1 className="wedoo-section-title mt-6">
                 {registerChoiceContent.desktopHeading}
               </h1>
-              <p className="mt-6 max-w-[30rem] text-lg leading-8 text-[var(--wedoo-ink-muted)]">
+              <p className="wedoo-reading-copy mt-6 max-w-[31rem]">
                 Candidati e aziende entrano nello stesso sistema con gerarchie coerenti, CTA leggibili e meno rumore.
               </p>
 
@@ -78,7 +78,7 @@ function RegisterDesktopView() {
               </div>
             </div>
 
-            <div className="wedoo-workspace wedoo-depth-card relative min-h-[34rem] overflow-hidden px-8 py-10">
+            <div className="wedoo-workspace wedoo-depth-card wedoo-reveal wedoo-reveal-delay-1 relative min-h-[34rem] overflow-hidden px-8 py-10">
               <img
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover opacity-[0.24]"
@@ -87,9 +87,9 @@ function RegisterDesktopView() {
               <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
 
               <div className="relative z-10 flex h-full flex-col justify-between gap-8">
-                <div className="max-w-[22rem] space-y-4">
+                <div className="wedoo-section-stack max-w-[22rem]">
                   <span className="wedoo-workspace-chip">system reset</span>
-                  <p className="text-[2.9rem] leading-[0.9] text-[var(--wedoo-workspace-text)]">
+                  <p className="wedoo-workspace-title text-[var(--wedoo-workspace-text)]">
                     Niente scelta confusa. Solo direzione chiara.
                   </p>
                 </div>
@@ -99,7 +99,7 @@ function RegisterDesktopView() {
                     <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                       candidate
                     </p>
-                    <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                    <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                       Entra, definisci priorita e completa il profilo in pochi step puliti.
                     </p>
                   </div>
@@ -107,7 +107,7 @@ function RegisterDesktopView() {
                     <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                       company
                     </p>
-                    <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                    <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                       Costruisci il primo annuncio senza passare da superfici decorative inutili.
                     </p>
                   </div>
@@ -125,12 +125,12 @@ function RegisterMobileView() {
   return (
     <section className="min-[1024px]:hidden" data-node-id="336:643" data-register-layout="mobile">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <div className="wedoo-theme-shell overflow-hidden rounded-[1.35rem] px-5 py-6">
+        <div className="wedoo-theme-shell wedoo-reveal overflow-hidden rounded-[1.35rem] px-5 py-6">
           <span className="wedoo-kicker">start here</span>
-          <h1 className="mt-5 text-[2.15rem] leading-[1] text-[var(--wedoo-ink-strong)]">
+          <h1 className="wedoo-section-title mt-5">
             {registerChoiceContent.mobileHeading}
           </h1>
-          <p className="mt-4 text-base leading-7 text-[var(--wedoo-ink-muted)]">
+          <p className="wedoo-reading-copy mt-4">
             Scegli il lato giusto e continua con un flusso coerente.
           </p>
 

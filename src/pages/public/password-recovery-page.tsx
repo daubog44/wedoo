@@ -110,18 +110,18 @@ function RecoveryDesktopView({
     <section className="hidden min-[1024px]:block" data-node-id="657:658" data-password-recovery-layout="desktop">
       <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-6">
         <div className="grid gap-6 lg:grid-cols-[0.5fr_0.5fr]">
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h1 className="text-[3.5rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
+          <div className="wedoo-section-stack">
+            <div className="wedoo-section-stack">
+              <h1 className="wedoo-section-title">
                 {passwordRecoveryViewModel.title}
               </h1>
-              <p className="max-w-[30rem] text-base leading-7 text-[var(--wedoo-ink-muted)]">
+              <p className="wedoo-reading-copy max-w-[30rem]">
                 Reimposta l&apos;accesso senza uscire dal sistema. Nessun pop-up legacy, solo un flusso chiaro.
               </p>
             </div>
 
             <AuthFormPanel>
-              <form className="space-y-4" noValidate onSubmit={onSubmit}>
+              <form className="space-y-5" noValidate onSubmit={onSubmit}>
                 {recoveryFields.map((field) => (
                   <PasswordRecoveryInput
                     field={field}
@@ -151,7 +151,7 @@ function RecoveryDesktopView({
             </AuthFormPanel>
           </div>
 
-          <AuthWorkspacePanel className="min-h-[42rem]">
+          <AuthWorkspacePanel className="min-h-[42rem] wedoo-depth-card wedoo-reveal wedoo-reveal-delay-1">
             <img
               alt=""
               className="absolute inset-0 h-full w-full object-cover opacity-[0.22]"
@@ -159,9 +159,9 @@ function RecoveryDesktopView({
             />
             <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
             <div className="relative z-10 flex h-full flex-col justify-between gap-8">
-              <div className="space-y-4">
+              <div className="wedoo-section-stack">
                 <span className="wedoo-workspace-chip">password reset</span>
-                <p className="max-w-[24rem] text-[3rem] leading-[0.92] text-[var(--wedoo-workspace-text)]">
+                <p className="wedoo-workspace-title max-w-[24rem] text-[var(--wedoo-workspace-text)]">
                   La parte sensibile resta leggibile e calma.
                 </p>
               </div>
@@ -171,7 +171,7 @@ function RecoveryDesktopView({
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                     policy
                   </p>
-                  <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                  <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                     Al salvataggio il sistema ti richiede un nuovo accesso, senza ambiguita o passaggi decorativi.
                   </p>
                 </div>
@@ -179,7 +179,7 @@ function RecoveryDesktopView({
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                     fallback
                   </p>
-                  <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                  <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                     Se qualcosa non torna, l&apos;assistenza clienti e nello stesso linguaggio UI del resto del prodotto.
                   </p>
                 </div>
@@ -208,13 +208,13 @@ function RecoveryMobileView({
   return (
     <section className="min-[1024px]:hidden" data-node-id="660:774" data-password-recovery-layout="mobile">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <div className="space-y-5">
-          <h1 className="text-[2.55rem] leading-[0.94] text-[var(--wedoo-ink-strong)]">
+        <div className="wedoo-section-stack">
+          <h1 className="wedoo-section-title">
             {passwordRecoveryViewModel.title}
           </h1>
 
           <AuthFormPanel>
-            <form className="space-y-4" noValidate onSubmit={onSubmit}>
+            <form className="space-y-5" noValidate onSubmit={onSubmit}>
               {recoveryFields.map((field) => (
                 <PasswordRecoveryInput
                   compact

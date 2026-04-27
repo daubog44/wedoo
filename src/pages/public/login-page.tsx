@@ -164,19 +164,19 @@ function LoginDesktopView({
     <section className="hidden min-[1024px]:block" data-login-layout="desktop">
       <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-4">
         <div className="mt-5 grid gap-6 lg:grid-cols-[0.48fr_0.52fr]">
-          <div className="space-y-7">
-            <div className="space-y-5">
-              <h1 className="text-[3.25rem] leading-[0.96] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
+          <div className="wedoo-section-stack">
+            <div className="wedoo-section-stack">
+              <h1 className="wedoo-section-title">{loginAuthViewModel.title}</h1>
               <h2 className="font-wedoo-accent text-[1.55rem] leading-none text-[var(--wedoo-ink-strong)]">
                 {loginAuthViewModel.subtitle}
               </h2>
-              <p className="max-w-[28rem] text-base leading-7 text-[var(--wedoo-ink-muted)]">
+              <p className="wedoo-reading-copy max-w-[30rem]">
                 Accedi a un workspace che mette in chiaro ruolo, impatto e trasparenza prima della retorica.
               </p>
             </div>
 
             <AuthFormPanel>
-              <form className="space-y-2" noValidate onSubmit={onSubmit}>
+              <form className="space-y-3" noValidate onSubmit={onSubmit}>
                 <LoginInput
                   field={emailField}
                   idPrefix="desktop-login"
@@ -213,7 +213,7 @@ function LoginDesktopView({
             </AuthFormPanel>
           </div>
 
-          <AuthWorkspacePanel className="min-h-[42rem] wedoo-depth-card">
+          <AuthWorkspacePanel className="min-h-[42rem] wedoo-depth-card wedoo-reveal wedoo-reveal-delay-1">
             <img
               alt=""
               className="absolute inset-0 h-full w-full object-cover opacity-[0.36]"
@@ -221,12 +221,12 @@ function LoginDesktopView({
             />
             <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
             <div className="relative z-10 flex h-full flex-col justify-between gap-8">
-              <div className="space-y-5">
+              <div className="wedoo-section-stack">
                 <span className="wedoo-workspace-chip">sign in</span>
-                <p className="max-w-[24rem] text-[2.75rem] leading-[0.96] text-[var(--wedoo-workspace-text)]">
+                <p className="wedoo-workspace-title max-w-[24rem] text-[var(--wedoo-workspace-text)]">
                   Entra in un prodotto che non nasconde il contesto.
                 </p>
-                <p className="max-w-[24rem] text-base leading-7 text-[var(--wedoo-workspace-muted)]">
+                <p className="wedoo-reading-copy-compact max-w-[24rem] text-[var(--wedoo-workspace-muted)]">
                   Il lato auth usa la stessa regola della home: testo chiaro a sinistra, profondita del prodotto
                   a destra, nessun canvas appiccicato dal vecchio Figma.
                 </p>
@@ -237,7 +237,7 @@ function LoginDesktopView({
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                     signal stack
                   </p>
-                  <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                  <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                     Brand, contratto, impatto e coerenza leggibili nello stesso punto.
                   </p>
                 </div>
@@ -245,7 +245,7 @@ function LoginDesktopView({
                   <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-workspace-muted)]">
                     product rule
                   </p>
-                  <p className="mt-2 text-lg leading-7 text-[var(--wedoo-workspace-text)]">
+                  <p className="wedoo-reading-copy-compact mt-2 text-[var(--wedoo-workspace-text)]">
                     Un solo sistema di CTA e gerarchie, senza route isolate o patch locali.
                   </p>
                 </div>
@@ -276,18 +276,18 @@ function LoginMobileView({
   return (
     <section className="min-[1024px]:hidden" data-login-layout="mobile">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-4">
-        <div className="mt-5 space-y-5">
-          <div className="space-y-4">
-            <h1 className="text-[2.25rem] leading-[1] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
+        <div className="mt-5 wedoo-section-stack">
+          <div className="wedoo-section-stack">
+            <h1 className="wedoo-section-title">{loginAuthViewModel.title}</h1>
             <h2 className="font-wedoo-accent text-[1.3rem] leading-none text-[var(--wedoo-ink-strong)]">
               {loginAuthViewModel.subtitle}
             </h2>
-            <p className="text-base leading-7 text-[var(--wedoo-ink-muted)]">
+            <p className="wedoo-reading-copy">
               Accedi a un workspace che mette in chiaro ruolo, impatto e trasparenza prima della retorica.
             </p>
           </div>
 
-          <AuthWorkspacePanel className="min-h-[16rem] wedoo-depth-card">
+          <AuthWorkspacePanel className="min-h-[16rem] wedoo-depth-card wedoo-reveal">
             <img
               alt=""
               className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
@@ -295,14 +295,14 @@ function LoginMobileView({
             />
             <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
             <div className="relative z-10 flex h-full flex-col justify-end">
-              <p className="max-w-[15rem] text-[1.72rem] leading-[1] text-[var(--wedoo-workspace-text)]">
+              <p className="wedoo-workspace-title max-w-[16rem] text-[var(--wedoo-workspace-text)]">
                 Entra senza rumore, capisci subito il prodotto.
               </p>
             </div>
           </AuthWorkspacePanel>
 
           <AuthFormPanel>
-            <form className="space-y-2" noValidate onSubmit={onSubmit}>
+            <form className="space-y-3" noValidate onSubmit={onSubmit}>
               <LoginInput
                 compact
                 field={emailField}

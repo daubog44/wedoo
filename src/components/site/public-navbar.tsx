@@ -56,7 +56,7 @@ export function PublicNavbar({ className, onSignInClick, onSignUpClick }: Public
       <div className="mx-auto max-w-[1360px]">
         <div className="glass-panel flex flex-col gap-3 px-4 py-4 md:gap-4 md:px-6">
           <div className="flex items-center gap-4">
-            <WedooLogo imageClassName="h-9 md:h-10" />
+            <WedooLogo imageClassName="h-8 md:h-10" />
 
             <nav aria-label="Navigazione pubblica Wedoo" className="ml-4 hidden items-center gap-2 xl:flex">
               {navItems.map((item) => (
@@ -131,7 +131,7 @@ export function PublicNavbar({ className, onSignInClick, onSignUpClick }: Public
                 <button
                   aria-expanded={isMobileMenuOpen}
                   aria-label={isMobileMenuOpen ? "Chiudi menu pubblico" : "Apri menu pubblico"}
-                  className="wedoo-theme-ghost-button inline-flex h-10 w-10 items-center justify-center rounded-[14px]"
+                  className="wedoo-theme-ghost-button inline-flex h-10 w-10 items-center justify-center rounded-full"
                   onClick={() => setIsMobileMenuOpen((value) => !value)}
                   type="button"
                 >
@@ -143,14 +143,14 @@ export function PublicNavbar({ className, onSignInClick, onSignUpClick }: Public
 
           <div
             aria-label={hasModalActions ? "Azioni autenticazione home" : "Azioni autenticazione pubbliche"}
-            className="grid gap-3 lg:hidden"
+            className="grid gap-2.5 lg:hidden"
             role="group"
           >
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] gap-2">
               <NavbarAction
                 className={cn(
                   shellButtonClass,
-                  "wedoo-theme-ghost-button min-h-[40px] rounded-[14px] px-2 text-[0.82rem]",
+                  "wedoo-theme-ghost-button min-h-[44px] rounded-[18px] px-3 text-[0.9rem]",
                 )}
                 onClick={onSignInClick}
                 to={hasModalActions && onSignInClick ? undefined : "/accedi"}
@@ -161,56 +161,59 @@ export function PublicNavbar({ className, onSignInClick, onSignUpClick }: Public
               <NavbarAction
                 className={cn(
                   shellButtonClass,
-                  "min-h-[40px] rounded-[14px] border-transparent bg-[var(--wedoo-violet)] px-2 text-[0.82rem] text-[var(--wedoo-white-soft)]",
+                  "min-h-[44px] rounded-[18px] border-transparent bg-[var(--wedoo-violet)] px-4 text-[0.96rem] text-[var(--wedoo-white-soft)] shadow-[0_18px_40px_-30px_rgba(112,72,232,0.5)]",
                 )}
                 onClick={onSignUpClick}
                 to={hasModalActions && onSignUpClick ? undefined : "/registrati"}
               >
                 registrati
               </NavbarAction>
-
-              <Link
-                className="wedoo-theme-ghost-button inline-flex min-h-[40px] items-center justify-center rounded-[14px] px-2 text-center font-wedoo-accent text-[0.76rem] leading-tight"
-                to="/azienda"
-              >
-                sei un&apos;azienda?
-              </Link>
             </div>
+
+            <Link
+              className="wedoo-theme-ghost-button inline-flex min-h-[44px] items-center justify-between rounded-[18px] px-4 font-wedoo-accent text-[0.92rem] leading-none text-[var(--wedoo-ghost-text)] transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]"
+              to="/azienda"
+            >
+              <span>sei un&apos;azienda?</span>
+              <SiteIcon className="h-4 w-4" name="arrow-right" />
+            </Link>
           </div>
 
-          <div className={cn("grid gap-3 lg:hidden", isMobileMenuOpen ? "grid" : "hidden")}>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-              {navItems.map((item) => (
-                <NavLink
-                  className={({ isActive }) =>
-                    cn(
-                      "wedoo-theme-ghost-button inline-flex min-h-[44px] items-center justify-center rounded-[16px] px-4 font-wedoo-accent text-sm transition",
-                      isActive || pathname === item.to
-                        ? "border-[var(--wedoo-ghost-border-strong)] bg-[var(--wedoo-ghost-bg-hover)] text-[var(--wedoo-ghost-text)]"
-                        : "text-[var(--wedoo-ink-muted)]",
-                    )
-                  }
-                  key={item.to}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  to={item.to}
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </div>
+          <div
+            className={cn(
+              "overflow-hidden transition-[max-height,opacity,padding] duration-300 lg:hidden",
+              isMobileMenuOpen ? "max-h-48 pt-1 opacity-100" : "max-h-0 pt-0 opacity-0",
+            )}
+          >
+            <div className="grid gap-3 border-t border-[var(--wedoo-line)] pt-3">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {navItems.map((item) => (
+                  <NavLink
+                    className={({ isActive }) =>
+                      cn(
+                        "wedoo-theme-ghost-button inline-flex min-h-[44px] items-center justify-center rounded-[16px] px-4 font-wedoo-accent text-sm transition",
+                        isActive || pathname === item.to
+                          ? "border-[var(--wedoo-ghost-border-strong)] bg-[var(--wedoo-ghost-bg-hover)] text-[var(--wedoo-ghost-text)]"
+                          : "text-[var(--wedoo-ink-muted)]",
+                      )
+                    }
+                    key={item.to}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    to={item.to}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
 
-            <div className="grid grid-cols-[1fr_auto] gap-2">
-              <span className="wedoo-theme-ghost-button inline-flex min-h-[44px] items-center justify-center rounded-[16px] px-4 font-wedoo-accent text-sm text-[var(--wedoo-ink-muted)]">
-                navigazione pubblica
-              </span>
               <button
                 aria-label="Lingua italiana"
-                className="wedoo-theme-ghost-button inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[16px] px-4 text-sm"
+                className="wedoo-theme-ghost-button inline-flex min-h-[42px] items-center justify-center gap-2 self-start rounded-[16px] px-4 text-sm"
                 type="button"
-                >
-                  <span>ita</span>
-                  <SiteIcon className="h-4 w-4" name="chevron-down" />
-                </button>
+              >
+                <span>ita</span>
+                <SiteIcon className="h-4 w-4" name="chevron-down" />
+              </button>
             </div>
           </div>
         </div>
