@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import {
   getJobDraftCapOptions,
@@ -40,13 +40,17 @@ type CompanyJobManagementViewProps = {
 };
 
 const desktopPrimaryButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[16px] border border-transparent bg-[var(--wedoo-violet)] px-5 py-2 text-[20px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]";
+  "font-wedoo-accent inline-flex min-h-[44px] items-center justify-center rounded-[12px] border border-transparent bg-[var(--wedoo-violet)] px-4 py-2 text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]";
 const desktopOutlineButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[16px] border border-[var(--wedoo-line-strong)] bg-white/86 px-5 py-2 text-[18px] leading-none text-brand-ink transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]";
+  "font-wedoo-accent inline-flex min-h-[42px] items-center justify-center rounded-[12px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] px-4 py-2 text-[0.9rem] leading-none text-[var(--wedoo-workspace-text)] transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet-300)]";
 const mobilePrimaryButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[52px] items-center justify-center rounded-[18px] border border-transparent bg-[var(--wedoo-violet)] px-5 py-2 text-[19px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)]";
+  "font-wedoo-accent inline-flex min-h-[46px] items-center justify-center rounded-[13px] border border-transparent bg-[var(--wedoo-violet)] px-4 py-2 text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)]";
 const mobileOutlineButtonClassName =
-  "font-wedoo-accent inline-flex min-h-[50px] items-center justify-center rounded-[18px] border border-[var(--wedoo-line-strong)] bg-white/86 px-5 py-2 text-[17px] leading-none text-brand-ink transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]";
+  "font-wedoo-accent inline-flex min-h-[44px] items-center justify-center rounded-[13px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] px-4 py-2 text-[0.9rem] leading-none text-[var(--wedoo-workspace-text)] transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet-300)]";
+
+function CompanyJobManagementSelectField(props: ComponentProps<typeof JobDraftSelectField>) {
+  return <JobDraftSelectField {...props} tone="workspace" />;
+}
 
 function SidebarGhostSelect({
   ariaLabel,
@@ -65,7 +69,7 @@ function SidebarGhostSelect({
     <div className="relative">
       <select
         aria-label={ariaLabel}
-        className="font-wedoo-accent h-[3.3rem] w-full appearance-none rounded-[16px] border border-[var(--wedoo-line)] bg-white/84 px-4 pr-10 text-left text-[18px] leading-none text-brand-ink outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]"
+        className="font-wedoo-body h-11 w-full appearance-none rounded-[12px] border border-white/10 bg-white/6 px-3 pr-9 text-left text-[0.9rem] leading-none text-white outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.16)]"
         onChange={(event) => onChange(event.target.value)}
         value={value}
       >
@@ -77,7 +81,7 @@ function SidebarGhostSelect({
         ))}
       </select>
       <AppIcon
-        className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-ink"
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/62"
         name="chevron-down-line"
       />
     </div>
@@ -96,8 +100,8 @@ function CompanyJobManagementFieldLabel({
   return (
     <label
       className={cn(
-        "font-wedoo-accent block leading-none text-brand-ink",
-        compact ? "mb-2 text-[20px]" : "mb-2 text-[24px]",
+        "font-wedoo-body block font-semibold leading-none text-[var(--wedoo-workspace-muted)]",
+        compact ? "mb-2 text-[0.8rem]" : "mb-2 text-[0.82rem]",
       )}
       htmlFor={htmlFor}
     >
@@ -132,8 +136,8 @@ function CompanyJobManagementTextField({
       />
       <input
         className={cn(
-          "font-wedoo-body w-full rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink outline-none transition placeholder:text-brand-ink/35 focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
-          compact ? "h-[44px] px-3 text-[18px]" : "h-[37px] px-[7px] text-[22px]",
+          "font-wedoo-body w-full rounded-[10px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] text-[var(--wedoo-workspace-text)] outline-none transition placeholder:text-[var(--wedoo-workspace-muted)]/70 focus:border-[var(--wedoo-violet)] focus:ring-2 focus:ring-[rgba(116,80,230,0.22)]",
+          compact ? "h-11 px-3 text-[0.95rem]" : "h-11 px-3 text-[0.95rem]",
         )}
         id={id}
         onChange={(event) => onChange(event.target.value)}
@@ -170,15 +174,15 @@ function CompanyJobManagementCheckbox({
       <span
         aria-hidden="true"
         className={cn(
-          "inline-flex rounded-[5px] border border-brand-violet-400 transition",
+          "inline-flex rounded-[5px] border border-[var(--wedoo-workspace-line)] transition",
           compact ? "h-5 w-5" : "h-[25px] w-[25px]",
           checked ? "bg-brand-violet" : "bg-transparent",
         )}
       />
       <span
         className={cn(
-          "font-wedoo-accent leading-none text-brand-ink",
-          compact ? "text-[18px]" : "text-[24px]",
+          "font-wedoo-body leading-none text-[var(--wedoo-workspace-text)]",
+          compact ? "text-[0.92rem]" : "text-[0.95rem]",
         )}
       >
         {label}
@@ -209,14 +213,14 @@ function CompanyJobManagementEditor({
       />
       <div
         className={cn(
-          "overflow-hidden rounded-[20px] border border-brand-violet-400 bg-transparent",
-          compact ? "min-h-[140px]" : "min-h-[141px]",
+          "overflow-hidden rounded-[14px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)]",
+          compact ? "min-h-[132px]" : "min-h-[136px]",
         )}
       >
         <div
           className={cn(
-            "flex items-center border-b border-brand-violet-400 font-wedoo-body text-brand-ink",
-            compact ? "gap-4 px-3 py-2 text-[18px]" : "gap-6 px-4 py-2 text-[22px]",
+            "flex items-center border-b border-[var(--wedoo-workspace-line)] font-wedoo-body text-[var(--wedoo-workspace-muted)]",
+            compact ? "gap-4 px-3 py-2 text-[0.86rem]" : "gap-4 px-3 py-2 text-[0.9rem]",
           )}
         >
           <button className="font-sans text-[1.05em] font-bold" type="button">
@@ -236,8 +240,8 @@ function CompanyJobManagementEditor({
         </div>
         <textarea
           className={cn(
-            "font-wedoo-body w-full resize-none border-none bg-transparent text-brand-ink outline-none",
-            compact ? "min-h-[89px] px-3 py-3 text-[18px]" : "min-h-[87px] px-4 py-3 text-[22px]",
+            "font-wedoo-body w-full resize-none border-none bg-transparent text-[var(--wedoo-workspace-text)] outline-none",
+            compact ? "min-h-[86px] px-3 py-3 text-[0.95rem]" : "min-h-[88px] px-3 py-3 text-[0.95rem]",
           )}
           id={id}
           onChange={(event) => onChange(event.target.value)}
@@ -270,13 +274,13 @@ function CompanyJobManagementFileField({
       />
       <label
         className={cn(
-          "inline-flex cursor-pointer items-center gap-2 rounded-[8px] border border-brand-violet-400 bg-brand-page text-brand-ink transition hover:bg-brand-violet/5",
-          compact ? "min-h-[44px] px-3 text-[18px]" : "min-h-[37px] px-[10px] text-[22px]",
+          "inline-flex cursor-pointer items-center gap-2 rounded-[10px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] text-[var(--wedoo-workspace-text)] transition hover:border-[var(--wedoo-violet)]",
+          compact ? "min-h-11 px-3 text-[0.95rem]" : "min-h-11 px-3 text-[0.95rem]",
         )}
         htmlFor={id}
       >
         <AppIcon className={compact ? "h-4 w-4" : "h-5 w-5"} name="arrow-up-line" />
-        <span className={cn(value ? "text-brand-ink" : "text-brand-ink/35")}>
+        <span className={cn(value ? "text-[var(--wedoo-workspace-text)]" : "text-[var(--wedoo-workspace-muted)]")}>
           {value || "carica"}
         </span>
       </label>
@@ -291,8 +295,8 @@ function CompanyJobManagementFileField({
       {value ? (
         <p
           className={cn(
-            "font-wedoo-body pt-2 text-brand-ink/75",
-            compact ? "text-[14px]" : "text-[16px]",
+            "font-wedoo-body pt-2 text-[var(--wedoo-workspace-muted)]",
+            compact ? "text-[0.8rem]" : "text-[0.85rem]",
           )}
         >
           {value}
@@ -328,32 +332,32 @@ function CompanyJobManagementDesktopRail({
   section: CompanyJobManagementSectionId;
 }) {
   return (
-    <aside className="flex min-h-[920px] flex-col rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-8 pb-8 pt-8 text-white shadow-[0_40px_100px_-72px_rgba(0,0,0,0.82)]">
-      <div className="flex items-center gap-4">
-        <div className="flex h-[88px] w-[88px] items-center justify-center rounded-[1.6rem] border border-white/10 bg-white/95">
+    <aside className="flex min-h-[760px] flex-col rounded-[1.25rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-5 pb-5 pt-5 text-white shadow-[0_34px_88px_-70px_rgba(0,0,0,0.82)]">
+      <div className="flex items-center gap-3">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[1rem] border border-white/10 bg-white/95">
           <AppImage
             alt={response.company.legalName}
-            className="h-[42px] w-[42px] object-contain"
+            className="h-9 w-9 object-contain"
             priority
             src={assetPath(response.company.logo)}
           />
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/42">company workspace</p>
-          <h2 className="mt-2 font-wedoo-heading text-[2rem] leading-[0.9] text-white">
+          <p className="text-[0.68rem] font-semibold uppercase text-white/48">company workspace</p>
+          <h2 className="mt-1 text-[1.45rem] leading-tight text-white">
             {response.company.legalName}
           </h2>
         </div>
       </div>
 
-      <div className="mt-6 flex w-full justify-between gap-3">
+      <div className="mt-5 grid grid-cols-3 gap-2">
         {response.company.certificationLabels.map((label) => (
           <div
-            className="flex min-w-0 flex-1 flex-col items-center gap-2 rounded-[1.2rem] border border-white/10 bg-white/5 px-2 py-3 text-center"
+            className="flex min-w-0 flex-col items-center gap-2 rounded-[0.9rem] border border-white/10 bg-white/5 px-2 py-2.5 text-center"
             key={label}
           >
-            <span className="inline-flex h-10 w-10 rounded-full border border-white/16 bg-white/5" />
-            <span className="font-wedoo-body text-[14px] leading-[1.2] text-white/74">
+            <span className="inline-flex h-7 w-7 rounded-full border border-white/16 bg-white/5" />
+            <span className="font-wedoo-body text-[0.72rem] leading-[1.2] text-white/74">
               {label}
             </span>
           </div>
@@ -361,14 +365,14 @@ function CompanyJobManagementDesktopRail({
       </div>
 
       <button
-        className="font-wedoo-accent mt-5 inline-flex items-center gap-2 text-[16px] leading-none text-white/76 transition hover:text-white"
+        className="font-wedoo-accent mt-4 inline-flex items-center gap-2 text-[0.86rem] leading-none text-white/76 transition hover:text-white"
         type="button"
       >
         <AppIcon className="h-5 w-5" name="arrow-up-line" />
         {response.company.uploadCertificationsLabel}
       </button>
 
-      <div className="mt-6 grid gap-4">
+      <div className="mt-5 grid gap-3">
         <SidebarGhostSelect
           ariaLabel="Attivita azienda"
           onChange={onActivityChange}
@@ -376,7 +380,7 @@ function CompanyJobManagementDesktopRail({
           placeholder={response.company.activityLabel}
           value={activityValue}
         />
-        <p className="font-wedoo-accent pt-1 text-[18px] leading-none text-white/76">
+        <p className="font-wedoo-accent pt-1 text-[0.9rem] leading-none text-white/76">
           {response.company.candidateInterestLabel}
         </p>
         <SidebarGhostSelect
@@ -416,7 +420,7 @@ function CompanyJobManagementDesktopRail({
       </div>
 
       <button
-        className="mt-auto inline-flex min-h-[56px] w-full items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
+        className="mt-auto inline-flex min-h-[46px] w-full items-center justify-center rounded-[13px] bg-[var(--wedoo-violet)] px-4 py-2 font-wedoo-accent text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
         onClick={onCreateNew}
         type="button"
       >
@@ -481,8 +485,8 @@ function SectionCard({
   return (
     <div
       className={cn(
-        "border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(246,248,252,0.94))]",
-        compact ? "rounded-[1.35rem] px-3 pb-5 pt-5" : "rounded-[1.8rem] px-6 pb-6 pt-6 shadow-[0_28px_70px_-58px_rgba(15,23,40,0.32)]",
+        "border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)]",
+        compact ? "rounded-[1rem] px-3.5 pb-4 pt-4" : "rounded-[1.15rem] px-5 pb-5 pt-5 shadow-[var(--wedoo-workspace-card-shadow)]",
       )}
     >
       {children}
@@ -540,10 +544,10 @@ function RecruiterSection({
         onNext();
       }}
     >
-      <div className={compact ? "space-y-4" : "space-y-[14px]"}>
+      <div className={compact ? "space-y-4" : "space-y-4"}>
         <div
           className={cn(
-            compact ? "grid gap-4" : "grid grid-cols-[186px_182px_186px] gap-6",
+            compact ? "grid gap-4" : "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] gap-4",
           )}
         >
           <CompanyJobManagementTextField
@@ -562,7 +566,7 @@ function RecruiterSection({
             placeholder="scrivi"
             value={draft.company.vatNumber}
           />
-          <JobDraftSelectField
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-province" : "desktop-company-jobs-province"}
             label="provincia"
@@ -570,7 +574,7 @@ function RecruiterSection({
             options={draft.catalogs.provinces}
             value={draft.geography.provinceId}
           />
-          <JobDraftSelectField
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-city" : "desktop-company-jobs-city"}
             label="citta"
@@ -580,7 +584,7 @@ function RecruiterSection({
           />
         </div>
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-title" : "desktop-company-jobs-title"}
           label="job title"
@@ -599,8 +603,8 @@ function RecruiterSection({
 
         <h2
           className={cn(
-            "font-wedoo-accent font-bold leading-none text-brand-ink",
-            compact ? "text-[22px]" : "text-[24px]",
+            "font-wedoo-accent font-semibold leading-none text-[var(--wedoo-workspace-text)]",
+            compact ? "text-[1.05rem]" : "text-[1.1rem]",
           )}
         >
           dettagli recruiter
@@ -622,7 +626,7 @@ function RecruiterSection({
           }
         />
 
-        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-7")}>
+        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-4")}>
           <CompanyJobManagementTextField
             compact={compact}
             id={compact ? "mobile-company-jobs-first-name" : "desktop-company-jobs-first-name"}
@@ -657,7 +661,7 @@ function RecruiterSection({
           />
         </div>
 
-        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-7")}>
+        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-4")}>
           <CompanyJobManagementTextField
             compact={compact}
             id={compact ? "mobile-company-jobs-email" : "desktop-company-jobs-email"}
@@ -744,11 +748,11 @@ function CompanyDetailsSection({
         onNext();
       }}
     >
-      <div className={compact ? "space-y-4" : "space-y-[14px]"}>
+      <div className={compact ? "space-y-4" : "space-y-4"}>
         <h2
           className={cn(
-            "font-wedoo-accent font-bold leading-none text-brand-ink",
-            compact ? "text-[22px]" : "text-[24px]",
+            "font-wedoo-accent font-semibold leading-none text-[var(--wedoo-workspace-text)]",
+            compact ? "text-[1.05rem]" : "text-[1.1rem]",
           )}
         >
           dettagli azienda
@@ -788,8 +792,8 @@ function CompanyDetailsSection({
 
         <h2
           className={cn(
-            "font-wedoo-accent font-bold leading-none text-brand-ink",
-            compact ? "text-[22px]" : "text-[24px]",
+            "font-wedoo-accent font-semibold leading-none text-[var(--wedoo-workspace-text)]",
+            compact ? "text-[1.05rem]" : "text-[1.1rem]",
           )}
         >
           dettagli retribuzione
@@ -811,7 +815,7 @@ function CompanyDetailsSection({
           }
         />
 
-        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-7")}>
+        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-4")}>
           <CompanyJobManagementTextField
             compact={compact}
             id={compact ? "mobile-company-jobs-salary-min" : "desktop-company-jobs-salary-min"}
@@ -846,7 +850,7 @@ function CompanyDetailsSection({
           />
         </div>
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-salary-unit" : "desktop-company-jobs-salary-unit"}
           label="unita di retribuzione"
@@ -953,11 +957,11 @@ function OfferSection({
         onNext();
       }}
     >
-      <div className={compact ? "space-y-4" : "space-y-[14px]"}>
+      <div className={compact ? "space-y-4" : "space-y-4"}>
         <h2
           className={cn(
-            "font-wedoo-accent font-bold leading-none text-brand-ink",
-            compact ? "text-[22px]" : "text-[24px]",
+            "font-wedoo-accent font-semibold leading-none text-[var(--wedoo-workspace-text)]",
+            compact ? "text-[1.05rem]" : "text-[1.1rem]",
           )}
         >
           dettagli area geografica
@@ -996,8 +1000,8 @@ function OfferSection({
           />
         </div>
 
-        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-[160px_160px_107px] gap-5")}>
-          <JobDraftSelectField
+        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_7rem] gap-4")}>
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-geography-province" : "desktop-company-jobs-geography-province"}
             label="provincia"
@@ -1005,7 +1009,7 @@ function OfferSection({
             options={draft.catalogs.provinces}
             value={draft.geography.provinceId}
           />
-          <JobDraftSelectField
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-geography-city" : "desktop-company-jobs-geography-city"}
             label="citta"
@@ -1013,7 +1017,7 @@ function OfferSection({
             options={cityOptions}
             value={draft.geography.cityId}
           />
-          <JobDraftSelectField
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-cap" : "desktop-company-jobs-cap"}
             label="CAP"
@@ -1033,8 +1037,8 @@ function OfferSection({
 
         <h2
           className={cn(
-            "font-wedoo-accent font-bold leading-none text-brand-ink",
-            compact ? "pt-1 text-[22px]" : "pt-[2px] text-[24px]",
+            "font-wedoo-accent font-semibold leading-none text-[var(--wedoo-workspace-text)]",
+            compact ? "pt-1 text-[1.05rem]" : "pt-[2px] text-[1.1rem]",
           )}
         >
           descrizione offerta
@@ -1056,7 +1060,7 @@ function OfferSection({
           value={draft.role.description}
         />
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-sector" : "desktop-company-jobs-sector"}
           label="settore operativo aziendale"
@@ -1073,7 +1077,7 @@ function OfferSection({
           value={draft.role.sectorId}
         />
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-skills" : "desktop-company-jobs-skills"}
           label="competenze richieste"
@@ -1090,7 +1094,7 @@ function OfferSection({
           value={draft.role.skillIds[0] ?? ""}
         />
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-experience" : "desktop-company-jobs-experience"}
           label="esperienza richiesta"
@@ -1151,9 +1155,9 @@ function PublishingSection({
         onSubmit();
       }}
     >
-      <div className={compact ? "space-y-4" : "space-y-[14px]"}>
-        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-10")}>
-          <JobDraftSelectField
+      <div className={compact ? "space-y-4" : "space-y-4"}>
+        <div className={cn(compact ? "grid gap-4" : "grid grid-cols-2 gap-4")}>
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-contract" : "desktop-company-jobs-contract"}
             label="tipologia di contratto"
@@ -1169,7 +1173,7 @@ function PublishingSection({
             options={draft.catalogs.contractTypes}
             value={draft.role.contractTypeId}
           />
-          <JobDraftSelectField
+          <CompanyJobManagementSelectField
             compact={compact}
             id={compact ? "mobile-company-jobs-hours" : "desktop-company-jobs-hours"}
             label="orari di lavoro"
@@ -1187,7 +1191,7 @@ function PublishingSection({
           />
         </div>
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-mode" : "desktop-company-jobs-mode"}
           label="modalità di lavoro"
@@ -1204,7 +1208,7 @@ function PublishingSection({
           value={draft.role.workModeId}
         />
 
-        <JobDraftSelectField
+        <CompanyJobManagementSelectField
           compact={compact}
           id={compact ? "mobile-company-jobs-sdg" : "desktop-company-jobs-sdg"}
           label="SDGs di riferimento"
@@ -1233,7 +1237,7 @@ function PublishingSection({
               return (
                 <button
                   className={cn(
-                    "font-wedoo-body rounded-full border border-brand-violet-400 bg-brand-violet/5 px-3 py-1 text-brand-ink transition hover:bg-brand-violet/10",
+                    "font-wedoo-body rounded-full border border-[rgba(112,72,232,0.34)] bg-[rgba(112,72,232,0.12)] px-3 py-1 text-[var(--wedoo-workspace-text)] transition hover:bg-[rgba(112,72,232,0.18)]",
                     compact ? "text-[14px]" : "text-[16px]",
                   )}
                   key={sdgId}
@@ -1432,23 +1436,28 @@ export function CompanyJobManagementView({
         data-company-jobs-layout="desktop"
         data-company-jobs-section={section}
       >
-        <div className="mx-auto max-w-[1440px] px-[28px] pb-10 pt-[18px]">
-          <div className="relative flex min-h-[63px] items-start justify-center">
+        <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-5 xl:px-10">
+          <div className="flex min-h-[72px] items-center gap-4 rounded-[1.25rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-4 py-3 shadow-[var(--wedoo-workspace-card-shadow)]">
             <button
               aria-label="Torna al portale azienda"
-              className="absolute left-0 top-[6px] inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--wedoo-line)] bg-white/86 text-brand-ink transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] text-[var(--wedoo-workspace-text)] transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet-300)]"
               onClick={onBack}
               type="button"
             >
-              <AppIcon className="h-9 w-9" name="arrow-left-line" />
+              <AppIcon className="h-6 w-6" name="arrow-left-line" />
             </button>
 
-            <h1 className="font-wedoo-heading text-[59px] leading-[0.9] text-brand-ink">
-              Crea/modifica annuncio
-            </h1>
+            <div className="min-w-0">
+              <p className="text-[0.68rem] font-semibold uppercase text-[var(--wedoo-violet-300)]">
+                Annunci azienda
+              </p>
+              <h1 className="mt-1 text-[2rem] leading-none text-[var(--wedoo-workspace-text)]">
+                Crea/modifica annuncio
+              </h1>
+            </div>
           </div>
 
-          <div className="grid grid-cols-[24rem_minmax(0,1fr)] gap-8 pt-4">
+          <div className="grid grid-cols-[18rem_minmax(0,1fr)] gap-5 pt-5">
             <CompanyJobManagementDesktopRail
               activityValue={activityValue}
               draft={draft}
@@ -1463,24 +1472,24 @@ export function CompanyJobManagementView({
               section={section}
             />
 
-            <div className="rounded-[2rem] border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(241,244,250,0.92))] px-7 pb-7 pt-7 shadow-[0_34px_92px_-68px_rgba(15,23,40,0.34)]">
-              <div className="mb-6 flex items-start justify-between gap-6">
+            <div className="rounded-[1.25rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-5 pb-5 pt-5 shadow-[var(--wedoo-workspace-card-shadow)]">
+              <div className="mb-5 flex items-start justify-between gap-5">
                 <div>
-                  <p className="wedoo-kicker">company annuncio builder</p>
-                  <h2 className="mt-3 text-3xl leading-tight text-[var(--wedoo-ink-strong)]">
+                  <p className="text-[0.68rem] font-semibold uppercase text-[var(--wedoo-violet-300)]">company annuncio builder</p>
+                  <h2 className="mt-2 text-[1.45rem] leading-tight text-[var(--wedoo-workspace-text)]">
                     Step corrente
                   </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--wedoo-ink-muted)]">
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--wedoo-workspace-muted)]">
                     {response.sectionOptions.find((option) => option.id === section)?.label ?? response.sectionOptions[0]?.label}. Una sola superficie di lavoro, meno rumore da form legacy e una sequenza piu leggibile tra recruiter, azienda, offerta e publishing.
                   </p>
                 </div>
-              <button
-                  className="inline-flex min-h-[54px] min-w-[240px] items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
-                onClick={onPreview}
-                type="button"
-              >
-                {response.ctas.previewLabel}
-              </button>
+                <button
+                  className="inline-flex min-h-[44px] min-w-[11rem] shrink-0 items-center justify-center rounded-[12px] bg-[var(--wedoo-violet)] px-4 py-2 font-wedoo-accent text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
+                  onClick={onPreview}
+                  type="button"
+                >
+                  {response.ctas.previewLabel}
+                </button>
               </div>
 
               <SectionCard>
@@ -1510,53 +1519,51 @@ export function CompanyJobManagementView({
         data-company-jobs-section={section}
       >
         <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4">
-          <div className="rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-4 pb-4 pt-4 shadow-[0_40px_100px_-70px_rgba(0,0,0,0.8)]">
-            <div className="relative flex min-h-[92px] items-start justify-center">
-            <button
-              aria-label="Torna al portale azienda"
-              className="absolute left-0 top-[2px] inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
-              onClick={onBack}
-              type="button"
-            >
-              <AppIcon className="h-7 w-7" name="arrow-left-line" />
-            </button>
-            <div className="absolute right-0 top-0">
+          <div className="rounded-[1.2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-3.5 pb-4 pt-3.5 shadow-[0_34px_88px_-70px_rgba(0,0,0,0.8)]">
+            <div className="grid grid-cols-[2.5rem_minmax(0,1fr)_3.4rem] items-center gap-2">
+              <button
+                aria-label="Torna al portale azienda"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
+                onClick={onBack}
+                type="button"
+              >
+                <AppIcon className="h-6 w-6" name="arrow-left-line" />
+              </button>
+              <h1 className="text-center text-[1.8rem] leading-none text-white">
+                Crea/modifica annuncio
+              </h1>
               <JobDraftLanguageChip compact />
             </div>
-            <h1 className="max-w-[278px] text-center font-wedoo-heading text-[57px] leading-[0.92] text-white">
-              Crea/modifica annuncio
-            </h1>
-          </div>
 
-          <button
-            className="mx-auto mt-[4px] flex min-h-[49px] min-w-[245px] items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)]"
-            onClick={onPreview}
-            type="button"
-          >
-            {response.ctas.previewLabel}
-          </button>
+            <button
+              className="mt-3 flex min-h-[44px] w-full items-center justify-center rounded-[13px] bg-[var(--wedoo-violet)] px-4 py-2 font-wedoo-accent text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)]"
+              onClick={onPreview}
+              type="button"
+            >
+              {response.ctas.previewLabel}
+            </button>
 
-          <div className="pt-[10px]">
-            <SectionCard compact>
-              <CompanyJobManagementSection
-                compact
-                draft={draft}
-                nextLabel={response.ctas.nextLabel}
-                onDraftChange={onDraftChange}
-                onNext={() => onSectionChange(nextSection)}
-                onPreview={onPreview}
-                onReset={onReset}
-                onSaveDraft={onSaveDraft}
-                onSubmit={onSubmit}
-                removeLabel={response.ctas.removeLabel}
-                saveDraftLabel={response.ctas.saveDraftLabel}
-                section={section}
-                submitLabel={response.ctas.submitLabel}
-              />
-            </SectionCard>
-          </div>
+            <div className="pt-3">
+              <SectionCard compact>
+                <CompanyJobManagementSection
+                  compact
+                  draft={draft}
+                  nextLabel={response.ctas.nextLabel}
+                  onDraftChange={onDraftChange}
+                  onNext={() => onSectionChange(nextSection)}
+                  onPreview={onPreview}
+                  onReset={onReset}
+                  onSaveDraft={onSaveDraft}
+                  onSubmit={onSubmit}
+                  removeLabel={response.ctas.removeLabel}
+                  saveDraftLabel={response.ctas.saveDraftLabel}
+                  section={section}
+                  submitLabel={response.ctas.submitLabel}
+                />
+              </SectionCard>
+            </div>
 
-          <CompanyJobsMobileDock label={response.mobileDockLabel} />
+            <CompanyJobsMobileDock label={response.mobileDockLabel} />
           </div>
         </div>
       </section>

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { AuthTopBar } from "../../components/public";
-import { SiteFooter } from "../../components/site";
+import { PublicNavbar, SiteFooter } from "../../components/site";
 import { assetPath, cn } from "../../lib/site-utils";
 
 const registerChoiceContent = {
@@ -19,8 +18,8 @@ const registerChoiceContent = {
     },
   ],
   desktopBackground: "registrazione.png",
-  desktopHeading: "registrati come candidato/azienda",
-  mobileHeading: "registrati o accedi come candidato/azienda",
+  desktopHeading: "Scegli il tuo percorso Wedoo",
+  mobileHeading: "Scegli come entrare",
 } as const;
 
 function RegisterChoiceButton({
@@ -41,7 +40,7 @@ function RegisterChoiceButton({
         tone === "mint"
           ? "border-transparent bg-[var(--wedoo-mint)] text-[var(--wedoo-ink-strong)] shadow-[0_22px_48px_-34px_rgba(87,215,180,0.48)] hover:bg-[var(--wedoo-support-hover)] hover:text-[var(--wedoo-white-soft)]"
           : "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)] shadow-[0_22px_48px_-34px_rgba(112,72,232,0.48)] hover:bg-[var(--wedoo-violet-hover)]",
-        compact ? "h-[72px] w-full text-[1.8rem]" : "h-[78px] min-w-[220px] text-[2rem]",
+        compact ? "h-[58px] w-full text-[1.3rem]" : "h-[68px] min-w-[210px] text-[1.65rem]",
       )}
       to={to}
     >
@@ -54,18 +53,15 @@ function RegisterDesktopView() {
   return (
     <section className="hidden min-[1024px]:block" data-node-id="336:593" data-register-layout="desktop">
       <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-6">
-        <AuthTopBar />
-
-        <div className="mt-6 overflow-hidden rounded-[2rem] shadow-[var(--wedoo-shadow-hero)]">
+        <div className="overflow-hidden rounded-[2rem] shadow-[var(--wedoo-shadow-hero)]">
           <div className="grid lg:grid-cols-[0.52fr_0.48fr]">
             <div className="wedoo-theme-shell rounded-none rounded-l-[2rem] border-0 px-8 py-9 md:px-10 md:py-10 xl:px-12 xl:py-12">
               <span className="wedoo-kicker">choose your path</span>
-              <h1 className="mt-6 text-[4.5rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
+              <h1 className="mt-6 text-[3.25rem] leading-[0.95] text-[var(--wedoo-ink-strong)] xl:text-[4.1rem]">
                 {registerChoiceContent.desktopHeading}
               </h1>
               <p className="mt-6 max-w-[30rem] text-lg leading-8 text-[var(--wedoo-ink-muted)]">
-                Un solo ingresso, due percorsi netti. Candidate e company entrano nello stesso sistema con
-                gerarchia coerente, CTA leggibili e meno rumore.
+                Candidati e aziende entrano nello stesso sistema con gerarchie coerenti, CTA leggibili e meno rumore.
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4">
@@ -82,7 +78,7 @@ function RegisterDesktopView() {
               </div>
             </div>
 
-            <div className="wedoo-workspace relative min-h-[34rem] overflow-hidden px-8 py-10">
+            <div className="wedoo-workspace wedoo-depth-card relative min-h-[34rem] overflow-hidden px-8 py-10">
               <img
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover opacity-[0.24]"
@@ -129,15 +125,13 @@ function RegisterMobileView() {
   return (
     <section className="min-[1024px]:hidden" data-node-id="336:643" data-register-layout="mobile">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <AuthTopBar compact />
-
-        <div className="wedoo-theme-shell mt-5 overflow-hidden rounded-[1.6rem] px-5 py-6">
+        <div className="wedoo-theme-shell overflow-hidden rounded-[1.35rem] px-5 py-6">
           <span className="wedoo-kicker">start here</span>
-          <h1 className="mt-5 text-[2.55rem] leading-[0.94] text-[var(--wedoo-ink-strong)]">
+          <h1 className="mt-5 text-[2.15rem] leading-[1] text-[var(--wedoo-ink-strong)]">
             {registerChoiceContent.mobileHeading}
           </h1>
           <p className="mt-4 text-base leading-7 text-[var(--wedoo-ink-muted)]">
-            La grammatica resta una sola anche da mobile: una scelta primaria, una secondaria, nessun rumore.
+            Scegli il lato giusto e continua con un flusso coerente.
           </p>
 
           <div className="mt-8 grid gap-4">
@@ -164,6 +158,7 @@ export default function RoleChoicePage() {
   return (
     <>
       <main className="bg-[var(--wedoo-page-bg)] pb-6">
+        <PublicNavbar />
         <RegisterMobileView />
         <RegisterDesktopView />
       </main>

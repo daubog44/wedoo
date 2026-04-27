@@ -43,18 +43,20 @@ export function CompanyRegistrationStep({
   const providerOptions = companyRegistrationAuthViewModel.providerOptions ?? [];
 
   return (
-    <main className="bg-brand-page pb-10">
+    <main className="wedoo-workspace min-h-screen bg-[var(--wedoo-workspace-bg)] pb-10">
       <CompanyWizardDesktopShell
         backgroundAsset="formaziende1.png"
         formClassName="px-6 pb-5 pt-6"
-        formStyle={{ left: companyWizardDesktopPct(152), top: 276, width: companyWizardDesktopPct(359) }}
+        formStyle={{ left: companyWizardDesktopPct(152), top: 288, width: companyWizardDesktopPct(359) }}
         showLogo
         step={1}
         subtitle="Compila il tuo primo annuncio per registrarti"
-        subtitleStyle={{ left: companyWizardDesktopPct(152), top: 201, width: companyWizardDesktopPct(359) }}
+        subtitleClassName="text-[22px] leading-[1.08]"
+        subtitleStyle={{ left: companyWizardDesktopPct(152), top: 224, width: companyWizardDesktopPct(359) }}
         testId="company-registration-step-1"
-        title="Benvenut*!"
-        titleStyle={{ left: companyWizardDesktopPct(197), top: 141, width: companyWizardDesktopPct(259) }}
+        title={companyRegistrationAuthViewModel.title}
+        titleClassName="text-[34px] leading-[0.95]"
+        titleStyle={{ left: companyWizardDesktopPct(152), top: 144, width: companyWizardDesktopPct(359) }}
       >
         <div className="space-y-3">
           <CompanyWizardTextField
@@ -108,17 +110,17 @@ export function CompanyRegistrationStep({
 
         <div className="mt-5">
           <CompanyWizardOrDivider />
-          <div className="mt-4 flex gap-8">
+          <div className="mt-4 flex gap-3">
             {providerOptions.map((provider) => (
-              <CompanyWizardSocialButton key={provider.id}>
+              <CompanyWizardSocialButton compact key={provider.id}>
                 {provider.label}
               </CompanyWizardSocialButton>
             ))}
           </div>
           {companyRegistrationAuthViewModel.footerPrompt ? (
-            <p className="font-wedoo-body mt-5 text-center text-[22px] leading-none text-brand-ink">
+            <p className="font-wedoo-body mt-5 text-center text-[18px] leading-[1.25] text-[var(--wedoo-ink-muted)]">
               {companyRegistrationAuthViewModel.footerPrompt.label}{" "}
-              <Link className="underline" to={companyRegistrationAuthViewModel.footerPrompt.linkTo}>
+              <Link className="text-[var(--wedoo-ink)] underline" to={companyRegistrationAuthViewModel.footerPrompt.linkTo}>
                 {companyRegistrationAuthViewModel.footerPrompt.linkLabel}
               </Link>
             </p>
@@ -130,7 +132,7 @@ export function CompanyRegistrationStep({
         step={1}
         subtitle="Compila il tuo primo annuncio per registrarti"
         testId="company-registration-step-1"
-        title="Benvenut*!"
+        title={companyRegistrationAuthViewModel.title}
       >
         <div className="space-y-3">
           <CompanyWizardTextField
@@ -194,9 +196,9 @@ export function CompanyRegistrationStep({
               ))}
             </div>
             {companyRegistrationAuthViewModel.footerPrompt ? (
-              <p className="font-wedoo-body mt-4 text-center text-[18px] leading-none text-brand-ink">
+              <p className="font-wedoo-body mt-4 text-center text-[18px] leading-[1.25] text-[var(--wedoo-ink-muted)]">
                 {companyRegistrationAuthViewModel.footerPrompt.label}{" "}
-                <Link className="underline" to={companyRegistrationAuthViewModel.footerPrompt.linkTo}>
+                <Link className="text-[var(--wedoo-ink)] underline" to={companyRegistrationAuthViewModel.footerPrompt.linkTo}>
                   {companyRegistrationAuthViewModel.footerPrompt.linkLabel}
                 </Link>
               </p>

@@ -62,8 +62,8 @@ const emptyEducationEntry: CandidateEducationDraftEntry = {
 
 function SummaryItem({ value }: { value: string }) {
   return (
-    <li className="flex min-w-0 items-start gap-2.5 font-wedoo-body text-[1.125rem] leading-tight text-black md:text-[1.375rem]">
-      <SiteIcon className="mt-0.5 h-5 w-5 shrink-0 text-black md:h-6 md:w-6" name="close" />
+    <li className="flex min-w-0 items-start gap-2.5 font-wedoo-body text-[1.125rem] leading-tight text-[var(--wedoo-ink-muted)] md:text-[1.375rem]">
+      <SiteIcon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--wedoo-ink-muted)] md:h-6 md:w-6" name="close" />
       <span aria-hidden="true" className="pt-0.5 text-[1.1rem] leading-none md:text-[1.2rem]">
         &bull;
       </span>
@@ -92,7 +92,7 @@ function SectionTitle({
   return (
     <h2
       className={cn(
-        "font-wedoo-accent text-[1.375rem] leading-none text-black md:text-[1.75rem]",
+        "font-wedoo-accent text-[1.375rem] leading-none text-[var(--wedoo-ink)] md:text-[1.75rem]",
         emphasize ? "font-bold" : "font-normal",
       )}
     >
@@ -111,7 +111,7 @@ function HintList({
   return (
     <ul
       className={cn(
-        "list-disc space-y-1 pl-5 font-wedoo-body text-[0.95rem] leading-[1.2] text-black",
+        "list-disc space-y-1 pl-5 font-wedoo-body text-[0.95rem] leading-[1.2] text-[var(--wedoo-ink-muted)]",
         className,
       )}
     >
@@ -277,19 +277,19 @@ export function CandidateEducationStep({
               <HintList
                 className="md:pt-8"
                 items={[
-                  "anni da meno recente a pi\u00F9 recente",
+                  "anni da meno recente a più recente",
                   'aggiungi opzione "in corso"',
                 ]}
               />
             </section>
 
             <section className="space-y-4">
-              <SectionTitle>{"attivit\u00E0 extracurriculari"}</SectionTitle>
+              <SectionTitle>attività extracurriculari</SectionTitle>
               <SummaryList items={education.activities} />
               <CandidateWizardSelectField
                 hideLabel
                 id="candidate-education-activities"
-                label={"attivit\u00E0 extracurriculari"}
+                label="attività extracurriculari"
                 onChange={(value) => updateField("extracurricular", value)}
                 options={candidateEducationExtracurricularOptions}
                 value={formState.extracurricular}
@@ -305,10 +305,10 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <div className="grid gap-3 md:grid-cols-[auto_1fr] md:items-start">
                 <SectionTitle emphasize>erasmus</SectionTitle>
-                <div className="space-y-1 font-wedoo-body text-[0.95rem] leading-[1.2] text-black">
+                <div className="space-y-1 font-wedoo-body text-[0.95rem] leading-[1.2] text-[var(--wedoo-ink-muted)]">
                   <p>tutte le voci dell'elenco sono facoltative</p>
                   <p>
-                    l'elenco compare solo se nelle attivit\u00E0 extracurriculari si
+                    l'elenco compare solo se nelle attività extracurriculari si
                     sceglie "erasmus/erasmus+"
                   </p>
                 </div>
@@ -322,14 +322,14 @@ export function CandidateEducationStep({
               />
               <CandidateWizardSelectField
                 id="candidate-education-city"
-                label={"citt\u00E0"}
+                label="città"
                 onChange={updateCity}
                 options={cityOptions}
                 value={formState.erasmusCity}
               />
               <div className="space-y-2">
-                <p className="font-wedoo-body text-[0.95rem] leading-[1.2] text-black">
-                  collegato con localit\u00E0, fornisce gli istituti che si trovano
+                <p className="font-wedoo-body text-[0.95rem] leading-[1.2] text-[var(--wedoo-ink-muted)]">
+                  collegato con località, fornisce gli istituti che si trovano
                   nella zona scelta
                 </p>
                 <CandidateWizardSelectField
@@ -345,8 +345,8 @@ export function CandidateEducationStep({
             <section className="space-y-4">
               <div className="grid gap-3 md:grid-cols-[auto_1fr] md:items-start">
                 <SectionTitle emphasize>project work</SectionTitle>
-                <p className="font-wedoo-body text-[0.95rem] leading-[1.2] text-black">
-                  l'elenco compare solo se nelle attivit\u00E0 extracurriculari si
+                <p className="font-wedoo-body text-[0.95rem] leading-[1.2] text-[var(--wedoo-ink-muted)]">
+                  l'elenco compare solo se nelle attività extracurriculari si
                   sceglie "project work"
                 </p>
               </div>
@@ -355,9 +355,9 @@ export function CandidateEducationStep({
                   htmlFor="candidate-education-project-work-description"
                   label="descrizione"
                 />
-                <div className="overflow-hidden rounded-[20px] border border-brand-mint-deep">
+                <div className="overflow-hidden rounded-[20px] border border-[var(--wedoo-input-border)] bg-[var(--wedoo-input-bg)]">
                   <div
-                    className="flex items-center gap-5 border-b border-brand-mint-deep px-4 py-3 font-wedoo-body text-[1.125rem] text-black"
+                    className="flex items-center gap-5 border-b border-[var(--wedoo-input-border)] px-4 py-3 font-wedoo-body text-[1.125rem] text-[var(--wedoo-ink-muted)]"
                     data-testid="candidate-education-toolbar"
                   >
                     <button className="font-sans text-[1.15rem] font-bold" type="button">
@@ -379,7 +379,7 @@ export function CandidateEducationStep({
                     <AppIcon className="h-5 w-5" name="list-box-line" />
                   </div>
                   <textarea
-                    className="min-h-[15rem] w-full resize-none border-none bg-transparent px-4 py-4 font-wedoo-body text-lg text-brand-ink outline-none md:min-h-[17rem]"
+                    className="min-h-[15rem] w-full resize-none border-none bg-transparent px-4 py-4 font-wedoo-body text-lg text-[var(--wedoo-ink)] outline-none md:min-h-[17rem]"
                     id="candidate-education-project-work-description"
                     onChange={(event) =>
                       updateField("projectWorkDescription", event.target.value)
@@ -405,7 +405,7 @@ export function CandidateEducationStep({
 
             <div className="flex justify-stretch pt-1 md:justify-end">
               <button
-                className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[8px] bg-brand-mint-deep px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-brand-ink transition hover:bg-brand-mint md:w-[191px]"
+                className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[14px] bg-[var(--wedoo-violet)] px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)] md:w-[191px]"
                 type="submit"
               >
                 salva

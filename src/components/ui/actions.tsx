@@ -12,7 +12,7 @@ export type SupportButtonTone = "violet" | "ink";
 export type SupportButtonVariant = "filled" | "outline";
 
 const buttonBaseClassName =
-  "inline-flex items-center justify-center gap-2 rounded-[16px] border px-4 py-3 font-wedoo-accent text-[0.95rem] font-medium tracking-[-0.02em] transition duration-200 ease-out hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-[16px] border px-4 py-3 font-wedoo-accent text-[0.95rem] font-medium tracking-normal transition duration-200 ease-out hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50";
 
 const toneClasses: Record<Tone, string> = {
   violet:

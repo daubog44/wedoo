@@ -2,6 +2,8 @@ import type { JobDraftOption } from "../../data/job-draft";
 import { assetPath, cn } from "../../lib/site-utils";
 import { SiteIcon } from "../site";
 
+type JobDraftFieldTone = "default" | "workspace";
+
 export function JobDraftLanguageChip({ compact = false }: { compact?: boolean }) {
   return (
     <button
@@ -43,16 +45,24 @@ export function JobDraftFieldLabel({
   compact = false,
   htmlFor,
   label,
+  tone = "default",
 }: {
   compact?: boolean;
   htmlFor: string;
   label: string;
+  tone?: JobDraftFieldTone;
 }) {
   return (
     <label
       className={cn(
-        "font-wedoo-accent block leading-none text-brand-ink",
-        compact ? "mb-2 text-[20px]" : "mb-2 text-[24px]",
+        tone === "workspace"
+          ? "font-wedoo-body block font-semibold leading-none text-[var(--wedoo-workspace-muted)]"
+          : "font-wedoo-accent block leading-none text-brand-ink",
+        tone === "workspace"
+          ? "mb-2 text-[0.8rem]"
+          : compact
+            ? "mb-2 text-[20px]"
+            : "mb-2 text-[24px]",
       )}
       htmlFor={htmlFor}
     >
@@ -68,6 +78,7 @@ export function JobDraftSelectField({
   label,
   onChange,
   options,
+  tone = "default",
   value,
 }: {
   compact?: boolean;
@@ -76,17 +87,30 @@ export function JobDraftSelectField({
   label: string;
   onChange: (value: string) => void;
   options: readonly JobDraftOption[];
+  tone?: JobDraftFieldTone;
   value: string;
 }) {
   return (
     <div className="grid gap-0">
-      <JobDraftFieldLabel compact={compact} htmlFor={id} label={label} />
+      <JobDraftFieldLabel compact={compact} htmlFor={id} label={label} tone={tone} />
       <div className="relative" data-node-id={dataNodeId}>
         <select
           className={cn(
-            "font-wedoo-body w-full appearance-none rounded-[8px] border border-brand-violet-400 bg-brand-page pr-10 text-brand-ink outline-none transition focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
-            compact ? "h-[44px] px-3 text-[18px]" : "h-[37px] px-[7px] text-[22px]",
-            value ? "text-brand-ink" : "text-brand-ink/55",
+            tone === "workspace"
+              ? "font-wedoo-body w-full appearance-none rounded-[10px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] pr-10 text-[var(--wedoo-workspace-text)] outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-2 focus:ring-[rgba(116,80,230,0.22)]"
+              : "font-wedoo-body w-full appearance-none rounded-[8px] border border-brand-violet-400 bg-brand-page pr-10 text-brand-ink outline-none transition focus:border-brand-violet focus:ring-2 focus:ring-brand-violet/15",
+            tone === "workspace"
+              ? "h-11 px-3 text-[0.95rem]"
+              : compact
+                ? "h-[44px] px-3 text-[18px]"
+                : "h-[37px] px-[7px] text-[22px]",
+            tone === "workspace"
+              ? value
+                ? "text-[var(--wedoo-workspace-text)]"
+                : "text-[var(--wedoo-workspace-muted)]"
+              : value
+                ? "text-brand-ink"
+                : "text-brand-ink/55",
           )}
           id={id}
           onChange={(event) => onChange(event.target.value)}
@@ -100,7 +124,10 @@ export function JobDraftSelectField({
           ))}
         </select>
         <SiteIcon
-          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink"
+          className={cn(
+            "pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2",
+            tone === "workspace" ? "text-[var(--wedoo-workspace-muted)]" : "text-brand-ink",
+          )}
           data-node-id="2:543"
           name="chevron-down"
         />

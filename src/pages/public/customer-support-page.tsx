@@ -1,5 +1,5 @@
-import { AuthTopBar, AuthWorkspacePanel } from "../../components/public";
-import { SiteIcon } from "../../components/site";
+import { AuthWorkspacePanel } from "../../components/public";
+import { PublicNavbar, SiteFooter, SiteIcon } from "../../components/site";
 import { customerSupportViewModel, type CustomerSupportAudience } from "../../data/auth-recovery";
 import { cn } from "../../lib/site-utils";
 
@@ -82,9 +82,7 @@ function DesktopSupportView() {
   return (
     <section className="hidden min-[1024px]:block" data-customer-support-layout="desktop" data-node-id="660:725">
       <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-6">
-        <AuthTopBar />
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-[0.4fr_0.6fr]">
+        <div className="grid gap-6 lg:grid-cols-[0.4fr_0.6fr]">
           <div className="space-y-4">
             <h1 className="text-[3.5rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
               {customerSupportViewModel.title}
@@ -123,9 +121,7 @@ function MobileSupportView() {
   return (
     <section className="min-[1024px]:hidden" data-customer-support-layout="mobile" data-node-id="660:1217">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <AuthTopBar compact />
-
-        <div className="mt-5 space-y-5">
+        <div className="space-y-5">
           <h1 className="text-[2.55rem] leading-[0.94] text-[var(--wedoo-ink-strong)]">
             {customerSupportViewModel.title}
           </h1>
@@ -142,9 +138,13 @@ function MobileSupportView() {
 
 export default function CustomerSupportPage() {
   return (
-    <main className="min-h-screen bg-[var(--wedoo-page-bg)]">
-      <MobileSupportView />
-      <DesktopSupportView />
-    </main>
+    <>
+      <main className="min-h-screen bg-[var(--wedoo-page-bg)]">
+        <PublicNavbar />
+        <MobileSupportView />
+        <DesktopSupportView />
+      </main>
+      <SiteFooter className="mt-0" />
+    </>
   );
 }

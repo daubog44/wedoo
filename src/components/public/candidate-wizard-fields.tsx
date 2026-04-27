@@ -29,12 +29,12 @@ type CandidateWizardTextFieldProps = {
 };
 
 const candidateWizardFieldClassName =
-  "h-[50px] rounded-[8px] border border-brand-mint-deep bg-transparent px-4 font-wedoo-body text-[1.125rem] leading-none text-brand-ink outline-none transition placeholder:text-black/35 focus:border-brand-mint-deep focus:ring-2 focus:ring-brand-mint-deep/20 md:text-[1.375rem]";
+  "wedoo-theme-field h-[50px] rounded-[14px] px-4 font-wedoo-body text-[1.125rem] leading-none outline-none transition focus:border-[var(--wedoo-mint)] focus:ring-2 focus:ring-[rgba(87,215,180,0.12)] md:text-[1.375rem]";
 
 function CandidateWizardSelectChevron() {
   return (
     <SiteIcon
-      className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink"
+      className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--wedoo-input-placeholder)]"
       data-node-id="2:543"
       name="chevron-down"
     />
@@ -49,7 +49,7 @@ export function CandidateWizardFieldLabel({
   return (
     <label
       className={cn(
-        "font-wedoo-accent text-[1.125rem] font-normal leading-none text-black md:text-[1.5rem]",
+        "font-wedoo-accent text-[1.125rem] font-normal leading-none text-[var(--wedoo-ink)] md:text-[1.5rem]",
         hideLabel && "sr-only",
       )}
       htmlFor={htmlFor}
@@ -77,7 +77,7 @@ function CandidateWizardSelectBase({
           className={cn(
             candidateWizardFieldClassName,
             "w-full appearance-none pr-12",
-            value ? "text-brand-ink" : "text-black/35",
+            value ? "text-[var(--wedoo-input-text)]" : "text-[var(--wedoo-input-placeholder)]",
           )}
           id={id}
           onChange={(event) => onChange(event.target.value)}

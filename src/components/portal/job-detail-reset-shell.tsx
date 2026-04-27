@@ -46,15 +46,15 @@ function JobDetailEditor({
   toolbarLabel: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-[1.6rem] border border-[var(--wedoo-line)] bg-[rgba(248,250,252,0.92)]">
-      <div className="flex items-center gap-4 border-b border-[var(--wedoo-line)] px-4 py-3 text-sm text-[var(--wedoo-ink-muted)]">
-        <span className="font-semibold text-[var(--wedoo-ink-strong)]">G</span>
-        <span className="italic text-[var(--wedoo-ink-strong)]">C</span>
-        <span className="underline text-[var(--wedoo-ink-strong)]">S</span>
+    <div className="wedoo-editor-surface overflow-hidden rounded-[1.6rem]">
+      <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3 text-sm text-[var(--wedoo-workspace-muted)]">
+        <span className="font-semibold text-[var(--wedoo-workspace-text)]">G</span>
+        <span className="italic text-[var(--wedoo-workspace-text)]">C</span>
+        <span className="underline text-[var(--wedoo-workspace-text)]">S</span>
         <span>{toolbarLabel}</span>
         <AppIcon className="ml-auto h-4 w-4" name="list-box-line" />
       </div>
-      <div className="px-4 py-5 text-sm leading-7 text-[var(--wedoo-ink-muted)] sm:px-6 sm:text-[0.98rem]">
+      <div className="px-4 py-5 text-sm leading-7 text-[var(--wedoo-workspace-muted)] sm:px-6 sm:text-[0.98rem]">
         <p>{body}</p>
       </div>
     </div>
@@ -171,7 +171,7 @@ function JobDetailContent({
             </div>
           </Surface>
 
-          <Surface className="bg-[linear-gradient(180deg,rgba(244,241,255,0.95),rgba(255,255,255,0.92))]">
+          <Surface className="wedoo-depth-card">
             <p className="wedoo-kicker">{detail.skills.hardTitle}</p>
             <h2 className="mt-4 text-2xl leading-tight text-[var(--wedoo-ink-strong)]">Competenze richieste</h2>
             <div className="mt-5 space-y-5">
@@ -213,7 +213,7 @@ function JobDetailContent({
       </div>
 
       <div className="space-y-5">
-        <Surface className="bg-[linear-gradient(180deg,rgba(247,248,252,0.96),rgba(255,255,255,0.96))]">
+        <Surface className="wedoo-depth-card">
           <p className="wedoo-kicker">company</p>
           <h2 className="mt-4 text-2xl leading-tight text-[var(--wedoo-ink-strong)]">{detail.company.name}</h2>
           <p className="mt-4 text-sm leading-7 text-[var(--wedoo-ink-muted)]">{detail.requirementsLabel}</p>

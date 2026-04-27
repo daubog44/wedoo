@@ -34,7 +34,7 @@ export function CandidateOnboardingLanguageChip({
     <button
       aria-label="Lingua italiana"
       className={cn(
-        "inline-flex items-center justify-center rounded-[14px] border border-[var(--wedoo-line)] bg-white/74 text-[var(--wedoo-ink-muted)] shadow-[0_18px_44px_-36px_rgba(15,23,40,0.4)] backdrop-blur",
+        "inline-flex items-center justify-center rounded-[14px] border border-[var(--wedoo-toggle-border)] bg-[var(--wedoo-toggle-bg)] text-[var(--wedoo-toggle-text)] shadow-[var(--wedoo-toggle-shadow)] backdrop-blur transition hover:border-[var(--wedoo-toggle-border-strong)] hover:bg-[var(--wedoo-toggle-bg-hover)]",
         compact ? "h-[30px] w-[62px] gap-1 px-2 text-[13px]" : "h-10 w-[68px] gap-2 px-3 text-[14px]",
       )}
       type="button"
@@ -63,15 +63,16 @@ export function CandidateOnboardingDesktopShell({
       data-candidate-onboarding-step={step}
       data-testid={testId}
     >
-      <div className="relative mx-auto h-[1024px] w-full max-w-[1440px] overflow-hidden rounded-[2.75rem] border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.78),rgba(255,255,255,0.52))] shadow-[0_42px_120px_-76px_rgba(15,23,40,0.54)] backdrop-blur">
+      <div className="relative mx-auto h-[1024px] w-full max-w-[1440px] overflow-hidden rounded-[2.75rem] border border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,var(--wedoo-workspace-top),var(--wedoo-workspace-bg))] shadow-[0_52px_140px_-86px_rgba(0,0,0,0.86)]">
         <img
           alt=""
-          className="pointer-events-none absolute top-[15px] h-[995px] object-cover saturate-[0.92]"
+          className="pointer-events-none absolute top-[15px] h-[995px] object-cover opacity-85 saturate-[0.88]"
           src={assetPath(backgroundAsset)}
           style={{ left: candidateOnboardingDesktopPct(20), width: candidateOnboardingDesktopPct(1400) }}
         />
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(245,247,251,0.96)_0%,rgba(245,247,251,0.92)_42%,rgba(245,247,251,0.3)_64%,rgba(245,247,251,0)_100%)]" />
+        <div className="pointer-events-none absolute inset-0" style={{ background: "var(--wedoo-hero-scrim)" }} />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-[44%]" style={{ background: "var(--wedoo-hero-orb)" }} />
 
         <div
           className="absolute top-[42px] z-10"
@@ -107,16 +108,19 @@ export function CandidateOnboardingMobileShell({
       data-testid={testId}
     >
       <div className="mx-auto max-w-[390px] px-4 pb-10 pt-5">
-        <header className="section-card relative rounded-[2rem] px-5 py-6">
-          <CandidateOnboardingLogo compact />
-          <div className="absolute right-0 top-0">
+        <header className="relative overflow-hidden rounded-[2rem] border border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,var(--wedoo-workspace-top),var(--wedoo-workspace-bg))] px-5 py-6 shadow-[0_38px_96px_-72px_rgba(0,0,0,0.8)]">
+          <div className="pointer-events-none absolute inset-0" style={{ background: "var(--wedoo-hero-orb)" }} />
+          <div className="relative">
+            <CandidateOnboardingLogo compact />
+          </div>
+          <div className="absolute right-0 top-0 z-10">
             <CandidateOnboardingLanguageChip compact />
           </div>
-          <div className="mt-[27px] space-y-3 text-center text-brand-ink">
-            <span className="wedoo-kicker">onboarding</span>
-            <h1 className="font-wedoo-heading text-[32px] leading-none">{title}</h1>
+          <div className="relative mt-[27px] space-y-3 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--wedoo-workspace-muted)]">onboarding</span>
+            <h1 className="font-wedoo-heading text-[32px] leading-none text-[var(--wedoo-workspace-text)]">{title}</h1>
             {subtitle ? (
-              <p className="font-wedoo-accent text-[22px] leading-none text-[var(--wedoo-ink-muted)]">
+              <p className="font-wedoo-accent text-[22px] leading-[1.08] text-[var(--wedoo-workspace-muted)]">
                 {subtitle}
               </p>
             ) : null}
@@ -141,7 +145,7 @@ export function CandidateOnboardingFormCard({
   return (
     <div
       className={cn(
-        "rounded-[1.75rem] border border-white/75 bg-[rgba(255,255,255,0.84)] shadow-[0_30px_80px_-62px_rgba(15,23,40,0.44)] backdrop-blur",
+        "wedoo-theme-shell rounded-[1.75rem] shadow-[var(--wedoo-panel-shadow)] backdrop-blur",
         className,
       )}
       style={style}
@@ -163,7 +167,7 @@ export function CandidateOnboardingFieldLabel({
   return (
     <label
       className={cn(
-        "font-wedoo-accent block text-brand-ink",
+        "font-wedoo-accent block text-[var(--wedoo-ink)]",
         compact ? "mb-2 text-[21px] leading-none" : "mb-2 text-[20px] leading-none",
       )}
       htmlFor={htmlFor}
@@ -175,7 +179,7 @@ export function CandidateOnboardingFieldLabel({
 
 function candidateOnboardingFieldClassName(compact: boolean) {
   return cn(
-    "font-wedoo-body w-full rounded-[16px] border border-[var(--wedoo-line)] bg-white/84 text-brand-ink outline-none transition placeholder:text-brand-ink/38 focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]",
+    "wedoo-theme-field font-wedoo-body w-full rounded-[16px] outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]",
     compact ? "h-[48px] px-4 text-[18px]" : "h-[50px] px-4 text-[18px]",
   );
 }
@@ -236,7 +240,7 @@ export function CandidateOnboardingSelectField({
           className={cn(
             candidateOnboardingFieldClassName(compact),
             "appearance-none pr-12",
-            value ? "text-brand-ink" : "text-brand-ink/40",
+            value ? "text-[var(--wedoo-input-text)]" : "text-[var(--wedoo-input-placeholder)]",
           )}
           id={id}
           onChange={(event) => onChange(event.target.value)}
@@ -249,7 +253,7 @@ export function CandidateOnboardingSelectField({
             </option>
           ))}
         </select>
-        <SiteIcon className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-ink" name="chevron-down" />
+        <SiteIcon className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--wedoo-input-placeholder)]" name="chevron-down" />
       </div>
     </div>
   );
@@ -277,7 +281,7 @@ export function CandidateOnboardingCheckbox({
           compact ? "h-[26px] w-[26px]" : "h-[24px] w-[24px]",
           checked
             ? "border-transparent bg-[var(--wedoo-violet)] text-[var(--wedoo-white-soft)]"
-            : "border-[var(--wedoo-line-strong)] bg-white text-transparent",
+            : "border-[var(--wedoo-line-strong)] bg-[var(--wedoo-input-bg)] text-transparent",
         )}
         id={id}
         onClick={() => onCheckedChange(!checked)}
@@ -301,7 +305,7 @@ export function CandidateOnboardingCheckbox({
       </button>
       <span
         className={cn(
-          "font-wedoo-body text-brand-ink",
+          "font-wedoo-body text-[var(--wedoo-ink)]",
           compact ? "text-[18px] leading-[1.2]" : "text-[17px] leading-[1.3]",
         )}
       >
@@ -344,7 +348,7 @@ export function CandidateOnboardingSocialButton({
   return (
     <button
       className={cn(
-        "font-wedoo-accent inline-flex items-center justify-center rounded-[18px] border border-[var(--wedoo-line)] bg-white/78 text-brand-ink transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]",
+        "wedoo-theme-ghost-button font-wedoo-accent inline-flex items-center justify-center rounded-[18px] transition hover:-translate-y-0.5 hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]",
         compact ? "h-[46px] w-[204px] text-[16px] leading-none" : "h-[48px] w-[204px] text-[18px] leading-none",
       )}
       type="button"
@@ -362,7 +366,7 @@ export function CandidateOnboardingOrDivider({
   return (
     <div
       className={cn(
-        "flex items-center text-brand-ink",
+        "flex items-center text-[var(--wedoo-ink)]",
         compact ? "gap-3 text-[14px]" : "gap-4 text-[16px]",
       )}
     >

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "../../../lib/site-utils";
 import { WedooThemeToggle } from "../../common/wedoo-theme-toggle";
 import { SiteIcon, WedooLogo } from "../../site";
@@ -59,7 +60,19 @@ export function AuthTopBar({
         className,
       )}
     >
-      <AuthLogo compact={compact} />
+      <div className="flex items-center gap-4">
+        <AuthLogo compact={compact} />
+        {compact ? null : (
+          <div className="hidden xl:flex items-center gap-2">
+            <Link className="wedoo-theme-ghost-button inline-flex min-h-[42px] items-center justify-center rounded-full px-4 text-sm" to="/accedi">
+              accedi
+            </Link>
+            <Link className="inline-flex min-h-[42px] items-center justify-center rounded-full border border-transparent bg-[var(--wedoo-violet)] px-4 text-sm text-[var(--wedoo-white-soft)]" to="/registrati">
+              registrati
+            </Link>
+          </div>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         <WedooThemeToggle compact={compact} />
         <AuthLanguageChip compact={compact} />
@@ -101,9 +114,7 @@ export function AuthWorkspacePanel({
         className,
       )}
     >
-      <div className="spot-orb -right-8 top-0 h-44 w-44 bg-[rgba(112,72,232,0.18)]" />
-      <div className="spot-orb -left-4 top-20 h-40 w-40 bg-[rgba(87,215,180,0.12)]" />
-      <div className="relative z-10">{children}</div>
+      {children}
     </article>
   );
 }

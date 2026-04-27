@@ -59,7 +59,7 @@ export function AuthCheckbox({
       <span
         className={cn(
           "font-wedoo-body text-[var(--wedoo-ink)]",
-          compact ? "text-[18px] leading-none" : "text-[22px] leading-none",
+          compact ? "text-[1rem] leading-6" : "text-[1.05rem] leading-6",
         )}
         id={labelId}
       >

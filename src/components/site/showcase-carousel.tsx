@@ -107,16 +107,16 @@ function ShowcaseDesktopView({
       <div className="mx-auto max-w-[1360px] px-8 pb-12 pt-6">
         <ShowcaseTopBar />
 
-        <div className="mt-6 overflow-hidden rounded-[2rem] shadow-[0_40px_120px_-74px_rgba(4,10,20,0.92)]">
+        <div className="mt-6 overflow-hidden rounded-[2rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] shadow-[0_40px_120px_-74px_rgba(4,10,20,0.92)]">
           <div className="grid lg:grid-cols-[0.44fr_0.56fr]">
-            <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.86))] px-8 py-9 md:px-10 md:py-10 xl:px-12 xl:py-12">
+            <div className="border-r border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,rgba(17,27,46,0.92),rgba(10,18,31,0.96))] px-8 py-9 md:px-10 md:py-10 xl:px-12 xl:py-12">
               <div className="flex h-full flex-col justify-between gap-8">
                 <div className="space-y-6">
                   <span className={cn("wedoo-kicker", theme.accentChip)}>{showcase.badge}</span>
-                  <h1 className="text-[4.4rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
+                  <h1 className="text-[4rem] leading-[0.9] text-[var(--wedoo-workspace-text)] xl:text-[4.35rem]">
                     <ShowcaseSlideTitle title={activeSlide.title} />
                   </h1>
-                  <p className="max-w-[28rem] text-lg leading-8 text-[var(--wedoo-ink-muted)]">
+                  <p className="max-w-[28rem] text-lg leading-8 text-[var(--wedoo-workspace-muted)]">
                     {activeSlide.description}
                   </p>
                 </div>
@@ -124,11 +124,11 @@ function ShowcaseDesktopView({
                 <div className="space-y-6">
                   <div className="grid gap-4">
                     {showcase.metrics.map((metric) => (
-                      <div className="border-t border-[var(--wedoo-line)] pt-4" key={metric.label}>
-                        <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[var(--wedoo-ink-muted)]">
+                      <div className="border-t border-white/10 pt-4" key={metric.label}>
+                        <p className="text-[0.72rem] uppercase tracking-normal text-[var(--wedoo-workspace-muted)]">
                           {metric.label}
                         </p>
-                        <p className="mt-2 text-[1.5rem] leading-[1.05] text-[var(--wedoo-ink-strong)]">
+                        <p className="mt-2 text-[1.5rem] leading-[1.05] text-[var(--wedoo-workspace-text)]">
                           {metric.value}
                         </p>
                       </div>
@@ -144,7 +144,7 @@ function ShowcaseDesktopView({
                             "h-3.5 w-3.5 rounded-full transition-all",
                             index === activeIndex
                               ? theme.accentDot
-                              : "bg-[rgba(18,24,38,0.16)] hover:bg-[rgba(18,24,38,0.28)]",
+                              : "bg-white/18 hover:bg-white/30",
                           )}
                           key={slide.title}
                           onClick={() => onSelect(index)}
@@ -259,12 +259,12 @@ function ShowcaseMobileView({
         <ShowcaseTopBar compact />
 
         <div className="mt-5 space-y-5">
-          <div className="rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,255,255,0.88))] px-5 py-6 shadow-[0_24px_70px_-54px_rgba(15,23,40,0.32)]">
+          <div className="rounded-[1.6rem] border border-[var(--wedoo-workspace-line)] bg-[linear-gradient(180deg,rgba(17,27,46,0.92),rgba(10,18,31,0.96))] px-5 py-6 shadow-[0_24px_70px_-54px_rgba(4,10,20,0.72)]">
             <span className={cn("wedoo-kicker", theme.accentChip)}>{showcase.badge}</span>
-            <h1 className="mt-5 text-[2.7rem] leading-[0.92] text-[var(--wedoo-ink-strong)]">
+            <h1 className="mt-5 text-[2.45rem] leading-[0.94] text-[var(--wedoo-workspace-text)]">
               <ShowcaseSlideTitle title={activeSlide.title} />
             </h1>
-            <p className="mt-4 text-base leading-7 text-[var(--wedoo-ink-muted)]">{activeSlide.description}</p>
+            <p className="mt-4 text-base leading-7 text-[var(--wedoo-workspace-muted)]">{activeSlide.description}</p>
           </div>
 
           <div className="wedoo-workspace overflow-hidden rounded-[1.6rem] px-5 py-5 shadow-[0_34px_96px_-68px_rgba(4,10,20,0.92)]">
@@ -290,7 +290,7 @@ function ShowcaseMobileView({
             <div className="mt-4 grid gap-3">
               {showcase.metrics.map((metric) => (
                 <div className="border-t border-white/10 pt-3" key={metric.label}>
-                  <p className="text-[0.68rem] uppercase tracking-[0.18em] text-[var(--wedoo-workspace-muted)]">
+                  <p className="text-[0.68rem] uppercase tracking-normal text-[var(--wedoo-workspace-muted)]">
                     {metric.label}
                   </p>
                   <p className="mt-2 text-lg leading-[1.08] text-[var(--wedoo-workspace-text)]">{metric.value}</p>
@@ -338,7 +338,7 @@ export function ShowcaseCarousel({ role }: { role: PortalRole }) {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--wedoo-page-bg)] pb-8">
+    <main className="wedoo-workspace min-h-screen bg-[var(--wedoo-workspace-bg)] pb-8">
       <ShowcaseMobileView
         activeIndex={activeIndex}
         onNext={() => selectRelative(1, true)}

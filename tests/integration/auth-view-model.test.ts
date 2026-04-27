@@ -30,7 +30,7 @@ describe("AuthViewModel", () => {
       "google",
       "apple",
     ]);
-    expect(loginAuthViewModel.showMissingFieldErrorsByDefault).toBe(true);
+    expect(loginAuthViewModel.showMissingFieldErrorsByDefault).toBe(false);
     expect(loginAuthViewModel.footerPrompt).toEqual({
       label: "non hai un account?",
       linkLabel: "registrati",

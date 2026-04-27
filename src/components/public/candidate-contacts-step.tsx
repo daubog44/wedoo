@@ -28,8 +28,8 @@ type CandidateContactsFormState = {
 
 function ContactSummaryItem({ value }: { value: string }) {
   return (
-    <li className="flex min-w-0 items-start gap-2.5 font-wedoo-body text-[1.125rem] leading-tight text-black md:text-[1.375rem]">
-      <SiteIcon className="mt-0.5 h-5 w-5 shrink-0 text-black md:h-6 md:w-6" name="close" />
+    <li className="flex min-w-0 items-start gap-2.5 font-wedoo-body text-[1.125rem] leading-tight text-[var(--wedoo-ink-muted)] md:text-[1.375rem]">
+      <SiteIcon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--wedoo-ink-muted)] md:h-6 md:w-6" name="close" />
       <span aria-hidden="true" className="pt-0.5 text-[1.1rem] leading-none md:text-[1.2rem]">
         &bull;
       </span>
@@ -49,7 +49,7 @@ function ContactSection({
 }) {
   return (
     <section className="space-y-4">
-      <h2 className="font-wedoo-accent text-[1.5rem] font-bold leading-none text-black md:text-[1.875rem]">
+      <h2 className="font-wedoo-accent text-[1.5rem] font-bold leading-none text-[var(--wedoo-ink)] md:text-[1.875rem]">
         {heading}
       </h2>
       <ul>
@@ -112,7 +112,7 @@ export function CandidateContactsStep({
       testId="candidate-contacts-step"
       title="contatti"
     >
-      <div className="rounded-[20px] border border-brand-mint-deep px-5 py-5 md:px-[26px] md:py-[26px]">
+      <div className="rounded-[20px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-5 py-5 md:px-[26px] md:py-[26px]">
         <form
           className="space-y-8"
           onSubmit={(event) => {
@@ -121,7 +121,7 @@ export function CandidateContactsStep({
           }}
         >
           <ContactSection
-            heading={"localit\u00E0"}
+            heading="località"
             summary={formatCandidateContactLocation(draft.contact)}
           >
             <div className="grid gap-4 md:grid-cols-3 md:gap-[40px]">
@@ -134,7 +134,7 @@ export function CandidateContactsStep({
               />
               <CandidateWizardSelectField
                 id="candidate-contact-city"
-                label={"citt\u00E0"}
+                label="città"
                 onChange={(value) => updateField("city", value)}
                 options={cityOptions}
                 value={formState.city}
@@ -175,7 +175,7 @@ export function CandidateContactsStep({
 
           <div className="flex justify-stretch pt-1 md:justify-end">
             <button
-              className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[8px] bg-brand-mint-deep px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-brand-ink transition hover:bg-brand-mint md:w-[191px]"
+              className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[14px] bg-[var(--wedoo-violet)] px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)] md:w-[191px]"
               type="submit"
             >
               salva

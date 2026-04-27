@@ -34,7 +34,7 @@ describe("mock data services", () => {
     expect(login).toMatchObject({
       id: "login",
       providerButtons: true,
-      title: "Bentornat*!",
+      title: "Accedi a Wedoo",
     });
   });
 

@@ -19,7 +19,7 @@ test.describe("public routes", () => {
       page.getByRole("link", { name: publicCopy.register.candidateCta }),
     ).toHaveAttribute("href", publicRoutes.candidateRegistration);
     await expect(
-      page.getByRole("link", { name: publicCopy.register.companyCta }),
+      page.getByRole("link", { name: publicCopy.register.companyCta, exact: true }),
     ).toHaveAttribute("href", "/registrati/azienda/1");
   });
 
@@ -106,7 +106,7 @@ test.describe("public routes", () => {
     await page.goto(publicRoutes.register);
     await waitForWedooPageReady(page);
 
-    await page.getByRole("link", { name: publicCopy.register.companyCta }).click();
+    await page.getByRole("link", { name: publicCopy.register.companyCta, exact: true }).click();
     await waitForWedooPageReady(page);
 
     await expect(page).toHaveURL(publicRoutes.companyRegistration);

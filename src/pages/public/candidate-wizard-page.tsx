@@ -7,7 +7,7 @@ import { CandidateRegistrationStep } from "../../components/public/candidate-reg
 import { CandidateSkillsStep } from "../../components/public/candidate-skills-step";
 import { CandidateWorkPreferencesStep } from "../../components/public/candidate-work-preferences-step";
 import { CandidateWorkExperienceStep } from "../../components/public/candidate-work-experience-step";
-import { SiteFooter, TopLogoBar } from "../../components/site";
+import { PublicNavbar, SiteFooter } from "../../components/site";
 import {
   applyCandidateAccountStep,
   applyCandidatePreferencesStep,
@@ -86,7 +86,7 @@ export default function CandidateWizardPage() {
   if (stepIndex === 3) {
     return (
       <>
-        <TopLogoBar />
+        <PublicNavbar />
         <CandidateContactsStep
           draft={profileDraft}
           saveTo="/registrati/candidato/4"
@@ -99,7 +99,7 @@ export default function CandidateWizardPage() {
   if (stepIndex === 4) {
     return (
       <>
-        <TopLogoBar />
+        <PublicNavbar />
         <CandidateEducationStep
           draft={profileDraft}
           saveTo="/registrati/candidato/5"
@@ -112,7 +112,7 @@ export default function CandidateWizardPage() {
   if (stepIndex === 5) {
     return (
       <>
-        <TopLogoBar />
+        <PublicNavbar />
         <CandidateWorkExperienceStep
           draft={profileDraft}
           saveTo="/registrati/candidato/6"
@@ -125,7 +125,7 @@ export default function CandidateWizardPage() {
   if (stepIndex === 6) {
     return (
       <>
-        <TopLogoBar />
+        <PublicNavbar />
         <CandidateSkillsStep draft={profileDraft} saveTo="/registrati/candidato/7" />
         <SiteFooter className="mt-0" />
       </>
@@ -135,7 +135,7 @@ export default function CandidateWizardPage() {
   if (stepIndex === 7) {
     return (
       <>
-        <TopLogoBar />
+        <PublicNavbar />
         <CandidateWorkPreferencesStep draft={profileDraft} />
         <SiteFooter className="mt-0" />
       </>

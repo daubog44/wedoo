@@ -5,9 +5,11 @@ import { useWedooTheme } from "../../theme/wedoo-theme";
 export function WedooThemeToggle({
   className,
   compact = false,
+  testId = "wedoo-theme-toggle",
 }: {
   className?: string;
   compact?: boolean;
+  testId?: string;
 }) {
   const { theme, toggleTheme } = useWedooTheme();
   const isDark = theme === "dark";
@@ -21,7 +23,7 @@ export function WedooThemeToggle({
         compact ? "h-[2rem] min-w-[5rem] px-2.5 text-[0.76rem]" : "h-[2.35rem] min-w-[6.6rem] px-3.5 text-[0.82rem]",
         className,
       )}
-      data-testid="wedoo-theme-toggle"
+      data-testid={testId}
       onClick={toggleTheme}
       type="button"
     >

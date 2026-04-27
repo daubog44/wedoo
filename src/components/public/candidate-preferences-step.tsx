@@ -38,7 +38,7 @@ export function CandidatePreferencesStep({
   const selectedRoleInterest = draft.preferences.roleInterests[0] ?? "";
 
   return (
-    <main className="bg-brand-page pb-10">
+    <main className="wedoo-workspace min-h-screen bg-[var(--wedoo-workspace-bg)] pb-10">
       <CandidateOnboardingDesktopShell
         backgroundAsset="formcandidati2.png"
         step={2}
@@ -52,7 +52,7 @@ export function CandidatePreferencesStep({
         </div>
 
         <h1
-          className="font-wedoo-accent absolute text-center text-[36px] leading-none text-brand-ink whitespace-nowrap"
+          className="font-wedoo-accent absolute text-center text-[36px] leading-none text-[var(--wedoo-workspace-text)] whitespace-nowrap"
           style={{
             left: candidateOnboardingDesktopPct(165),
             top: 198,
@@ -139,7 +139,7 @@ export function CandidatePreferencesStep({
 
         {loginPrompt ? (
           <p
-            className="font-wedoo-body absolute text-center text-[22px] leading-none text-brand-ink whitespace-nowrap"
+            className="font-wedoo-body absolute text-center text-[20px] leading-none text-[var(--wedoo-ink-muted)] whitespace-nowrap"
             style={{
               left: candidateOnboardingDesktopPct(190),
               top: 857,
@@ -147,7 +147,7 @@ export function CandidatePreferencesStep({
             }}
           >
             {loginPrompt.label}{" "}
-            <Link className="underline" to={loginPrompt.linkTo}>
+            <Link className="text-[var(--wedoo-ink)] underline" to={loginPrompt.linkTo}>
               {loginPrompt.linkLabel}
             </Link>
           </p>
@@ -220,9 +220,9 @@ export function CandidatePreferencesStep({
         </div>
 
         {loginPrompt ? (
-          <p className="font-wedoo-body mx-auto mt-[30px] max-w-[260px] text-center text-[22px] leading-none text-brand-ink whitespace-nowrap">
+          <p className="font-wedoo-body mx-auto mt-[30px] max-w-[290px] text-center text-[18px] leading-[1.25] text-[var(--wedoo-ink-muted)]">
             {loginPrompt.label}{" "}
-            <Link className="underline" to={loginPrompt.linkTo}>
+            <Link className="text-[var(--wedoo-ink)] underline" to={loginPrompt.linkTo}>
               {loginPrompt.linkLabel}
             </Link>
           </p>

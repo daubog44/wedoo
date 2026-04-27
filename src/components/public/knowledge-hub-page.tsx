@@ -1,7 +1,7 @@
 import { knowledgeContent, routeMap } from "../../data/core";
 import type { KnowledgeKind } from "../../data/types";
 import { assetPath, cn } from "../../lib/site-utils";
-import { SiteFooter, TopLogoBar } from "../site";
+import { PublicNavbar, SiteFooter } from "../site";
 import { ButtonLink } from "../ui/actions";
 import { Surface } from "../ui/surfaces";
 
@@ -69,17 +69,17 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
       : knowledgeContent.articles.slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#f3f5fb_0%,#eef2f8_28%,#ffffff_100%)]">
-      <TopLogoBar />
-      <main className="pb-16 pt-4">
+    <div className="min-h-screen bg-[var(--wedoo-page-bg)] text-[var(--wedoo-ink)]">
+      <PublicNavbar />
+      <main className="pb-16 pt-4 md:pt-5">
         <div className="section-shell space-y-6">
           <section className="grid gap-6 xl:grid-cols-[1.14fr_0.86fr]">
-            <div className={cn("overflow-hidden rounded-[1.75rem] border border-white/8 p-8 shadow-[0_34px_90px_-58px_rgba(0,0,0,0.28)]", config.heroClass)}>
+            <div className={cn("wedoo-depth-card overflow-hidden rounded-[1.75rem] border border-white/8 p-8 shadow-[0_34px_90px_-58px_rgba(0,0,0,0.28)]", config.heroClass)}>
               <div className="space-y-8 p-2">
                 <div className="flex flex-wrap gap-2">
                   {config.chips.map((chip) => (
                     <span
-                      className="inline-flex rounded-full border border-white/12 bg-white/6 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/72"
+                      className="inline-flex rounded-full border border-white/12 bg-white/6 px-3 py-1 text-xs font-semibold uppercase tracking-normal text-white/72"
                       key={chip}
                     >
                       {chip}
@@ -88,7 +88,7 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
                 </div>
 
                 <div className="max-w-4xl space-y-5">
-                  <p className="text-sm font-semibold uppercase tracking-[0.28em] text-white/48">
+                  <p className="text-sm font-semibold uppercase tracking-normal text-white/48">
                     {config.eyebrow}
                   </p>
                   <h1 className="max-w-4xl text-4xl leading-[0.95] text-white sm:text-5xl lg:text-[4rem]">
@@ -116,13 +116,13 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
               </div>
             </div>
 
-            <Surface className="overflow-hidden bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,247,252,0.96))]">
+            <Surface className="wedoo-depth-card overflow-hidden">
               <img
                 alt={config.featureImageAlt}
-                className="aspect-[4/3] w-full rounded-[1.8rem] object-cover"
+                className="aspect-[4/3] w-full rounded-[1.4rem] bg-[var(--wedoo-white-soft)] object-contain p-4"
                 src={assetPath(config.featureImage)}
               />
-              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.24em] text-[var(--wedoo-violet)]">
+              <p className="mt-6 text-sm font-semibold uppercase tracking-normal text-[var(--wedoo-violet)]">
                 story framing
               </p>
               <h2 className="mt-3 text-3xl leading-tight text-[var(--wedoo-ink-strong)]">
@@ -140,12 +140,12 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
                 const meta = cardMeta[kind][index] ?? cardMeta[kind][cardMeta[kind].length - 1];
 
                 return (
-                  <Surface className="flex h-full flex-col bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(246,248,252,0.94))]" key={item.id}>
+                  <Surface className="wedoo-depth-card flex h-full flex-col" key={item.id}>
                     <div className="flex items-center justify-between gap-4">
-                      <span className="inline-flex rounded-full border border-[var(--wedoo-line)] bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--wedoo-ink-muted)]">
+                      <span className="inline-flex rounded-full border border-[var(--wedoo-line)] bg-[var(--wedoo-ghost-bg)] px-3 py-1 text-xs font-semibold uppercase tracking-normal text-[var(--wedoo-ink-muted)]">
                         {meta.label}
                       </span>
-                      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--wedoo-ink-muted)]">
+                      <span className="text-xs font-semibold uppercase tracking-normal text-[var(--wedoo-ink-muted)]">
                         {meta.value}
                       </span>
                     </div>
@@ -164,8 +164,8 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
             </div>
 
             <div className="grid gap-6">
-              <div className={cn("overflow-hidden rounded-[1.75rem] border border-white/8 p-8 shadow-[0_34px_90px_-58px_rgba(0,0,0,0.28)]", config.heroClass)}>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/48">
+              <div className={cn("wedoo-depth-card overflow-hidden rounded-[1.75rem] border border-white/8 p-8 shadow-[0_34px_90px_-58px_rgba(0,0,0,0.28)]", config.heroClass)}>
+                <p className="text-sm font-semibold uppercase tracking-normal text-white/48">
                   reading notes
                 </p>
                 <h2 className="mt-4 text-3xl leading-tight text-white">
@@ -185,8 +185,8 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
                 </div>
               </div>
 
-              <Surface className="bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(246,248,252,0.94))]">
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--wedoo-ink-muted)]">
+              <Surface className="wedoo-depth-card">
+                <p className="text-sm font-semibold uppercase tracking-normal text-[var(--wedoo-ink-muted)]">
                   cross navigation
                 </p>
                 <h2 className="mt-4 text-3xl leading-tight text-[var(--wedoo-ink-strong)]">
@@ -194,8 +194,8 @@ export function KnowledgeHubPage({ kind }: { kind: KnowledgeKind }) {
                 </h2>
                 <div className="mt-5 grid gap-4">
                   {relatedItems.map((item) => (
-                    <div className="rounded-[1.5rem] border border-[var(--wedoo-line)] bg-white p-4" key={item.id}>
-                      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--wedoo-violet)]">
+                    <div className="rounded-[1.5rem] border border-[var(--wedoo-line)] bg-[var(--wedoo-panel-bg)] p-4" key={item.id}>
+                      <p className="text-sm font-semibold uppercase tracking-normal text-[var(--wedoo-violet)]">
                         Related
                       </p>
                       <h3 className="mt-2 text-lg leading-tight text-[var(--wedoo-ink-strong)]">

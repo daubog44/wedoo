@@ -98,7 +98,7 @@ function PortalNavItem({
     <NavLink
       className={({ isActive }) =>
         cn(
-          "font-wedoo-accent rounded-full px-4 py-2 text-[0.95rem] transition",
+          "font-wedoo-accent rounded-full px-3 py-2 text-[0.88rem] transition",
           pill
             ? isActive
               ? config.accentPill
@@ -122,14 +122,14 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
   const navigation = portalNavigation[role];
 
   return (
-    <header className="border-b border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-glass-bg)] backdrop-blur-xl">
-      <div className="mx-auto max-w-[1440px] px-4 md:px-8">
-        <div className="flex min-h-[82px] items-center gap-4">
-          <div className="flex min-w-0 items-center gap-4">
-            <WedooLogo imageClassName="h-9 md:h-10" variant={role === "candidate" ? "candidate" : "company"} />
+    <header className="border-b border-[var(--wedoo-workspace-line)] bg-[rgba(7,13,24,0.84)] backdrop-blur-xl">
+      <div className="mx-auto max-w-[1440px] px-4 md:px-8 xl:px-10">
+        <div className="flex min-h-[62px] items-center gap-3 md:min-h-[74px]">
+          <div className="flex min-w-0 items-center gap-3">
+            <WedooLogo imageClassName="h-7 md:h-9" variant={role === "candidate" ? "candidate" : "company"} />
             <span
               className={cn(
-                "hidden rounded-full border px-3 py-2 text-[0.68rem] font-wedoo-accent uppercase tracking-[0.18em] md:inline-flex",
+                "hidden rounded-full border px-3 py-1.5 text-[0.64rem] font-semibold uppercase tracking-normal md:inline-flex",
                 config.accentBorder,
                 config.accentLink,
               )}
@@ -138,7 +138,7 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
             </span>
           </div>
 
-          <nav aria-label={config.navLabel} className="ml-4 hidden items-center gap-2 lg:flex">
+          <nav aria-label={config.navLabel} className="ml-3 hidden items-center gap-1.5 lg:flex">
             {navigation.map((item) => (
               <PortalNavItem
                 itemLabel={item.label}
@@ -150,21 +150,23 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
             ))}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-3 lg:flex">
+          <div className="ml-auto hidden items-center gap-2 lg:flex">
             <button
               aria-label={config.searchLabel}
-              className="wedoo-theme-ghost-button inline-flex min-h-[44px] items-center gap-3 rounded-full px-4 text-[var(--wedoo-workspace-muted)] transition hover:border-[var(--wedoo-toggle-border-strong)] hover:text-[var(--wedoo-workspace-text)]"
+              className="wedoo-theme-ghost-button inline-flex min-h-[40px] items-center gap-2 rounded-full px-3.5 text-[var(--wedoo-workspace-muted)] transition hover:border-[var(--wedoo-toggle-border-strong)] hover:text-[var(--wedoo-workspace-text)]"
               type="button"
             >
               <SiteIcon className="h-4 w-4" name="search" />
-              <span className="font-wedoo-body text-sm italic leading-none">{config.searchPlaceholder}</span>
+              <span className="font-wedoo-body text-xs italic leading-none">
+                {role === "company" ? "cerca candidati" : config.searchPlaceholder}
+              </span>
             </button>
 
             <WedooThemeToggle />
 
             <button
               aria-label={config.secondaryLabel}
-              className="wedoo-theme-ghost-button inline-flex h-11 w-11 items-center justify-center rounded-full text-[var(--wedoo-workspace-muted)] transition hover:border-[var(--wedoo-toggle-border-strong)] hover:text-[var(--wedoo-workspace-text)]"
+              className="wedoo-theme-ghost-button inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--wedoo-workspace-muted)] transition hover:border-[var(--wedoo-toggle-border-strong)] hover:text-[var(--wedoo-workspace-text)]"
               type="button"
             >
               <SiteIcon className="h-4 w-4" name="filter" />
@@ -173,10 +175,9 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
             <PortalDesktopProfile role={role} />
           </div>
 
-          <div className="ml-auto flex min-w-0 items-center gap-3 lg:hidden">
+          <div className="ml-auto flex min-w-0 items-center gap-2 lg:hidden">
             <WedooThemeToggle compact />
             <PortalMobileProfile role={role} />
-            <p className="line-clamp-2 min-w-0 text-sm leading-5 text-[var(--wedoo-workspace-muted)]">{config.profileLabel}</p>
             <button
               aria-expanded={isOpen}
               aria-label={isOpen ? config.closeLabel : config.openLabel}
@@ -189,18 +190,20 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 border-t border-[var(--wedoo-workspace-line)] py-3 lg:hidden">
+        <div className="flex items-center gap-2 border-t border-[var(--wedoo-workspace-line)] py-3 lg:hidden">
           <button
             aria-label={config.searchLabel}
-            className="wedoo-theme-ghost-button inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[16px] px-4 text-[var(--wedoo-workspace-muted)]"
+            className="wedoo-theme-ghost-button inline-flex min-h-[40px] flex-1 items-center justify-center gap-2 rounded-[14px] px-3 text-[var(--wedoo-workspace-muted)]"
             type="button"
           >
             <SiteIcon className="h-4 w-4" name="search" />
-            <span className="font-wedoo-body text-sm italic">{config.searchPlaceholder}</span>
+            <span className="font-wedoo-body text-sm italic">
+              {role === "company" ? "cerca candidati" : config.searchPlaceholder}
+            </span>
           </button>
           <button
             aria-label={config.secondaryLabel}
-            className="wedoo-theme-ghost-button inline-flex h-11 w-11 items-center justify-center rounded-[16px] text-[var(--wedoo-workspace-muted)]"
+            className="wedoo-theme-ghost-button inline-flex h-10 w-10 items-center justify-center rounded-[14px] text-[var(--wedoo-workspace-muted)]"
             type="button"
           >
             <SiteIcon className="h-4 w-4" name="filter" />
@@ -208,12 +211,16 @@ function PortalNavbarShell({ role }: { role: PortalRole }) {
         </div>
 
         <div className={cn("pb-4 lg:hidden", isOpen ? "block" : "hidden")}>
-          <nav aria-label={config.mobileNavLabel} className="grid gap-2 rounded-[1.4rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] p-3 backdrop-blur">
+          <nav aria-label={config.mobileNavLabel} className="grid gap-2 rounded-[1.2rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] p-3 backdrop-blur">
+            <div className="mb-1 flex items-center gap-3 rounded-[1rem] border border-white/10 bg-white/4 px-3 py-3">
+              <PortalMobileProfile role={role} />
+              <p className="min-w-0 text-sm leading-5 text-[var(--wedoo-workspace-text)]">{config.profileLabel}</p>
+            </div>
             {navigation.map((item) => (
               <NavLink
                 className={({ isActive }) =>
                   cn(
-                    "rounded-[14px] px-4 py-3 font-wedoo-accent text-[1rem] transition",
+                    "rounded-[12px] px-4 py-3 font-wedoo-accent text-[0.95rem] transition",
                     isActive
                       ? config.accentPill
                       : "text-[var(--wedoo-workspace-muted)] hover:bg-[var(--wedoo-ghost-bg-hover)] hover:text-[var(--wedoo-workspace-text)]",

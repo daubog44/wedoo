@@ -30,8 +30,8 @@ test.describe("login page", () => {
     await expect(emailField).toBeVisible();
     await expect(passwordField).toBeVisible();
 
-    await expect(loginLayout.getByText(publicCopy.login.emailError, { exact: true })).toBeVisible();
-    await expect(loginLayout.getByText(publicCopy.login.passwordError, { exact: true })).toBeVisible();
+    await expect(loginLayout.getByText(publicCopy.login.emailError, { exact: true })).toBeHidden();
+    await expect(loginLayout.getByText(publicCopy.login.passwordError, { exact: true })).toBeHidden();
     await expect(
       loginLayout.getByRole("link", { name: publicCopy.login.forgotPassword }),
     ).toHaveAttribute("href", publicRoutes.passwordRecovery);

@@ -51,7 +51,7 @@ export function CandidateRegistrationStep({
   const loginPrompt = candidateRegistrationAuthViewModel.footerPrompt;
 
   return (
-    <main className="bg-brand-page pb-10">
+    <main className="wedoo-workspace min-h-screen bg-[var(--wedoo-workspace-bg)] pb-10">
       <CandidateOnboardingDesktopShell
         backgroundAsset="formcandidati1.png"
         step={1}
@@ -65,22 +65,22 @@ export function CandidateRegistrationStep({
         </div>
 
         <h1
-          className="font-wedoo-accent absolute text-center text-[36px] leading-none text-brand-ink"
+          className="font-wedoo-accent absolute text-center text-[34px] leading-[0.95] text-[var(--wedoo-workspace-text)]"
           style={{
-            left: candidateOnboardingDesktopPct(185),
-            top: 141,
-            width: candidateOnboardingDesktopPct(259),
+            left: candidateOnboardingDesktopPct(152),
+            top: 144,
+            width: candidateOnboardingDesktopPct(360),
           }}
         >
-          Benvenut*!
+          {candidateRegistrationAuthViewModel.title}
         </h1>
 
         <p
-          className="font-wedoo-accent absolute text-center text-[24px] leading-none text-brand-ink"
+          className="font-wedoo-accent absolute text-center text-[23px] leading-[1.05] text-[var(--wedoo-workspace-muted)]"
           style={{
-            left: candidateOnboardingDesktopPct(255),
-            top: 201,
-            width: candidateOnboardingDesktopPct(119),
+            left: candidateOnboardingDesktopPct(225),
+            top: 222,
+            width: candidateOnboardingDesktopPct(210),
           }}
         >
           {candidateRegistrationAuthViewModel.subtitle}
@@ -90,7 +90,7 @@ export function CandidateRegistrationStep({
           className="absolute px-4 pb-[13px] pt-[23px]"
           style={{
             left: candidateOnboardingDesktopPct(152),
-            top: 240,
+            top: 268,
             width: candidateOnboardingDesktopPct(359),
           }}
         >
@@ -183,14 +183,14 @@ export function CandidateRegistrationStep({
 
         <div
           className="absolute w-[440px]"
-          style={{ left: candidateOnboardingDesktopPct(111), top: 799 }}
+          style={{ left: candidateOnboardingDesktopPct(111), top: 864 }}
         >
           <CandidateOnboardingOrDivider />
         </div>
 
         <div
           className="absolute flex gap-8"
-          style={{ left: candidateOnboardingDesktopPct(111), top: 842 }}
+          style={{ left: candidateOnboardingDesktopPct(111), top: 908 }}
         >
           {providerOptions.map((provider) => (
             <CandidateOnboardingSocialButton key={provider.id}>
@@ -204,7 +204,7 @@ export function CandidateRegistrationStep({
         step={1}
         subtitle={candidateRegistrationAuthViewModel.subtitle}
         testId="candidate-registration-step"
-        title="Piacere di conoscerti!"
+        title="Piacere di conoscerti"
       >
         <CandidateOnboardingFormCard className="mt-4 px-[7px] pb-[17px] pt-[23px]">
           <div className="space-y-[14px]" data-node-id="234:593">
@@ -313,9 +313,9 @@ export function CandidateRegistrationStep({
         </div>
 
         {loginPrompt ? (
-          <p className="font-wedoo-body mx-auto mt-[30px] max-w-[260px] text-center text-[22px] leading-none text-brand-ink whitespace-nowrap">
+          <p className="font-wedoo-body mx-auto mt-[30px] max-w-[290px] text-center text-[18px] leading-[1.25] text-[var(--wedoo-ink-muted)]">
             {loginPrompt.label}{" "}
-            <Link className="underline" to={loginPrompt.linkTo}>
+            <Link className="text-[var(--wedoo-ink)] underline" to={loginPrompt.linkTo}>
               {loginPrompt.linkLabel}
             </Link>
           </p>

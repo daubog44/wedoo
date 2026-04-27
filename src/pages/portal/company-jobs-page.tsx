@@ -95,7 +95,7 @@ export default function CompanyJobsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-brand-page" data-portal-page="company-jobs">
+    <main className="wedoo-workspace min-h-screen bg-[var(--wedoo-workspace-bg)]" data-portal-page="company-jobs">
       {section === "published-jobs" ? (
         <CompanyPublishedJobsView
           activityValue={activityValue}

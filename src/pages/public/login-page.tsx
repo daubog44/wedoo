@@ -4,10 +4,9 @@ import {
   AuthCheckbox,
   AuthFormPanel,
   AuthTextLink,
-  AuthTopBar,
   AuthWorkspacePanel,
 } from "../../components/public";
-import { SiteFooter } from "../../components/site";
+import { PublicNavbar, SiteFooter } from "../../components/site";
 import { loginAuthViewModel } from "../../data/auth";
 import { assetPath, cn } from "../../lib/site-utils";
 
@@ -63,9 +62,10 @@ function LoginInput({
         value={value}
       />
       <p
+        aria-hidden={!showError}
         className={cn(
           "font-wedoo-body mt-2 min-h-[1.25rem] text-sm leading-none text-[#b42318]",
-          showError ? "opacity-100" : "opacity-0",
+          showError ? "visible opacity-100" : "invisible opacity-0",
         )}
         id={errorId}
       >
@@ -162,14 +162,12 @@ function LoginDesktopView({
 }) {
   return (
     <section className="hidden min-[1024px]:block" data-login-layout="desktop">
-      <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-6">
-        <AuthTopBar />
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-[0.48fr_0.52fr]">
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <h1 className="text-[3.7rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
-              <h2 className="font-wedoo-accent text-[1.55rem] leading-none text-[var(--wedoo-ink)]">
+      <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-4">
+        <div className="mt-5 grid gap-6 lg:grid-cols-[0.48fr_0.52fr]">
+          <div className="space-y-7">
+            <div className="space-y-5">
+              <h1 className="text-[3.25rem] leading-[0.96] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
+              <h2 className="font-wedoo-accent text-[1.55rem] leading-none text-[var(--wedoo-ink-strong)]">
                 {loginAuthViewModel.subtitle}
               </h2>
               <p className="max-w-[28rem] text-base leading-7 text-[var(--wedoo-ink-muted)]">
@@ -215,17 +213,17 @@ function LoginDesktopView({
             </AuthFormPanel>
           </div>
 
-          <AuthWorkspacePanel className="min-h-[42rem]">
+          <AuthWorkspacePanel className="min-h-[42rem] wedoo-depth-card">
             <img
               alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-[0.26]"
+              className="absolute inset-0 h-full w-full object-cover opacity-[0.36]"
               src={assetPath(loginAuthViewModel.background)}
             />
             <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
             <div className="relative z-10 flex h-full flex-col justify-between gap-8">
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <span className="wedoo-workspace-chip">sign in</span>
-                <p className="max-w-[24rem] text-[3rem] leading-[0.92] text-[var(--wedoo-workspace-text)]">
+                <p className="max-w-[24rem] text-[2.75rem] leading-[0.96] text-[var(--wedoo-workspace-text)]">
                   Entra in un prodotto che non nasconde il contesto.
                 </p>
                 <p className="max-w-[24rem] text-base leading-7 text-[var(--wedoo-workspace-muted)]">
@@ -277,26 +275,27 @@ function LoginMobileView({
 }) {
   return (
     <section className="min-[1024px]:hidden" data-login-layout="mobile">
-      <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <AuthTopBar compact />
-
+      <div className="mx-auto max-w-[390px] px-4 pb-8 pt-4">
         <div className="mt-5 space-y-5">
-          <div className="space-y-3">
-            <h1 className="text-[2.9rem] leading-[0.92] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
-            <h2 className="font-wedoo-accent text-[1.3rem] leading-none text-[var(--wedoo-ink)]">
+          <div className="space-y-4">
+            <h1 className="text-[2.25rem] leading-[1] text-[var(--wedoo-ink-strong)]">{loginAuthViewModel.title}</h1>
+            <h2 className="font-wedoo-accent text-[1.3rem] leading-none text-[var(--wedoo-ink-strong)]">
               {loginAuthViewModel.subtitle}
             </h2>
+            <p className="text-base leading-7 text-[var(--wedoo-ink-muted)]">
+              Accedi a un workspace che mette in chiaro ruolo, impatto e trasparenza prima della retorica.
+            </p>
           </div>
 
-          <AuthWorkspacePanel className="min-h-[16rem]">
+          <AuthWorkspacePanel className="min-h-[16rem] wedoo-depth-card">
             <img
               alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-[0.22]"
+              className="absolute inset-0 h-full w-full object-cover opacity-[0.34]"
               src={assetPath(loginAuthViewModel.background)}
             />
             <div className="absolute inset-0" style={{ background: "var(--wedoo-media-overlay)" }} />
             <div className="relative z-10 flex h-full flex-col justify-end">
-              <p className="max-w-[14rem] text-[2rem] leading-[0.94] text-[var(--wedoo-workspace-text)]">
+              <p className="max-w-[15rem] text-[1.72rem] leading-[1] text-[var(--wedoo-workspace-text)]">
                 Entra senza rumore, capisci subito il prodotto.
               </p>
             </div>
@@ -394,6 +393,7 @@ export default function LoginPage() {
   return (
     <>
       <main className="bg-[var(--wedoo-page-bg)] pb-6">
+        <PublicNavbar />
         <LoginMobileView
           onInputChange={handleInputChange}
           onSubmit={handleSubmit}

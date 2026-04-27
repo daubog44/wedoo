@@ -64,7 +64,7 @@ const privacyField = {
 } as const satisfies AuthFieldViewModel;
 
 export const loginAuthViewModel = {
-  background: "accedi.png",
+  background: "sfondo.png",
   ctaLabel: "accedi",
   ctaTo: "/portale/candidato",
   dividerLabel: "oppure",
@@ -122,9 +122,9 @@ export const loginAuthViewModel = {
       label: "accedi con Apple",
     },
   ],
-  showMissingFieldErrorsByDefault: true,
-  subtitle: "Accedi",
-  title: "Bentornat*!",
+  showMissingFieldErrorsByDefault: false,
+  subtitle: "Bentornato",
+  title: "Accedi a Wedoo",
   tone: "lilac",
 } as const satisfies AuthViewModel;
 
@@ -208,7 +208,7 @@ export const candidateRegistrationAuthViewModel = {
   ],
   providerButtons: true,
   subtitle: "Registrati",
-  title: "Benvenut*!",
+  title: "Inizia il tuo profilo",
   tone: "mint",
 } as const satisfies AuthViewModel;
 
@@ -278,7 +278,7 @@ export const companyRegistrationAuthViewModel = {
   ],
   providerButtons: true,
   subtitle: "Compila il tuo primo annuncio per registrarti",
-  title: "Benvenut*!",
+  title: "Registra l'azienda",
   tone: "violet",
 } as const satisfies AuthViewModel;
 

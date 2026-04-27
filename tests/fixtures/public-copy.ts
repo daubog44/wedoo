@@ -80,14 +80,14 @@ export const publicCopy = {
     emailError: "*email mancante",
     emailLabel: "email",
     forgotPassword: "password dimenticata",
-    heading: "Bentornat*!",
+    heading: "Accedi a Wedoo",
     providerApple: "accedi con Apple",
     providerGoogle: "accedi con Google",
     passwordError: "*password mancante",
     passwordLabel: "password",
     registerPrompt: "non hai un account?",
     registerPromptLink: "registrati",
-    subtitle: "Accedi",
+    subtitle: "Bentornato",
     termsLabel: "accetto i termini e le condizioni",
   },
   passwordRecovery: {
@@ -107,7 +107,7 @@ export const publicCopy = {
   },
   candidateRegistration: {
     ctaLabel: "continua",
-    desktopHeading: "Benvenut*!",
+    desktopHeading: "Inizia il tuo profilo",
     fieldLabels: [
       "nome e cognome*",
       "e-mail*",
@@ -117,7 +117,7 @@ export const publicCopy = {
     ],
     loginPrompt: "hai gi\u00E0 un account?",
     loginPromptLink: "accedi",
-    mobileHeading: "Piacere di conoscerti!",
+    mobileHeading: "Piacere di conoscerti",
     privacyLabel: "ho preso visione dell'informativa sulla",
     privacyLink: "privacy",
     providerApple: "entra con Apple",
@@ -195,7 +195,7 @@ export const publicCopy = {
   companyRegistration: {
     desktopSaveCta: "bozza",
     finalPrimaryCta: "invia",
-    firstTitle: "Benvenut*!",
+    firstTitle: "Registra l'azienda",
     firstSubtitle: "Compila il tuo primo annuncio per registrarti",
     loginPromptLink: "accedi",
     outlinePreviewCta: "anteprima",
@@ -281,8 +281,8 @@ export const publicCopy = {
   register: {
     candidateCta: "candidato",
     companyCta: "azienda",
-    desktopHeading: "registrati come candidato/azienda",
-    mobileHeading: "registrati o accedi come candidato/azienda",
+    desktopHeading: "Scegli il tuo percorso Wedoo",
+    mobileHeading: "Scegli come entrare",
   },
   support: {
     candidateDescription:

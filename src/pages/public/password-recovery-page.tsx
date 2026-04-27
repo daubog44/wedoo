@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   AuthCheckbox,
   AuthFormPanel,
-  AuthTopBar,
   AuthWorkspacePanel,
 } from "../../components/public";
+import { PublicNavbar, SiteFooter } from "../../components/site";
 import { passwordRecoveryViewModel } from "../../data/auth-recovery";
 import { assetPath, cn } from "../../lib/site-utils";
 
@@ -109,9 +109,7 @@ function RecoveryDesktopView({
   return (
     <section className="hidden min-[1024px]:block" data-node-id="657:658" data-password-recovery-layout="desktop">
       <div className="mx-auto max-w-[1360px] px-8 pb-10 pt-6">
-        <AuthTopBar />
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-[0.5fr_0.5fr]">
+        <div className="grid gap-6 lg:grid-cols-[0.5fr_0.5fr]">
           <div className="space-y-6">
             <div className="space-y-4">
               <h1 className="text-[3.5rem] leading-[0.9] text-[var(--wedoo-ink-strong)]">
@@ -210,9 +208,7 @@ function RecoveryMobileView({
   return (
     <section className="min-[1024px]:hidden" data-node-id="660:774" data-password-recovery-layout="mobile">
       <div className="mx-auto max-w-[390px] px-4 pb-8 pt-5">
-        <AuthTopBar compact />
-
-        <div className="mt-5 space-y-5">
+        <div className="space-y-5">
           <h1 className="text-[2.55rem] leading-[0.94] text-[var(--wedoo-ink-strong)]">
             {passwordRecoveryViewModel.title}
           </h1>
@@ -289,21 +285,25 @@ export default function PasswordRecoveryPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--wedoo-page-bg)]">
-      <RecoveryMobileView
-        onChangeField={handleChangeField}
-        onSubmit={handleSubmit}
-        onToggleTerms={handleToggleTerms}
-        termsAccepted={termsAccepted}
-        values={values}
-      />
-      <RecoveryDesktopView
-        onChangeField={handleChangeField}
-        onSubmit={handleSubmit}
-        onToggleTerms={handleToggleTerms}
-        termsAccepted={termsAccepted}
-        values={values}
-      />
-    </main>
+    <>
+      <main className="min-h-screen bg-[var(--wedoo-page-bg)]">
+        <PublicNavbar />
+        <RecoveryMobileView
+          onChangeField={handleChangeField}
+          onSubmit={handleSubmit}
+          onToggleTerms={handleToggleTerms}
+          termsAccepted={termsAccepted}
+          values={values}
+        />
+        <RecoveryDesktopView
+          onChangeField={handleChangeField}
+          onSubmit={handleSubmit}
+          onToggleTerms={handleToggleTerms}
+          termsAccepted={termsAccepted}
+          values={values}
+        />
+      </main>
+      <SiteFooter className="mt-0" />
+    </>
   );
 }

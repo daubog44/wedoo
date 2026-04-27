@@ -285,6 +285,7 @@ body {
   background: var(--wedoo-page-gradient);
   color: var(--wedoo-ink);
   font-family: var(--wedoo-font-body);
+  line-height: 1.5;
   transition:
     background 0.28s ease,
     color 0.28s ease;
@@ -304,7 +305,7 @@ h2,
 h3 {
   margin: 0;
   font-family: var(--wedoo-font-heading);
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
 }
 
 h4,
@@ -317,6 +318,7 @@ summary {
 
 p {
   margin: 0;
+  text-wrap: pretty;
 }
 
 .font-wedoo-body {
@@ -396,15 +398,15 @@ a {
 .wedoo-display {
   font-family: var(--wedoo-font-heading);
   font-size: clamp(3.4rem, 7vw, 6.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.08em;
+  line-height: 0.94;
+  letter-spacing: 0;
   color: var(--wedoo-ink-strong);
 }
 
 .wedoo-lead {
   max-width: 42rem;
   font-size: clamp(1.04rem, 1.7vw, 1.24rem);
-  line-height: 1.65;
+  line-height: 1.78;
   color: var(--wedoo-ink-muted);
 }
 
@@ -503,6 +505,44 @@ a {
   backdrop-filter: blur(18px);
 }
 
+.wedoo-home-hero-action {
+  display: inline-flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 1px solid var(--wedoo-ghost-border);
+  border-radius: 16px;
+  background: var(--wedoo-ghost-bg);
+  padding: 0 1.25rem;
+  font-family: var(--wedoo-font-accent);
+  color: var(--wedoo-ghost-text);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.wedoo-home-hero-action:hover,
+.wedoo-home-hero-action:focus-visible {
+  box-shadow: 0 20px 48px -34px rgba(15, 23, 40, 0.3);
+}
+
+.wedoo-home-hero-action-violet:hover,
+.wedoo-home-hero-action-violet:focus-visible {
+  border-color: var(--wedoo-violet);
+  background: var(--wedoo-violet);
+  color: var(--wedoo-white-soft);
+}
+
+.wedoo-home-hero-action-mint:hover,
+.wedoo-home-hero-action-mint:focus-visible {
+  border-color: var(--wedoo-mint);
+  background: var(--wedoo-mint);
+  color: var(--wedoo-ink);
+}
+
 .wedoo-home-hero-dot {
   background: var(--wedoo-home-hero-dot);
 }
@@ -513,6 +553,31 @@ a {
   background: var(--wedoo-panel-bg);
   box-shadow: var(--wedoo-panel-shadow);
   color: var(--wedoo-ink);
+}
+
+.wedoo-feature-link-card:hover,
+.wedoo-feature-link-card:focus-within {
+  border-color: var(--wedoo-line-strong);
+  background: linear-gradient(180deg, rgba(17, 28, 46, 0.98), rgba(9, 16, 28, 0.98));
+}
+
+.wedoo-scroll-anchor {
+  scroll-margin-top: 7.5rem;
+}
+
+.wedoo-depth-card {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+  will-change: transform;
+}
+
+.wedoo-depth-card:hover,
+.wedoo-depth-card:focus-within {
+  transform: translateY(-4px) rotateX(2.5deg) rotateY(-2.5deg);
+  box-shadow: 0 42px 100px -70px rgba(0, 0, 0, 0.58);
 }
 
 .wedoo-theme-field {
@@ -550,6 +615,13 @@ a {
   transform: translateY(-3px);
   border-color: rgba(255, 255, 255, 0.18);
   background: linear-gradient(180deg, rgba(18, 28, 48, 0.9), rgba(10, 18, 31, 0.92));
+}
+
+.wedoo-editor-surface {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(17, 26, 42, 0.98), rgba(11, 18, 31, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .wedoo-checker-placeholder {

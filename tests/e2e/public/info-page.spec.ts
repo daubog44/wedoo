@@ -3,7 +3,7 @@ import { publicCopy, publicRoutes } from "../../fixtures/public-copy";
 import { waitForWedooPageReady } from "../../fixtures/playwright-helpers";
 
 test.describe("info page", () => {
-  test("renders the current sections without the legacy footer shell", async ({ page }, testInfo) => {
+  test("renders the current sections with the shared public footer", async ({ page }, testInfo) => {
     const layoutRoot = page.locator(
       `[data-info-layout="${testInfo.project.name === "chromium-mobile" ? "mobile" : "desktop"}"]`,
     );
@@ -19,7 +19,7 @@ test.describe("info page", () => {
       await expect(layoutRoot.getByText(groupLabel, { exact: true })).toBeVisible();
     }
 
-    await expect(page.getByText("Tutti i diritti riservati")).toHaveCount(0);
+    await expect(page.getByText(publicCopy.home.footerRightsLine)).toBeVisible();
   });
 
   test("reveals faq answers on demand", async ({ page }) => {

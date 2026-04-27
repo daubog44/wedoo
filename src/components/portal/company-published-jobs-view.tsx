@@ -27,7 +27,7 @@ function SidebarGhostSelect({
     <div className="relative">
       <select
         aria-label={ariaLabel}
-        className="font-wedoo-accent h-[3.3rem] w-full appearance-none rounded-[16px] border border-[var(--wedoo-line)] bg-white/84 px-4 pr-10 text-left text-[18px] leading-none text-brand-ink outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]"
+        className="font-wedoo-body h-11 w-full appearance-none rounded-[12px] border border-white/10 bg-white/6 px-3 pr-9 text-left text-[0.9rem] leading-none text-white outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.16)]"
         onChange={(event) => onChange(event.target.value)}
         value={value}
       >
@@ -39,7 +39,7 @@ function SidebarGhostSelect({
         ))}
       </select>
       <AppIcon
-        className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-ink"
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/62"
         name="chevron-down-line"
       />
     </div>
@@ -70,32 +70,32 @@ function CompanyPublishedJobsDesktopRail({
   response: CompanyJobManagementResponse;
 }) {
   return (
-    <aside className="flex min-h-[920px] flex-col rounded-[2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-8 pb-8 pt-8 text-white shadow-[0_40px_100px_-72px_rgba(0,0,0,0.82)]">
-      <div className="flex items-center gap-4">
-        <div className="flex h-[88px] w-[88px] items-center justify-center rounded-[1.6rem] border border-white/10 bg-white/95">
+    <aside className="flex min-h-[760px] flex-col rounded-[1.25rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-5 pb-5 pt-5 text-white shadow-[0_34px_88px_-70px_rgba(0,0,0,0.82)]">
+      <div className="flex items-center gap-3">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[1rem] border border-white/10 bg-white/95">
           <AppImage
             alt={response.company.legalName}
-            className="h-[42px] w-[42px] object-contain"
+            className="h-9 w-9 object-contain"
             priority
             src={assetPath(response.company.logo)}
           />
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/42">company workspace</p>
-          <h2 className="mt-2 font-wedoo-heading text-[2rem] leading-[0.9] text-white">
+          <p className="text-[0.68rem] font-semibold uppercase text-white/48">company workspace</p>
+          <h2 className="mt-1 text-[1.45rem] leading-tight text-white">
             {response.company.legalName}
           </h2>
         </div>
       </div>
 
-      <div className="mt-6 flex w-full justify-between gap-3">
+      <div className="mt-5 grid grid-cols-3 gap-2">
         {response.company.certificationLabels.map((label) => (
           <div
-            className="flex min-w-0 flex-1 flex-col items-center gap-2 rounded-[1.2rem] border border-white/10 bg-white/5 px-2 py-3 text-center"
+            className="flex min-w-0 flex-col items-center gap-2 rounded-[0.9rem] border border-white/10 bg-white/5 px-2 py-2.5 text-center"
             key={label}
           >
-            <span className="inline-flex h-10 w-10 rounded-full border border-white/16 bg-white/5" />
-            <span className="font-wedoo-body text-[14px] leading-[1.2] text-white/74">
+            <span className="inline-flex h-7 w-7 rounded-full border border-white/16 bg-white/5" />
+            <span className="font-wedoo-body text-[0.72rem] leading-[1.2] text-white/74">
               {label}
             </span>
           </div>
@@ -103,14 +103,14 @@ function CompanyPublishedJobsDesktopRail({
       </div>
 
       <button
-        className="font-wedoo-accent mt-5 inline-flex items-center gap-2 text-[16px] leading-none text-white/76 transition hover:text-white"
+        className="font-wedoo-accent mt-4 inline-flex items-center gap-2 text-[0.86rem] leading-none text-white/76 transition hover:text-white"
         type="button"
       >
         <AppIcon className="h-5 w-5" name="arrow-up-line" />
         {response.company.uploadCertificationsLabel}
       </button>
 
-      <div className="mt-6 grid gap-4">
+      <div className="mt-5 grid gap-3">
         <SidebarGhostSelect
           ariaLabel="Attivita azienda"
           onChange={onActivityChange}
@@ -118,7 +118,7 @@ function CompanyPublishedJobsDesktopRail({
           placeholder={response.company.activityLabel}
           value={activityValue}
         />
-        <p className="font-wedoo-accent pt-1 text-[18px] leading-none text-white/76">
+        <p className="font-wedoo-accent pt-1 text-[0.9rem] leading-none text-white/76">
           {response.company.candidateInterestLabel}
         </p>
         <SidebarGhostSelect
@@ -158,7 +158,7 @@ function CompanyPublishedJobsDesktopRail({
       </div>
 
       <button
-        className="mt-auto inline-flex min-h-[56px] w-full items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 font-wedoo-accent text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
+        className="mt-auto inline-flex min-h-[46px] w-full items-center justify-center rounded-[13px] bg-[var(--wedoo-violet)] px-4 py-2 font-wedoo-accent text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
         onClick={onCreateNew}
         type="button"
       >
@@ -221,29 +221,29 @@ function CompanyPublishedJobsCard({
   onOpen: (previewPath: string) => void;
 }) {
   return (
-    <article className="rounded-[2rem] border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(245,248,252,0.94))] px-5 pb-5 pt-5 shadow-[0_26px_72px_-58px_rgba(15,23,40,0.32)]">
-      <h2 className="font-wedoo-heading text-center text-[30px] uppercase leading-[0.92] text-brand-ink">
+    <article className="rounded-[1.15rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] px-4 pb-4 pt-4 shadow-[var(--wedoo-workspace-card-shadow)]">
+      <h2 className="text-[1.45rem] uppercase leading-[1.02] text-[var(--wedoo-workspace-text)]">
         {card.title}
       </h2>
 
-      <div className="flex items-center gap-4 pt-4">
-        <div className="flex h-[66px] w-[66px] items-center justify-center rounded-[1.2rem] border border-[var(--wedoo-line)] bg-white">
+      <div className="flex items-center gap-3 pt-4">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.9rem] border border-[var(--wedoo-workspace-line)] bg-white">
           <AppImage
             alt={card.companyName}
-            className="h-[32px] w-[32px] object-contain"
+            className="h-7 w-7 object-contain"
             src={assetPath(card.companyLogo)}
           />
         </div>
-        <div className="font-wedoo-body text-[18px] leading-[1.08] text-brand-ink">
+        <div className="font-wedoo-body text-[0.92rem] leading-5 text-[var(--wedoo-workspace-muted)]">
           <p>{card.companyName}</p>
           <p>{card.locationLabel}</p>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3 pt-4">
+      <div className="flex flex-wrap gap-2 pt-4">
         {card.tagLabels.map((tag) => (
           <span
-            className="font-wedoo-accent inline-flex min-h-[38px] items-center justify-center rounded-full border border-[var(--wedoo-line)] bg-white px-4 py-1 text-[15px] leading-none text-brand-ink"
+            className="font-wedoo-accent inline-flex min-h-[30px] items-center justify-center rounded-full border border-[var(--wedoo-workspace-line)] bg-white/5 px-3 py-1 text-[0.82rem] leading-none text-[var(--wedoo-workspace-text)]"
             key={tag}
           >
             {tag}
@@ -251,7 +251,7 @@ function CompanyPublishedJobsCard({
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-3 pt-4">
+      <div className="flex flex-wrap gap-2 pt-4">
         {card.sdgIds.map((id) => {
           const entry = sdgs[id];
           if (!entry) {
@@ -261,7 +261,7 @@ function CompanyPublishedJobsCard({
           return (
             <img
               alt={entry.label}
-              className="h-[56px] w-[56px] object-contain"
+              className="h-10 w-10 object-contain"
               key={id}
               src={assetPath(entry.icon)}
             />
@@ -270,7 +270,7 @@ function CompanyPublishedJobsCard({
       </div>
 
       <button
-        className="font-wedoo-accent mt-5 inline-flex min-h-[52px] w-full items-center justify-center rounded-[18px] bg-[var(--wedoo-violet)] px-5 py-2 text-[18px] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
+        className="font-wedoo-accent mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-[12px] bg-[var(--wedoo-violet)] px-4 py-2 text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_20px_48px_-34px_rgba(116,80,230,0.68)] transition hover:-translate-y-0.5 hover:bg-[var(--wedoo-violet-hover)]"
         onClick={() => onOpen(card.previewPath)}
         type="button"
       >
@@ -300,15 +300,12 @@ function PublishedJobsFilterSelect({
   value: string;
 }) {
   return (
-    <div className="flex items-center gap-4">
-      <span aria-hidden="true" className="text-[28px] leading-none text-brand-ink">
-        -
-      </span>
-      <label className="relative block flex-1">
+    <div className="relative">
+      <label className="block">
         <span className="sr-only">{label}</span>
         <select
           aria-label={label}
-          className="font-wedoo-accent h-[54px] w-full appearance-none rounded-[16px] border border-[var(--wedoo-line)] bg-white/84 px-4 pr-10 text-[17px] leading-none text-brand-ink outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-4 focus:ring-[rgba(116,80,230,0.08)]"
+          className="font-wedoo-body h-11 w-full appearance-none rounded-[12px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] px-3 pr-9 text-[0.9rem] leading-none text-[var(--wedoo-workspace-text)] outline-none transition focus:border-[var(--wedoo-violet)] focus:ring-2 focus:ring-[rgba(116,80,230,0.22)]"
           onChange={(event) => onChange(event.target.value)}
           value={value}
         >
@@ -320,7 +317,7 @@ function PublishedJobsFilterSelect({
           ))}
         </select>
         <AppIcon
-          className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-ink"
+          className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--wedoo-workspace-muted)]"
           name="chevron-down-line"
         />
       </label>
@@ -402,28 +399,33 @@ function CompanyPublishedJobsDesktopContent({
   });
 
   return (
-      <div className="pt-4" data-company-published-jobs-layout="desktop">
-      <div className="grid grid-cols-[minmax(0,1fr)_240px] gap-8">
+    <div className="pt-0" data-company-published-jobs-layout="desktop">
+      <div className="grid grid-cols-[minmax(0,1fr)_15rem] gap-5">
         <div>
-          <div className="flex items-center gap-5">
+          <div className="flex min-h-[72px] items-center gap-4 rounded-[1.25rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-4 py-3 shadow-[var(--wedoo-workspace-card-shadow)]">
             <button
               aria-label="Torna al portale azienda"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[var(--wedoo-line)] bg-white/86 text-brand-ink transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet)]"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] text-[var(--wedoo-workspace-text)] transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet-300)]"
               onClick={onBack}
               type="button"
             >
-              <AppIcon className="h-9 w-9" name="arrow-left-line" />
+              <AppIcon className="h-6 w-6" name="arrow-left-line" />
             </button>
-            <div className="flex items-center gap-4 text-brand-ink">
-              <AppIcon className="h-9 w-9" name="globe-grid-line" />
-              <AppIcon className="h-9 w-9" name="menu-line" />
+            <div className="flex items-center gap-2 text-[var(--wedoo-workspace-muted)]">
+              <AppIcon className="h-6 w-6" name="globe-grid-line" />
+              <AppIcon className="h-6 w-6" name="menu-line" />
             </div>
-            <p className="font-wedoo-body text-[22px] leading-none text-brand-ink">
-              visualizza annunci a griglia o impilati
-            </p>
+            <div className="min-w-0">
+              <h1 className="text-[2rem] leading-none text-[var(--wedoo-workspace-text)]">
+                visualizza annunci
+              </h1>
+              <p className="mt-1 font-wedoo-body text-sm leading-5 text-[var(--wedoo-workspace-muted)]">
+                visualizza annunci a griglia o impilati
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 pt-5">
+          <div className="grid grid-cols-2 gap-4 pt-5">
             {filteredCards.map((card) => (
               <CompanyPublishedJobsCard
                 card={card}
@@ -434,12 +436,12 @@ function CompanyPublishedJobsDesktopContent({
           </div>
         </div>
 
-        <aside className="rounded-[1.8rem] border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(242,245,250,0.94))] px-4 pb-5 pt-4 shadow-[0_26px_72px_-58px_rgba(15,23,40,0.28)]">
+        <aside className="rounded-[1.25rem] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-4 pb-4 pt-4 shadow-[var(--wedoo-workspace-card-shadow)]">
           <div className="flex justify-end">
-            <AppIcon className="h-10 w-10 text-brand-ink" name="filter-line" />
+            <AppIcon className="h-7 w-7 text-[var(--wedoo-workspace-muted)]" name="filter-line" />
           </div>
 
-          <div className="space-y-4 pt-2">
+          <div className="space-y-3 pt-3">
             <PublishedJobsFilterSelect
               label="localita"
               onChange={(value) =>
@@ -491,7 +493,7 @@ function CompanyPublishedJobsDesktopContent({
           </div>
 
           <button
-            className="font-wedoo-accent mt-4 inline-flex w-full items-center justify-center text-[24px] leading-none text-brand-ink transition hover:text-brand-violet"
+            className="font-wedoo-accent mt-4 inline-flex min-h-[42px] w-full items-center justify-center rounded-[12px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface-2)] px-3 text-[0.9rem] leading-none text-[var(--wedoo-workspace-text)] transition hover:border-[var(--wedoo-violet)] hover:text-[var(--wedoo-violet-300)]"
             onClick={() =>
               setFilters({
                 certification: "",
@@ -538,40 +540,40 @@ function CompanyPublishedJobsMobileContent({
   response: CompanyJobManagementResponse;
 }) {
   return (
-      <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4" data-company-published-jobs-layout="mobile">
-      <div className="rounded-[1.9rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-4 pb-4 pt-4 shadow-[0_40px_100px_-70px_rgba(0,0,0,0.8)]">
-      <div className="relative flex min-h-[66px] items-start justify-center">
-        <button
-          aria-label="Torna al portale azienda"
-          className="absolute left-0 top-[2px] inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
-          onClick={onBack}
-          type="button"
-        >
-          <AppIcon className="h-7 w-7" name="arrow-left-line" />
-        </button>
-        <h1 className="max-w-[252px] text-center font-wedoo-heading text-[40px] leading-[0.92] text-white">
-          visualizza annunci
-        </h1>
-      </div>
+    <div className="mx-auto max-w-[390px] px-4 pb-6 pt-4" data-company-published-jobs-layout="mobile">
+      <div className="rounded-[1.2rem] border border-white/8 bg-[linear-gradient(180deg,#050913,#0d1524)] px-3.5 pb-4 pt-3.5 shadow-[0_34px_88px_-70px_rgba(0,0,0,0.8)]">
+        <div className="relative flex min-h-[58px] items-start justify-center">
+          <button
+            aria-label="Torna al portale azienda"
+            className="absolute left-0 top-0 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/72"
+            onClick={onBack}
+            type="button"
+          >
+            <AppIcon className="h-6 w-6" name="arrow-left-line" />
+          </button>
+          <h1 className="max-w-[240px] text-center text-[2rem] leading-none text-white">
+            visualizza annunci
+          </h1>
+        </div>
 
-      <p className="pt-1 text-center font-wedoo-body text-[16px] leading-[1.15] text-white/70">
+      <p className="pt-1 text-center font-wedoo-body text-sm leading-5 text-white/70">
         visualizza annunci a griglia o impilati
       </p>
 
-      <section className="mt-4 rounded-[1.8rem] border border-[var(--wedoo-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.97),rgba(245,248,252,0.94))] px-5 pb-5 pt-6">
+      <section className="mt-4 rounded-[1.1rem] border border-white/10 bg-white/5 px-4 pb-4 pt-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full bg-white">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[1rem] bg-white">
             <AppImage
               alt={response.company.legalName}
-              className="h-[34px] w-[34px] object-contain"
+              className="h-8 w-8 object-contain"
               src={assetPath(response.company.logo)}
             />
           </div>
           <div>
-            <h2 className="font-wedoo-accent text-[22px] leading-none text-brand-ink">
+            <h2 className="font-wedoo-accent text-[1.1rem] leading-tight text-white">
               {response.company.legalName}
             </h2>
-            <p className="pt-2 font-wedoo-body text-[14px] leading-[1.1] text-brand-ink">
+            <p className="pt-1 font-wedoo-body text-sm leading-5 text-white/70">
               {response.company.viewJobsLabel}
             </p>
           </div>
@@ -607,14 +609,14 @@ function CompanyPublishedJobsMobileContent({
 
         <div className="grid gap-3 pt-4">
           <button
-            className="font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[8px] border border-brand-violet px-4 py-2 text-[20px] leading-none text-brand-ink transition hover:bg-brand-violet/10"
+            className="font-wedoo-accent inline-flex min-h-[44px] items-center justify-center rounded-[12px] border border-white/12 bg-white/5 px-4 py-2 text-[0.95rem] leading-none text-white transition hover:border-[var(--wedoo-violet)]"
             onClick={onViewApplications}
             type="button"
           >
             {response.company.viewApplicationsLabel}
           </button>
           <button
-            className="font-wedoo-accent inline-flex min-h-[48px] items-center justify-center rounded-[8px] bg-brand-violet px-4 py-2 text-[20px] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
+            className="font-wedoo-accent inline-flex min-h-[44px] items-center justify-center rounded-[12px] bg-brand-violet px-4 py-2 text-[0.95rem] leading-none text-[var(--wedoo-white-soft)] transition hover:bg-brand-violet-600"
             onClick={onCreateNew}
             type="button"
           >
@@ -669,8 +671,8 @@ export function CompanyPublishedJobsView({
   return (
     <>
       <section className="hidden min-[1024px]:block">
-        <div className="mx-auto max-w-[1440px] px-[40px] pb-10 pt-[16px]">
-          <div className="grid grid-cols-[476px_minmax(0,1fr)] gap-11">
+        <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-5 xl:px-10">
+          <div className="grid grid-cols-[18rem_minmax(0,1fr)] gap-5">
             <CompanyPublishedJobsDesktopRail
               activityValue={activityValue}
               draft={draft}

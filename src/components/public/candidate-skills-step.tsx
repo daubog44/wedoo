@@ -24,7 +24,7 @@ function formatSkillItem(item: string, index: number, items: readonly string[]) 
 
 function SectionTitle({ children }: { children: string }) {
   return (
-    <h2 className="font-wedoo-accent text-[1.5rem] font-bold leading-none text-black md:text-[1.875rem]">
+    <h2 className="font-wedoo-accent text-[1.5rem] font-bold leading-none text-[var(--wedoo-ink)] md:text-[1.875rem]">
       {children}
     </h2>
   );
@@ -32,7 +32,7 @@ function SectionTitle({ children }: { children: string }) {
 
 function SkillList({ items }: { items: readonly string[] }) {
   return (
-    <ul className="list-disc space-y-1 pl-6 font-wedoo-body text-[1.125rem] leading-tight text-black md:pl-8 md:text-[1.375rem]">
+    <ul className="list-disc space-y-1 pl-6 font-wedoo-body text-[1.125rem] leading-tight text-[var(--wedoo-ink-muted)] md:pl-8 md:text-[1.375rem]">
       {items.map((item, index) => (
         <li key={item}>{formatSkillItem(item, index, items)}</li>
       ))}
@@ -72,7 +72,7 @@ export function CandidateSkillsStep({
       testId="candidate-skills-step"
       title="competenze"
     >
-      <div className="rounded-[20px] border border-brand-mint-deep px-5 py-5 md:px-[26px] md:py-[26px]">
+      <div className="rounded-[20px] border border-[var(--wedoo-workspace-line)] bg-[var(--wedoo-workspace-surface)] px-5 py-5 md:px-[26px] md:py-[26px]">
         <form
           className="space-y-8"
           onSubmit={(event) => {
@@ -106,7 +106,7 @@ export function CandidateSkillsStep({
 
           <div className="flex justify-stretch pt-1 md:justify-end">
             <button
-              className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[8px] bg-brand-mint-deep px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-brand-ink transition hover:bg-brand-mint md:w-[191px]"
+              className="inline-flex min-h-[43px] w-full items-center justify-center rounded-[14px] bg-[var(--wedoo-violet)] px-6 py-2 font-wedoo-accent text-[1.875rem] leading-none text-[var(--wedoo-white-soft)] shadow-[0_24px_60px_-38px_rgba(116,80,230,0.68)] transition hover:bg-[var(--wedoo-violet-hover)] md:w-[191px]"
               type="submit"
             >
               salva
